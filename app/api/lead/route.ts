@@ -6,76 +6,116 @@ type LeadPayload = {
   service?: unknown;
   message?: unknown;
   pageUrl?: unknown;
+  area?: unknown;
+  type?: unknown;
 };
-
-const phonePattern = /^(\+?38)?0\d{9}$|^\+380\d{9}$/;
 
 function asText(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
 }
 
-function escapeHtml(value: string) {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;");
+function hasEnoughPhoneDigits(phone: string) {
+  return phone.replace(/\D/g, "").length >= 7;
+}
+
+function logLeadApi(message: string, details?: Record<string, unknown>) {
+  console.log(message, details ?? {});
 }
 
 export async function POST(request: Request) {
-  let payload: LeadPayload;
-
   try {
-    payload = (await request.json()) as LeadPayload;
-  } catch {
-    return NextResponse.json({ error: "Некоректні дані форми." }, { status: 400 });
+    logLeadApi("lead_api_started");
+
+    let body: LeadPayload = {};
+
+    try {
+      body = (await request.json()) as LeadPayload;
+      logLeadApi("body_received", { received: true });
+    } catch (error) {
+      logLeadApi("body_received", { received: false, error: error instanceof Error ? error.message : "unknown" });
+      return NextResponse.json({ success: false, error: "invalid_json" }, { status: 400 });
+    }
+
+    const name = asText(body.name);
+    const phone = asText(body.phone);
+    const service = asText(body.service) || asText(body.type);
+    const area = asText(body.area);
+    const leadMessage = asText(body.message);
+    const pageUrl = asText(body.pageUrl);
+
+    if (!name) {
+      return NextResponse.json({ success: false, error: "name_required" }, { status: 400 });
+    }
+
+    if (!phone) {
+      return NextResponse.json({ success: false, error: "phone_required" }, { status: 400 });
+    }
+
+    if (!hasEnoughPhoneDigits(phone)) {
+      return NextResponse.json({ success: false, error: "phone_invalid" }, { status: 400 });
+    }
+
+    const botToken = process.env.TELEGRAM_BOT_TOKEN;
+    const chatId = process.env.TELEGRAM_CHAT_ID;
+
+    logLeadApi("telegram_env", {
+      hasToken: Boolean(botToken),
+      tokenLength: botToken?.length ?? 0,
+      hasChatId: Boolean(chatId),
+      chatId
+    });
+
+    if (!botToken || !chatId) {
+      return NextResponse.json({ success: false, error: "telegram_env_missing" }, { status: 500 });
+    }
+
+    const messageParts = [
+      "Нова заявка з сайту Формула Чистоти",
+      "",
+      `Ім’я: ${name}`,
+      `Телефон: ${phone}`,
+      `Послуга: ${service || "Не вказано"}`,
+      area ? `Площа: ${area}` : "",
+      `Повідомлення: ${leadMessage || "Не вказано"}`,
+      `Сторінка: ${pageUrl || "Не вказано"}`,
+      `Дата: ${new Date().toISOString()}`
+    ].filter(Boolean);
+
+    const messageText = messageParts.join("\n");
+    const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+    logLeadApi("telegram_url_created", { created: true });
+    logLeadApi("telegram_request_started");
+
+    const telegramResponse = await fetch(telegramUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: messageText
+      })
+    });
+
+    logLeadApi("telegram_response_status", { status: telegramResponse.status, ok: telegramResponse.ok });
+
+    const telegramResponseBody = await telegramResponse.text();
+    let telegramResult: unknown = telegramResponseBody;
+
+    try {
+      telegramResult = JSON.parse(telegramResponseBody) as unknown;
+    } catch {
+      telegramResult = telegramResponseBody;
+    }
+
+    logLeadApi("telegram_response_body", { body: telegramResult });
+
+    if (!telegramResponse.ok) {
+      return NextResponse.json({ success: false, error: "telegram_send_failed", details: telegramResult }, { status: 502 });
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("lead_api_unhandled_error", error);
+    return NextResponse.json({ success: false, error: "lead_api_unhandled_error" }, { status: 500 });
   }
-
-  const name = asText(payload.name);
-  const phone = asText(payload.phone).replaceAll(" ", "");
-  const service = asText(payload.service);
-  const message = asText(payload.message);
-  const pageUrl = asText(payload.pageUrl);
-
-  if (!name || !phone) {
-    return NextResponse.json({ error: "Ім’я та телефон обов’язкові." }, { status: 400 });
-  }
-
-  if (!phonePattern.test(phone)) {
-    return NextResponse.json({ error: "Некоректний номер телефону." }, { status: 400 });
-  }
-
-  const botToken = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
-
-  if (!botToken || !chatId) {
-    return NextResponse.json({ error: "Telegram для заявок ще не налаштований." }, { status: 500 });
-  }
-
-  const telegramMessage = [
-    "<b>Нова заявка з сайту Формула Чистоти</b>",
-    "",
-    `Ім’я: ${escapeHtml(name)}`,
-    `Телефон: ${escapeHtml(phone)}`,
-    `Послуга: ${escapeHtml(service || "Не вказано")}`,
-    `Повідомлення: ${escapeHtml(message || "Не вказано")}`,
-    `Сторінка: ${escapeHtml(pageUrl || "Не вказано")}`,
-    `Дата: ${escapeHtml(new Date().toLocaleString("uk-UA", { timeZone: "Europe/Kyiv" }))}`
-  ].join("\n");
-
-  const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: chatId,
-      text: telegramMessage,
-      parse_mode: "HTML",
-      disable_web_page_preview: true
-    })
-  });
-
-  if (!response.ok) {
-    return NextResponse.json({ error: "Не вдалося відправити заявку в Telegram." }, { status: 502 });
-  }
-
-  return NextResponse.json({ ok: true });
 }
