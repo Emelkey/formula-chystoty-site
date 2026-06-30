@@ -34,8 +34,8 @@ const homeServices = [
     slug: "prybyrannya-pislya-pozhezhi-cherkasy",
     title: "Прибирання після пожежі",
     shortDescription: "Прибираємо кіптяву, гар, запах і складні забруднення після пожежі",
-    image: "/images/works/fire-damage-kitchen-before.jpg",
-    imageAlt: "Прибирання після пожежі"
+    image: "/images/services/post-fire-cleaning-generated.png",
+    imageAlt: "Професійне прибирання кухні після пожежі"
   },
   {
     slug: "prybyrannya-prylegloyi-terytoriyi-cherkasy",
