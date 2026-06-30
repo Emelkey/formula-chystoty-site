@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { blogPosts, servicePages, siteUrl } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "poslugy", "tsiny", "nashi-roboty", "vidguky", "blog", "pro-nas", "kontakty"];
+  const staticRoutes = ["", "uk", "ru", "poslugy", "services", "tsiny", "prices", "nashi-roboty", "works", "vidguky", "reviews", "blog", "pro-nas", "about", "kontakty", "contacts"];
   const serviceRoutes = servicePages.map((service) => service.slug);
   const blogRoutes = blogPosts.map((post) => `blog/${post.slug}`);
 

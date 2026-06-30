@@ -9,6 +9,16 @@ import { SeoJsonLd } from "@/components/SeoJsonLd";
 import { WorkSteps } from "@/components/WorkSteps";
 import { absoluteUrl, contacts, type Service } from "@/lib/site";
 
+const priceFactors = ["площа приміщення", "рівень забруднення", "кількість кімнат або зон", "додаткові роботи", "терміновість виконання", "особливості об’єкта та доступу"];
+const trustItems = ["професійна хімія", "досвід роботи з різними об’єктами", "виїзд по Черкасах та області", "власний інвентар і обладнання", "реальні фото робіт", "заявка через сайт, телефон або месенджери"];
+const internalLinks = [
+  { href: "/services", label: "Усі послуги" },
+  { href: "/prices", label: "Ціни" },
+  { href: "/contacts", label: "Контакти" },
+  { href: "/works", label: "Наші роботи" },
+  { href: "/blog", label: "Блог" }
+];
+
 export function ServicePageLayout({ service }: { service: Service }) {
   return (
     <>
@@ -41,15 +51,36 @@ export function ServicePageLayout({ service }: { service: Service }) {
           <InfoBlock title="Що не входить стандартно" items={service.excluded} />
         </div>
       </section>
+      <section className="section bg-brand-mist">
+        <div className="container grid gap-5 lg:grid-cols-2">
+          <InfoBlock title="Від чого залежить ціна" items={priceFactors} />
+          <InfoBlock title="Чому обирають Формулу Чистоти" items={trustItems} />
+        </div>
+      </section>
       <WorkSteps />
       <RelatedServices currentSlug={service.slug} />
+      <section className="section bg-white">
+        <div className="container">
+          <h2 className="text-3xl font-bold">Корисні розділи</h2>
+          <div className="mt-5 flex flex-wrap gap-3">
+            {internalLinks.map((link) => (
+              <a className="rounded-md border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green" href={link.href} key={link.href}>
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
       <FAQSection faq={service.faq} />
       <ReviewsSection />
       <section className="section bg-brand-mist">
         <div className="container grid gap-8 lg:grid-cols-[0.8fr_1fr]">
           <div>
-            <h2 className="text-3xl font-bold">Замовити {service.title.toLowerCase()}</h2>
-            <p className="mt-4 leading-7 text-brand-graphite">Залиште контакти, і ми підготуємо розрахунок для вашого об’єкта у Черкасах.</p>
+            <h2 className="text-3xl font-bold">Потрібне прибирання?</h2>
+            <p className="mt-4 leading-7 text-brand-graphite">Залиште заявку — ми розрахуємо вартість для вашого об’єкта у Черкасах.</p>
+            <div className="mt-6">
+              <ContactButtons />
+            </div>
           </div>
           <ContactForm />
         </div>
