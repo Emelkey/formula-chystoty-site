@@ -28,9 +28,9 @@ export default function ContactsPage() {
               <a href={`mailto:${contacts.email}`}>{contacts.email}</a>
               <span>{contacts.address}</span>
               <span>{contacts.workingHours}</span>
-              <a href={contacts.telegram}>Telegram</a>
-              <a href={contacts.instagram}>Instagram</a>
-              <a href={contacts.facebook}>Facebook</a>
+              <a href={contacts.telegram} target="_blank" rel="noopener noreferrer">Telegram</a>
+              <a href={contacts.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
+              <a href={contacts.facebook} target="_blank" rel="noopener noreferrer">Facebook</a>
               <a className="font-semibold text-brand-hover" href={contacts.googleMapUrl} target="_blank" rel="noopener noreferrer">Google Maps</a>
             </div>
             <div className="mt-6"><ContactButtons /></div>

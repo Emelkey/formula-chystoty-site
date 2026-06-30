@@ -56,7 +56,7 @@ export default function HomePage() {
               Всі послуги →
             </Link>
           </div>
-          <ServicesGrid limit={8} />
+          <ServicesGrid limit={10} />
         </div>
       </section>
       <WorkSteps />

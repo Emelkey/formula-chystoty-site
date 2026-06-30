@@ -13,8 +13,8 @@ const homeServices = [
     slug: "generalne-prybyrannya-cherkasy",
     title: "Генеральне прибирання",
     shortDescription: "Повне очищення всіх приміщень від бруду та складних забруднень",
-    image: "/images/services/general-cleaning-radiator.jpg",
-    imageAlt: "Генеральне прибирання важкодоступних місць"
+    image: "/images/services/premium-general-cleaning.webp",
+    imageAlt: "Професійне генеральне прибирання у світлому інтер’єрі"
   },
   {
     slug: "prybyrannya-pislya-remontu-cherkasy",
@@ -22,6 +22,20 @@ const homeServices = [
     shortDescription: "Видаляємо будівельний пил, бруд та плями після ремонтних робіт",
     image: "/images/services/premium-cleaning-equipment.webp",
     imageAlt: "Професійне обладнання для прибирання після ремонту"
+  },
+  {
+    slug: "prybyrannya-pislya-potopu-cherkasy",
+    title: "Прибирання після потопу",
+    shortDescription: "Збираємо воду, очищуємо поверхні та прибираємо наслідки затоплення",
+    image: "/images/services/post-flood-cleaning-generated.png",
+    imageAlt: "Прибирання після потопу у світлому інтер’єрі"
+  },
+  {
+    slug: "prybyrannya-prylegloyi-terytoriyi-cherkasy",
+    title: "Прибирання території",
+    shortDescription: "Догляд за входами, тротуарами, двором і територією біля будівлі",
+    image: "/images/services/adjacent-territory-cleaning-generated.png",
+    imageAlt: "Прибирання прилеглої території біля будівлі"
   },
   {
     slug: "himchystka-avto-cherkasy",
@@ -61,7 +75,7 @@ const homeServices = [
 ];
 
 export function ServicesGrid({ limit }: { limit?: number }) {
-  const services = limit === 8 ? homeServices : limit ? servicePages.slice(0, limit) : servicePages;
+  const services = limit ? homeServices.slice(0, limit) : servicePages;
 
   return (
     <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">

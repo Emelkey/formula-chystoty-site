@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Building2, Car, Home, House, PanelsTopLeft, Sofa, Sparkles, Store, Wind } from "lucide-react";
+import { ArrowRight, Building2, Car, Droplets, Home, House, Leaf, PanelsTopLeft, Sofa, Sparkles, Store, Wind } from "lucide-react";
 
 type CardService = {
   slug: string;
@@ -36,6 +36,8 @@ function serviceIcon(slug: string) {
   if (slug.includes("kvartyr")) return Home;
   if (slug.includes("generalne")) return Sparkles;
   if (slug.includes("remontu")) return PanelsTopLeft;
+  if (slug.includes("potopu")) return Droplets;
+  if (slug.includes("terytoriyi")) return Leaf;
   if (slug.includes("budynkiv")) return House;
   if (slug.includes("ofisiv")) return Building2;
   if (slug.includes("avto")) return Car;

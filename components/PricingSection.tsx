@@ -9,8 +9,8 @@ const compactPrices = [
     price: "від 4000 грн",
     description: "Для квартир, будинків та офісів",
     href: "/generalne-prybyrannya-cherkasy",
-    image: "/images/services/general-cleaning-radiator.jpg",
-    imageAlt: "Генеральне прибирання важкодоступних місць"
+    image: "/images/services/premium-general-cleaning.webp",
+    imageAlt: "Професійне генеральне прибирання у світлому інтер’єрі"
   },
   {
     title: "Прибирання після ремонту",
