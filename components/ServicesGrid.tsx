@@ -31,6 +31,13 @@ const homeServices = [
     imageAlt: "Прибирання після потопу у світлому інтер’єрі"
   },
   {
+    slug: "prybyrannya-pislya-pozhezhi-cherkasy",
+    title: "Прибирання після пожежі",
+    shortDescription: "Прибираємо кіптяву, гар, запах і складні забруднення після пожежі",
+    image: "/images/works/fire-damage-kitchen-before.jpg",
+    imageAlt: "Прибирання після пожежі"
+  },
+  {
     slug: "prybyrannya-prylegloyi-terytoriyi-cherkasy",
     title: "Прибирання території",
     shortDescription: "Догляд за входами, тротуарами, двором і територією біля будівлі",
