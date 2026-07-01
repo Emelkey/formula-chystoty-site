@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { additionalPrices, priceTables } from "@/lib/site";
+import { additionalPrices, priceGuideSections, priceTables, servicePages } from "@/lib/site";
 import { SectionHeading } from "@/components/SectionHeading";
+import { PrimaryButton } from "@/components/Buttons";
 
 const compactPrices = [
   {
@@ -49,7 +50,7 @@ export function PricingSection({ compact = false }: { compact?: boolean }) {
                 <p className="mb-3 text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Вартість</p>
                 <h2 className="text-3xl font-bold leading-tight text-brand-black md:text-5xl">Ціни <span className="text-brand-green">від</span></h2>
               </div>
-              <Link className="inline-flex items-center text-sm font-semibold text-brand-hover" href="/tsiny">
+              <Link className="inline-flex items-center text-sm font-semibold text-brand-hover" href="/prices">
                 Усі ціни →
               </Link>
             </div>
@@ -96,6 +97,34 @@ export function PricingSection({ compact = false }: { compact?: boolean }) {
                 ))}
               </div>
             </article>
+            <section className="rounded-lg border border-black/5 bg-brand-mist p-5 shadow-soft">
+              <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div>
+                  <h2 className="text-2xl font-bold text-brand-black">Орієнтири по основних послугах</h2>
+                  <p className="mt-3 max-w-3xl text-sm leading-6 text-brand-graphite">Не вигадуємо точну суму без деталей: остаточна ціна залежить від площі, стану, фото об’єкта, доступу та додаткових задач.</p>
+                </div>
+                <PrimaryButton>Надіслати фото або заявку</PrimaryButton>
+              </div>
+              <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                {priceGuideSections.map((item) => (
+                  <Link className="rounded-lg bg-white p-5 shadow-soft transition hover:-translate-y-1" href={item.href} key={item.title}>
+                    <h3 className="text-lg font-bold text-brand-black">{item.title}</h3>
+                    <p className="mt-3 text-2xl font-bold text-brand-hover">{item.price}</p>
+                    <p className="mt-3 text-sm leading-6 text-brand-graphite">{item.description}</p>
+                  </Link>
+                ))}
+              </div>
+            </section>
+            <section className="rounded-lg border border-black/5 bg-white p-5 shadow-soft">
+              <h2 className="text-2xl font-bold text-brand-black">Послуги з цінами та деталями</h2>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {servicePages.map((service) => (
+                  <Link className="rounded-md border border-brand-green/20 bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover transition hover:border-brand-green" href={`/${service.slug}`} key={service.slug}>
+                    {service.title}
+                  </Link>
+                ))}
+              </div>
+            </section>
           </div>
         )}
       </div>

@@ -49,7 +49,7 @@ export function HomePageContent() {
               Всі послуги →
             </Link>
           </div>
-          <ServicesGrid limit={11} />
+          <ServicesGrid limit={14} />
         </div>
       </section>
       <WorkSteps />

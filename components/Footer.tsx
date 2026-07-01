@@ -3,7 +3,23 @@ import { Logo } from "@/components/Logo";
 import { TrackedLink } from "@/components/TrackedLink";
 import { contacts, positioning, servicePages } from "@/lib/site";
 
+const footerServiceSlugs = [
+  "prybyrannya-kvartyr-cherkasy",
+  "generalne-prybyrannya-cherkasy",
+  "prybyrannya-pislya-remontu-cherkasy",
+  "himchystka-mebliv-cherkasy",
+  "myttya-vikon-cherkasy",
+  "prybyrannya-ofisiv-cherkasy",
+  "prybyrannya-budynkiv-cherkasy",
+  "prybyrannya-pislya-potopu-cherkasy",
+  "prybyrannya-pislya-pozhezhi-cherkasy"
+];
+
 export function Footer() {
+  const footerServices = footerServiceSlugs
+    .map((slug) => servicePages.find((service) => service.slug === slug))
+    .filter((service): service is (typeof servicePages)[number] => Boolean(service));
+
   return (
     <footer className="bg-brand-black py-12 text-white">
       <div className="container grid gap-10 md:grid-cols-[1.3fr_1fr_1fr]">
@@ -14,7 +30,7 @@ export function Footer() {
         <div>
           <h2 className="text-base font-semibold">Послуги</h2>
           <div className="mt-4 grid gap-2 text-sm text-white/75">
-            {servicePages.slice(0, 6).map((service) => (
+            {footerServices.map((service) => (
               <Link className="hover:text-white" href={`/${service.slug}`} key={service.slug}>
                 {service.title}
               </Link>

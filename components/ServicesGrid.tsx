@@ -82,7 +82,11 @@ const homeServices = [
 ];
 
 export function ServicesGrid({ limit }: { limit?: number }) {
-  const services = limit ? homeServices.slice(0, limit) : servicePages;
+  const featuredServices = [
+    ...homeServices,
+    ...servicePages.filter((service) => !homeServices.some((featured) => featured.slug === service.slug))
+  ];
+  const services = limit ? featuredServices.slice(0, limit) : servicePages;
 
   return (
     <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
