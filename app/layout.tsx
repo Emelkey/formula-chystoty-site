@@ -22,13 +22,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="uk">
       <body>
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-E2Q1N11QWJ" strategy="afterInteractive" />
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-FNN4YK664L" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-E2Q1N11QWJ');
+            gtag('config', 'G-FNN4YK664L');
           `}
         </Script>
         <Header />
