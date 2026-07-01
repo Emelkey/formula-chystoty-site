@@ -5,6 +5,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ContactButtons } from "@/components/Buttons";
 import { ContactForm } from "@/components/ContactForm";
 import { Logo } from "@/components/Logo";
+import { TrackedLink } from "@/components/TrackedLink";
 import { aboutImages, buildMetadata, contacts } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
@@ -24,12 +25,12 @@ export default function ContactsPage() {
             <h1 className="text-4xl font-bold md:text-5xl">Контакти</h1>
             <p className="mt-5 text-lg leading-8 text-brand-graphite">Зв’яжіться з нами, щоб замовити прибирання квартири, будинку, офісу або комерційного приміщення у Черкасах.</p>
             <div className="mt-7 grid gap-3 text-brand-graphite">
-              <a className="font-semibold text-brand-hover" href={contacts.phoneHref}>{contacts.phone}</a>
+              <TrackedLink className="font-semibold text-brand-hover" href={contacts.phoneHref} eventName="phone_click" eventCategory="contact" eventLabel="phone">{contacts.phone}</TrackedLink>
               <a href={`mailto:${contacts.email}`}>{contacts.email}</a>
               <span>{contacts.address}</span>
               <span>{contacts.workingHours}</span>
-              <a href={contacts.telegram} target="_blank" rel="noopener noreferrer">Telegram</a>
-              <a href={contacts.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
+              <TrackedLink href={contacts.telegram} target="_blank" rel="noopener noreferrer" eventName="telegram_click" eventCategory="contact" eventLabel="telegram">Telegram</TrackedLink>
+              <TrackedLink href={contacts.instagram} target="_blank" rel="noopener noreferrer" eventName="instagram_click" eventCategory="social" eventLabel="instagram">Instagram</TrackedLink>
               <a href={contacts.facebook} target="_blank" rel="noopener noreferrer">Facebook</a>
               <a className="font-semibold text-brand-hover" href={contacts.googleMapUrl} target="_blank" rel="noopener noreferrer">Google Maps</a>
             </div>

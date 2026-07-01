@@ -1,11 +1,28 @@
+"use client";
+
 import type { ReactNode } from "react";
 import { MessageCircle, Phone, Send } from "lucide-react";
 import { ContactAction } from "@/components/ContactAction";
+import { TrackedLink } from "@/components/TrackedLink";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 import { contacts } from "@/lib/site";
 
 export function PrimaryButton({ href = "/kontakty#contact-form", children = "Розрахувати вартість" }: { href?: string; children?: ReactNode }) {
   return (
-    <a className="inline-flex min-h-12 items-center justify-center rounded-md bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" href={href}>
+    <a
+      className="inline-flex min-h-12 items-center justify-center rounded-md bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring"
+      href={href}
+      onClick={() => {
+        trackAnalyticsEvent("calculate_click", {
+          event_category: "lead",
+          event_label: "calculate_button"
+        });
+        trackAnalyticsEvent("contact_form_open", {
+          event_category: "lead",
+          event_label: "contact_form"
+        });
+      }}
+    >
       {children}
     </a>
   );
@@ -24,10 +41,10 @@ export function ContactButtons({ compact = false }: { compact?: boolean }) {
         <MessageCircle size={16} aria-hidden />
         Viber
       </ContactAction>
-      <a className={`inline-flex items-center gap-2 rounded-md border border-black/10 bg-white font-semibold text-brand-black transition hover:border-brand-green hover:text-brand-hover focus-visible:focus-ring ${size}`} href={contacts.telegram} target="_blank" rel="noopener noreferrer">
+      <TrackedLink className={`inline-flex items-center gap-2 rounded-md border border-black/10 bg-white font-semibold text-brand-black transition hover:border-brand-green hover:text-brand-hover focus-visible:focus-ring ${size}`} href={contacts.telegram} target="_blank" rel="noopener noreferrer" eventName="telegram_click" eventCategory="contact" eventLabel="telegram">
         <Send size={16} aria-hidden />
         Telegram
-      </a>
+      </TrackedLink>
     </div>
   );
 }

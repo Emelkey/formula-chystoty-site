@@ -2,6 +2,7 @@
 
 import type { MouseEvent, ReactNode } from "react";
 import { useEffect, useState } from "react";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 import { contacts } from "@/lib/site";
 
 type ContactActionType = "phone" | "viber";
@@ -28,6 +29,10 @@ export function ContactAction({
   if (type === "viber") {
     function handleViberClick(event: MouseEvent<HTMLAnchorElement>) {
       event.preventDefault();
+      trackAnalyticsEvent("viber_click", {
+        event_category: "contact",
+        event_label: "viber"
+      });
       setIsNumberRevealed(true);
       void navigator.clipboard?.writeText(contacts.viberNumber).catch(() => undefined);
     }
@@ -44,6 +49,10 @@ export function ContactAction({
   function handleClick(event: MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
 
+    trackAnalyticsEvent("phone_click", {
+      event_category: "contact",
+      event_label: "phone"
+    });
     setIsNumberRevealed(true);
     window.location.href = href;
 

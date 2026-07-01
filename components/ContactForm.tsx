@@ -2,6 +2,8 @@
 
 import type { FormEvent } from "react";
 import { useState } from "react";
+import { TrackedLink } from "@/components/TrackedLink";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 import { contacts } from "@/lib/site";
 
 const cleaningTypes = ["Генеральне прибирання", "Підтримуюче прибирання", "Після ремонту", "Прибирання після потопу", "Прибирання після пожежі", "Прибирання прилеглої території", "Прибирання квартири", "Прибирання будинку", "Прибирання офісу", "Прибирання магазину або супермаркету", "Клінінг комерційного приміщення", "Хімчистка меблів або килимів", "Миття вікон"];
@@ -49,6 +51,10 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
 
       form.reset();
       setStatus("sent");
+      trackAnalyticsEvent("lead_submit", {
+        event_category: "lead",
+        event_label: "contact_form"
+      });
     } catch {
       setStatus("error");
     }
@@ -94,7 +100,7 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
       {status === "sent" ? <p className="rounded-md bg-brand-mist p-3 text-sm font-medium text-brand-hover" role="status">Дякуємо! Ми отримали заявку і скоро зв’яжемося з вами.</p> : null}
       {status === "error" ? <p className="rounded-md bg-red-50 p-3 text-sm font-medium text-red-700" role="alert">Не вдалося відправити заявку. Будь ласка, зателефонуйте нам або напишіть у Viber/Telegram.</p> : null}
       <p className="text-sm leading-6 text-brand-graphite">
-        Також можна звернутися напряму: <a className="font-semibold text-brand-hover" href={contacts.phoneHref}>{contacts.phone}</a> або <a className="font-semibold text-brand-hover" href={`mailto:${contacts.email}`}>{contacts.email}</a>.
+        Також можна звернутися напряму: <TrackedLink className="font-semibold text-brand-hover" href={contacts.phoneHref} eventName="phone_click" eventCategory="contact" eventLabel="phone">{contacts.phone}</TrackedLink> або <a className="font-semibold text-brand-hover" href={`mailto:${contacts.email}`}>{contacts.email}</a>.
       </p>
     </form>
   );

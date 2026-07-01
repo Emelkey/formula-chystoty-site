@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
+import { TrackedLink } from "@/components/TrackedLink";
 import { contacts, positioning, servicePages } from "@/lib/site";
 
 export function Footer() {
@@ -23,13 +24,13 @@ export function Footer() {
         <div>
           <h2 className="text-base font-semibold">Контакти</h2>
           <div className="mt-4 grid gap-2 text-sm text-white/75">
-            <a href={contacts.phoneHref}>{contacts.phone}</a>
+            <TrackedLink href={contacts.phoneHref} eventName="phone_click" eventCategory="contact" eventLabel="phone">{contacts.phone}</TrackedLink>
             <a href={`mailto:${contacts.email}`}>{contacts.email}</a>
             <span>{contacts.address}</span>
             <span>{contacts.workingHours}</span>
             <a href={contacts.googleMapUrl} target="_blank" rel="noopener noreferrer">Google Maps</a>
-            <a href={contacts.telegram} target="_blank" rel="noopener noreferrer">Telegram</a>
-            <a href={contacts.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
+            <TrackedLink href={contacts.telegram} target="_blank" rel="noopener noreferrer" eventName="telegram_click" eventCategory="contact" eventLabel="telegram">Telegram</TrackedLink>
+            <TrackedLink href={contacts.instagram} target="_blank" rel="noopener noreferrer" eventName="instagram_click" eventCategory="social" eventLabel="instagram">Instagram</TrackedLink>
             <a href={contacts.facebook} target="_blank" rel="noopener noreferrer">Facebook</a>
           </div>
         </div>
