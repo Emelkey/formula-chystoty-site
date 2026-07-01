@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { GoogleMapsTrust } from "@/components/GoogleMapsTrust";
 import { Logo } from "@/components/Logo";
 import { TrackedLink } from "@/components/TrackedLink";
 import { contacts, positioning, servicePages } from "@/lib/site";
@@ -22,6 +23,7 @@ export function Footer() {
 
   return (
     <footer className="bg-brand-black py-12 text-white">
+      <GoogleMapsTrust compact />
       <div className="container grid gap-10 md:grid-cols-[1.3fr_1fr_1fr]">
         <div>
           <Logo variant="light" className="w-[92px]" />

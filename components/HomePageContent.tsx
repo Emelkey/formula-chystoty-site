@@ -3,6 +3,7 @@ import Link from "next/link";
 import { BadgeCheck, CalendarDays, Clock, HeartHandshake } from "lucide-react";
 import { BeforeAfterGallery } from "@/components/BeforeAfterGallery";
 import { ContactForm } from "@/components/ContactForm";
+import { GoogleMapsTrust } from "@/components/GoogleMapsTrust";
 import { HeroSection } from "@/components/HeroSection";
 import { PricingSection } from "@/components/PricingSection";
 import { ReviewsSection } from "@/components/ReviewsSection";
@@ -57,6 +58,7 @@ export function HomePageContent() {
       <PricingSection compact />
       <BeforeAfterGallery />
       <ReviewsSection />
+      <GoogleMapsTrust />
       <section className="section bg-white">
         <div className="container grid gap-8 rounded-[28px] bg-brand-mist p-6 md:p-10 lg:grid-cols-[0.8fr_1fr]">
           <div className="min-w-0">

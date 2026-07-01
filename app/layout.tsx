@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingContactButtons } from "@/components/FloatingContactButtons";
 import { Header } from "@/components/Header";
 import { SeoJsonLd } from "@/components/SeoJsonLd";
-import { absoluteUrl, contacts, positioning } from "@/lib/site";
+import { absoluteUrl, contacts, positioning, servicePages } from "@/lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://formula-chistoty.ck.ua"),
@@ -46,24 +46,35 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               url: absoluteUrl("/"),
               logo: absoluteUrl("/brand/logo.png"),
               email: contacts.email,
-              sameAs: [contacts.telegram, contacts.instagram, contacts.facebook],
-              contactPoint: { "@type": "ContactPoint", telephone: contacts.phone, email: contacts.email, contactType: "customer service", areaServed: "UA", availableLanguage: "uk" }
+              sameAs: [contacts.telegram, contacts.instagram, contacts.facebook, contacts.googleMapUrl],
+              contactPoint: { "@type": "ContactPoint", telephone: contacts.phoneE164, email: contacts.email, contactType: "customer service", areaServed: "UA", availableLanguage: "uk" }
             },
             {
               "@context": "https://schema.org",
-              "@type": "LocalBusiness",
+              "@type": "CleaningService",
               name: contacts.companyName,
-              description: positioning,
+              description: "Формула Чистоти — клінінгова компанія у Черкасах. Виконуємо прибирання квартир, будинків, офісів, комерційних приміщень, прибирання після ремонту, хімчистку меблів, миття вікон, прибирання після потопу та пожежі.",
               image: absoluteUrl("/images/hero/professional-floor-cleaning-hero.webp"),
               url: absoluteUrl("/"),
               logo: absoluteUrl("/brand/logo.png"),
-              telephone: contacts.phone,
+              telephone: contacts.phoneE164,
               email: contacts.email,
-              sameAs: [contacts.telegram, contacts.instagram, contacts.facebook],
+              sameAs: [contacts.instagram, contacts.googleMapUrl],
               hasMap: contacts.googleMapUrl,
+              priceRange: "₴₴",
               address: { "@type": "PostalAddress", addressLocality: contacts.city, addressCountry: contacts.country },
-              areaServed: contacts.city,
-              openingHours: "Mo-Sa 08:00-20:00"
+              areaServed: { "@type": "City", name: `${contacts.city}, ${contacts.country}` },
+              openingHours: "Mo-Sa 08:00-20:00",
+              makesOffer: servicePages.slice(0, 16).map((service) => ({
+                "@type": "Offer",
+                itemOffered: {
+                  "@type": "Service",
+                  name: service.title,
+                  serviceType: service.title,
+                  areaServed: `${contacts.city}, ${contacts.country}`,
+                  url: absoluteUrl(`/${service.slug}`)
+                }
+              }))
             },
             {
               "@context": "https://schema.org",

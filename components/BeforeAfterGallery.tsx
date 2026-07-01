@@ -2,13 +2,15 @@ import Image from "next/image";
 import { workExamples } from "@/lib/site";
 import { SectionHeading } from "@/components/SectionHeading";
 
-export function BeforeAfterGallery() {
+export function BeforeAfterGallery({ realPhotosOnly = false }: { realPhotosOnly?: boolean }) {
+  const examples = realPhotosOnly ? workExamples.filter(isRealWorkPhoto) : workExamples;
+
   return (
     <section className="section bg-white">
       <div className="container">
         <SectionHeading eyebrow="Роботи" title="Наші роботи" description="Показуємо типові задачі, з якими працює команда: квартири, будинки, офіси, вікна та регулярний сервіс." />
         <div className="grid gap-5 md:grid-cols-3">
-          {workExamples.map((work, index) => (
+          {examples.map((work, index) => (
             <article className={`overflow-hidden rounded-2xl border border-black/5 bg-white shadow-soft ${"beforeImage" in work || "beforeAfterImage" in work ? "md:col-span-3" : ""}`} key={work.title}>
               {"beforeImage" in work ? (
                 <div className="grid gap-3 p-3 md:grid-cols-2">
@@ -31,6 +33,12 @@ export function BeforeAfterGallery() {
       </div>
     </section>
   );
+}
+
+function isRealWorkPhoto(work: (typeof workExamples)[number]) {
+  if ("beforeImage" in work) return work.beforeImage.startsWith("/images/works/") && work.afterImage.startsWith("/images/works/");
+  if ("beforeAfterImage" in work) return work.beforeAfterImage.startsWith("/images/works/");
+  return work.image.startsWith("/images/works/");
 }
 
 function CombinedBeforeAfterImage({ src, alt }: { src: string; alt: string }) {

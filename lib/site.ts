@@ -7,7 +7,8 @@ export const contacts = {
   city: "Черкаси",
   country: "Україна",
   phone: "+38 (097) 809 58 00",
-  phonePlain: "0978095800",
+  phonePlain: "+38 (097) 809 58 00",
+  phoneE164: "+380978095800",
   phoneHref: "tel:+380978095800",
   viber: "viber://chat/?number=%2B380978095800",
   telegram: "https://t.me/formula_chystoty/",
@@ -15,11 +16,36 @@ export const contacts = {
   facebook: "https://www.facebook.com/formulaChisttoty",
   email: "formula-chistoty@ukr.net",
   address: "Черкаси, Україна",
-  workingHours: "Пн-Сб: 08:00-20:00",
+  workingHours: "Пн–Сб: 08:00–20:00, Нд: за домовленістю",
   mapUrl: "https://maps.app.goo.gl/R6cVYHx2ZCReLiRb9",
   googleMapUrl: "https://maps.app.goo.gl/R6cVYHx2ZCReLiRb9",
   viberNumber: "+380978095800"
 };
+
+export const localDistricts = ["Центр", "Митниця", "Південно-Західний", "Дахнівка", "Казбет", "Соснівка", "Хімселище", "Район Д", "Луначарський", "Інші райони Черкас"];
+
+export const googleBusinessServiceList = [
+  "Прибирання квартир",
+  "Генеральне прибирання",
+  "Прибирання після ремонту",
+  "Прибирання будинків",
+  "Прибирання офісів",
+  "Прибирання комерційних приміщень",
+  "Хімчистка меблів",
+  "Хімчистка килимів",
+  "Хімчистка авто",
+  "Миття вікон",
+  "Миття фасадів",
+  "Миття тротуарної плитки",
+  "Прибирання після потопу",
+  "Прибирання після пожежі",
+  "Дезінфекція приміщень",
+  "Регулярне прибирання об’єктів"
+];
+
+export const reviewServiceTypes = ["прибирання квартири", "генеральне прибирання", "прибирання після ремонту", "хімчистка меблів", "миття вікон", "прибирання офісу", "прибирання після потопу або пожежі"];
+
+export const workCategories = ["Прибирання квартир", "Прибирання після ремонту", "Хімчистка меблів", "Хімчистка килимів", "Миття вікон", "Миття плитки", "Прибирання після пожежі", "Прибирання комерційних приміщень"];
 
 export const positioning =
   "Формула Чистоти — професійна клінінгова компанія у Черкасах. Прибираємо квартири, будинки, офіси, магазини, супермаркети, ТРЦ, виробничі та комерційні приміщення. Виконуємо генеральне, підтримуюче й післяремонтне прибирання, миття вікон, хімчистку меблів і килимів, а також регулярне обслуговування об’єктів.";
@@ -574,34 +600,34 @@ export const workExamples: WorkExample[] = [
     title: "Хімчистка ковроліну",
     category: "Хімчистка / Ковролін",
     beforeImage: "/images/works/before-after/carpet-cleaning-before.webp",
-    beforeImageAlt: "Ковролін до хімчистки",
+    beforeImageAlt: "Ковролін у Черкасах до хімчистки",
     afterImage: "/images/works/before-after/carpet-cleaning-after.webp",
-    afterImageAlt: "Ковролін після хімчистки компанією Формула Чистоти",
+    afterImageAlt: "Ковролін після хімчистки компанією Формула Чистоти у Черкасах",
     description: "Виконали хімчистку ковроліну, прибрали в’їдений бруд, повернули покриттю охайний вигляд і свіжість."
   },
   {
     title: "Прибирання кухні після пожежі",
     category: "Прибирання після пожежі",
     beforeImage: "/images/works/before-after/fire-cleaning-kitchen-before.webp",
-    beforeImageAlt: "Кухня до прибирання після пожежі",
+    beforeImageAlt: "Кухня у Черкасах до прибирання після пожежі",
     afterImage: "/images/works/before-after/fire-cleaning-kitchen-after.webp",
-    afterImageAlt: "Кухня після клінінгу та очищення від наслідків пожежі",
+    afterImageAlt: "Прибирання після пожежі у Черкасах до та після очищення кухні",
     description: "Провели комплексне прибирання кухні після пожежі: прибрали кіптяву, сліди гару, забруднення на меблях, стінах і поверхнях, повернули приміщенню охайний вигляд."
   },
   {
     title: "Миття тротуарної плитки",
     category: "Миття плитки / Мийка тиском",
     beforeAfterImage: "/images/works/before-after/paving-stone-washing-before-after.webp",
-    beforeAfterImageAlt: "Тротуарна плитка до і після професійного миття",
+    beforeAfterImageAlt: "Миття тротуарної плитки у Черкасах до та після",
     description: "Виконали професійне миття тротуарної плитки, прибрали бруд, мох і потемніння, повернули покриттю чистий вигляд і яскравість кольору."
   },
   {
     title: "Прибирання після будівництва",
     category: "Післяремонтне прибирання / Комерційне приміщення",
     beforeImage: "/images/works/before-after/construction-cleaning-floor-before.webp",
-    beforeImageAlt: "Підлога до прибирання після будівництва",
+    beforeImageAlt: "Підлога у Черкасах до прибирання після ремонту",
     afterImage: "/images/works/before-after/construction-cleaning-floor-after.webp",
-    afterImageAlt: "Підлога після прибирання після будівництва компанією Формула Чистоти",
+    afterImageAlt: "Прибирання після ремонту у Черкасах після очищення підлоги",
     description: "Провели прибирання після будівельних робіт: прибрали будівельний пил, залишки бруду, сліди робіт на плитці та повернули підлозі чистий охайний вигляд."
   },
   { title: "Підтримуюче прибирання квартири", category: "Житловий клінінг", image: "/images/services/premium-apartment-cleaning.webp", imageAlt: "Клінерка прибирає світлу квартиру", description: "Охайний сервіс для квартири: поверхні, підлога, кухня та фінальний порядок без зайвого клопоту." },
@@ -609,8 +635,8 @@ export const workExamples: WorkExample[] = [
   { title: "Миття великих вікон", category: "Вікна", image: "/images/services/premium-window-cleaning.webp", imageAlt: "Професійне миття великих вікон", description: "Делікатно миємо скло, рами й підвіконня, щоб приміщення виглядало світлим і доглянутим." },
   { title: "Офіс після робочого дня", category: "Комерційний клінінг", image: "/images/services/premium-office-cleaning.webp", imageAlt: "Клінерка прибирає сучасний офіс", description: "Підтримуємо чистоту робочих місць, переговорних, кухні та вхідної зони." },
   { title: "Прибирання будинку", category: "Приватні будинки", image: "/images/services/premium-house-cleaning-generated.png", imageAlt: "Професійне прибирання будинку у світлому інтер’єрі", description: "Працюємо з великими площами, терасами, сходами та різними типами поверхонь." },
-  { title: "Миття паркану апаратом високого тиску", category: "Зовнішні роботи", image: "/images/works/pressure-washing-fence-real.jpg", imageAlt: "Миття паркану апаратом високого тиску", description: "Очищуємо вуличні поверхні від нальоту, пилу та сезонних забруднень." },
-  { title: "Прибирання після пожежі", category: "Складне прибирання", image: "/images/works/fire-damage-kitchen-before.jpg", imageAlt: "Прибирання після пожежі", description: "Беремося за складні задачі після аварійних ситуацій і сильних забруднень." },
+  { title: "Миття паркану апаратом високого тиску", category: "Зовнішні роботи", image: "/images/works/pressure-washing-fence-real.jpg", imageAlt: "Миття вуличної поверхні апаратом високого тиску у Черкасах", description: "Очищуємо вуличні поверхні від нальоту, пилу та сезонних забруднень." },
+  { title: "Прибирання після пожежі", category: "Складне прибирання", image: "/images/works/fire-damage-kitchen-before.jpg", imageAlt: "Прибирання після пожежі у Черкасах до очищення", description: "Беремося за складні задачі після аварійних ситуацій і сильних забруднень." },
   { title: "Автомобіль та офіс Формула Чистоти", category: "Про компанію", image: "/images/works/formula-chystoty-car-office.webp", imageAlt: "Автомобіль та офіс клінінгової компанії Формула Чистоти у Черкасах", description: "Виїжджаємо на об’єкти зі своїм інвентарем, хімією та професійним обладнанням." }
 ];
 
