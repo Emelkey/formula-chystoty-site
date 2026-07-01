@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { ContactActionToast } from "@/components/ContactAction";
 import { Footer } from "@/components/Footer";
@@ -21,6 +22,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="uk">
       <body>
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-E2Q1N11QWJ" strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-E2Q1N11QWJ');
+          `}
+        </Script>
         <Header />
         <main>{children}</main>
         <Footer />
