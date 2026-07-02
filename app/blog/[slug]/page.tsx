@@ -18,7 +18,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: post.seoTitle,
     description: post.seoDescription,
     path: `/blog/${post.slug}`,
-    image: post.mainImage
+    image: post.mainImage,
+    keywords: "keywords" in post ? post.keywords : undefined
   });
 }
 
