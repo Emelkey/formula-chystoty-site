@@ -32,7 +32,7 @@ export function HeroSection({ eyebrow = "Клінінг у Черкасах", ti
             width={1600}
             height={1000}
             priority
-            sizes="(max-width: 1024px) 100vw, 52vw"
+            sizes="(max-width: 1024px) 92vw, 52vw"
             className="aspect-[4/3] w-full object-cover object-center sm:aspect-[16/10] lg:aspect-[5/4]"
           />
         </div>

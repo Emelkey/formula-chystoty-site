@@ -14,7 +14,7 @@ export type BlogCardPost = {
 export function BlogCard({ post }: { post: BlogCardPost }) {
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-lg border border-black/5 bg-white shadow-soft">
-      <Image src={post.mainImage} alt={post.imageAlt} width={1200} height={800} sizes="(max-width: 768px) 100vw, 33vw" className="aspect-[3/2] w-full object-cover" />
+      <Image src={post.mainImage} alt={post.imageAlt} width={1200} height={800} sizes="(max-width: 768px) 92vw, 33vw" className="aspect-[3/2] w-full object-cover" />
       <div className="flex flex-1 flex-col p-5">
         <time className="text-sm text-brand-graphite" dateTime={post.publishedAt}>{new Intl.DateTimeFormat("uk-UA").format(new Date(post.publishedAt))}</time>
         <h2 className="mt-3 text-xl font-bold leading-snug">{post.title}</h2>

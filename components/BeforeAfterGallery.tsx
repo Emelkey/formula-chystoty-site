@@ -20,7 +20,7 @@ export function BeforeAfterGallery({ realPhotosOnly = false }: { realPhotosOnly?
               ) : "beforeAfterImage" in work ? (
                 <CombinedBeforeAfterImage src={work.beforeAfterImage} alt={work.beforeAfterImageAlt} />
               ) : (
-                <Image src={work.image} alt={work.imageAlt} width={1200} height={900} sizes="(max-width: 768px) 100vw, 33vw" className="aspect-[4/3] w-full object-cover" />
+                <Image src={work.image} alt={work.imageAlt} width={1200} height={900} sizes="(max-width: 768px) 92vw, 33vw" className="aspect-[4/3] w-full object-cover" />
               )}
               <div className="p-5">
                 <p className="text-xs font-semibold uppercase tracking-[0.08em] text-brand-hover">{work.category}</p>
@@ -45,7 +45,7 @@ function CombinedBeforeAfterImage({ src, alt }: { src: string; alt: string }) {
   return (
     <div className="p-3">
       <div className="relative overflow-hidden rounded-[18px] bg-brand-mist shadow-soft">
-        <Image src={src} alt={alt} width={1200} height={900} sizes="(max-width: 768px) 100vw, 66vw" className="aspect-[16/9] w-full object-cover" />
+        <Image src={src} alt={alt} width={1200} height={900} sizes="(max-width: 768px) 92vw, 66vw" className="aspect-[16/9] w-full object-cover" />
         <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-brand-black shadow-soft">До</span>
         <span className="absolute right-3 top-3 rounded-full bg-white/95 px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-brand-black shadow-soft">Після</span>
       </div>
@@ -56,7 +56,7 @@ function CombinedBeforeAfterImage({ src, alt }: { src: string; alt: string }) {
 function BeforeAfterImage({ label, src, alt }: { label: string; src: string; alt: string }) {
   return (
     <div className="relative overflow-hidden rounded-[18px] bg-brand-mist shadow-soft">
-      <Image src={src} alt={alt} width={1200} height={900} sizes="(max-width: 768px) 100vw, 50vw" className="aspect-[4/3] w-full object-cover" />
+      <Image src={src} alt={alt} width={1200} height={900} sizes="(max-width: 768px) 92vw, 50vw" className="aspect-[4/3] w-full object-cover" />
       <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-brand-black shadow-soft">{label}</span>
     </div>
   );

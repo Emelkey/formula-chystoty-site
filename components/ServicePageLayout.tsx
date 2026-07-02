@@ -44,7 +44,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
             </div>
           </div>
           <div className="overflow-hidden rounded-lg bg-white shadow-soft">
-            <Image src={service.image} alt={service.imageAlt} width={900} height={700} priority sizes="(max-width: 1024px) 100vw, 40vw" className="aspect-[9/7] w-full object-cover" />
+            <Image src={service.image} alt={service.imageAlt} width={900} height={700} priority sizes="(max-width: 1024px) 92vw, 40vw" className="aspect-[9/7] w-full object-cover" />
             <div className="p-6">
             <p className="text-sm font-semibold text-brand-graphite">Ціна</p>
             <p className="mt-2 text-3xl font-bold text-brand-hover">{service.priceFrom}</p>
@@ -90,7 +90,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
           <div className="mt-8 grid gap-5 md:grid-cols-3">
             {examples.map((example) => (
               <article className="overflow-hidden rounded-lg border border-black/5 bg-white shadow-soft" key={example.title}>
-                <Image src={getExampleImage(example)} alt={getExampleAlt(example)} width={900} height={650} sizes="(max-width: 768px) 100vw, 33vw" className="aspect-[4/3] w-full object-cover" />
+                <Image src={getExampleImage(example)} alt={getExampleAlt(example)} width={900} height={650} sizes="(max-width: 768px) 92vw, 33vw" className="aspect-[4/3] w-full object-cover" />
                 <div className="p-5">
                   <p className="text-xs font-semibold uppercase tracking-[0.08em] text-brand-hover">{example.category}</p>
                   <h3 className="mt-2 text-lg font-bold">{example.title}</h3>

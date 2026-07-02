@@ -27,28 +27,28 @@ const homeServices = [
     slug: "prybyrannya-pislya-potopu-cherkasy",
     title: "Прибирання після потопу",
     shortDescription: "Збираємо воду, очищуємо поверхні та прибираємо наслідки затоплення",
-    image: "/images/services/post-flood-cleaning-generated.png",
+    image: "/images/services/post-flood-cleaning-generated-optimized.jpg",
     imageAlt: "Прибирання після потопу у світлому інтер’єрі"
   },
   {
     slug: "prybyrannya-pislya-pozhezhi-cherkasy",
     title: "Прибирання після пожежі",
     shortDescription: "Прибираємо кіптяву, гар, запах і складні забруднення після пожежі",
-    image: "/images/services/post-fire-cleaning-generated.png",
+    image: "/images/services/post-fire-cleaning-generated-optimized.jpg",
     imageAlt: "Професійне прибирання кухні після пожежі"
   },
   {
     slug: "prybyrannya-prylegloyi-terytoriyi-cherkasy",
     title: "Прибирання території",
     shortDescription: "Догляд за входами, тротуарами, двором і територією біля будівлі",
-    image: "/images/services/adjacent-territory-cleaning-generated.png",
+    image: "/images/services/adjacent-territory-cleaning-generated-optimized.jpg",
     imageAlt: "Прибирання прилеглої території біля будівлі"
   },
   {
     slug: "himchystka-avto-cherkasy",
     title: "Хімчистка авто",
     shortDescription: "Чистка салону, сидінь, текстилю, килимків та багажника",
-    image: "/images/services/car-interior-cleaning-generated.png",
+    image: "/images/services/car-interior-cleaning-generated-optimized.jpg",
     imageAlt: "Хімчистка салону автомобіля"
   },
   {
@@ -62,7 +62,7 @@ const homeServices = [
     slug: "himchystka-mebliv-cherkasy",
     title: "Хімчистка меблів",
     shortDescription: "Чистка диванів, крісел, матраців, стільців та м’яких меблів",
-    image: "/images/services/sofa-cleaning-generated.png",
+    image: "/images/services/sofa-cleaning-generated-optimized.jpg",
     imageAlt: "Хімчистка дивана екстрактором"
   },
   {
@@ -76,7 +76,7 @@ const homeServices = [
     slug: "prybyrannya-komertsiynykh-prymishchen-cherkasy",
     title: "Прибирання комерції",
     shortDescription: "Супермаркети, магазини, кафе та інші комерційні об’єкти",
-    image: "/images/services/commercial-premises-cleaning-generated.png",
+    image: "/images/services/commercial-premises-cleaning-generated-optimized.jpg",
     imageAlt: "Прибирання комерційного приміщення"
   }
 ];

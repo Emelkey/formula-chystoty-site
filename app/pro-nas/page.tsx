@@ -35,7 +35,7 @@ export default function AboutPage() {
       <section className="section bg-white">
         <div className="container grid gap-5 md:grid-cols-2">
           <article className="overflow-hidden rounded-lg bg-brand-mist shadow-soft">
-            <Image src={aboutImages.team.src} alt={aboutImages.team.alt} width={1200} height={900} sizes="(max-width: 768px) 100vw, 50vw" className="aspect-[4/3] w-full object-cover" />
+            <Image src={aboutImages.team.src} alt={aboutImages.team.alt} width={1200} height={900} sizes="(max-width: 768px) 92vw, 50vw" className="aspect-[4/3] w-full object-cover" />
             <div className="p-5">
               <p className="text-xs font-semibold uppercase tracking-[0.08em] text-brand-hover">Про компанію</p>
               <h2 className="mt-2 text-xl font-bold">Автомобіль та офіс Формула Чистоти</h2>
@@ -43,7 +43,7 @@ export default function AboutPage() {
             </div>
           </article>
           <article className="overflow-hidden rounded-lg bg-brand-mist shadow-soft">
-            <Image src={aboutImages.equipment.src} alt={aboutImages.equipment.alt} width={1200} height={900} sizes="(max-width: 768px) 100vw, 50vw" className="aspect-[4/3] w-full object-cover" />
+            <Image src={aboutImages.equipment.src} alt={aboutImages.equipment.alt} width={1200} height={900} sizes="(max-width: 768px) 92vw, 50vw" className="aspect-[4/3] w-full object-cover" />
             <div className="p-5">
               <h2 className="text-xl font-bold">Обладнання та хімія</h2>
               <p className="mt-3 text-sm leading-6 text-brand-graphite">Використовуємо професійні засоби, інвентар і техніку для житлових, офісних та комерційних об’єктів.</p>

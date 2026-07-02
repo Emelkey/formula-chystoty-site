@@ -34,7 +34,7 @@ const compactPrices = [
     price: "розрахунок індивідуально по фото або телефону",
     description: "Дивани, крісла, матраци та м’які меблі",
     href: "/himchystka-mebliv-cherkasy",
-    image: "/images/services/sofa-cleaning-generated.png",
+    image: "/images/services/sofa-cleaning-generated-optimized.jpg",
     imageAlt: "Хімчистка дивана екстрактором"
   }
 ];
@@ -61,7 +61,7 @@ export function PricingSection({ compact = false }: { compact?: boolean }) {
                   <p className="mt-4 text-2xl font-bold leading-tight text-brand-hover">{item.price}</p>
                   <p className="mt-3 min-h-12 text-sm leading-6 text-brand-graphite">{item.description}</p>
                   <div className="relative mt-5 aspect-[16/10] overflow-hidden rounded-[18px] bg-brand-mist">
-                    <Image src={item.image} alt={item.imageAlt} fill sizes="(max-width: 768px) 100vw, 25vw" className="object-cover transition duration-300 group-hover:scale-105" />
+                    <Image src={item.image} alt={item.imageAlt} fill sizes="(max-width: 768px) 92vw, (max-width: 1024px) 46vw, 25vw" className="object-cover transition duration-300 group-hover:scale-105" />
                   </div>
                 </Link>
               ))}

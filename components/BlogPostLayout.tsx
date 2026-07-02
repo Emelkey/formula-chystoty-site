@@ -58,7 +58,7 @@ export function BlogPostLayout({ post }: { post: BlogPost }) {
             <time dateTime={post.updatedAt}>Оновлено: {new Intl.DateTimeFormat("uk-UA").format(new Date(post.updatedAt))}</time>
             {post.readingTime ? <span>{post.readingTime}</span> : null}
           </div>
-          <Image src={post.mainImage} alt={post.imageAlt} width={1200} height={800} priority sizes="(max-width: 768px) 100vw, 768px" className="my-8 aspect-[3/2] w-full rounded-lg object-cover" />
+          <Image src={post.mainImage} alt={post.imageAlt} width={1200} height={800} priority sizes="(max-width: 768px) 92vw, 768px" className="my-8 aspect-[3/2] w-full rounded-lg object-cover" />
           <p className="text-lg leading-8 text-brand-graphite">{post.excerpt}</p>
 
           {post.content ? (

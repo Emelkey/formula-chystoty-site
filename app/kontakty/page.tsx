@@ -75,7 +75,7 @@ export default function ContactsPage() {
           </div>
           <div className="grid gap-5">
             <article className="overflow-hidden rounded-[24px] border border-[#E8EEE5] bg-white shadow-soft">
-              <Image src={aboutImages.team.src} alt={aboutImages.team.alt} width={1200} height={900} sizes="(max-width: 768px) 100vw, 50vw" className="aspect-[4/3] w-full object-cover" />
+              <Image src={aboutImages.team.src} alt={aboutImages.team.alt} width={1200} height={900} sizes="(max-width: 768px) 92vw, 50vw" className="aspect-[4/3] w-full object-cover" />
               <div className="p-5">
                 <p className="text-xs font-semibold uppercase tracking-[0.08em] text-brand-hover">Про компанію</p>
                 <h3 className="mt-2 text-xl font-bold text-brand-black">Автомобіль та офіс Формула Чистоти</h3>
