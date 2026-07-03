@@ -650,6 +650,13 @@ export const workExamples: WorkExample[] = [
     description: "Виконали хімчистку ковроліну, прибрали в’їдений бруд, повернули покриттю охайний вигляд і свіжість."
   },
   {
+    title: "Хімчистка стільців",
+    category: "Хімчистка меблів",
+    beforeAfterImage: "/images/works/chairs-cleaning-before-after-cherkasy.jpg",
+    beforeAfterImageAlt: "Хімчистка стільців у Черкасах — до та після",
+    description: "Реальний приклад хімчистки стільців: прибрали плями, сірий наліт і повернули тканині охайний вигляд."
+  },
+  {
     title: "Хімчистка дивана",
     category: "Хімчистка меблів",
     beforeAfterImage: "/images/works/sofa-cleaning-before-after-01.webp",
@@ -666,9 +673,9 @@ export const workExamples: WorkExample[] = [
   {
     title: "Хімчистка матраца",
     category: "Хімчистка матраців",
-    image: "/images/services/mattress-cleaning-generated.png",
-    imageAlt: "Професійна хімчистка матраца у світлій спальні у Черкасах",
-    description: "Очищуємо матраци від пилу, запахів і побутових забруднень із рекомендаціями щодо висихання."
+    beforeAfterImage: "/images/works/mattress-cleaning-before-after-cherkasy.jpg",
+    beforeAfterImageAlt: "Хімчистка матраца у Черкасах — до та після",
+    description: "Хімчистка матраца — результат до та після очищення: видимий приклад роботи з побутовими забрудненнями."
   },
   {
     title: "Прибирання кухні після пожежі",

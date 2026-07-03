@@ -218,7 +218,8 @@ function getServiceExamples(slug: string) {
   if (slug.includes("remontu")) return workExamples.filter((item) => item.category.includes("Післяремонтне")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("dyvana")) return workExamples.filter((item) => item.title.toLowerCase().includes("дивана")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
   if (slug.includes("matratsa")) return workExamples.filter((item) => item.title.toLowerCase().includes("матраца")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
-  if (slug.includes("mebliv") || slug.includes("avto")) return workExamples.filter((item) => item.category.includes("Хімчистка")).concat(workExamples.slice(0, 2)).slice(0, 3);
+  if (slug.includes("mebliv")) return workExamples.filter((item) => item.title.toLowerCase().includes("стільців") || item.title.toLowerCase().includes("дивана") || item.category.includes("Хімчистка меблів")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
+  if (slug.includes("avto")) return workExamples.filter((item) => item.category.includes("Хімчистка")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("ofis")) return workExamples.filter((item) => item.title.includes("Офіс") || item.category.includes("Комерційний")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("magazyn") || slug.includes("supermarket") || slug.includes("komertsiynykh") || slug.includes("trts")) return workExamples.filter((item) => item.category.includes("Комерційний") || item.title.includes("супермаркет") || item.title.includes("офіс")).concat(workExamples.slice(0, 2)).slice(0, 3);
 
@@ -233,12 +234,15 @@ type BeforeAfterCase =
       beforeAlt: string;
       afterImage: string;
       afterAlt: string;
+      caption?: string;
     }
   | {
       title: string;
       description: string;
       beforeAfterImage: string;
       beforeAfterAlt: string;
+      caption?: string;
+      portrait?: boolean;
     };
 
 function getBeforeAfterCase(service: Service): BeforeAfterCase {
@@ -286,12 +290,35 @@ function getBeforeAfterCase(service: Service): BeforeAfterCase {
     };
   }
 
-  if (slug.includes("dyvana") || slug.includes("matratsa") || slug.includes("mebliv")) {
+  if (slug.includes("matratsa")) {
+    return {
+      title: "До/після хімчистки матраца",
+      description: "Реальний приклад очищення матраца: видно різницю між станом до роботи та результатом після професійної хімчистки.",
+      beforeAfterImage: "/images/works/mattress-cleaning-before-after-cherkasy.jpg",
+      beforeAfterAlt: "Хімчистка матраца у Черкасах — до та після",
+      caption: "Хімчистка матраца — результат до та після очищення",
+      portrait: true
+    };
+  }
+
+  if (slug.includes("mebliv")) {
+    return {
+      title: "До/після хімчистки стільців",
+      description: "Приклад результату хімчистки стільців: тканина стає світлішою, чистішою та візуально охайнішою після екстракторного очищення.",
+      beforeAfterImage: "/images/works/chairs-cleaning-before-after-cherkasy.jpg",
+      beforeAfterAlt: "Хімчистка стільців у Черкасах — до та після",
+      caption: "Хімчистка стільців — результат до та після очищення",
+      portrait: true
+    };
+  }
+
+  if (slug.includes("dyvana")) {
     return {
       title: "До/після хімчистки м’яких меблів",
       description: "Екстракторне очищення прибирає пил, побутові плями, запахи та повертає тканині свіжіший вигляд.",
       beforeAfterImage: "/images/works/sofa-cleaning-before-after-01.webp",
-      beforeAfterAlt: "М’які меблі до та після хімчистки у Черкасах"
+      beforeAfterAlt: "М’які меблі до та після хімчистки у Черкасах",
+      caption: "Хімчистка дивана — результат до та після очищення"
     };
   }
 
@@ -390,14 +417,17 @@ function BeforeAfterSection({ caseItem }: { caseItem: BeforeAfterCase }) {
             <p className="mt-4 leading-7 text-brand-graphite">{caseItem.description}</p>
           </div>
           {"beforeAfterImage" in caseItem ? (
-            <div className="overflow-hidden rounded-2xl bg-white shadow-soft">
-              <Image src={caseItem.beforeAfterImage} alt={caseItem.beforeAfterAlt} width={1100} height={720} sizes="(max-width: 1024px) 92vw, 56vw" className="aspect-[16/10] w-full object-cover" />
-            </div>
+            <figure className="overflow-hidden rounded-2xl bg-white shadow-soft">
+              <div className={`relative w-full ${caseItem.portrait ? "aspect-[4/5] sm:aspect-[5/6]" : "aspect-[16/10]"}`}>
+                <Image src={caseItem.beforeAfterImage} alt={caseItem.beforeAfterAlt} fill sizes="(max-width: 1024px) 92vw, 56vw" className="object-contain p-2" />
+              </div>
+              <figcaption className="px-5 py-4 text-sm font-semibold text-brand-graphite">{caseItem.caption ?? caseItem.title}</figcaption>
+            </figure>
           ) : (
             <div className="grid gap-4 sm:grid-cols-2">
               <figure className="overflow-hidden rounded-2xl bg-white shadow-soft">
                 <Image src={caseItem.beforeImage} alt={caseItem.beforeAlt} width={900} height={680} sizes="(max-width: 768px) 92vw, 28vw" className="aspect-[4/3] w-full object-cover" />
-                <figcaption className="px-5 py-4 text-sm font-semibold text-brand-graphite">До</figcaption>
+                <figcaption className="px-5 py-4 text-sm font-semibold text-brand-graphite">{caseItem.caption ? `До — ${caseItem.caption}` : "До"}</figcaption>
               </figure>
               <figure className="overflow-hidden rounded-2xl bg-white shadow-soft">
                 <Image src={caseItem.afterImage} alt={caseItem.afterAlt} width={900} height={680} sizes="(max-width: 768px) 92vw, 28vw" className="aspect-[4/3] w-full object-cover" />
