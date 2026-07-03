@@ -6,16 +6,17 @@ import { FAQSection } from "@/components/FAQSection";
 import { RelatedServices } from "@/components/RelatedServices";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { SeoJsonLd } from "@/components/SeoJsonLd";
-import { WorkSteps } from "@/components/WorkSteps";
 import { absoluteUrl, contacts, workExamples, type Faq, type Service } from "@/lib/site";
 
 const priceFactors = ["площа приміщення", "рівень забруднення", "кількість кімнат або зон", "додаткові роботи", "терміновість виконання", "особливості об’єкта та доступу"];
 const trustItems = ["професійна хімія", "досвід роботи з різними об’єктами", "виїзд по Черкасах та області", "власний інвентар і обладнання", "реальні фото робіт", "заявка через сайт, телефон або месенджери"];
+const seoProcessSteps = ["Клієнт залишає заявку", "Менеджер уточнює деталі", "Розраховуємо попередню вартість", "Команда приїжджає на об’єкт", "Виконуємо прибирання", "Перевіряємо якість", "Клієнт приймає роботу", "Оплата після результату"];
+const valueItems = ["професійна команда", "власна хімія та інвентар", "професійна техніка", "досвід у складних об’єктах", "фото до/після", "контроль якості", "відповідальність за результат", "робота з квартирами, будинками, офісами, магазинами та супермаркетами"];
 const internalLinks = [
-  { href: "/services", label: "Усі послуги" },
-  { href: "/prices", label: "Ціни" },
-  { href: "/contacts", label: "Контакти" },
-  { href: "/works", label: "Наші роботи" },
+  { href: "/poslugy", label: "Усі послуги" },
+  { href: "/tsiny", label: "Ціни" },
+  { href: "/kontakty", label: "Контакти" },
+  { href: "/nashi-roboty", label: "Наші роботи" },
   { href: "/blog", label: "Блог" }
 ];
 const fallbackFaq: Faq[] = [
@@ -55,15 +56,39 @@ export function ServicePageLayout({ service }: { service: Service }) {
       </section>
       <section className="section bg-white">
         <div className="container grid gap-5 md:grid-cols-3">
-          <InfoBlock title="Коли потрібна послуга" items={service.whenNeeded} />
-          <InfoBlock title="Що входить" items={service.included} />
-          <InfoBlock title="Що не входить стандартно" items={service.excluded} />
+          <InfoBlock title="Кому підходить ця послуга" items={service.whenNeeded} />
+          <InfoBlock title="Що входить у послугу" items={service.included} />
+          <InfoBlock title="Що не входить або рахується окремо" items={service.excluded} />
+        </div>
+        <div className="container mt-8">
+          <div className="flex flex-wrap gap-3 rounded-2xl bg-brand-mist p-5 shadow-soft">
+            <PrimaryButton>Розрахувати вартість</PrimaryButton>
+            <ContactButtons />
+          </div>
         </div>
       </section>
       <section className="section bg-brand-mist">
         <div className="container grid gap-5 lg:grid-cols-2">
           <InfoBlock title="Від чого залежить ціна" items={priceFactors} />
           <InfoBlock title="Чому обирають Формулу Чистоти" items={trustItems} />
+        </div>
+      </section>
+      <section className="section bg-white">
+        <div className="container grid gap-8 rounded-[28px] border border-brand-green/15 bg-brand-mist p-6 shadow-soft md:p-8 lg:grid-cols-[0.85fr_1.15fr]">
+          <div>
+            <p className="mb-4 inline-flex rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-hover">Цінність</p>
+            <h2 className="text-3xl font-bold">Чому у нас не найдешевше, але вигідно</h2>
+            <div className="mt-5 grid gap-4 leading-7 text-brand-graphite">
+              <p>Ми не працюємо як випадкові приватні клінери без відповідальності. Формула Чистоти — це команда, професійна хімія, інвентар, техніка, досвід і контроль якості.</p>
+              <p>У вартість входить не тільки саме прибирання, а й підготовка, виїзд команди, підбір хімії, професійний інвентар, робота з важкими забрудненнями та перевірка результату.</p>
+              <p>Клієнт платить не просто за години роботи, а за чистий результат, безпечний підхід до поверхонь і спокій, що об’єкт буде прибраний якісно.</p>
+            </div>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {valueItems.map((item) => (
+              <div className="rounded-2xl bg-white p-4 text-sm font-semibold text-brand-graphite shadow-soft" key={item}>{item}</div>
+            ))}
+          </div>
         </div>
       </section>
       <section className="section bg-white">
@@ -101,7 +126,19 @@ export function ServicePageLayout({ service }: { service: Service }) {
           </div>
         </div>
       </section>
-      <WorkSteps />
+      <section className="section bg-brand-mist">
+        <div className="container">
+          <h2 className="text-3xl font-bold">Як проходить робота</h2>
+          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {seoProcessSteps.map((step, index) => (
+              <div className="rounded-2xl bg-white p-5 shadow-soft" key={step}>
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-green font-bold text-white">{index + 1}</span>
+                <p className="mt-4 font-semibold leading-6">{step}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
       <RelatedServices currentSlug={service.slug} />
       <section className="section bg-white">
         <div className="container">

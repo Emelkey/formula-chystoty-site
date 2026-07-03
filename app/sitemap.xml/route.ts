@@ -1,6 +1,6 @@
 import { blogPosts, servicePages, siteUrl } from "@/lib/site";
 
-const lastModified = "2026-07-01T00:00:00.000Z";
+const lastModified = "2026-07-03T00:00:00.000Z";
 
 type SitemapUrl = {
   loc: string;
@@ -10,13 +10,15 @@ type SitemapUrl = {
 
 const mainRoutes: SitemapUrl[] = [
   { loc: "/", changefreq: "weekly", priority: "1.0" },
-  { loc: "/services", changefreq: "weekly", priority: "0.9" },
-  { loc: "/prices", changefreq: "monthly", priority: "0.8" },
-  { loc: "/works", changefreq: "monthly", priority: "0.8" },
-  { loc: "/reviews", changefreq: "monthly", priority: "0.7" },
+  { loc: "/uk", changefreq: "weekly", priority: "0.9" },
+  { loc: "/poslugy", changefreq: "weekly", priority: "0.9" },
+  { loc: "/tsiny", changefreq: "monthly", priority: "0.9" },
+  { loc: "/uk/tsiny-na-klining-cherkasy-2026", changefreq: "monthly", priority: "0.9" },
+  { loc: "/nashi-roboty", changefreq: "monthly", priority: "0.8" },
+  { loc: "/vidguky", changefreq: "monthly", priority: "0.7" },
   { loc: "/blog", changefreq: "weekly", priority: "0.7" },
-  { loc: "/about", changefreq: "monthly", priority: "0.7" },
-  { loc: "/contacts", changefreq: "monthly", priority: "0.8" }
+  { loc: "/pro-nas", changefreq: "monthly", priority: "0.7" },
+  { loc: "/kontakty", changefreq: "monthly", priority: "0.8" }
 ];
 
 function escapeXml(value: string) {

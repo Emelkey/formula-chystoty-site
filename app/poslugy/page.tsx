@@ -11,6 +11,8 @@ const businessProfileServices = [
   { slug: "generalne-prybyrannya-cherkasy", description: "Глибоке прибирання кухні, санвузла, меблів, підлоги та важкодоступних зон." },
   { slug: "prybyrannya-pislya-remontu-cherkasy", description: "Видалення будівельного пилу, миття поверхонь, плитки, підлоги, вікон та сантехніки." },
   { slug: "himchystka-mebliv-cherkasy", description: "Хімчистка диванів, крісел, матраців та м’яких меблів." },
+  { slug: "himchystka-dyvana-cherkasy", description: "Професійна хімчистка дивана з виїздом додому або в офіс." },
+  { slug: "himchystka-matratsa-cherkasy", description: "Хімчистка матраців від пилу, запахів і побутових забруднень." },
   { slug: "myttya-vikon-cherkasy", description: "Професійне миття вікон у квартирах, будинках, офісах і комерційних приміщеннях." },
   { slug: "prybyrannya-ofisiv-cherkasy", description: "Регулярне та разове прибирання офісів у Черкасах." },
   { slug: "prybyrannya-budynkiv-cherkasy", description: "Прибирання приватних будинків, котеджів і великих житлових приміщень." },
