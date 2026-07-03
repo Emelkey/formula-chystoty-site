@@ -3,7 +3,10 @@ import { servicePages } from "@/lib/site";
 import { SectionHeading } from "@/components/SectionHeading";
 
 export function RelatedServices({ currentSlug }: { currentSlug?: string }) {
-  const related = servicePages.filter((service) => service.slug !== currentSlug).slice(0, 3);
+  const current = servicePages.find((service) => service.slug === currentSlug);
+  const candidates = servicePages.filter((service) => service.slug !== currentSlug);
+  const sameCategory = current ? candidates.filter((service) => service.category === current.category) : [];
+  const related = [...sameCategory, ...candidates.filter((service) => !sameCategory.includes(service))].slice(0, 3);
 
   return (
     <section className="section bg-brand-mist">

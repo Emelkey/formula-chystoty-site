@@ -4,9 +4,9 @@ import { ContactButtons, PrimaryButton } from "@/components/Buttons";
 import { ContactForm } from "@/components/ContactForm";
 import { FAQSection } from "@/components/FAQSection";
 import { RelatedServices } from "@/components/RelatedServices";
-import { ReviewsSection } from "@/components/ReviewsSection";
 import { SeoJsonLd } from "@/components/SeoJsonLd";
-import { absoluteUrl, contacts, workExamples, type Faq, type Service } from "@/lib/site";
+import { Quote, Star } from "lucide-react";
+import { absoluteUrl, contacts, reviews, workExamples, type Faq, type Service } from "@/lib/site";
 
 const priceFactors = ["площа приміщення", "рівень забруднення", "кількість кімнат або зон", "додаткові роботи", "терміновість виконання", "особливості об’єкта та доступу"];
 const trustItems = ["професійна хімія", "досвід роботи з різними об’єктами", "виїзд по Черкасах та області", "власний інвентар і обладнання", "реальні фото робіт", "заявка через сайт, телефон або месенджери"];
@@ -29,6 +29,8 @@ const fallbackFaq: Faq[] = [
 export function ServicePageLayout({ service }: { service: Service }) {
   const faq = ensureFaq(service.faq);
   const examples = getServiceExamples(service.slug);
+  const beforeAfter = getBeforeAfterCase(service);
+  const review = getServiceReview(service.slug);
 
   return (
     <>
@@ -101,7 +103,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
               <PrimaryButton>Отримати точний розрахунок</PrimaryButton>
-              <a className="inline-flex min-h-12 items-center justify-center rounded-md border border-brand-green/25 bg-white px-5 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring" href="/prices">
+              <a className="inline-flex min-h-12 items-center justify-center rounded-md border border-brand-green/25 bg-white px-5 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring" href="/tsiny">
                 Дивитися всі ціни
               </a>
             </div>
@@ -111,7 +113,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
       <section className="section bg-white">
         <div className="container">
           <h2 className="text-3xl font-bold">Приклади робіт</h2>
-          <p className="mt-4 max-w-2xl leading-7 text-brand-graphite">Реальні фото і візуальні приклади допомагають оцінити підхід Формули Чистоти до складних і щоденних задач.</p>
+          <p className="mt-4 max-w-2xl leading-7 text-brand-graphite">Добираємо фото під конкретну послугу: процес, обладнання, складні зони та фінальний охайний результат.</p>
           <div className="mt-8 grid gap-5 md:grid-cols-3">
             {examples.map((example) => (
               <article className="overflow-hidden rounded-lg border border-black/5 bg-white shadow-soft" key={example.title}>
@@ -126,6 +128,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
           </div>
         </div>
       </section>
+      <BeforeAfterSection caseItem={beforeAfter} />
       <section className="section bg-brand-mist">
         <div className="container">
           <h2 className="text-3xl font-bold">Як проходить робота</h2>
@@ -153,7 +156,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
         </div>
       </section>
       <FAQSection faq={faq} />
-      <ReviewsSection />
+      <ServiceReview review={review} />
       <section className="section bg-brand-mist">
         <div className="container grid gap-8 lg:grid-cols-[0.8fr_1fr]">
           <div>
@@ -205,13 +208,150 @@ function ensureFaq(faq: Faq[]) {
 }
 
 function getServiceExamples(slug: string) {
+  if (slug.includes("kvartyr")) return workExamples.filter((item) => item.category.includes("Житловий") || item.title.includes("квартир")).concat(workExamples.slice(0, 2)).slice(0, 3);
+  if (slug.includes("generalne")) return workExamples.filter((item) => item.category.includes("Генеральне") || item.title.includes("духовки")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("kylym")) return workExamples.filter((item) => item.title.includes("ковроліну")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("pozhezhi")) return workExamples.filter((item) => item.category.includes("пожеж")).concat(workExamples.slice(0, 2)).slice(0, 3);
+  if (slug.includes("potopu")) return workExamples.filter((item) => item.category.includes("Складне") || item.category.includes("Комерційний")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("plitky") || slug.includes("fasadiv")) return workExamples.filter((item) => item.title.includes("плитки") || item.title.includes("паркану")).concat(workExamples.slice(0, 2)).slice(0, 3);
+  if (slug.includes("vikon")) return workExamples.filter((item) => item.category.includes("Вікна")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("remontu")) return workExamples.filter((item) => item.category.includes("Післяремонтне")).concat(workExamples.slice(0, 2)).slice(0, 3);
+  if (slug.includes("dyvana")) return workExamples.filter((item) => item.title.toLowerCase().includes("дивана")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
+  if (slug.includes("matratsa")) return workExamples.filter((item) => item.title.toLowerCase().includes("матраца")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
   if (slug.includes("mebliv") || slug.includes("avto")) return workExamples.filter((item) => item.category.includes("Хімчистка")).concat(workExamples.slice(0, 2)).slice(0, 3);
+  if (slug.includes("ofis")) return workExamples.filter((item) => item.title.includes("Офіс") || item.category.includes("Комерційний")).concat(workExamples.slice(0, 2)).slice(0, 3);
+  if (slug.includes("magazyn") || slug.includes("supermarket") || slug.includes("komertsiynykh") || slug.includes("trts")) return workExamples.filter((item) => item.category.includes("Комерційний") || item.title.includes("супермаркет") || item.title.includes("офіс")).concat(workExamples.slice(0, 2)).slice(0, 3);
 
   return workExamples.slice(0, 3);
+}
+
+type BeforeAfterCase =
+  | {
+      title: string;
+      description: string;
+      beforeImage: string;
+      beforeAlt: string;
+      afterImage: string;
+      afterAlt: string;
+    }
+  | {
+      title: string;
+      description: string;
+      beforeAfterImage: string;
+      beforeAfterAlt: string;
+    };
+
+function getBeforeAfterCase(service: Service): BeforeAfterCase {
+  const { slug } = service;
+
+  if (slug.includes("remontu")) {
+    return {
+      title: "До/після прибирання після ремонту",
+      description: "Показуємо, як змінюється приміщення після видалення будівельного пилу, бруду на плитці та слідів ремонтних робіт.",
+      beforeImage: "/images/works/before-after/construction-cleaning-floor-before-optimized.jpg",
+      beforeAlt: "Підлога до прибирання після ремонту у Черкасах",
+      afterImage: "/images/works/before-after/construction-cleaning-floor-after-optimized.jpg",
+      afterAlt: "Підлога після прибирання після ремонту у Черкасах"
+    };
+  }
+
+  if (slug.includes("pozhezhi")) {
+    return {
+      title: "До/після прибирання після пожежі",
+      description: "Складні забруднення потребують професійної хімії, техніки та поетапного очищення кіптяви, гару й поверхонь.",
+      beforeImage: "/images/works/before-after/fire-cleaning-kitchen-before-optimized.jpg",
+      beforeAlt: "Кухня до прибирання після пожежі у Черкасах",
+      afterImage: "/images/works/before-after/fire-cleaning-kitchen-after-optimized.jpg",
+      afterAlt: "Кухня після прибирання після пожежі у Черкасах"
+    };
+  }
+
+  if (slug.includes("generalne")) {
+    return {
+      title: "До/після генерального очищення складних зон",
+      description: "Генеральне прибирання помітне саме в деталях: кухня, жир, пил у важкодоступних місцях, плінтуси та контактні поверхні.",
+      beforeImage: "/images/works/before-after/oven-cleaning-before-optimized.jpg",
+      beforeAlt: "Духовка до генерального очищення",
+      afterImage: "/images/works/before-after/oven-cleaning-after-optimized.jpg",
+      afterAlt: "Духовка після генерального очищення"
+    };
+  }
+
+  if (slug.includes("plitky")) {
+    return {
+      title: "До/після миття тротуарної плитки",
+      description: "Мийка апаратом високого тиску допомагає прибрати бруд, мох і потемніння без заміни покриття.",
+      beforeAfterImage: "/images/works/before-after/paving-stone-washing-before-after.webp",
+      beforeAfterAlt: "Тротуарна плитка до і після миття у Черкасах"
+    };
+  }
+
+  if (slug.includes("dyvana") || slug.includes("matratsa") || slug.includes("mebliv")) {
+    return {
+      title: "До/після хімчистки м’яких меблів",
+      description: "Екстракторне очищення прибирає пил, побутові плями, запахи та повертає тканині свіжіший вигляд.",
+      beforeAfterImage: "/images/works/sofa-cleaning-before-after-01.webp",
+      beforeAfterAlt: "М’які меблі до та після хімчистки у Черкасах"
+    };
+  }
+
+  if (slug.includes("kvartyr")) {
+    return {
+      title: "До/після прибирання квартири",
+      description: "Після професійного клінінгу квартира виглядає охайно для життя, оренди, продажу або прийому гостей.",
+      beforeAfterImage: "/images/works/apartment-before-after-01.webp",
+      beforeAfterAlt: "Квартира до та після прибирання у Черкасах"
+    };
+  }
+
+  if (slug.includes("potopu")) {
+    return {
+      title: "Результат після аварійного прибирання",
+      description: "Після затоплення важливо швидко прибрати воду, бруд і проблемні зони, щоб зменшити ризик запаху та плісняви.",
+      beforeAfterImage: "/images/services/post-flood-cleaning-generated-optimized.jpg",
+      beforeAfterAlt: "Прибирання після потопу у Черкасах"
+    };
+  }
+
+  if (slug.includes("vikon")) {
+    return {
+      title: "Результат після миття вікон",
+      description: "Чисте скло, рами та підвіконня одразу роблять простір світлішим і доглянутішим.",
+      beforeAfterImage: "/images/works/window-cleaning-01.webp",
+      beforeAfterAlt: "Результат професійного миття вікон у Черкасах"
+    };
+  }
+
+  if (slug.includes("ofis")) {
+    return {
+      title: "Результат офісного клінінгу",
+      description: "Чистий офіс краще сприймається командою, клієнтами та партнерами, особливо у зонах з постійним рухом людей.",
+      beforeAfterImage: "/images/works/office-cleaning-01.webp",
+      beforeAfterAlt: "Результат прибирання офісу у Черкасах"
+    };
+  }
+
+  if (slug.includes("magazyn") || slug.includes("supermarket") || slug.includes("komertsiynykh") || slug.includes("trts")) {
+    return {
+      title: "Результат комерційного клінінгу",
+      description: "Для бізнесу важливі стабільний стандарт чистоти, регламент, контроль якості та можливість працювати за зручним графіком.",
+      beforeAfterImage: "/images/works/commercial-cleaning-01.webp",
+      beforeAfterAlt: "Результат прибирання комерційного приміщення у Черкасах"
+    };
+  }
+
+  return {
+    title: `Результат послуги: ${service.title.toLowerCase()}`,
+    description: "Показуємо реальний підхід до роботи: акуратність, професійне обладнання, контроль деталей і чистий фінальний результат.",
+    beforeAfterImage: service.image,
+    beforeAfterAlt: service.imageAlt
+  };
+}
+
+function getServiceReview(slug: string) {
+  if (slug.includes("dyvana") || slug.includes("matratsa") || slug.includes("mebliv")) return reviews[1];
+  if (slug.includes("kvartyr") || slug.includes("generalne") || slug.includes("remontu")) return reviews[2];
+  return reviews[0];
 }
 
 function getExampleImage(example: (typeof workExamples)[number]) {
@@ -236,5 +376,59 @@ function InfoBlock({ title, items }: { title: string; items: string[] }) {
         ))}
       </ul>
     </div>
+  );
+}
+
+function BeforeAfterSection({ caseItem }: { caseItem: BeforeAfterCase }) {
+  return (
+    <section className="section bg-brand-mist">
+      <div className="container">
+        <div className="grid gap-8 lg:grid-cols-[0.72fr_1fr] lg:items-center">
+          <div>
+            <p className="mb-4 inline-flex rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-hover">До/після</p>
+            <h2 className="text-3xl font-bold">{caseItem.title}</h2>
+            <p className="mt-4 leading-7 text-brand-graphite">{caseItem.description}</p>
+          </div>
+          {"beforeAfterImage" in caseItem ? (
+            <div className="overflow-hidden rounded-2xl bg-white shadow-soft">
+              <Image src={caseItem.beforeAfterImage} alt={caseItem.beforeAfterAlt} width={1100} height={720} sizes="(max-width: 1024px) 92vw, 56vw" className="aspect-[16/10] w-full object-cover" />
+            </div>
+          ) : (
+            <div className="grid gap-4 sm:grid-cols-2">
+              <figure className="overflow-hidden rounded-2xl bg-white shadow-soft">
+                <Image src={caseItem.beforeImage} alt={caseItem.beforeAlt} width={900} height={680} sizes="(max-width: 768px) 92vw, 28vw" className="aspect-[4/3] w-full object-cover" />
+                <figcaption className="px-5 py-4 text-sm font-semibold text-brand-graphite">До</figcaption>
+              </figure>
+              <figure className="overflow-hidden rounded-2xl bg-white shadow-soft">
+                <Image src={caseItem.afterImage} alt={caseItem.afterAlt} width={900} height={680} sizes="(max-width: 768px) 92vw, 28vw" className="aspect-[4/3] w-full object-cover" />
+                <figcaption className="px-5 py-4 text-sm font-semibold text-brand-graphite">Після</figcaption>
+              </figure>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ServiceReview({ review }: { review: (typeof reviews)[number] }) {
+  return (
+    <section className="section bg-white">
+      <div className="container">
+        <article className="rounded-[28px] border border-brand-green/15 bg-brand-mist p-6 shadow-soft md:p-8">
+          <Quote className="mb-5 text-brand-green" size={30} aria-hidden />
+          <div className="flex gap-1 text-brand-green" aria-label={`${review.rating} з 5`}>
+            {Array.from({ length: review.rating }).map((_, index) => (
+              <Star fill="currentColor" size={17} key={index} aria-hidden />
+            ))}
+          </div>
+          <p className="mt-5 max-w-4xl text-lg leading-8 text-brand-graphite">{review.text}</p>
+          <div className="mt-5">
+            <strong>{review.name}</strong>
+            <span className="ml-3 text-sm text-brand-graphite">{review.service}</span>
+          </div>
+        </article>
+      </div>
+    </section>
   );
 }

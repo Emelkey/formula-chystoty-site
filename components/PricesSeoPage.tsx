@@ -95,7 +95,65 @@ const examples = [
   }
 ];
 
+const meterPriceGroups = [
+  {
+    title: "Прибирання після ремонту — грн/м²",
+    rows: [
+      ["Стандартне післяремонтне прибирання", "від 120 грн/м²"],
+      ["Складний будівельний пил", "від 140 грн/м²"],
+      ["Плитка, санвузол, кухня після ремонту", "індивідуально"],
+      ["Мінімальна вартість виїзду", "3000 грн"]
+    ]
+  },
+  {
+    title: "Генеральне прибирання — грн/м²",
+    rows: [
+      ["Без миття шаф усередині", "95 грн/м²"],
+      ["З миттям шаф усередині", "110 грн/м²"],
+      ["Після будівництва або складних забруднень", "120 грн/м²"],
+      ["Окремий санвузол або кухня", "від 3000 грн"]
+    ]
+  },
+  {
+    title: "Підтримуюче прибирання — грн/м²",
+    rows: [
+      ["Квартира або будинок у нормальному стані", "від 55 грн/м²"],
+      ["Регулярне прибирання за графіком", "індивідуально"],
+      ["Після орендарів або активного користування", "від 70 грн/м²"],
+      ["Мінімальна вартість виїзду", "3000 грн"]
+    ]
+  },
+  {
+    title: "Миття вікон — грн/м²",
+    rows: [
+      ["Сезонне миття скла, рам і підвіконь", "від 160 грн/м²"],
+      ["Післяремонтне миття вікон", "від 180 грн/м²"],
+      ["Зняття застарілої монтажної плівки", "від 300 грн/м²"],
+      ["Мінімальна вартість виїзду", "3000 грн"]
+    ]
+  },
+  {
+    title: "Хімчистка ковроліну — грн/м²",
+    rows: [
+      ["Ковролін у квартирі або офісі", "від 90 грн/м²"],
+      ["Килим", "від 100 грн/м²"],
+      ["Сильні плями або запахи", "індивідуально"],
+      ["Мінімальна вартість виїзду", "3000 грн"]
+    ]
+  },
+  {
+    title: "Комерційні приміщення — приклади розрахунку",
+    rows: [
+      ["Офіс 80–120 м², разове прибирання", "індивідуально"],
+      ["Магазин або салон з регулярним графіком", "за договором"],
+      ["Супермаркет або ТРЦ з великим потоком людей", "за технічним завданням"],
+      ["Виробниче або складське приміщення", "після огляду або фото"]
+    ]
+  }
+];
+
 const valueItems = ["професійна команда", "власна хімія та інвентар", "професійна техніка", "досвід у складних об’єктах", "фото до/після", "контроль якості", "відповідальність за результат", "робота з квартирами, будинками, офісами, магазинами та супермаркетами"];
+const companyComparison = ["працює команда, а не випадкова людина", "є професійна хімія під різні поверхні", "є техніка для підлоги, меблів, ковроліну та складних забруднень", "є контроль якості після виконання робіт", "є відповідальність за результат і комунікація до старту", "є досвід складних прибирань після ремонту, пожежі, потопу та сильних забруднень", "можна працювати з бізнесом на постійній основі за регламентом"];
 
 const priceFaq: Faq[] = [
   { question: "Скільки коштує прибирання квартири у Черкасах?", answer: "Вартість залежить від площі, стану квартири, типу прибирання та додаткових робіт. Підтримуюче прибирання стартує від 2200 грн, генеральне — від 4000 грн, після ремонту — від 4800 грн." },
@@ -169,6 +227,30 @@ export function PricesSeoPage({
 
       <section className="section bg-white">
         <div className="container">
+          <h2 className="text-3xl font-bold">Тарифи у форматі грн/м²</h2>
+          <p className="mt-4 max-w-3xl leading-7 text-brand-graphite">Ці ставки допомагають швидко зорієнтуватися у бюджеті. Для точного розрахунку ми враховуємо не тільки площу, а й стан об’єкта, доступ, кількість санвузлів, кухню, вікна, меблі, тип підлоги та складність забруднень.</p>
+          <div className="mt-8 grid gap-5 lg:grid-cols-2">
+            {meterPriceGroups.map((group) => (
+              <article className="overflow-hidden rounded-2xl border border-black/5 bg-white shadow-soft" key={group.title}>
+                <div className="border-b border-black/5 bg-brand-mist px-5 py-4">
+                  <h3 className="text-xl font-bold">{group.title}</h3>
+                </div>
+                <div className="divide-y divide-black/5">
+                  {group.rows.map(([service, price]) => (
+                    <div className="grid gap-3 px-5 py-4 sm:grid-cols-[1fr_auto]" key={`${group.title}-${service}`}>
+                      <span className="text-brand-graphite">{service}</span>
+                      <strong className="text-brand-hover">{price}</strong>
+                    </div>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section bg-white">
+        <div className="container">
           <h2 className="text-3xl font-bold">Приклади розрахунку вартості</h2>
           <div className="mt-8 grid gap-5 md:grid-cols-2">
             {examples.map((example) => (
@@ -197,6 +279,24 @@ export function PricesSeoPage({
           <div className="grid gap-3 sm:grid-cols-2">
             {valueItems.map((item) => (
               <div className="rounded-2xl bg-white p-4 text-sm font-semibold text-brand-graphite shadow-soft" key={item}>{item}</div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section bg-white">
+        <div className="container grid gap-8 rounded-[28px] border border-brand-green/15 bg-white p-6 shadow-soft md:p-8 lg:grid-cols-[0.85fr_1.15fr]">
+          <div>
+            <p className="mb-4 inline-flex rounded-full bg-brand-mist px-4 py-2 text-sm font-semibold text-brand-hover">Порівняння</p>
+            <h2 className="text-3xl font-bold">Чому професійна клінінгова компанія дорожча за приватного клінера</h2>
+            <p className="mt-5 leading-7 text-brand-graphite">Професійний клінінг коштує дорожче, бо клієнт платить не лише за години роботи. У вартість входить організація процесу, правильна хімія, обладнання, команда, контроль якості та відповідальність за результат.</p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {companyComparison.map((item) => (
+              <div className="flex gap-3 rounded-2xl bg-brand-mist p-4 text-sm font-semibold text-brand-graphite" key={item}>
+                <CheckCircle2 className="mt-0.5 shrink-0 text-brand-green" size={18} aria-hidden />
+                <span>{item}</span>
+              </div>
             ))}
           </div>
         </div>
