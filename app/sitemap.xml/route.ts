@@ -1,6 +1,6 @@
 import { blogPosts, servicePages, siteUrl } from "@/lib/site";
 
-const lastModified = "2026-07-03T00:00:00.000Z";
+const lastModified = "2026-07-04T00:00:00.000Z";
 
 type SitemapUrl = {
   loc: string;
@@ -10,7 +10,6 @@ type SitemapUrl = {
 
 const mainRoutes: SitemapUrl[] = [
   { loc: "/", changefreq: "weekly", priority: "1.0" },
-  { loc: "/uk", changefreq: "weekly", priority: "0.9" },
   { loc: "/poslugy", changefreq: "weekly", priority: "0.9" },
   { loc: "/tsiny", changefreq: "monthly", priority: "0.9" },
   { loc: "/uk/tsiny-na-klining-cherkasy-2026", changefreq: "monthly", priority: "0.9" },

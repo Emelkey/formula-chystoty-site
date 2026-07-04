@@ -15,6 +15,10 @@ export const metadata: Metadata = {
     template: "%s"
   },
   description: positioning,
+  robots: {
+    index: true,
+    follow: true
+  },
   icons: [{ rel: "icon", url: "/brand/favicon.png" }]
 };
 

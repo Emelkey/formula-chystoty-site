@@ -33,10 +33,10 @@ type BlogPost = {
 };
 
 const internalLinks = [
-  { text: "клінінгові послуги у Черкасах", href: "/services" },
-  { text: "вартість прибирання", href: "/prices" },
-  { text: "залишити заявку", href: "/contacts" },
-  { text: "приклади наших робіт", href: "/works" }
+  { text: "клінінгові послуги у Черкасах", href: "/poslugy" },
+  { text: "вартість прибирання", href: "/tsiny" },
+  { text: "залишити заявку", href: "/kontakty" },
+  { text: "приклади наших робіт", href: "/nashi-roboty" }
 ];
 
 export function BlogPostLayout({ post }: { post: BlogPost }) {
@@ -113,10 +113,10 @@ export function BlogPostLayout({ post }: { post: BlogPost }) {
 
           <h2 className="mt-9 text-2xl font-bold">Корисні посилання</h2>
           <div className="mt-4 flex flex-wrap gap-2">
-            <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/services">Усі послуги</Link>
-            <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/prices">Ціни</Link>
-            <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/contacts">Контакти</Link>
-            <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/works">Наші роботи</Link>
+            <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/poslugy">Усі послуги</Link>
+            <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/tsiny">Ціни</Link>
+            <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/kontakty">Контакти</Link>
+            <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/nashi-roboty">Наші роботи</Link>
             {servicePages.slice(0, 4).map((service) => (
               <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href={`/${service.slug}`} key={service.slug}>{service.title}</Link>
             ))}

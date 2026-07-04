@@ -176,9 +176,27 @@ export function ServicePageLayout({ service }: { service: Service }) {
             "@type": "Service",
             name: service.h1,
             description: service.shortDescription,
-            provider: { "@type": "LocalBusiness", name: contacts.companyName, areaServed: "Черкаси" },
+            provider: { "@id": absoluteUrl("/#localbusiness") },
             areaServed: "Черкаси",
             url: absoluteUrl(`/${service.slug}`)
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "@id": absoluteUrl("/#localbusiness"),
+            name: contacts.companyName,
+            url: absoluteUrl("/"),
+            telephone: contacts.phoneE164,
+            email: contacts.email,
+            image: absoluteUrl(service.image),
+            logo: absoluteUrl("/brand/logo.png"),
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: contacts.city,
+              addressCountry: contacts.country
+            },
+            areaServed: [contacts.city, "Черкаська область"],
+            sameAs: [contacts.telegram, contacts.instagram, contacts.facebook]
           },
           {
             "@context": "https://schema.org",
@@ -210,6 +228,8 @@ function ensureFaq(faq: Faq[]) {
 function getServiceExamples(slug: string) {
   if (slug.includes("kvartyr")) return workExamples.filter((item) => item.category.includes("Житловий") || item.title.includes("квартир")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("generalne")) return workExamples.filter((item) => item.category.includes("Генеральне") || item.title.includes("духовки")).concat(workExamples.slice(0, 2)).slice(0, 3);
+  if (slug.includes("byudzhetne")) return workExamples.filter((item) => item.category.includes("Житловий") || item.title.includes("квартир")).concat(workExamples.slice(0, 2)).slice(0, 3);
+  if (slug.includes("kotedzhiv")) return workExamples.filter((item) => item.title.includes("будинку") || item.category.includes("Приватні будинки") || item.category.includes("Житловий")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("kylym")) return workExamples.filter((item) => item.title.includes("ковроліну")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("pozhezhi")) return workExamples.filter((item) => item.category.includes("пожеж")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("potopu")) return workExamples.filter((item) => item.category.includes("Складне") || item.category.includes("Комерційний")).concat(workExamples.slice(0, 2)).slice(0, 3);
@@ -328,6 +348,24 @@ function getBeforeAfterCase(service: Service): BeforeAfterCase {
       description: "Після професійного клінінгу квартира виглядає охайно для життя, оренди, продажу або прийому гостей.",
       beforeAfterImage: "/images/works/apartment-before-after-01.webp",
       beforeAfterAlt: "Квартира до та після прибирання у Черкасах"
+    };
+  }
+
+  if (slug.includes("byudzhetne")) {
+    return {
+      title: "Результат базового прибирання",
+      description: "Бюджетний формат не замінює генеральне прибирання, але добре працює, коли потрібно швидко повернути квартирі охайний повсякденний вигляд.",
+      beforeAfterImage: "/images/works/apartment-before-after-01.webp",
+      beforeAfterAlt: "Квартира до та після базового прибирання у Черкасах"
+    };
+  }
+
+  if (slug.includes("kotedzhiv")) {
+    return {
+      title: "Результат прибирання котеджу",
+      description: "Для котеджів важлива системність: кімнати, сходи, санвузли, кухня, підлога, тераса та інші зони мають прибиратися за погодженим планом.",
+      beforeAfterImage: "/images/services/premium-house-cleaning-generated-optimized.jpg",
+      beforeAfterAlt: "Результат професійного прибирання котеджу у Черкасах"
     };
   }
 
