@@ -34,8 +34,8 @@ const compactPrices = [
     price: "розрахунок індивідуально по фото або телефону",
     description: "Дивани, крісла, матраци та м’які меблі",
     href: "/himchystka-mebliv-cherkasy",
-    image: "/images/services/sofa-cleaning-generated-optimized.jpg",
-    imageAlt: "Хімчистка дивана екстрактором"
+    image: "/images/services/before-after-sofa-cleaning.jpg",
+    imageAlt: "Хімчистка дивана у Черкасах — до та після"
   }
 ];
 

@@ -314,10 +314,10 @@ function getBeforeAfterCase(service: Service): BeforeAfterCase {
 
   if (slug.includes("dyvana")) {
     return {
-      title: "До/після хімчистки м’яких меблів",
-      description: "Екстракторне очищення прибирає пил, побутові плями, запахи та повертає тканині свіжіший вигляд.",
-      beforeAfterImage: "/images/works/sofa-cleaning-before-after-01.webp",
-      beforeAfterAlt: "М’які меблі до та після хімчистки у Черкасах",
+      title: "До/після хімчистки дивана",
+      description: "Реальний приклад результату хімчистки кутового дивана: після професійного очищення тканина виглядає світлішою, чистішою та охайнішою.",
+      beforeAfterImage: "/images/services/before-after-sofa-cleaning.jpg",
+      beforeAfterAlt: "Хімчистка дивана у Черкасах — до та після",
       caption: "Хімчистка дивана — результат до та після очищення"
     };
   }
