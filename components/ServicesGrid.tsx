@@ -62,8 +62,8 @@ const homeServices = [
     slug: "himchystka-mebliv-cherkasy",
     title: "Хімчистка меблів",
     shortDescription: "Чистка диванів, крісел, матраців, стільців та м’яких меблів",
-    image: "/images/services/before-after-sofa-cleaning.jpg",
-    imageAlt: "Хімчистка м’яких меблів у Черкасах — результат до та після"
+    image: "/images/services/sofa-cleaning-generated-optimized.jpg",
+    imageAlt: "Професійна хімчистка м’яких меблів у світлому інтер’єрі"
   },
   {
     slug: "myttya-vikon-cherkasy",
