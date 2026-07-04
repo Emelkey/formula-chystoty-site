@@ -63,7 +63,7 @@ const homeServices = [
     title: "Хімчистка меблів",
     shortDescription: "Чистка диванів, крісел, матраців, стільців та м’яких меблів",
     image: "/images/services/before-after-sofa-cleaning.jpg",
-    imageAlt: "Хімчистка дивана у Черкасах — до та після"
+    imageAlt: "Хімчистка м’яких меблів у Черкасах — результат до та після"
   },
   {
     slug: "myttya-vikon-cherkasy",
@@ -89,7 +89,7 @@ export function ServicesGrid({ limit }: { limit?: number }) {
   const services = limit ? featuredServices.slice(0, limit) : servicePages;
 
   return (
-    <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+    <div className="grid items-stretch gap-5 md:grid-cols-2 xl:grid-cols-4">
       {services.map((service) => (
         <ServiceCard service={service} key={service.slug} />
       ))}
