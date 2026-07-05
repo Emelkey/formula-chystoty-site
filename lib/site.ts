@@ -801,6 +801,36 @@ export const workExamples: WorkExample[] = [
     description: "Хімчистка матраца — результат до та після очищення: видимий приклад роботи з побутовими забрудненнями."
   },
   {
+    title: "Генеральне очищення духовки",
+    category: "Генеральне прибирання / кухня",
+    beforeAfterImage: "/images/works/general-cleaning-oven-before-after.jpg",
+    beforeAfterImageAlt: "Генеральне очищення духовки у Черкасах — до та після",
+    description: "Приклад очищення духовки під час генерального прибирання: прибрали жир, наліт і сліди активного користування."
+  },
+  {
+    title: "Очищення плитки під час генерального прибирання",
+    category: "Генеральне прибирання / плитка",
+    beforeAfterImage: "/images/works/general-cleaning-tile-before-after.jpg",
+    beforeAfterImageAlt: "Очищення плитки під час генерального прибирання у Черкасах — до та після",
+    description: "Показуємо результат роботи з плиткою та побутовими забрудненнями у складних зонах."
+  },
+  {
+    title: "Миття вікон до та після",
+    category: "Миття вікон",
+    beforeAfterImage: "/images/works/window-cleaning-before-after.jpg",
+    beforeAfterImageAlt: "Миття вікон у Черкасах — до та після",
+    description: "Результат професійного миття скла: більше світла, чисті рами та охайний вигляд вікон."
+  },
+  {
+    title: "Миття холодильника всередині",
+    category: "Генеральне прибирання / кухня",
+    beforeImage: "/images/works/fridge-cleaning-before.jpg",
+    beforeImageAlt: "Холодильник до миття всередині у Черкасах",
+    afterImage: "/images/works/fridge-cleaning-after.jpg",
+    afterImageAlt: "Холодильник після миття всередині Формула Чистоти",
+    description: "Приклад додаткової роботи під час прибирання кухні: вимили холодильник усередині та прибрали побутові забруднення."
+  },
+  {
     title: "Прибирання кухні після пожежі",
     category: "Прибирання після пожежі",
     beforeImage: "/images/works/before-after/fire-cleaning-kitchen-before-optimized.jpg",
