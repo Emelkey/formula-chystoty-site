@@ -32,6 +32,18 @@ const businessProfileServices = [
   { slug: "myttya-plytky-cherkasy", description: "Миття тротуарної плитки, доріжок, дворів і прибудинкової території." }
 ];
 
+const popularCleaningServices = [
+  { href: "/prybyrannya-kvartyr-cherkasy", label: "Прибирання квартир у Черкасах" },
+  { href: "/generalne-prybyrannya-cherkasy", label: "Генеральне прибирання" },
+  { href: "/prybyrannya-pislya-remontu-cherkasy", label: "Прибирання після ремонту" },
+  { href: "/himchystka-mebliv-cherkasy", label: "Хімчистка меблів" },
+  { href: "/himchystka-dyvana-cherkasy", label: "Хімчистка дивана" },
+  { href: "/myttya-vikon-cherkasy", label: "Миття вікон" },
+  { href: "/prybyrannya-ofisiv-cherkasy", label: "Прибирання офісів" },
+  { href: "/prybyrannya-budynkiv-cherkasy", label: "Прибирання будинків" },
+  { href: "/prybyrannya-pislya-pozhezhi-cherkasy", label: "Прибирання після пожежі" }
+];
+
 export const metadata: Metadata = buildMetadata({
   title: "Клінінгові послуги у Черкасах | Формула Чистоти",
   description: "Усі послуги клінінгової компанії Формула Чистоти у Черкасах: прибирання квартир, будинків, офісів, після ремонту, миття вікон, хімчистка меблів.",
@@ -50,6 +62,18 @@ export default function ServicesPage() {
         </div>
       </section>
       <section className="section bg-brand-mist">
+        <div className="container">
+          <SectionHeading eyebrow="SEO-навігація" title="Популярні клінінгові послуги в Черкасах" description="Швидкі переходи на основні посадкові сторінки послуг, які найчастіше замовляють клієнти Формули Чистоти." />
+          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {popularCleaningServices.map((link) => (
+              <a className="rounded-lg border border-brand-green/15 bg-white p-5 text-base font-semibold text-brand-hover shadow-soft transition hover:-translate-y-1 hover:border-brand-green" href={link.href} key={link.href}>
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="section bg-brand-mist pt-0">
         <div className="container">
           <SectionHeading eyebrow="Послуги для клієнтів у Черкасах" title="Повний список послуг Формули Чистоти" description="Цей перелік допомагає швидко знайти потрібний формат клінінгу та перейти на детальну сторінку послуги." />
           <div className="mt-8 flex flex-wrap gap-3 rounded-2xl border border-brand-green/15 bg-white p-5 shadow-soft">
