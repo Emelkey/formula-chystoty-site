@@ -9,7 +9,7 @@ import { SeoJsonLd } from "@/components/SeoJsonLd";
 import { absoluteUrl, contacts, positioning, servicePages } from "@/lib/site";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://formula-chistoty.ck.ua"),
+  metadataBase: new URL("https://www.formula-chistoty.ck.ua"),
   title: {
     default: "Формула Чистоти — клінінгова компанія у Черкасах",
     template: "%s"

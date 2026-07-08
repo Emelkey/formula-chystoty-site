@@ -6,14 +6,14 @@ export const metadata: Metadata = buildMetadata({
   title: "Прайс на клінінгові послуги у Черкасах 2026 | Формула Чистоти",
   description:
     "Прайс на клінінгові послуги у Черкасах на 2026 рік: квартири, будинки, офіси, магазини, хімчистка меблів, миття вікон і післяремонтне прибирання.",
-  path: "/uk/tsiny-na-klining-cherkasy-2026",
+  path: "/tsiny",
   image: "/images/hero/professional-floor-cleaning-hero.webp"
 });
 
 export default function Page() {
   return (
     <PricesSeoPage
-      canonicalPath="/uk/tsiny-na-klining-cherkasy-2026"
+      canonicalPath="/tsiny"
       heading="Прайс на клінінгові послуги у Черкасах 2026"
       schemaName="Прайс на клінінгові послуги у Черкасах 2026"
     />

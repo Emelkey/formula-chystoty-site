@@ -9,6 +9,7 @@ const legacyRedirects = [
   { source: "/about", destination: "/pro-nas", statusCode: 301 },
   { source: "/works", destination: "/nashi-roboty", statusCode: 301 },
   { source: "/reviews", destination: "/vidguky", statusCode: 301 },
+  { source: "/uk/tsiny-na-klining-cherkasy-2026", destination: "/tsiny", statusCode: 301 },
   { source: "/uk/price-uk", destination: "/tsiny", statusCode: 301 },
   { source: "/ru/price-ru", destination: "/tsiny", statusCode: 301 },
   { source: "/uk/services-uk", destination: "/poslugy", statusCode: 301 },
@@ -72,7 +73,15 @@ const legacyRedirects = [
   { source: "/uk/services/prybyrannya-prylegloyi-terytoriyi", destination: "/prybyrannya-prylegloyi-terytoriyi-cherkasy", statusCode: 301 },
   { source: "/ru/services/prybyrannya-prylegloyi-terytoriyi", destination: "/prybyrannya-prylegloyi-terytoriyi-cherkasy", statusCode: 301 },
   { source: "/uk/services/prybyrannya-budynkiv", destination: "/prybyrannya-budynkiv-cherkasy", statusCode: 301 },
-  { source: "/ru/services/prybyrannya-budynkiv", destination: "/prybyrannya-budynkiv-cherkasy", statusCode: 301 }
+  { source: "/ru/services/prybyrannya-budynkiv", destination: "/prybyrannya-budynkiv-cherkasy", statusCode: 301 },
+  { source: "/ru/services/uborka-kvartir", destination: "/prybyrannya-kvartyr-cherkasy", statusCode: 301 },
+  { source: "/ru/services/generalnaya-uborka", destination: "/generalne-prybyrannya-cherkasy", statusCode: 301 },
+  { source: "/ru/services/uborka-posle-remonta", destination: "/prybyrannya-pislya-remontu-cherkasy", statusCode: 301 },
+  { source: "/ru/services/himchistka-mebeli", destination: "/himchystka-mebliv-cherkasy", statusCode: 301 },
+  { source: "/ru/services/himchistka-divana", destination: "/himchystka-dyvana-cherkasy", statusCode: 301 },
+  { source: "/ru/services/moyka-okon", destination: "/myttya-vikon-cherkasy", statusCode: 301 },
+  { source: "/uk/:path*", destination: "/", statusCode: 301 },
+  { source: "/ru/:path*", destination: "/", statusCode: 301 }
 ];
 
 const nextConfig: NextConfig = {

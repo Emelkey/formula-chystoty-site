@@ -12,7 +12,6 @@ const mainRoutes: SitemapUrl[] = [
   { loc: "/", changefreq: "weekly", priority: "1.0" },
   { loc: "/poslugy", changefreq: "weekly", priority: "0.9" },
   { loc: "/tsiny", changefreq: "monthly", priority: "0.9" },
-  { loc: "/uk/tsiny-na-klining-cherkasy-2026", changefreq: "monthly", priority: "0.9" },
   { loc: "/nashi-roboty", changefreq: "monthly", priority: "0.8" },
   { loc: "/vidguky", changefreq: "monthly", priority: "0.7" },
   { loc: "/blog", changefreq: "weekly", priority: "0.7" },

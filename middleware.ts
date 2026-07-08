@@ -1,4 +1,8 @@
 import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+
+const canonicalHost = "www.formula-chistoty.ck.ua";
+const productionHosts = new Set(["formula-chistoty.ck.ua", canonicalHost]);
 
 const noindexExactPaths = new Set([
   "/uk/feed",
@@ -21,6 +25,16 @@ function isNoindexLegacyPath(pathname: string) {
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  const host = request.headers.get("host")?.split(":")[0] ?? "";
+  const forwardedProto = request.headers.get("x-forwarded-proto");
+  const protocol = forwardedProto ?? request.nextUrl.protocol.replace(":", "");
+
+  if (productionHosts.has(host) && (host !== canonicalHost || protocol !== "https")) {
+    const url = request.nextUrl.clone();
+    url.protocol = "https:";
+    url.host = canonicalHost;
+    return NextResponse.redirect(url, 301);
+  }
 
   if (!isNoindexLegacyPath(pathname)) return;
 
@@ -38,5 +52,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/uk/:path*", "/ru/:path*"]
+  matcher: ["/((?!_next/static|_next/image|images|brand).*)"]
 };
