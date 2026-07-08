@@ -1,5 +1,8 @@
 import { blogPosts, servicePages, siteUrl } from "@/lib/site";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 const lastModified = "2026-07-04T00:00:00.000Z";
 
 type SitemapUrl = {
@@ -67,7 +70,7 @@ export function GET() {
   return new Response(xml, {
     headers: {
       "Content-Type": "application/xml; charset=utf-8",
-      "Cache-Control": "public, max-age=0, must-revalidate",
+      "Cache-Control": "no-store, max-age=0",
       "X-Content-Type-Options": "nosniff"
     }
   });
