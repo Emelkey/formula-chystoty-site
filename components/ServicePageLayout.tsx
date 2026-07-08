@@ -58,7 +58,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
       </section>
       <section className="section bg-white">
         <div className="container grid gap-5 md:grid-cols-3">
-          <InfoBlock title="Кому підходить ця послуга" items={service.whenNeeded} />
+          <InfoBlock title="Коли потрібна ця послуга" items={service.whenNeeded} />
           <InfoBlock title="Що входить у послугу" items={service.included} />
           <InfoBlock title="Що не входить або рахується окремо" items={service.excluded} />
         </div>
@@ -112,7 +112,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
       </section>
       <section className="section bg-white">
         <div className="container">
-          <h2 className="text-3xl font-bold">Приклади робіт</h2>
+          <h2 className="text-3xl font-bold">Наші роботи</h2>
           <p className="mt-4 max-w-2xl leading-7 text-brand-graphite">Добираємо фото під конкретну послугу: процес, обладнання, складні зони та фінальний охайний результат.</p>
           <div className="mt-8 grid gap-5 md:grid-cols-3">
             {examples.map((example) => (
@@ -233,7 +233,7 @@ function getServiceExamples(slug: string) {
   if (slug.includes("kylym")) return workExamples.filter((item) => item.title.includes("ковроліну")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("pozhezhi")) return workExamples.filter((item) => item.category.includes("пожеж")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("potopu")) return workExamples.filter((item) => item.category.includes("Складне") || item.category.includes("Комерційний")).concat(workExamples.slice(0, 2)).slice(0, 3);
-  if (slug.includes("plitky") || slug.includes("fasadiv")) return workExamples.filter((item) => item.title.includes("плитки") || item.title.includes("паркану")).concat(workExamples.slice(0, 2)).slice(0, 3);
+  if (slug.includes("plytky") || slug.includes("plitky") || slug.includes("fasadiv")) return workExamples.filter((item) => item.title.includes("плитки") || item.title.includes("паркану")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("vikon")) return workExamples.filter((item) => item.category.includes("Вікна")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("remontu")) return workExamples.filter((item) => item.category.includes("Післяремонтне")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("dyvana")) return workExamples.filter((item) => item.title.toLowerCase().includes("дивана")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
@@ -301,7 +301,7 @@ function getBeforeAfterCase(service: Service): BeforeAfterCase {
     };
   }
 
-  if (slug.includes("plitky")) {
+  if (slug.includes("plytky") || slug.includes("plitky")) {
     return {
       title: "До/після миття тротуарної плитки",
       description: "Мийка апаратом високого тиску допомагає прибрати бруд, мох і потемніння без заміни покриття.",

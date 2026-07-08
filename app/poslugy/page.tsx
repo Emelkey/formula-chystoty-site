@@ -29,7 +29,7 @@ const businessProfileServices = [
   { slug: "prybyrannya-trts-supermarketiv-cherkasy", description: "Регулярне прибирання великих торгових об’єктів." },
   { slug: "dezinfektsiya-prymishchen-cherkasy", description: "Дезінфекція квартир, офісів, будинків та комерційних приміщень." },
   { slug: "myttya-fasadiv-cherkasy", description: "Миття фасадів будинків, магазинів, офісів та комерційних об’єктів." },
-  { slug: "myttya-plitky-cherkasy", description: "Миття тротуарної плитки, доріжок, дворів і прибудинкової території." }
+  { slug: "myttya-plytky-cherkasy", description: "Миття тротуарної плитки, доріжок, дворів і прибудинкової території." }
 ];
 
 export const metadata: Metadata = buildMetadata({
