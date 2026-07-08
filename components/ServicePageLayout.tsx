@@ -100,6 +100,17 @@ export function ServicePageLayout({ service }: { service: Service }) {
               <p className="text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Ціна</p>
               <h2 className="mt-3 text-3xl font-bold text-brand-black">Отримайте точний розрахунок для вашого об’єкта</h2>
               <p className="mt-4 max-w-3xl leading-7 text-brand-graphite">Вартість залежить від площі, стану приміщення, типу поверхонь, терміновості та додаткових робіт. Орієнтир для цієї послуги: <strong className="text-brand-hover">{service.priceFrom}</strong>.</p>
+              {service.priceDetails ? (
+                <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                  {service.priceDetails.map((item) => (
+                    <div className="rounded-lg bg-white p-4 shadow-soft" key={item.title}>
+                      <h3 className="text-base font-bold text-brand-black">{item.title}</h3>
+                      <p className="mt-2 text-2xl font-bold text-brand-hover">{item.price}</p>
+                      <p className="mt-2 text-sm leading-6 text-brand-graphite">{item.description}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
               <PrimaryButton>Отримати точний розрахунок</PrimaryButton>
