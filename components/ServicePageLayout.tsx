@@ -10,7 +10,7 @@ import { absoluteUrl, contacts, reviews, workExamples, type Faq, type Service } 
 
 const priceFactors = ["площа приміщення", "рівень забруднення", "кількість кімнат або зон", "додаткові роботи", "терміновість виконання", "особливості об’єкта та доступу"];
 const trustItems = ["професійна хімія", "досвід роботи з різними об’єктами", "виїзд по Черкасах та області", "власний інвентар і обладнання", "реальні фото робіт", "заявка через сайт, телефон або месенджери"];
-const seoProcessSteps = ["Клієнт залишає заявку", "Менеджер уточнює деталі", "Розраховуємо попередню вартість", "Команда приїжджає на об’єкт", "Виконуємо прибирання", "Перевіряємо якість", "Клієнт приймає роботу", "Оплата після результату"];
+const seoProcessSteps = ["Приймаємо заявку", "Уточнюємо обсяг робіт", "Погоджуємо ціну", "Приїжджаємо зі своїм інвентарем і хімією", "Виконуємо роботу", "Клієнт приймає результат"];
 const valueItems = ["професійна команда", "власна хімія та інвентар", "професійна техніка", "досвід у складних об’єктах", "фото до/після", "контроль якості", "відповідальність за результат", "робота з квартирами, будинками, офісами, магазинами та супермаркетами"];
 const internalLinks = [
   { href: "/poslugy", label: "Усі послуги" },
@@ -31,6 +31,9 @@ export function ServicePageLayout({ service }: { service: Service }) {
   const examples = getServiceExamples(service.slug);
   const beforeAfter = getBeforeAfterCase(service);
   const review = getServiceReview(service.slug);
+  const servicePriceFactors = service.priceFactors ?? priceFactors;
+  const serviceTrustItems = service.trustItems ?? trustItems;
+  const processSteps = service.processSteps ?? seoProcessSteps;
 
   return (
     <>
@@ -56,6 +59,17 @@ export function ServicePageLayout({ service }: { service: Service }) {
           </div>
         </div>
       </section>
+      {service.seoIntro ? (
+        <section className="section bg-white">
+          <div className="container">
+            <div className="grid gap-4 rounded-[24px] border border-brand-green/15 bg-white p-6 leading-8 text-brand-graphite shadow-soft md:p-8">
+              {service.seoIntro.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
       <section className="section bg-white">
         <div className="container grid gap-5 md:grid-cols-3">
           <InfoBlock title="Коли потрібна ця послуга" items={service.whenNeeded} />
@@ -71,8 +85,8 @@ export function ServicePageLayout({ service }: { service: Service }) {
       </section>
       <section className="section bg-brand-mist">
         <div className="container grid gap-5 lg:grid-cols-2">
-          <InfoBlock title="Від чого залежить ціна" items={priceFactors} />
-          <InfoBlock title="Чому обирають Формулу Чистоти" items={trustItems} />
+          <InfoBlock title="Від чого залежить ціна" items={servicePriceFactors} />
+          <InfoBlock title="Чому обирають Формулу Чистоти" items={serviceTrustItems} />
         </div>
       </section>
       <section className="section bg-white">
@@ -144,7 +158,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
         <div className="container">
           <h2 className="text-3xl font-bold">Як проходить робота</h2>
           <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {seoProcessSteps.map((step, index) => (
+            {processSteps.map((step, index) => (
               <div className="rounded-2xl bg-white p-5 shadow-soft" key={step}>
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-green font-bold text-white">{index + 1}</span>
                 <p className="mt-4 font-semibold leading-6">{step}</p>
@@ -171,8 +185,8 @@ export function ServicePageLayout({ service }: { service: Service }) {
       <section className="section bg-brand-mist">
         <div className="container grid gap-8 lg:grid-cols-[0.8fr_1fr]">
           <div>
-            <h2 className="text-3xl font-bold">Потрібне прибирання?</h2>
-            <p className="mt-4 leading-7 text-brand-graphite">Залиште заявку — ми розрахуємо вартість для вашого об’єкта у Черкасах.</p>
+            <h2 className="text-3xl font-bold">Хочете дізнатися точну вартість?</h2>
+            <p className="mt-4 leading-7 text-brand-graphite">Залиште заявку — ми уточнимо деталі, підкажемо оптимальний формат прибирання та зорієнтуємо по ціні.</p>
             <div className="mt-6">
               <ContactButtons />
             </div>
