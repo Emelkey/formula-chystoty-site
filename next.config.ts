@@ -9,6 +9,7 @@ const legacyRedirects = [
   { source: "/about", destination: "/pro-nas", statusCode: 301 },
   { source: "/works", destination: "/nashi-roboty", statusCode: 301 },
   { source: "/reviews", destination: "/vidguky", statusCode: 301 },
+  { source: "/vidhuky", destination: "/vidguky", statusCode: 301 },
   { source: "/uk/tsiny-na-klining-cherkasy-2026", destination: "/tsiny", statusCode: 301 },
   { source: "/uk/price-uk", destination: "/tsiny", statusCode: 301 },
   { source: "/ru/price-ru", destination: "/tsiny", statusCode: 301 },
