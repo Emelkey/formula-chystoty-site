@@ -7,15 +7,15 @@ import { PrimaryButton } from "@/components/Buttons";
 const compactPrices = [
   {
     title: "Генеральне прибирання",
-    price: "від 4000 грн",
-    description: "Для квартир, будинків та офісів",
+    price: "від 100 грн/м²",
+    description: "Без шаф усередині — 100 грн/м², з шафами — 120 грн/м²",
     href: "/generalne-prybyrannya-cherkasy",
     image: "/images/services/premium-general-cleaning.webp",
     imageAlt: "Професійне генеральне прибирання у світлому інтер’єрі"
   },
   {
     title: "Прибирання після ремонту",
-    price: "від 4800 грн",
+    price: "від 100 грн/м²",
     description: "Видалення пилу, бруду та слідів ремонту",
     href: "/prybyrannya-pislya-remontu-cherkasy",
     image: "/images/services/premium-cleaning-equipment.webp",
@@ -31,8 +31,8 @@ const compactPrices = [
   },
   {
     title: "Хімчистка меблів",
-    price: "розрахунок індивідуально по фото або телефону",
-    description: "Дивани, крісла, матраци та м’які меблі",
+    price: "від 300 грн",
+    description: "Стільці, крісла, матраци та дивани різних розмірів",
     href: "/himchystka-mebliv-cherkasy",
     image: "/images/services/before-after-sofa-cleaning.jpg",
     imageAlt: "Хімчистка дивана у Черкасах — до та після"

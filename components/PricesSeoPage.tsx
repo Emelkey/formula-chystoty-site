@@ -8,62 +8,136 @@ import { contacts, siteUrl, type Faq } from "@/lib/site";
 
 const advantages = ["працюємо зі своєю хімією", "приїжджаємо зі своїм інвентарем", "маємо професійну техніку", "працюємо по Черкасах і області", "робимо фото до/після", "контролюємо якість"];
 
-const priceGroups = [
+type PriceThumb = { image: string; imageAlt: string; imagePosition: string; backgroundSize?: string };
+type PriceRow = [string, string, PriceThumb?];
+type PriceGroup = { title: string; note?: string; rows: PriceRow[] };
+
+const cleaningSprite = "/images/pricing/cleaning-service-price-items.jpg";
+const extraSprite = "/images/pricing/extra-auto-price-items.jpg";
+const furnitureSprite = "/images/pricing/furniture-cleaning-price-items.jpg";
+const pos = ["0% 0%", "33.333% 0%", "66.666% 0%", "100% 0%", "0% 33.333%", "33.333% 33.333%", "66.666% 33.333%", "100% 33.333%", "0% 66.666%", "33.333% 66.666%", "66.666% 66.666%", "100% 66.666%", "0% 100%", "33.333% 100%", "66.666% 100%", "100% 100%"] as const;
+const thumb = (image: string, imageAlt: string, imagePosition: string, backgroundSize = "400% 400%"): PriceThumb => ({ image, imageAlt, imagePosition, backgroundSize });
+
+const serviceThumbs = {
+  apartmentMaintenance: thumb(cleaningSprite, "Підтримуюче прибирання квартири у Черкасах", pos[0]),
+  apartmentGeneral: thumb(cleaningSprite, "Генеральне прибирання квартири у Черкасах", pos[1]),
+  apartmentRenovation: thumb(cleaningSprite, "Прибирання квартири після ремонту у Черкасах", pos[2]),
+  window: thumb(cleaningSprite, "Миття вікон у Черкасах", pos[3]),
+  houseMaintenance: thumb(cleaningSprite, "Підтримуюче прибирання будинку у Черкасах", pos[4]),
+  houseGeneral: thumb(cleaningSprite, "Генеральне прибирання будинку у Черкасах", pos[5]),
+  houseRenovation: thumb(cleaningSprite, "Прибирання будинку після ремонту у Черкасах", pos[6]),
+  travel: thumb(cleaningSprite, "Виїзд клінінгової команди за місто", pos[7]),
+  office: thumb(cleaningSprite, "Прибирання офісу у Черкасах", pos[8]),
+  store: thumb(cleaningSprite, "Прибирання магазину у Черкасах", pos[9]),
+  supermarket: thumb(cleaningSprite, "Прибирання супермаркету у Черкасах", pos[10]),
+  mall: thumb(cleaningSprite, "Прибирання торгового центру у Черкасах", pos[11]),
+  industrial: thumb(cleaningSprite, "Прибирання виробничого приміщення у Черкасах", pos[12]),
+  commercialRegular: thumb(cleaningSprite, "Регулярне комерційне прибирання у Черкасах", pos[13]),
+  minimumVisit: thumb(cleaningSprite, "Мінімальний виїзд клінінгової команди", pos[14]),
+  renovationDust: thumb(cleaningSprite, "Видалення будівельного пилу після ремонту", pos[15])
+};
+
+const extraThumbs = {
+  carInterior: thumb(extraSprite, "Комплексна хімчистка салону авто у Черкасах", pos[0]),
+  fabricSeats: thumb(extraSprite, "Хімчистка тканинних сидінь авто у Черкасах", pos[1]),
+  leatherSeats: thumb(extraSprite, "Хімчистка шкіряних сидінь авто у Черкасах", pos[2]),
+  odorRemoval: thumb(extraSprite, "Видалення запаху в авто", pos[3]),
+  carCeiling: thumb(extraSprite, "Хімчистка стелі авто у Черкасах", pos[4]),
+  carDisinfection: thumb(extraSprite, "Дезінфекція авто у Черкасах", pos[5]),
+  oven: thumb(extraSprite, "Миття духовки у Черкасах", pos[6]),
+  fridge: thumb(extraSprite, "Миття холодильника у Черкасах", pos[7]),
+  kitchenCabinets: thumb(extraSprite, "Миття кухонних шаф всередині", pos[8]),
+  shower: thumb(extraSprite, "Миття душової кабіни у Черкасах", pos[9]),
+  balcony: thumb(extraSprite, "Прибирання балкона у Черкасах", pos[10]),
+  difficultStains: thumb(extraSprite, "Видалення складних забруднень", pos[11]),
+  fire: thumb(extraSprite, "Прибирання після пожежі у Черкасах", pos[12]),
+  flood: thumb(extraSprite, "Прибирання після потопу у Черкасах", pos[13]),
+  carpet: thumb(extraSprite, "Хімчистка ковроліну та килимів у Черкасах", pos[14]),
+  blinds: thumb(extraSprite, "Миття жалюзі та штор у Черкасах", pos[15])
+};
+
+const furnitureThumbs = {
+  cornerSofa: thumb(furnitureSprite, "Хімчистка кутового дивана у Черкасах", "0% 0%", "400% 200%"),
+  sleeperSofa: thumb(furnitureSprite, "Хімчистка двоспального дивана у Черкасах", "33.333% 0%", "400% 200%"),
+  twoSeatSofa: thumb(furnitureSprite, "Хімчистка двомісного дивана у Черкасах", "66.666% 0%", "400% 200%"),
+  doubleMattress: thumb(furnitureSprite, "Хімчистка двоспального матраца у Черкасах", "100% 0%", "400% 200%"),
+  oneHalfMattress: thumb(furnitureSprite, "Хімчистка матраца 1.5 у Черкасах", "0% 100%", "400% 200%"),
+  childMattress: thumb(furnitureSprite, "Хімчистка дитячого матраца у Черкасах", "33.333% 100%", "400% 200%"),
+  armchair: thumb(furnitureSprite, "Хімчистка крісла у Черкасах", "66.666% 100%", "400% 200%"),
+  chair: thumb(furnitureSprite, "Хімчистка стільця у Черкасах", "100% 100%", "400% 200%")
+};
+
+const priceGroups: PriceGroup[] = [
   {
     title: "Прибирання квартир",
     note: "Точна вартість залежить від площі, стану приміщення, кількості забруднень, наявності меблів, складності робіт та додаткових послуг.",
     rows: [
-      ["Підтримуюче прибирання квартири", "від 2200 грн"],
-      ["Генеральне прибирання квартири", "від 4000 грн"],
-      ["Прибирання після ремонту", "від 4800 грн"],
-      ["Миття вікон", "від 160 грн/м²"],
-      ["Мінімальний виїзд", "від 3000 грн"]
+      ["Підтримуюче прибирання квартири", "від 2200 грн", serviceThumbs.apartmentMaintenance],
+      ["Генеральне прибирання квартири без шаф усередині", "100 грн/м²", serviceThumbs.apartmentGeneral],
+      ["Генеральне прибирання квартири з шафами усередині", "120 грн/м²", serviceThumbs.apartmentGeneral],
+      ["Прибирання після ремонту", "від 100 грн/м²", serviceThumbs.apartmentRenovation],
+      ["Миття вікон", "від 160 грн/м²", serviceThumbs.window],
+      ["Мінімальний виїзд", "від 3000 грн", serviceThumbs.minimumVisit]
     ]
   },
   {
     title: "Прибирання будинків",
     rows: [
-      ["Підтримуюче прибирання будинку", "від 3000 грн"],
-      ["Генеральне прибирання будинку", "від 5000 грн"],
-      ["Прибирання після ремонту", "від 6000 грн"],
-      ["Миття вікон у будинку", "від 160 грн/м²"],
-      ["Виїзд за місто", "25 грн/км"]
+      ["Підтримуюче прибирання будинку", "від 3000 грн", serviceThumbs.houseMaintenance],
+      ["Генеральне прибирання будинку", "від 5000 грн", serviceThumbs.houseGeneral],
+      ["Прибирання після ремонту", "від 6000 грн", serviceThumbs.houseRenovation],
+      ["Миття вікон у будинку", "від 160 грн/м²", serviceThumbs.window],
+      ["Виїзд за місто", "25 грн/км", serviceThumbs.travel]
     ]
   },
   {
     title: "Офіси, магазини, комерційні приміщення",
     note: "Для бізнесу ми розраховуємо вартість індивідуально, тому що важливі площа, графік прибирання, кількість санвузлів, тип підлоги, потік людей, складність забруднень і частота робіт.",
     rows: [
-      ["Разове прибирання офісу", "індивідуальний розрахунок"],
-      ["Регулярне прибирання офісу", "індивідуальний розрахунок"],
-      ["Прибирання магазину", "індивідуальний розрахунок"],
-      ["Прибирання супермаркету", "індивідуальний розрахунок"],
-      ["Прибирання ТРЦ", "індивідуальний розрахунок"],
-      ["Прибирання виробничого приміщення", "індивідуальний розрахунок"]
+      ["Разове прибирання офісу", "індивідуальний розрахунок", serviceThumbs.office],
+      ["Регулярне прибирання офісу", "індивідуальний розрахунок", serviceThumbs.commercialRegular],
+      ["Прибирання магазину", "індивідуальний розрахунок", serviceThumbs.store],
+      ["Прибирання супермаркету", "індивідуальний розрахунок", serviceThumbs.supermarket],
+      ["Прибирання ТРЦ", "індивідуальний розрахунок", serviceThumbs.mall],
+      ["Прибирання виробничого приміщення", "індивідуальний розрахунок", serviceThumbs.industrial]
     ]
   },
   {
     title: "Хімчистка меблів",
     rows: [
-      ["Хімчистка дивана", "від 2000 грн"],
-      ["Хімчистка кутового дивана", "від 2500 грн"],
-      ["Хімчистка матраца", "від 1500 грн"],
-      ["Хімчистка крісла", "від 400 грн"],
-      ["Хімчистка стільця", "від 200 грн"],
-      ["Хімчистка ковроліну", "від 90 грн/м²"]
+      ["Кутовий диван", "від 2500 грн, видалення запаху від 500 грн", furnitureThumbs.cornerSofa],
+      ["Двоспальний диван", "від 2000 грн, видалення запаху від 500 грн", furnitureThumbs.sleeperSofa],
+      ["Диван 2-х місний", "від 1300 грн, видалення запаху від 500 грн", furnitureThumbs.twoSeatSofa],
+      ["Матрац 2-х спальний", "від 2000 грн, видалення запаху від 500 грн", furnitureThumbs.doubleMattress],
+      ["Матрац 1.5", "від 1500 грн, видалення запаху від 500 грн", furnitureThumbs.oneHalfMattress],
+      ["Матрац дитячий", "від 1200 грн", furnitureThumbs.childMattress],
+      ["Хімчистка крісла", "від 700 грн", furnitureThumbs.armchair],
+      ["Хімчистка стільця", "від 300 грн", furnitureThumbs.chair],
+      ["Хімчистка ковроліну", "від 90 грн/м²", extraThumbs.carpet]
+    ]
+  },
+  {
+    title: "Хімчистка авто",
+    rows: [
+      ["Комплексна хімчистка авто", "від 3800 грн", extraThumbs.carInterior],
+      ["Хімчистка сидінь, тканина", "2300 грн", extraThumbs.fabricSeats],
+      ["Хімчистка сидінь, шкіра", "2500 грн", extraThumbs.leatherSeats],
+      ["Видалення запаху", "від 1500 грн", extraThumbs.odorRemoval],
+      ["Хімчистка стелі", "від 1000 грн", extraThumbs.carCeiling],
+      ["Дезінфекція авто", "від 3000 грн", extraThumbs.carDisinfection]
     ]
   },
   {
     title: "Додаткові роботи",
     rows: [
-      ["Миття духовки", "від 500 грн"],
-      ["Миття холодильника", "від 900 грн"],
-      ["Миття кухонних шаф всередині", "від 400 грн/пог. м"],
-      ["Миття душової кабіни", "від 800 грн"],
-      ["Прибирання балкона", "від 900 грн"],
-      ["Складні забруднення", "індивідуальний розрахунок"],
-      ["Прибирання після пожежі", "індивідуальний розрахунок"],
-      ["Прибирання після потопу", "індивідуальний розрахунок"]
+      ["Миття духовки", "від 500 грн", extraThumbs.oven],
+      ["Миття холодильника", "від 900 грн", extraThumbs.fridge],
+      ["Миття кухонних шаф всередині", "від 400 грн/пог. м", extraThumbs.kitchenCabinets],
+      ["Миття душової кабіни", "від 800 грн", extraThumbs.shower],
+      ["Прибирання балкона", "від 900 грн", extraThumbs.balcony],
+      ["Складні забруднення", "індивідуальний розрахунок", extraThumbs.difficultStains],
+      ["Прибирання після пожежі", "індивідуальний розрахунок", extraThumbs.fire],
+      ["Прибирання після потопу", "індивідуальний розрахунок", extraThumbs.flood]
     ]
   }
 ];
@@ -72,13 +146,13 @@ const examples = [
   {
     title: "Генеральне прибирання квартири",
     object: "Квартира 2 кімнати, кухня, санвузол, коридор.",
-    price: "Орієнтовна вартість: від 4000 грн.",
-    text: "У вартість входить прибирання кімнат, кухні, санвузла, миття поверхонь, видалення пилу, прибирання підлоги, базове очищення меблів зовні."
+    price: "Орієнтовна вартість: від 100 грн/м² без шаф усередині або 120 грн/м² з шафами усередині.",
+    text: "У вартість входить прибирання кімнат, кухні, санвузла, миття поверхонь, видалення пилу, прибирання підлоги, базове очищення меблів зовні. Миття шаф усередині рахується за розширеним тарифом."
   },
   {
     title: "Прибирання після ремонту",
     object: "Квартира після ремонту з будівельним пилом, залишками фарби та забрудненими вікнами.",
-    price: "Орієнтовна вартість: від 4800 грн.",
+    price: "Орієнтовна вартість: від 100 грн/м².",
     text: "Фінальна ціна залежить від площі, кількості пилу, складності забруднень і потреби у спеціальній хімії."
   },
   {
@@ -95,59 +169,59 @@ const examples = [
   }
 ];
 
-const meterPriceGroups = [
+const meterPriceGroups: PriceGroup[] = [
   {
     title: "Прибирання після ремонту — грн/м²",
     rows: [
-      ["Стандартне післяремонтне прибирання", "від 120 грн/м²"],
-      ["Складний будівельний пил", "від 140 грн/м²"],
-      ["Плитка, санвузол, кухня після ремонту", "індивідуально"],
-      ["Мінімальна вартість виїзду", "3000 грн"]
+      ["Стандартне післяремонтне прибирання", "від 120 грн/м²", serviceThumbs.apartmentRenovation],
+      ["Складний будівельний пил", "від 140 грн/м²", serviceThumbs.renovationDust],
+      ["Плитка, санвузол, кухня після ремонту", "індивідуально", extraThumbs.difficultStains],
+      ["Мінімальна вартість виїзду", "3000 грн", serviceThumbs.minimumVisit]
     ]
   },
   {
     title: "Генеральне прибирання — грн/м²",
     rows: [
-      ["Без миття шаф усередині", "95 грн/м²"],
-      ["З миттям шаф усередині", "110 грн/м²"],
-      ["Після будівництва або складних забруднень", "120 грн/м²"],
-      ["Окремий санвузол або кухня", "від 3000 грн"]
+      ["Без миття шаф усередині", "100 грн/м²", serviceThumbs.apartmentGeneral],
+      ["З миттям шаф усередині", "120 грн/м²", extraThumbs.kitchenCabinets],
+      ["Після будівництва або складних забруднень", "120 грн/м²", serviceThumbs.renovationDust],
+      ["Окремий санвузол або кухня", "від 3000 грн", extraThumbs.shower]
     ]
   },
   {
     title: "Підтримуюче прибирання — грн/м²",
     rows: [
-      ["Квартира або будинок у нормальному стані", "від 55 грн/м²"],
-      ["Регулярне прибирання за графіком", "індивідуально"],
-      ["Після орендарів або активного користування", "від 70 грн/м²"],
-      ["Мінімальна вартість виїзду", "3000 грн"]
+      ["Квартира або будинок у нормальному стані", "від 55 грн/м²", serviceThumbs.apartmentMaintenance],
+      ["Регулярне прибирання за графіком", "індивідуально", serviceThumbs.commercialRegular],
+      ["Після орендарів або активного користування", "від 70 грн/м²", serviceThumbs.houseMaintenance],
+      ["Мінімальна вартість виїзду", "3000 грн", serviceThumbs.minimumVisit]
     ]
   },
   {
     title: "Миття вікон — грн/м²",
     rows: [
-      ["Сезонне миття скла, рам і підвіконь", "від 160 грн/м²"],
-      ["Післяремонтне миття вікон", "від 180 грн/м²"],
-      ["Зняття застарілої монтажної плівки", "від 300 грн/м²"],
-      ["Мінімальна вартість виїзду", "3000 грн"]
+      ["Сезонне миття скла, рам і підвіконь", "від 160 грн/м²", serviceThumbs.window],
+      ["Післяремонтне миття вікон", "від 180 грн/м²", serviceThumbs.window],
+      ["Зняття застарілої монтажної плівки", "від 300 грн/м²", extraThumbs.difficultStains],
+      ["Мінімальна вартість виїзду", "3000 грн", serviceThumbs.minimumVisit]
     ]
   },
   {
     title: "Хімчистка ковроліну — грн/м²",
     rows: [
-      ["Ковролін у квартирі або офісі", "від 90 грн/м²"],
-      ["Килим", "від 100 грн/м²"],
-      ["Сильні плями або запахи", "індивідуально"],
-      ["Мінімальна вартість виїзду", "3000 грн"]
+      ["Ковролін у квартирі або офісі", "від 90 грн/м²", extraThumbs.carpet],
+      ["Килим", "від 100 грн/м²", extraThumbs.carpet],
+      ["Сильні плями або запахи", "індивідуально", extraThumbs.difficultStains],
+      ["Мінімальна вартість виїзду", "3000 грн", serviceThumbs.minimumVisit]
     ]
   },
   {
     title: "Комерційні приміщення — приклади розрахунку",
     rows: [
-      ["Офіс 80–120 м², разове прибирання", "індивідуально"],
-      ["Магазин або салон з регулярним графіком", "за договором"],
-      ["Супермаркет або ТРЦ з великим потоком людей", "за технічним завданням"],
-      ["Виробниче або складське приміщення", "після огляду або фото"]
+      ["Офіс 80–120 м², разове прибирання", "індивідуально", serviceThumbs.office],
+      ["Магазин або салон з регулярним графіком", "за договором", serviceThumbs.store],
+      ["Супермаркет або ТРЦ з великим потоком людей", "за технічним завданням", serviceThumbs.supermarket],
+      ["Виробниче або складське приміщення", "після огляду або фото", serviceThumbs.industrial]
     ]
   }
 ];
@@ -156,7 +230,7 @@ const valueItems = ["професійна команда", "власна хім�
 const companyComparison = ["працює команда, а не випадкова людина", "є професійна хімія під різні поверхні", "є техніка для підлоги, меблів, ковроліну та складних забруднень", "є контроль якості після виконання робіт", "є відповідальність за результат і комунікація до старту", "є досвід складних прибирань після ремонту, пожежі, потопу та сильних забруднень", "можна працювати з бізнесом на постійній основі за регламентом"];
 
 const priceFaq: Faq[] = [
-  { question: "Скільки коштує прибирання квартири у Черкасах?", answer: "Вартість залежить від площі, стану квартири, типу прибирання та додаткових робіт. Підтримуюче прибирання стартує від 2200 грн, генеральне — від 4000 грн, після ремонту — від 4800 грн." },
+  { question: "Скільки коштує прибирання квартири у Черкасах?", answer: "Вартість залежить від площі, стану квартири, типу прибирання та додаткових робіт. Підтримуюче прибирання стартує від 2200 грн, генеральне — від 100 грн/м² без шаф усередині або 120 грн/м² з шафами усередині, після ремонту — від 100 грн/м²." },
   { question: "Чому точна ціна розраховується індивідуально?", answer: "Тому що дві квартири однакової площі можуть мати різний стан. На ціну впливає кількість забруднень, будівельний пил, меблі, санвузли, кухня, вікна, плями та складність робіт." },
   { question: "Чи приїжджаєте ви зі своєю хімією та інвентарем?", answer: "Так, команда Формули Чистоти приїжджає зі своєю професійною хімією, інвентарем і технікою." },
   { question: "Чи можна замовити тільки миття вікон або хімчистку дивана?", answer: "Так, можна замовити окрему послугу: миття вікон, хімчистку дивана, хімчистку матраца, очищення санвузла, кухні або інші додаткові роботи." },
@@ -164,6 +238,23 @@ const priceFaq: Faq[] = [
   { question: "Чи працюєте ви з офісами, магазинами та супермаркетами?", answer: "Так, ми прибираємо офіси, магазини, супермаркети, ТРЦ, виробничі та комерційні приміщення. Вартість для бізнесу розраховується індивідуально." },
   { question: "Чи можна замовити прибирання після пожежі або потопу?", answer: "Так, ми виконуємо складні прибирання після пожежі, потопу, ремонту та сильних забруднень. Такі роботи розраховуються індивідуально після уточнення деталей." }
 ];
+
+function PriceThumbnail({ thumbnail }: { thumbnail?: PriceThumb }) {
+  if (!thumbnail) return null;
+
+  return (
+    <span
+      aria-label={thumbnail.imageAlt}
+      className="h-16 w-20 shrink-0 rounded-lg border border-brand-green/10 bg-white bg-no-repeat shadow-soft"
+      role="img"
+      style={{
+        backgroundImage: `url(${thumbnail.image})`,
+        backgroundPosition: thumbnail.imagePosition,
+        backgroundSize: thumbnail.backgroundSize ?? "cover"
+      }}
+    />
+  );
+}
 
 export function PricesSeoPage({
   canonicalPath = "/tsiny",
@@ -212,9 +303,12 @@ export function PricesSeoPage({
                 <h2 className="text-2xl font-bold">{group.title}</h2>
               </div>
               <div className="divide-y divide-black/5">
-                {group.rows.map(([service, price]) => (
-                  <div className="grid gap-3 px-5 py-4 md:grid-cols-[1fr_auto] md:px-6" key={`${group.title}-${service}`}>
-                    <span className="text-brand-graphite">{service}</span>
+                {group.rows.map(([service, price, thumbnail]) => (
+                  <div className="grid gap-3 px-5 py-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:px-6" key={`${group.title}-${service}`}>
+                    <span className="flex min-w-0 items-center gap-3 text-brand-graphite">
+                      <PriceThumbnail thumbnail={thumbnail} />
+                      <span>{service}</span>
+                    </span>
                     <strong className="text-brand-hover">{price}</strong>
                   </div>
                 ))}
@@ -236,9 +330,12 @@ export function PricesSeoPage({
                   <h3 className="text-xl font-bold">{group.title}</h3>
                 </div>
                 <div className="divide-y divide-black/5">
-                  {group.rows.map(([service, price]) => (
-                    <div className="grid gap-3 px-5 py-4 sm:grid-cols-[1fr_auto]" key={`${group.title}-${service}`}>
-                      <span className="text-brand-graphite">{service}</span>
+                  {group.rows.map(([service, price, thumbnail]) => (
+                    <div className="grid gap-3 px-5 py-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center" key={`${group.title}-${service}`}>
+                      <span className="flex min-w-0 items-center gap-3 text-brand-graphite">
+                        <PriceThumbnail thumbnail={thumbnail} />
+                        <span>{service}</span>
+                      </span>
                       <strong className="text-brand-hover">{price}</strong>
                     </div>
                   ))}

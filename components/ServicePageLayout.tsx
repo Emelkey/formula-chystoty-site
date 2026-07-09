@@ -34,6 +34,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
   const servicePriceFactors = service.priceFactors ?? priceFactors;
   const serviceTrustItems = service.trustItems ?? trustItems;
   const processSteps = service.processSteps ?? seoProcessSteps;
+  const hasPriceImages = service.priceDetails?.some((item) => item.image);
 
   return (
     <>
@@ -115,9 +116,21 @@ export function ServicePageLayout({ service }: { service: Service }) {
               <h2 className="mt-3 text-3xl font-bold text-brand-black">Отримайте точний розрахунок для вашого об’єкта</h2>
               <p className="mt-4 max-w-3xl leading-7 text-brand-graphite">Вартість залежить від площі, стану приміщення, типу поверхонь, терміновості та додаткових робіт. Орієнтир для цієї послуги: <strong className="text-brand-hover">{service.priceFrom}</strong>.</p>
               {service.priceDetails ? (
-                <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                <div className={`mt-5 grid gap-3 sm:grid-cols-2 ${hasPriceImages ? "xl:grid-cols-4" : ""}`}>
                   {service.priceDetails.map((item) => (
-                    <div className="rounded-lg bg-white p-4 shadow-soft" key={item.title}>
+                    <div className="overflow-hidden rounded-lg bg-white p-4 shadow-soft" key={item.title}>
+                      {item.image ? (
+                        <div
+                          aria-label={item.imageAlt ?? item.title}
+                          className="mb-3 h-28 rounded-md bg-white bg-no-repeat"
+                          role="img"
+                          style={{
+                            backgroundImage: `url(${item.image})`,
+                            backgroundPosition: item.imagePosition ?? "center",
+                            backgroundSize: item.imagePosition ? "400% 200%" : "cover"
+                          }}
+                        />
+                      ) : null}
                       <h3 className="text-base font-bold text-brand-black">{item.title}</h3>
                       <p className="mt-2 text-2xl font-bold text-brand-hover">{item.price}</p>
                       <p className="mt-2 text-sm leading-6 text-brand-graphite">{item.description}</p>
@@ -134,8 +147,8 @@ export function ServicePageLayout({ service }: { service: Service }) {
                     <table className="w-full min-w-[420px] text-left text-sm">
                       <thead className="bg-brand-mist text-brand-black">
                         <tr>
-                          <th className="px-4 py-3 font-bold">Площа</th>
-                          <th className="px-4 py-3 font-bold">Орієнтовна ціна</th>
+                          <th className="px-4 py-3 font-bold">{service.priceTable.columns?.[0] ?? "Площа"}</th>
+                          <th className="px-4 py-3 font-bold">{service.priceTable.columns?.[1] ?? "Орієнтовна ціна"}</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-black/5">

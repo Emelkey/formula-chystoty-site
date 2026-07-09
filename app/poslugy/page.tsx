@@ -7,7 +7,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { buildMetadata, homeFaq, importantSeoLinks, servicePages } from "@/lib/site";
 
 const businessProfileServices = [
-  { slug: "prybyrannya-kvartyr-cherkasy", description: "Разове, підтримуюче та генеральне прибирання квартир у Черкасах." },
+  { slug: "prybyrannya-kvartyr-cherkasy", description: "Підтримуюче, генеральне та післябудівельне прибирання квартир у Черкасах з цінами від 2200 грн або від 100 грн/м²." },
   { slug: "pidtrymuyuche-prybyrannya-kvartyr-cherkasy", description: "Регулярне підтримання чистоти квартири без зайвих робіт." },
   { slug: "generalne-prybyrannya-cherkasy", description: "Глибоке прибирання кухні, санвузла, меблів, підлоги та важкодоступних зон." },
   { slug: "generalne-prybyrannya-kvartyry-cherkasy", description: "Окрема посадкова сторінка для генерального прибирання квартири." },
@@ -24,7 +24,7 @@ const businessProfileServices = [
   { slug: "prybyrannya-pislya-potopu-cherkasy", description: "Прибирання після затоплення квартири, будинку або офісу." },
   { slug: "prybyrannya-pislya-pozhezhi-cherkasy", description: "Очищення сажі, гару, запахів і забруднень після пожежі." },
   { slug: "himchystka-kylymiv-cherkasy", description: "Хімчистка килимів і ковроліну у Черкасах." },
-  { slug: "himchystka-avto-cherkasy", description: "Хімчистка салону авто: сидіння, килимки, багажник, пластик." },
+  { slug: "himchystka-avto-cherkasy", description: "Хімчистка салону авто: комплекс, сидіння з тканини або шкіри, стеля, видалення запаху та дезінфекція." },
   { slug: "prybyrannya-komertsiynykh-prymishchen-cherkasy", description: "Прибирання магазинів, салонів, закладів і робочих приміщень." },
   { slug: "prybyrannya-trts-supermarketiv-cherkasy", description: "Регулярне прибирання великих торгових об’єктів." },
   { slug: "dezinfektsiya-prymishchen-cherkasy", description: "Дезінфекція квартир, офісів, будинків та комерційних приміщень." },

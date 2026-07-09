@@ -5,7 +5,7 @@ const homeServices = [
   {
     slug: "prybyrannya-kvartyr-cherkasy",
     title: "Прибирання квартир",
-    shortDescription: "Генеральне, підтримуюче та разове прибирання квартир",
+    shortDescription: "Підтримуюче, генеральне та післябудівельне прибирання квартир",
     image: "/images/services/premium-apartment-cleaning.webp",
     imageAlt: "Світле прибирання квартири клінінговою компанією"
   },
@@ -47,7 +47,7 @@ const homeServices = [
   {
     slug: "himchystka-avto-cherkasy",
     title: "Хімчистка авто",
-    shortDescription: "Чистка салону, сидінь, текстилю, килимків та багажника",
+    shortDescription: "Комплексна хімчистка салону, сидінь, стелі, запахів та дезінфекція",
     image: "/images/services/car-interior-cleaning-generated-optimized.jpg",
     imageAlt: "Хімчистка салону автомобіля"
   },
