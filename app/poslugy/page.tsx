@@ -12,7 +12,7 @@ const businessProfileServices = [
   { slug: "generalne-prybyrannya-cherkasy", description: "Глибоке прибирання кухні, санвузла, меблів, підлоги та важкодоступних зон." },
   { slug: "generalne-prybyrannya-kvartyry-cherkasy", description: "Окрема посадкова сторінка для генерального прибирання квартири." },
   { slug: "generalne-prybyrannya-kuhni-cherkasy", description: "Глибоке очищення кухні від жиру, нальоту та побутових забруднень." },
-  { slug: "prybyrannya-pislya-remontu-cherkasy", description: "Видалення будівельного пилу, миття поверхонь, плитки, підлоги, вікон та сантехніки." },
+  { slug: "prybyrannya-pislya-remontu-cherkasy", description: "Післябудівельне прибирання: будівельний пил, плитка, підлога, вікна, сантехніка та фінальна підготовка об’єкта." },
   { slug: "byudzhetne-prybyrannya-cherkasy", description: "Базовий перелік робіт для швидкого наведення порядку." },
   { slug: "himchystka-mebliv-cherkasy", description: "Хімчистка диванів, крісел, матраців та м’яких меблів." },
   { slug: "himchystka-dyvana-cherkasy", description: "Професійна хімчистка дивана з виїздом додому або в офіс." },
@@ -35,7 +35,7 @@ const businessProfileServices = [
 const popularCleaningServices = [
   { href: "/prybyrannya-kvartyr-cherkasy", label: "Прибирання квартир у Черкасах" },
   { href: "/generalne-prybyrannya-cherkasy", label: "Генеральне прибирання" },
-  { href: "/prybyrannya-pislya-remontu-cherkasy", label: "Прибирання після ремонту" },
+  { href: "/prybyrannya-pislya-remontu-cherkasy", label: "Прибирання після ремонту та будівництва" },
   { href: "/himchystka-mebliv-cherkasy", label: "Хімчистка меблів" },
   { href: "/himchystka-dyvana-cherkasy", label: "Хімчистка дивана" },
   { href: "/myttya-vikon-cherkasy", label: "Миття вікон" },

@@ -125,6 +125,32 @@ export function ServicePageLayout({ service }: { service: Service }) {
                   ))}
                 </div>
               ) : null}
+              {service.priceTable ? (
+                <div className="mt-6 overflow-hidden rounded-lg border border-brand-green/15 bg-white shadow-soft">
+                  <div className="border-b border-brand-green/10 px-4 py-3">
+                    <h3 className="text-base font-bold text-brand-black">{service.priceTable.title}</h3>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full min-w-[420px] text-left text-sm">
+                      <thead className="bg-brand-mist text-brand-black">
+                        <tr>
+                          <th className="px-4 py-3 font-bold">Площа</th>
+                          <th className="px-4 py-3 font-bold">Орієнтовна ціна</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-black/5">
+                        {service.priceTable.rows.map(([area, price]) => (
+                          <tr key={area}>
+                            <td className="px-4 py-3 text-brand-graphite">{area}</td>
+                            <td className="px-4 py-3 font-bold text-brand-hover">{price}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  {service.priceTable.note ? <p className="px-4 py-4 text-sm leading-6 text-brand-graphite">{service.priceTable.note}</p> : null}
+                </div>
+              ) : null}
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
               <PrimaryButton>Отримати точний розрахунок</PrimaryButton>
@@ -260,7 +286,12 @@ function getServiceExamples(slug: string) {
   if (slug.includes("potopu")) return workExamples.filter((item) => item.category.includes("Складне") || item.category.includes("Комерційний")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("plytky") || slug.includes("plitky") || slug.includes("fasadiv")) return workExamples.filter((item) => item.title.includes("плитки") || item.title.includes("паркану")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("vikon")) return workExamples.filter((item) => item.category.includes("Вікна")).concat(workExamples.slice(0, 2)).slice(0, 3);
-  if (slug.includes("remontu")) return workExamples.filter((item) => item.category.includes("Післяремонтне")).concat(workExamples.slice(0, 2)).slice(0, 3);
+  if (slug.includes("remontu")) {
+    return workExamples
+      .filter((item) => item.category.includes("Післяремонтне") || item.category.includes("Миття вікон") || item.title.includes("плитки"))
+      .concat(workExamples.slice(0, 2))
+      .slice(0, 4);
+  }
   if (slug.includes("dyvana")) return workExamples.filter((item) => item.title.toLowerCase().includes("дивана")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
   if (slug.includes("matratsa")) return workExamples.filter((item) => item.title.toLowerCase().includes("матраца")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
   if (slug.includes("mebliv")) return workExamples.filter((item) => item.title.toLowerCase().includes("стільців") || item.title.toLowerCase().includes("дивана") || item.category.includes("Хімчистка меблів")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
@@ -295,12 +326,12 @@ function getBeforeAfterCase(service: Service): BeforeAfterCase {
 
   if (slug.includes("remontu")) {
     return {
-      title: "До/після прибирання після ремонту",
+      title: "До/після прибирання після ремонту та будівництва",
       description: "Показуємо, як змінюється приміщення після видалення будівельного пилу, бруду на плитці та слідів ремонтних робіт.",
       beforeImage: "/images/works/before-after/construction-cleaning-floor-before-optimized.jpg",
-      beforeAlt: "Підлога до прибирання після ремонту у Черкасах",
+      beforeAlt: "Прибирання після будівництва у Черкасах — до",
       afterImage: "/images/works/before-after/construction-cleaning-floor-after-optimized.jpg",
-      afterAlt: "Підлога після прибирання після ремонту у Черкасах"
+      afterAlt: "Прибирання після будівництва у Черкасах — після"
     };
   }
 

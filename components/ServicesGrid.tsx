@@ -18,10 +18,10 @@ const homeServices = [
   },
   {
     slug: "prybyrannya-pislya-remontu-cherkasy",
-    title: "Прибирання після ремонту",
-    shortDescription: "Видаляємо будівельний пил, бруд та плями після ремонтних робіт",
+    title: "Після ремонту та будівництва",
+    shortDescription: "Видаляємо будівельний пил, бруд та сліди будівельних робіт",
     image: "/images/services/premium-cleaning-equipment.webp",
-    imageAlt: "Професійне обладнання для прибирання після ремонту"
+    imageAlt: "Професійне обладнання для прибирання після ремонту та будівництва"
   },
   {
     slug: "prybyrannya-pislya-potopu-cherkasy",

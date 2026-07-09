@@ -33,7 +33,8 @@ const relatedLinks: Record<string, { href: string; label: string }[]> = {
     { href: "/myttya-vikon-cherkasy", label: "миття вікон" },
     { href: "/myttya-plytky-cherkasy", label: "миття плитки" },
     { href: "/prybyrannya-budynkiv-cherkasy", label: "прибирання будинку" },
-    { href: "/prybyrannya-kvartyr-cherkasy", label: "прибирання квартири" }
+    { href: "/prybyrannya-kvartyr-cherkasy", label: "прибирання квартири" },
+    { href: "/himchystka-mebliv-cherkasy", label: "хімчистка меблів після ремонту" }
   ],
   "myttya-vikon-cherkasy": [
     { href: "/generalne-prybyrannya-cherkasy", label: "генеральне прибирання" },
