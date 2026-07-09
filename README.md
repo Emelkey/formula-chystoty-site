@@ -159,20 +159,22 @@ NEXT_PUBLIC_SANITY_API_VERSION=2026-06-23
 - `NEXT_PUBLIC_SANITY_DATASET` — зазвичай `production`
 - `NEXT_PUBLIC_SANITY_API_VERSION` — наприклад `2026-06-23`
 
-### 5. Підключити домен `formula-chistoty.ck.ua`
+### 5. Підключити домен `www.formula-chistoty.ck.ua`
 
 1. У Vercel відкрийте `Project Settings` → `Domains`.
-2. Додайте `formula-chistoty.ck.ua`.
-3. Дотримуйтесь DNS-інструкцій Vercel.
-4. У Cloudflare або DNS-панелі домену додайте записи, які покаже Vercel.
-5. Дочекайтеся статусу `Valid Configuration`.
-6. Перевірте, що сайт відкривається через HTTPS.
+2. Додайте `www.formula-chistoty.ck.ua` як основний production-домен.
+3. Додайте `formula-chistoty.ck.ua` як додатковий домен і перевірте, що він редіректить 301 на `https://www.formula-chistoty.ck.ua/`.
+4. Дотримуйтесь DNS-інструкцій Vercel.
+5. У Cloudflare або DNS-панелі домену додайте записи, які покаже Vercel.
+6. Дочекайтеся статусу `Valid Configuration`.
+7. Перевірте, що сайт відкривається через HTTPS і основною версією є саме `https://www.formula-chistoty.ck.ua/`.
 
 ### 6. Що перевірити після деплою
 
 Після публікації перевірте:
 
-- головна сторінка відкривається на `https://formula-chistoty.ck.ua`
+- головна сторінка відкривається на `https://www.formula-chistoty.ck.ua/`
+- `https://formula-chistoty.ck.ua/` віддає 301 на `https://www.formula-chistoty.ck.ua/`
 - `/poslugy`, `/tsiny`, `/nashi-roboty`, `/vidguky`, `/blog`, `/pro-nas`, `/kontakty`
 - SEO-сторінки послуг
 - `/sitemap.xml`
@@ -187,7 +189,8 @@ NEXT_PUBLIC_SANITY_API_VERSION=2026-06-23
 ### 7. Перед індексацією
 
 1. Додайте сайт у Google Search Console.
-2. Надішліть sitemap: `https://formula-chistoty.ck.ua/sitemap.xml`.
-3. Підключіть GA4/GTM, якщо вони вже створені.
-4. Перевірте 301-редиректи зі старих URL.
-5. Замініть тимчасові mock-фото на реальні фото компанії, коли вони будуть готові.
+2. Основною властивістю використовуйте `https://www.formula-chistoty.ck.ua/`.
+3. Надішліть sitemap: `https://www.formula-chistoty.ck.ua/sitemap.xml`.
+4. У Google Analytics / GA4 використовуйте основну версію `https://www.formula-chistoty.ck.ua/`.
+5. Перевірте 301-редиректи зі старих URL.
+6. Замініть тимчасові mock-фото на реальні фото компанії, коли вони будуть готові.

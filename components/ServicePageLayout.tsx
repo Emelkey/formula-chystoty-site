@@ -35,6 +35,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
   const serviceTrustItems = service.trustItems ?? trustItems;
   const processSteps = service.processSteps ?? seoProcessSteps;
   const hasPriceImages = service.priceDetails?.some((item) => item.image);
+  const showPriceNearTop = ["himchystka-mebliv-cherkasy", "generalne-prybyrannya-cherkasy"].includes(service.slug);
 
   return (
     <>
@@ -60,6 +61,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
           </div>
         </div>
       </section>
+      {showPriceNearTop ? <ServicePriceSection service={service} hasPriceImages={hasPriceImages} /> : null}
       {service.seoIntro ? (
         <section className="section bg-white">
           <div className="container">
@@ -108,6 +110,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
           </div>
         </div>
       </section>
+      {!showPriceNearTop ? (
       <section className="section bg-white">
         <div className="container rounded-[24px] border border-brand-green/15 bg-brand-mist p-6 shadow-soft md:p-8">
           <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
@@ -174,6 +177,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
           </div>
         </div>
       </section>
+      ) : null}
       <section className="section bg-white">
         <div className="container">
           <h2 className="text-3xl font-bold">Наші роботи</h2>
@@ -274,6 +278,77 @@ export function ServicePageLayout({ service }: { service: Service }) {
         ]}
       />
     </>
+  );
+}
+
+function ServicePriceSection({ service, hasPriceImages }: { service: Service; hasPriceImages?: boolean }) {
+  return (
+    <section className="section bg-white">
+      <div className="container rounded-[24px] border border-brand-green/15 bg-brand-mist p-6 shadow-soft md:p-8">
+        <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Ціна</p>
+            <h2 className="mt-3 text-3xl font-bold text-brand-black">Отримайте точний розрахунок для вашого об’єкта</h2>
+            <p className="mt-4 max-w-3xl leading-7 text-brand-graphite">Вартість залежить від площі, стану приміщення, типу поверхонь, терміновості та додаткових робіт. Орієнтир для цієї послуги: <strong className="text-brand-hover">{service.priceFrom}</strong>.</p>
+            {service.priceDetails ? (
+              <div className={`mt-5 grid gap-3 sm:grid-cols-2 ${hasPriceImages ? "xl:grid-cols-4" : ""}`}>
+                {service.priceDetails.map((item) => (
+                  <div className="overflow-hidden rounded-lg bg-white p-4 shadow-soft" key={item.title}>
+                    {item.image ? (
+                      <div
+                        aria-label={item.imageAlt ?? item.title}
+                        className="mb-3 h-28 rounded-md bg-white bg-no-repeat"
+                        role="img"
+                        style={{
+                          backgroundImage: `url(${item.image})`,
+                          backgroundPosition: item.imagePosition ?? "center",
+                          backgroundSize: item.imagePosition ? "400% 200%" : "cover"
+                        }}
+                      />
+                    ) : null}
+                    <h3 className="text-base font-bold text-brand-black">{item.title}</h3>
+                    <p className="mt-2 text-2xl font-bold text-brand-hover">{item.price}</p>
+                    <p className="mt-2 text-sm leading-6 text-brand-graphite">{item.description}</p>
+                  </div>
+                ))}
+              </div>
+            ) : null}
+            {service.priceTable ? (
+              <div className="mt-6 overflow-hidden rounded-lg border border-brand-green/15 bg-white shadow-soft">
+                <div className="border-b border-brand-green/10 px-4 py-3">
+                  <h3 className="text-base font-bold text-brand-black">{service.priceTable.title}</h3>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full min-w-[420px] text-left text-sm">
+                    <thead className="bg-brand-mist text-brand-black">
+                      <tr>
+                        <th className="px-4 py-3 font-bold">{service.priceTable.columns?.[0] ?? "Площа"}</th>
+                        <th className="px-4 py-3 font-bold">{service.priceTable.columns?.[1] ?? "Орієнтовна ціна"}</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-black/5">
+                      {service.priceTable.rows.map(([area, price]) => (
+                        <tr key={area}>
+                          <td className="px-4 py-3 text-brand-graphite">{area}</td>
+                          <td className="px-4 py-3 font-bold text-brand-hover">{price}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                {service.priceTable.note ? <p className="px-4 py-4 text-sm leading-6 text-brand-graphite">{service.priceTable.note}</p> : null}
+              </div>
+            ) : null}
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+            <PrimaryButton>Отримати точний розрахунок</PrimaryButton>
+            <a className="inline-flex min-h-12 items-center justify-center rounded-md border border-brand-green/25 bg-white px-5 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring" href="/tsiny">
+              Дивитися всі ціни
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
