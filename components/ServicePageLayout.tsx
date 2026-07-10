@@ -257,7 +257,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
             name: service.h1,
             serviceType: service.title,
             description: service.shortDescription,
-            provider: { "@id": absoluteUrl("/#localbusiness") },
+            provider: { "@id": absoluteUrl("/#localbusiness"), "@type": "LocalBusiness", name: contacts.companyName },
             areaServed: "Черкаси",
             priceRange: service.priceFrom,
             url: absoluteUrl(`/${service.slug}`)

@@ -7,7 +7,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { buildMetadata, homeFaq, importantSeoLinks, servicePages } from "@/lib/site";
 
 const businessProfileServices = [
-  { slug: "prybyrannya-kvartyr-cherkasy", description: "Прибирання квартир у Черкасах: підтримуюче прибирання від 55 грн/м², генеральне прибирання від 100 грн/м²." },
+  { slug: "prybyrannya-kvartyr-cherkasy", description: "Прибирання квартир у Черкасах: підтримуюче прибирання від 55 грн/м², генеральне та післяремонтне прибирання за окремим розрахунком." },
   { slug: "pidtrymuyuche-prybyrannya-kvartyr-cherkasy", description: "Регулярне підтримання чистоти квартири без зайвих робіт." },
   { slug: "generalne-prybyrannya-cherkasy", description: "Глибоке прибирання кухні, санвузла, меблів, підлоги та важкодоступних зон." },
   { slug: "generalne-prybyrannya-kvartyry-cherkasy", description: "Окрема посадкова сторінка для генерального прибирання квартири." },

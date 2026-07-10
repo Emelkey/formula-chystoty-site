@@ -33,6 +33,7 @@ type BlogPost = {
 };
 
 const internalLinks = [
+  { text: "прибирання квартир у Черкасах", href: "/prybyrannya-kvartyr-cherkasy" },
   { text: "клінінгові послуги у Черкасах", href: "/poslugy" },
   { text: "вартість прибирання", href: "/tsiny" },
   { text: "залишити заявку", href: "/kontakty" },

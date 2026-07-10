@@ -6,7 +6,8 @@ const relatedLinks: Record<string, { href: string; label: string }[]> = {
     { href: "/himchystka-dyvana-cherkasy", label: "хімчистка дивана в Черкасах" },
     { href: "/himchystka-matratsa-cherkasy", label: "хімчистка матраца" },
     { href: "/himchystka-kylymiv-cherkasy", label: "хімчистка килимів" },
-    { href: "/himchystka-avto-cherkasy", label: "хімчистка авто" }
+    { href: "/himchystka-avto-cherkasy", label: "хімчистка авто" },
+    { href: "/prybyrannya-kvartyr-cherkasy", label: "прибирання квартир" }
   ],
   "himchystka-dyvana-cherkasy": [
     { href: "/himchystka-mebliv-cherkasy", label: "хімчистка меблів" },
@@ -19,7 +20,8 @@ const relatedLinks: Record<string, { href: string; label: string }[]> = {
     { href: "/prybyrannya-pislya-remontu-cherkasy", label: "прибирання після ремонту" },
     { href: "/myttya-vikon-cherkasy", label: "миття вікон" },
     { href: "/himchystka-mebliv-cherkasy", label: "хімчистка меблів" },
-    { href: "/himchystka-dyvana-cherkasy", label: "хімчистка дивана" }
+    { href: "/himchystka-dyvana-cherkasy", label: "хімчистка дивана" },
+    { href: "/himchystka-matratsa-cherkasy", label: "хімчистка матраца" }
   ],
   "generalne-prybyrannya-cherkasy": [
     { href: "/prybyrannya-kvartyr-cherkasy", label: "прибирання квартир" },
