@@ -144,6 +144,11 @@ export function ServicePageLayout({ service }: { service: Service }) {
                       <h3 className="text-base font-bold text-brand-black">{item.title}</h3>
                       <p className="mt-2 text-2xl font-bold text-brand-hover">{item.price}</p>
                       <p className="mt-2 text-sm leading-6 text-brand-graphite">{item.description}</p>
+                      {item.linkHref ? (
+                        <a className="mt-4 inline-flex min-h-10 items-center justify-center rounded-md border border-brand-green/25 bg-brand-mist px-4 py-2 text-sm font-semibold text-brand-hover transition hover:border-brand-green focus-visible:focus-ring" href={item.linkHref}>
+                          {item.linkLabel ?? "Детальніше"}
+                        </a>
+                      ) : null}
                     </div>
                   ))}
                 </div>
@@ -318,6 +323,11 @@ function ServicePriceSection({ service, hasPriceImages }: { service: Service; ha
                     <h3 className="text-base font-bold text-brand-black">{item.title}</h3>
                     <p className="mt-2 text-2xl font-bold text-brand-hover">{item.price}</p>
                     <p className="mt-2 text-sm leading-6 text-brand-graphite">{item.description}</p>
+                    {item.linkHref ? (
+                      <a className="mt-4 inline-flex min-h-10 items-center justify-center rounded-md border border-brand-green/25 bg-brand-mist px-4 py-2 text-sm font-semibold text-brand-hover transition hover:border-brand-green focus-visible:focus-ring" href={item.linkHref}>
+                        {item.linkLabel ?? "Детальніше"}
+                      </a>
+                    ) : null}
                   </div>
                 ))}
               </div>
