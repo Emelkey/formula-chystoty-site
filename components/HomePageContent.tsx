@@ -19,17 +19,17 @@ export function HomePageContent() {
       <HeroSection
         title="Професійний клінінг"
         accent="у Черкасах"
-        description="Клінінг Черкаси для квартир, будинків, офісів і комерційних приміщень. Виконуємо генеральне та підтримуюче прибирання, прибирання після ремонту, миття вікон і хімчистку меблів з виїздом по Черкасах та області."
+        description="Клінінг Черкаси для квартир, будинків і комерційних приміщень. Виконуємо генеральне та підтримуюче прибирання, прибирання після ремонту, миття вікон і хімчистку меблів з виїздом по Черкасах та області."
       />
       <section className="bg-white pb-12">
         <div className="container">
           <div className="grid gap-5 rounded-[24px] border border-brand-green/15 bg-brand-mist p-6 shadow-soft md:grid-cols-[0.85fr_1.15fr] md:p-8">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Клінінг Черкаси</p>
-              <h2 className="mt-3 text-3xl font-bold leading-tight text-brand-black">Прибирання квартир, будинків, офісів і складних об’єктів</h2>
+              <h2 className="mt-3 text-3xl font-bold leading-tight text-brand-black">Прибирання квартир, будинків і складних об’єктів</h2>
             </div>
             <div className="grid gap-4 leading-7 text-brand-graphite">
-              <p>Формула Чистоти — клінінгова компанія у Черкасах, яка працює з житловими та комерційними приміщеннями. Ми беремо на себе прибирання квартир, будинків, офісів, магазинів, супермаркетів, ТРЦ і об’єктів після ремонту.</p>
+              <p>Формула Чистоти — клінінгова компанія у Черкасах, яка працює з житловими та комерційними приміщеннями. Ми беремо на себе прибирання квартир, будинків, комерційних площ і складних об’єктів після ремонту.</p>
               <p>Команда приїжджає зі своїм інвентарем, професійною хімією та зрозумілим планом робіт. Ви можете замовити разове генеральне прибирання, регулярний клінінг, миття вікон, хімчистку меблів або складне прибирання після пожежі чи потопу.</p>
             </div>
           </div>
@@ -70,7 +70,7 @@ export function HomePageContent() {
           </div>
           <ServicesGrid limit={7} />
           <div className="mt-8 rounded-[24px] border border-brand-green/15 bg-brand-mist p-6 shadow-soft md:flex md:items-center md:justify-between md:gap-6">
-            <p className="max-w-3xl leading-7 text-brand-graphite">Також виконуємо прибирання офісів, будинків, магазинів, ТРЦ, супермаркетів, комерційних приміщень, хімчистку авто та інші види клінінгу.</p>
+            <p className="max-w-3xl leading-7 text-brand-graphite">Також виконуємо прибирання будинків, комерційних приміщень, складних об’єктів, хімчистку авто та інші види клінінгу.</p>
             <Link className="mt-5 inline-flex min-h-12 items-center justify-center rounded-md bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring md:mt-0" href="/poslugy">
               Переглянути всі послуги
             </Link>

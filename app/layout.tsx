@@ -57,7 +57,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               "@context": "https://schema.org",
               "@type": "CleaningService",
               name: contacts.companyName,
-              description: "Формула Чистоти — клінінгова компанія у Черкасах. Виконуємо прибирання квартир, будинків, офісів, комерційних приміщень, прибирання після ремонту, хімчистку меблів, миття вікон, прибирання після потопу та пожежі.",
+              description: "Формула Чистоти — клінінгова компанія у Черкасах. Виконуємо прибирання квартир, будинків, комерційних приміщень, прибирання після ремонту, хімчистку меблів, миття вікон, прибирання після потопу та пожежі.",
               image: absoluteUrl("/images/hero/professional-floor-cleaning-hero.webp"),
               url: absoluteUrl("/"),
               logo: absoluteUrl("/brand/logo.png"),

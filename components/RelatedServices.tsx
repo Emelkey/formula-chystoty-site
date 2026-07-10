@@ -13,17 +13,17 @@ const relatedLinks: Record<string, { href: string; label: string }[]> = {
     { href: "/himchystka-mebliv-cherkasy", label: "хімчистка меблів" },
     { href: "/himchystka-matratsa-cherkasy", label: "хімчистка матраца" },
     { href: "/prybyrannya-kvartyr-cherkasy", label: "прибирання квартир" },
-    { href: "/generalne-prybyrannya-cherkasy", label: "генеральне прибирання" }
+    { href: "/generalne-prybyrannya-kvartyry-cherkasy", label: "генеральне прибирання квартири" }
   ],
   "prybyrannya-kvartyr-cherkasy": [
-    { href: "/generalne-prybyrannya-cherkasy", label: "генеральне прибирання квартири" },
+    { href: "/generalne-prybyrannya-kvartyry-cherkasy", label: "генеральне прибирання квартири" },
     { href: "/prybyrannya-pislya-remontu-cherkasy", label: "прибирання після ремонту" },
     { href: "/myttya-vikon-cherkasy", label: "миття вікон" },
     { href: "/himchystka-mebliv-cherkasy", label: "хімчистка меблів" },
     { href: "/himchystka-dyvana-cherkasy", label: "хімчистка дивана" },
     { href: "/himchystka-matratsa-cherkasy", label: "хімчистка матраца" }
   ],
-  "generalne-prybyrannya-cherkasy": [
+  "generalne-prybyrannya-kvartyry-cherkasy": [
     { href: "/prybyrannya-kvartyr-cherkasy", label: "прибирання квартир" },
     { href: "/prybyrannya-budynkiv-cherkasy", label: "прибирання будинків" },
     { href: "/prybyrannya-pislya-remontu-cherkasy", label: "прибирання після ремонту" },
@@ -31,7 +31,7 @@ const relatedLinks: Record<string, { href: string; label: string }[]> = {
     { href: "/himchystka-mebliv-cherkasy", label: "хімчистка меблів" }
   ],
   "prybyrannya-pislya-remontu-cherkasy": [
-    { href: "/generalne-prybyrannya-cherkasy", label: "генеральне прибирання" },
+    { href: "/generalne-prybyrannya-kvartyry-cherkasy", label: "генеральне прибирання квартири" },
     { href: "/myttya-vikon-cherkasy", label: "миття вікон" },
     { href: "/myttya-plytky-cherkasy", label: "миття плитки" },
     { href: "/prybyrannya-budynkiv-cherkasy", label: "прибирання будинку" },
@@ -39,29 +39,22 @@ const relatedLinks: Record<string, { href: string; label: string }[]> = {
     { href: "/himchystka-mebliv-cherkasy", label: "хімчистка меблів після ремонту" }
   ],
   "myttya-vikon-cherkasy": [
-    { href: "/generalne-prybyrannya-cherkasy", label: "генеральне прибирання" },
+    { href: "/generalne-prybyrannya-kvartyry-cherkasy", label: "генеральне прибирання квартири" },
     { href: "/prybyrannya-kvartyr-cherkasy", label: "прибирання квартири" },
-    { href: "/prybyrannya-ofisiv-cherkasy", label: "прибирання офісів" },
+    { href: "/prybyrannya-komertsiynykh-prymishchen-cherkasy", label: "клінінг комерційних приміщень" },
     { href: "/prybyrannya-pislya-remontu-cherkasy", label: "прибирання після ремонту" },
     { href: "/myttya-fasadiv-cherkasy", label: "миття фасадів" }
   ],
-  "prybyrannya-ofisiv-cherkasy": [
-    { href: "/prybyrannya-komertsiynykh-prymishchen-cherkasy", label: "прибирання комерційних приміщень" },
-    { href: "/prybyrannya-magazyniv-cherkasy", label: "прибирання магазинів" },
-    { href: "/myttya-vikon-cherkasy", label: "миття вікон" },
-    { href: "/generalne-prybyrannya-cherkasy", label: "генеральне прибирання" },
-    { href: "/dezinfektsiya-prymishchen-cherkasy", label: "дезінфекція приміщень" }
-  ],
   "prybyrannya-budynkiv-cherkasy": [
     { href: "/prybyrannya-kvartyr-cherkasy", label: "прибирання квартир" },
-    { href: "/generalne-prybyrannya-cherkasy", label: "генеральне прибирання" },
+    { href: "/generalne-prybyrannya-kvartyry-cherkasy", label: "генеральне прибирання квартири" },
     { href: "/prybyrannya-pislya-remontu-cherkasy", label: "прибирання після ремонту" },
     { href: "/myttya-vikon-cherkasy", label: "миття вікон" },
     { href: "/himchystka-mebliv-cherkasy", label: "хімчистка меблів" }
   ],
   "prybyrannya-pislya-pozhezhi-cherkasy": [
     { href: "/dezinfektsiya-prymishchen-cherkasy", label: "дезінфекція приміщень" },
-    { href: "/generalne-prybyrannya-cherkasy", label: "генеральне прибирання" },
+    { href: "/generalne-prybyrannya-kvartyry-cherkasy", label: "генеральне прибирання квартири" },
     { href: "/prybyrannya-pislya-remontu-cherkasy", label: "прибирання після ремонту" },
     { href: "/prybyrannya-budynkiv-cherkasy", label: "прибирання будинків" },
     { href: "/myttya-plytky-cherkasy", label: "миття плитки" }

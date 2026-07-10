@@ -7,46 +7,40 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { buildMetadata, homeFaq, importantSeoLinks, servicePages } from "@/lib/site";
 
 const businessProfileServices = [
-  { slug: "prybyrannya-kvartyr-cherkasy", description: "Прибирання квартир у Черкасах: підтримуюче прибирання від 55 грн/м², генеральне та післяремонтне прибирання за окремим розрахунком." },
+  { slug: "prybyrannya-kvartyr-cherkasy", description: "Прибирання квартир у Черкасах з акцентом на генеральне прибирання від 4000 грн. Підтримуюче та післяремонтне прибирання доступні окремо." },
   { slug: "pidtrymuyuche-prybyrannya-kvartyr-cherkasy", description: "Регулярне підтримання чистоти квартири без зайвих робіт." },
-  { slug: "generalne-prybyrannya-cherkasy", description: "Глибоке прибирання кухні, санвузла, меблів, підлоги та важкодоступних зон." },
   { slug: "generalne-prybyrannya-kvartyry-cherkasy", description: "Окрема посадкова сторінка для генерального прибирання квартири." },
   { slug: "generalne-prybyrannya-kuhni-cherkasy", description: "Глибоке очищення кухні від жиру, нальоту та побутових забруднень." },
   { slug: "prybyrannya-pislya-remontu-cherkasy", description: "Післябудівельне прибирання: будівельний пил, плитка, підлога, вікна, сантехніка та фінальна підготовка об’єкта." },
-  { slug: "byudzhetne-prybyrannya-cherkasy", description: "Базовий перелік робіт для швидкого наведення порядку." },
   { slug: "himchystka-mebliv-cherkasy", description: "Хімчистка диванів, крісел, матраців та м’яких меблів." },
   { slug: "himchystka-dyvana-cherkasy", description: "Професійна хімчистка дивана з виїздом додому або в офіс." },
   { slug: "himchystka-matratsa-cherkasy", description: "Хімчистка матраців від пилу, запахів і побутових забруднень." },
-  { slug: "myttya-vikon-cherkasy", description: "Професійне миття вікон у квартирах, будинках, офісах і комерційних приміщеннях." },
-  { slug: "prybyrannya-ofisiv-cherkasy", description: "Регулярне та разове прибирання офісів у Черкасах." },
+  { slug: "myttya-vikon-cherkasy", description: "Професійне миття вікон у квартирах, будинках і комерційних приміщеннях." },
   { slug: "prybyrannya-budynkiv-cherkasy", description: "Прибирання приватних будинків, котеджів і великих житлових приміщень." },
-  { slug: "prybyrannya-kotedzhiv-cherkasy", description: "Прибирання котеджів у Черкасах та області з урахуванням великих площ." },
   { slug: "prybyrannya-pislya-potopu-cherkasy", description: "Прибирання після затоплення квартири, будинку або офісу." },
   { slug: "prybyrannya-pislya-pozhezhi-cherkasy", description: "Очищення сажі, гару, запахів і забруднень після пожежі." },
   { slug: "himchystka-kylymiv-cherkasy", description: "Хімчистка килимів і ковроліну у Черкасах." },
   { slug: "himchystka-avto-cherkasy", description: "Хімчистка салону авто: комплекс, сидіння з тканини або шкіри, стеля, видалення запаху та дезінфекція." },
-  { slug: "prybyrannya-komertsiynykh-prymishchen-cherkasy", description: "Прибирання магазинів, салонів, закладів і робочих приміщень." },
-  { slug: "prybyrannya-trts-supermarketiv-cherkasy", description: "Регулярне прибирання великих торгових об’єктів." },
-  { slug: "dezinfektsiya-prymishchen-cherkasy", description: "Дезінфекція квартир, офісів, будинків та комерційних приміщень." },
-  { slug: "myttya-fasadiv-cherkasy", description: "Миття фасадів будинків, магазинів, офісів та комерційних об’єктів." },
+  { slug: "prybyrannya-komertsiynykh-prymishchen-cherkasy", description: "Клінінг бізнес-приміщень, сервісних просторів і комерційних площ за погодженим регламентом." },
+  { slug: "dezinfektsiya-prymishchen-cherkasy", description: "Дезінфекція квартир, будинків та комерційних приміщень." },
+  { slug: "myttya-fasadiv-cherkasy", description: "Миття фасадів будинків та комерційних об’єктів." },
   { slug: "myttya-plytky-cherkasy", description: "Миття тротуарної плитки, доріжок, дворів і прибудинкової території." }
 ];
 
 const popularCleaningServices = [
   { href: "/prybyrannya-kvartyr-cherkasy", label: "Прибирання квартир у Черкасах" },
-  { href: "/generalne-prybyrannya-cherkasy", label: "Генеральне прибирання" },
+  { href: "/generalne-prybyrannya-kvartyry-cherkasy", label: "Генеральне прибирання квартири" },
   { href: "/prybyrannya-pislya-remontu-cherkasy", label: "Прибирання після ремонту та будівництва" },
   { href: "/himchystka-mebliv-cherkasy", label: "Хімчистка меблів" },
   { href: "/himchystka-dyvana-cherkasy", label: "Хімчистка дивана" },
   { href: "/myttya-vikon-cherkasy", label: "Миття вікон" },
-  { href: "/prybyrannya-ofisiv-cherkasy", label: "Прибирання офісів" },
   { href: "/prybyrannya-budynkiv-cherkasy", label: "Прибирання будинків" },
   { href: "/prybyrannya-pislya-pozhezhi-cherkasy", label: "Прибирання після пожежі" }
 ];
 
 export const metadata: Metadata = buildMetadata({
   title: "Клінінгові послуги у Черкасах | Формула Чистоти",
-  description: "Усі послуги клінінгової компанії Формула Чистоти у Черкасах: прибирання квартир, будинків, офісів, після ремонту, миття вікон, хімчистка меблів.",
+  description: "Усі послуги клінінгової компанії Формула Чистоти у Черкасах: прибирання квартир, будинків, комерційних приміщень, після ремонту, миття вікон, хімчистка меблів.",
   path: "/poslugy"
 });
 
@@ -57,7 +51,7 @@ export default function ServicesPage() {
       <section className="section bg-white">
         <div className="container">
           <h1 className="text-4xl font-bold md:text-5xl">Клінінгові послуги у Черкасах</h1>
-          <p className="mt-5 max-w-3xl text-lg leading-8 text-brand-graphite">Повний перелік послуг для квартир, будинків, офісів, магазинів, супермаркетів і комерційних приміщень.</p>
+          <p className="mt-5 max-w-3xl text-lg leading-8 text-brand-graphite">Повний перелік послуг для квартир, будинків, комерційних приміщень, складних об’єктів і післяремонтного клінінгу.</p>
           <div className="mt-10"><ServicesGrid /></div>
         </div>
       </section>

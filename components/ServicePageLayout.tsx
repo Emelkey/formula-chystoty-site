@@ -11,7 +11,7 @@ import { absoluteUrl, contacts, reviews, workExamples, type Faq, type Service } 
 const priceFactors = ["площа приміщення", "рівень забруднення", "кількість кімнат або зон", "додаткові роботи", "терміновість виконання", "особливості об’єкта та доступу"];
 const trustItems = ["професійна хімія", "досвід роботи з різними об’єктами", "виїзд по Черкасах та області", "власний інвентар і обладнання", "реальні фото робіт", "заявка через сайт, телефон або месенджери"];
 const seoProcessSteps = ["Приймаємо заявку", "Уточнюємо обсяг робіт", "Погоджуємо ціну", "Приїжджаємо зі своїм інвентарем і хімією", "Виконуємо роботу", "Клієнт приймає результат"];
-const valueItems = ["професійна команда", "власна хімія та інвентар", "професійна техніка", "досвід у складних об’єктах", "фото до/після", "контроль якості", "відповідальність за результат", "робота з квартирами, будинками, офісами, магазинами та супермаркетами"];
+const valueItems = ["професійна команда", "власна хімія та інвентар", "професійна техніка", "досвід у складних об’єктах", "фото до/після", "контроль якості", "відповідальність за результат", "робота з квартирами, будинками та комерційними приміщеннями"];
 const internalLinks = [
   { href: "/poslugy", label: "Усі послуги" },
   { href: "/tsiny", label: "Ціни" },
@@ -39,7 +39,6 @@ export function ServicePageLayout({ service }: { service: Service }) {
     "prybyrannya-kvartyr-cherkasy",
     "pidtrymuyuche-prybyrannya-kvartyr-cherkasy",
     "generalne-prybyrannya-kvartyry-cherkasy",
-    "generalne-prybyrannya-cherkasy",
     "himchystka-mebliv-cherkasy",
     "himchystka-avto-cherkasy",
   ].includes(service.slug);
@@ -63,7 +62,11 @@ export function ServicePageLayout({ service }: { service: Service }) {
             <div className="p-6">
             <p className="text-sm font-semibold text-brand-graphite">Ціна</p>
             <p className="mt-2 text-3xl font-bold text-brand-hover">{service.priceFrom}</p>
-            <p className="mt-4 text-sm leading-6 text-brand-graphite">Точний розрахунок робимо після уточнення площі, стану приміщення та додаткових задач.</p>
+            <p className="mt-4 text-sm leading-6 text-brand-graphite">
+              {service.slug === "prybyrannya-kvartyr-cherkasy"
+                ? "Точний розрахунок робимо після уточнення площі, стану квартири, кількості кімнат і додаткових задач."
+                : "Точний розрахунок робимо після уточнення площі, стану приміщення та додаткових задач."}
+            </p>
             </div>
           </div>
         </div>
@@ -103,7 +106,9 @@ export function ServicePageLayout({ service }: { service: Service }) {
         <div className="container grid gap-8 rounded-[28px] border border-brand-green/15 bg-brand-mist p-6 shadow-soft md:p-8 lg:grid-cols-[0.85fr_1.15fr]">
           <div>
             <p className="mb-4 inline-flex rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-hover">Цінність</p>
-            <h2 className="text-3xl font-bold">Чому у нас не найдешевше, але вигідно</h2>
+            <h2 className="text-3xl font-bold">
+              {service.slug === "prybyrannya-kvartyr-cherkasy" ? "Чому краще замовити клінінгову компанію, а не випадкового кліннера" : "Чому у нас не найдешевше, але вигідно"}
+            </h2>
             <div className="mt-5 grid gap-4 leading-7 text-brand-graphite">
               <p>Ми не працюємо як випадкові приватні клінери без відповідальності. Формула Чистоти — це команда, професійна хімія, інвентар, техніка, досвід і контроль якості.</p>
               <p>У вартість входить не тільки саме прибирання, а й підготовка, виїзд команди, підбір хімії, професійний інвентар, робота з важкими забрудненнями та перевірка результату.</p>
@@ -302,8 +307,40 @@ function ServicePriceSection({ service, hasPriceImages }: { service: Service; ha
         <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Ціна</p>
-            <h2 className="mt-3 text-3xl font-bold text-brand-black">Отримайте точний розрахунок для вашого об’єкта</h2>
-            <p className="mt-4 max-w-3xl leading-7 text-brand-graphite">Вартість залежить від площі, стану приміщення, типу поверхонь, терміновості та додаткових робіт. Орієнтир для цієї послуги: <strong className="text-brand-hover">{service.priceFrom}</strong>.</p>
+            <h2 className="mt-3 text-3xl font-bold text-brand-black">
+              {service.slug === "prybyrannya-kvartyr-cherkasy" ? "Ціни на прибирання квартир у Черкасах" : "Отримайте точний розрахунок для вашого об’єкта"}
+            </h2>
+            <p className="mt-4 max-w-3xl leading-7 text-brand-graphite">
+              {service.slug === "prybyrannya-kvartyr-cherkasy"
+                ? "Вартість залежить від площі, стану квартири, кількості кімнат, кухні, санвузлів, вікон, меблів і додаткових робіт."
+                : "Вартість залежить від площі, стану приміщення, типу поверхонь, терміновості та додаткових робіт."}{" "}
+              Орієнтир для цієї послуги: <strong className="text-brand-hover">{service.priceFrom}</strong>.
+            </p>
+            {service.slug === "prybyrannya-kvartyr-cherkasy" && service.priceDetails ? (
+              <div className="mt-6 overflow-hidden rounded-lg border border-brand-green/15 bg-white shadow-soft">
+                <div className="border-b border-brand-green/10 px-4 py-3">
+                  <h3 className="text-base font-bold text-brand-black">Основні послуги</h3>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full min-w-[420px] text-left text-sm">
+                    <thead className="bg-brand-mist text-brand-black">
+                      <tr>
+                        <th className="px-4 py-3 font-bold">Послуга</th>
+                        <th className="px-4 py-3 font-bold">Ціна</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-black/5">
+                      {service.priceDetails.map((item) => (
+                        <tr key={item.title}>
+                          <td className="px-4 py-3 text-brand-graphite">{item.title}</td>
+                          <td className="px-4 py-3 font-bold text-brand-hover">{item.price}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            ) : null}
             {service.priceDetails ? (
               <div className={`mt-5 grid gap-3 sm:grid-cols-2 ${hasPriceImages ? "xl:grid-cols-4" : ""}`}>
                 {service.priceDetails.map((item) => (
@@ -384,6 +421,16 @@ function ensureFaq(faq: Faq[]) {
 }
 
 function getServiceExamples(slug: string) {
+  if (slug === "prybyrannya-kvartyr-cherkasy") {
+    return workExamples
+      .filter((item) =>
+        item.title.includes("Підтримуюче прибирання квартири") ||
+        item.title.includes("Генеральне очищення духовки") ||
+        item.title.includes("Миття холодильника") ||
+        item.title.includes("Очищення плитки")
+      )
+      .slice(0, 4);
+  }
   if (slug.includes("kvartyr")) return workExamples.filter((item) => item.category.includes("Житловий") || item.title.includes("квартир")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("generalne")) return workExamples.filter((item) => item.category.includes("Генеральне") || item.title.includes("духовки")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("byudzhetne")) return workExamples.filter((item) => item.category.includes("Житловий") || item.title.includes("квартир")).concat(workExamples.slice(0, 2)).slice(0, 3);
@@ -510,7 +557,7 @@ function getBeforeAfterCase(service: Service): BeforeAfterCase {
       title: "До/після прибирання квартири",
       description: "Після професійного клінінгу квартира виглядає охайно для життя, оренди, продажу або прийому гостей.",
       beforeAfterImage: "/images/works/apartment-before-after-01.webp",
-      beforeAfterAlt: "Квартира до та після прибирання у Черкасах"
+      beforeAfterAlt: "Прибирання квартири у Черкасах до та після"
     };
   }
 

@@ -3,18 +3,18 @@ import { ServiceCard } from "@/components/ServiceCard";
 
 const homeServices = [
   {
-    slug: "generalne-prybyrannya-cherkasy",
-    title: "Генеральне прибирання",
-    shortDescription: "Глибоко прибираємо кухню, санвузол, кімнати, плінтуси, меблі та важкодоступні місця.",
+    slug: "generalne-prybyrannya-kvartyry-cherkasy",
+    title: "Генеральне прибирання квартири",
+    shortDescription: "Глибоко прибираємо квартиру: кухня, санвузол, кімнати, плінтуси, меблі та важкодоступні місця.",
     priceFrom: "від 100 грн/м²",
     image: "/images/services/premium-general-cleaning.webp",
-    imageAlt: "Професійне генеральне прибирання у світлому інтер’єрі"
+    imageAlt: "Професійне генеральне прибирання квартири у світлому інтер’єрі"
   },
   {
     slug: "prybyrannya-kvartyr-cherkasy",
     title: "Прибирання квартир",
-    shortDescription: "Підтримуюче прибирання квартир у Черкасах з можливістю додати генеральний або післяремонтний формат.",
-    priceFrom: "від 55 грн/м²",
+    shortDescription: "Професійне прибирання квартир у Черкасах з акцентом на генеральне прибирання.",
+    priceFrom: "від 4000 грн",
     image: "/images/services/premium-apartment-cleaning.webp",
     imageAlt: "Світле прибирання квартири клінінговою компанією"
   },

@@ -12,7 +12,7 @@ import { aboutImages, buildMetadata, contacts, localDistricts } from "@/lib/site
 
 export const metadata: Metadata = buildMetadata({
   title: "Контакти клінінгової компанії Формула Чистоти у Черкасах",
-  description: "Контакти Формула Чистоти: клінінгова компанія у Черкасах, прибирання квартир, будинків, офісів, комерційних приміщень, хімчистка меблів і миття вікон.",
+  description: "Контакти Формула Чистоти: клінінгова компанія у Черкасах, прибирання квартир, будинків, комерційних приміщень, хімчистка меблів і миття вікон.",
   path: "/kontakty"
 });
 
@@ -25,7 +25,7 @@ export default function ContactsPage() {
           <div className="order-2 lg:order-1">
             <Logo className="mb-7 w-[112px]" />
             <h1 className="text-4xl font-bold md:text-5xl">Контакти клінінгової компанії Формула Чистоти у Черкасах</h1>
-            <p className="mt-5 text-lg leading-8 text-brand-graphite">Формула Чистоти — клінінгова компанія у Черкасах. Виконуємо прибирання квартир, будинків, офісів, комерційних приміщень, хімчистку меблів, миття вікон, прибирання після ремонту, потопу та пожежі.</p>
+            <p className="mt-5 text-lg leading-8 text-brand-graphite">Формула Чистоти — клінінгова компанія у Черкасах. Виконуємо прибирання квартир, будинків, комерційних приміщень, хімчистку меблів, миття вікон, прибирання після ремонту, потопу та пожежі.</p>
             <div className="mt-7 grid gap-3 text-brand-graphite">
               <strong className="text-brand-black">{contacts.companyName}</strong>
               <TrackedLink className="font-semibold text-brand-hover" href={contacts.phoneHref} eventName="phone_click" eventCategory="contact" eventLabel="phone">{contacts.phone}</TrackedLink>
