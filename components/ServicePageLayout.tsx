@@ -35,7 +35,14 @@ export function ServicePageLayout({ service }: { service: Service }) {
   const serviceTrustItems = service.trustItems ?? trustItems;
   const processSteps = service.processSteps ?? seoProcessSteps;
   const hasPriceImages = service.priceDetails?.some((item) => item.image);
-  const showPriceNearTop = ["himchystka-mebliv-cherkasy", "generalne-prybyrannya-cherkasy"].includes(service.slug);
+  const showPriceNearTop = [
+    "prybyrannya-kvartyr-cherkasy",
+    "pidtrymuyuche-prybyrannya-kvartyr-cherkasy",
+    "generalne-prybyrannya-kvartyry-cherkasy",
+    "generalne-prybyrannya-cherkasy",
+    "himchystka-mebliv-cherkasy",
+    "himchystka-avto-cherkasy",
+  ].includes(service.slug);
 
   return (
     <>
