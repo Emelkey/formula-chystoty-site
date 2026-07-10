@@ -250,9 +250,11 @@ export function ServicePageLayout({ service }: { service: Service }) {
             "@context": "https://schema.org",
             "@type": "Service",
             name: service.h1,
+            serviceType: service.title,
             description: service.shortDescription,
             provider: { "@id": absoluteUrl("/#localbusiness") },
             areaServed: "Черкаси",
+            priceRange: service.priceFrom,
             url: absoluteUrl(`/${service.slug}`)
           },
           {

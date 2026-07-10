@@ -1,7 +1,5 @@
 import Image from "next/image";
-import { MessageCircle } from "lucide-react";
-import { PrimaryButton } from "@/components/Buttons";
-import { ContactAction } from "@/components/ContactAction";
+import { ContactButtons, PrimaryButton } from "@/components/Buttons";
 
 export function HeroSection({ eyebrow = "Клінінг у Черкасах", title, accent, description }: { eyebrow?: string; title: string; accent: string; description: string }) {
   return (
@@ -15,10 +13,7 @@ export function HeroSection({ eyebrow = "Клінінг у Черкасах", ti
           <p className="mt-6 max-w-2xl text-lg leading-8 text-brand-graphite">{description}</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <PrimaryButton />
-            <ContactAction type="viber" revealPhoneNumber className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-brand-green/25 bg-white px-5 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring">
-              <MessageCircle size={18} aria-hidden />
-              Написати у Viber
-            </ContactAction>
+            <ContactButtons compact />
           </div>
           <div className="mt-7 flex flex-wrap gap-3 text-sm font-semibold text-brand-graphite">
             <span className="rounded-full bg-brand-mist px-4 py-2">Виїзд у день звернення</span>

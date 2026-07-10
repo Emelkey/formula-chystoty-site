@@ -3,81 +3,60 @@ import { ServiceCard } from "@/components/ServiceCard";
 
 const homeServices = [
   {
-    slug: "prybyrannya-kvartyr-cherkasy",
-    title: "Прибирання квартир",
-    shortDescription: "Підтримуюче, генеральне та післябудівельне прибирання квартир",
-    image: "/images/services/premium-apartment-cleaning.webp",
-    imageAlt: "Світле прибирання квартири клінінговою компанією"
-  },
-  {
     slug: "generalne-prybyrannya-cherkasy",
     title: "Генеральне прибирання",
-    shortDescription: "Повне очищення всіх приміщень від бруду та складних забруднень",
+    shortDescription: "Глибоко прибираємо кухню, санвузол, кімнати, плінтуси, меблі та важкодоступні місця.",
+    priceFrom: "від 100 грн/м²",
     image: "/images/services/premium-general-cleaning.webp",
     imageAlt: "Професійне генеральне прибирання у світлому інтер’єрі"
   },
   {
+    slug: "prybyrannya-kvartyr-cherkasy",
+    title: "Прибирання квартир",
+    shortDescription: "Повноцінне генеральне прибирання квартир у Черкасах з додатковими форматами під задачу.",
+    priceFrom: "від 4000 грн",
+    image: "/images/services/premium-apartment-cleaning.webp",
+    imageAlt: "Світле прибирання квартири клінінговою компанією"
+  },
+  {
     slug: "prybyrannya-pislya-remontu-cherkasy",
     title: "Після ремонту та будівництва",
-    shortDescription: "Видаляємо будівельний пил, бруд та сліди будівельних робіт",
+    shortDescription: "Видаляємо будівельний пил, бруд, наліт і сліди ремонту перед заселенням.",
+    priceFrom: "від 100 грн/м²",
     image: "/images/services/premium-cleaning-equipment.webp",
     imageAlt: "Професійне обладнання для прибирання після ремонту та будівництва"
   },
   {
-    slug: "prybyrannya-pislya-potopu-cherkasy",
-    title: "Прибирання після потопу",
-    shortDescription: "Збираємо воду, очищуємо поверхні та прибираємо наслідки затоплення",
-    image: "/images/services/post-flood-cleaning-generated-optimized.jpg",
-    imageAlt: "Прибирання після потопу у світлому інтер’єрі"
-  },
-  {
-    slug: "prybyrannya-pislya-pozhezhi-cherkasy",
-    title: "Прибирання після пожежі",
-    shortDescription: "Прибираємо кіптяву, гар, запах і складні забруднення після пожежі",
-    image: "/images/services/post-fire-cleaning-generated-optimized.jpg",
-    imageAlt: "Професійне прибирання кухні після пожежі"
-  },
-  {
-    slug: "prybyrannya-prylegloyi-terytoriyi-cherkasy",
-    title: "Прибирання території",
-    shortDescription: "Догляд за входами, тротуарами, двором і територією біля будівлі",
-    image: "/images/services/adjacent-territory-cleaning-generated-optimized.jpg",
-    imageAlt: "Прибирання прилеглої території біля будівлі"
-  },
-  {
-    slug: "himchystka-avto-cherkasy",
-    title: "Хімчистка авто",
-    shortDescription: "Комплексна хімчистка салону, сидінь, стелі, запахів та дезінфекція",
-    image: "/images/services/car-interior-cleaning-generated-optimized.jpg",
-    imageAlt: "Хімчистка салону автомобіля"
-  },
-  {
-    slug: "prybyrannya-ofisiv-cherkasy",
-    title: "Прибирання офісів",
-    shortDescription: "Регулярне та разове прибирання офісних приміщень",
-    image: "/images/services/premium-office-cleaning.webp",
-    imageAlt: "Професійне прибирання офісного простору"
-  },
-  {
     slug: "himchystka-mebliv-cherkasy",
     title: "Хімчистка меблів",
-    shortDescription: "Чистка диванів, крісел, матраців, стільців та м’яких меблів",
+    shortDescription: "Чистимо дивани, крісла, матраци, стільці та м’які меблі професійною хімією.",
+    priceFrom: "стілець від 300 грн",
     image: "/images/services/sofa-cleaning-generated-optimized.jpg",
     imageAlt: "Професійна хімчистка м’яких меблів у світлому інтер’єрі"
   },
   {
     slug: "myttya-vikon-cherkasy",
     title: "Миття вікон",
-    shortDescription: "Миття вікон, балконів, вітрин та скляних конструкцій",
+    shortDescription: "Миємо скло, рами, підвіконня, балкони, вітрини та післяремонтні забруднення.",
+    priceFrom: "від 160 грн/м²",
     image: "/images/services/premium-window-cleaning.webp",
     imageAlt: "Миття великих вікон у світлому інтер’єрі"
   },
   {
-    slug: "prybyrannya-komertsiynykh-prymishchen-cherkasy",
-    title: "Прибирання комерції",
-    shortDescription: "Супермаркети, магазини, кафе та інші комерційні об’єкти",
-    image: "/images/services/commercial-premises-cleaning-generated-optimized.jpg",
-    imageAlt: "Прибирання комерційного приміщення"
+    slug: "prybyrannya-pislya-pozhezhi-cherkasy",
+    title: "Прибирання після пожежі",
+    shortDescription: "Прибираємо кіптяву, гар, запах і складні забруднення після пожежі.",
+    priceFrom: "індивідуально",
+    image: "/images/services/post-fire-cleaning-generated-optimized.jpg",
+    imageAlt: "Професійне прибирання кухні після пожежі"
+  },
+  {
+    slug: "prybyrannya-pislya-potopu-cherkasy",
+    title: "Прибирання після потопу",
+    shortDescription: "Збираємо воду, очищуємо поверхні та прибираємо наслідки затоплення.",
+    priceFrom: "індивідуально",
+    image: "/images/services/post-flood-cleaning-generated-optimized.jpg",
+    imageAlt: "Прибирання після потопу у світлому інтер’єрі"
   }
 ];
 
