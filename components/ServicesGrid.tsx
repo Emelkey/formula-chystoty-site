@@ -46,7 +46,7 @@ const homeServices = [
     slug: "prybyrannya-pislya-pozhezhi-cherkasy",
     title: "Прибирання після пожежі",
     shortDescription: "Прибираємо кіптяву, гар, запах і складні забруднення після пожежі.",
-    priceFrom: "індивідуально",
+    priceFrom: "від 400 грн/м²",
     image: "/images/services/post-fire-cleaning-generated-optimized.jpg",
     imageAlt: "Професійне прибирання кухні після пожежі"
   },
@@ -54,7 +54,7 @@ const homeServices = [
     slug: "prybyrannya-pislya-potopu-cherkasy",
     title: "Прибирання після потопу",
     shortDescription: "Збираємо воду, очищуємо поверхні та прибираємо наслідки затоплення.",
-    priceFrom: "індивідуально",
+    priceFrom: "від 250 грн/м²",
     image: "/images/services/post-flood-cleaning-generated-optimized.jpg",
     imageAlt: "Прибирання після потопу у світлому інтер’єрі"
   }
