@@ -1,6 +1,32 @@
 import type { NextConfig } from "next";
 
+const carCleaningCanonicalPath = "/himchystka-avto-cherkasy";
+const carCleaningLegacySlugs = [
+  "himchystka-avto",
+  "himchystka-avto-cherkasy",
+  "himchistka-avto",
+  "himchistka-avto-cherkasy",
+  "khimchystka-avto",
+  "khimchystka-avto-cherkasy",
+  "khimchistka-avto",
+  "khimchistka-avto-cherkasy",
+  "himchystka-salonu-avto",
+  "himchystka-salonu-avto-cherkasy",
+  "himchistka-salona-avto",
+  "himchistka-salona-avto-cherkasy",
+  "himchystka-avtomobilya",
+  "himchystka-avtomobilya-cherkasy",
+  "himchistka-avtomobilya",
+  "himchistka-avtomobilya-cherkasy"
+];
+const carCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
+const carCleaningLegacyRedirects = carCleaningLegacyPrefixes
+  .flatMap((prefix) => carCleaningLegacySlugs.map((slug) => `${prefix}/${slug}`))
+  .filter((source, index, sources) => source !== carCleaningCanonicalPath && sources.indexOf(source) === index)
+  .map((source) => ({ source, destination: carCleaningCanonicalPath, statusCode: 301 as const }));
+
 const legacyRedirects = [
+  ...carCleaningLegacyRedirects,
   { source: "/uk", destination: "/", statusCode: 301 },
   { source: "/ru", destination: "/", statusCode: 301 },
   { source: "/services", destination: "/poslugy", statusCode: 301 },
@@ -68,20 +94,6 @@ const legacyRedirects = [
   { source: "/ru/himchystka-matratsa", destination: "/himchystka-matratsa-cherkasy", statusCode: 301 },
   { source: "/uk/services/himchystka-matratsa", destination: "/himchystka-matratsa-cherkasy", statusCode: 301 },
   { source: "/ru/services/himchystka-matratsa", destination: "/himchystka-matratsa-cherkasy", statusCode: 301 },
-  { source: "/services/himchystka-avto", destination: "/himchystka-avto-cherkasy", statusCode: 301 },
-  { source: "/services/himchystka-avto-cherkasy", destination: "/himchystka-avto-cherkasy", statusCode: 301 },
-  { source: "/uk/himchystka-avto", destination: "/himchystka-avto-cherkasy", statusCode: 301 },
-  { source: "/ru/himchystka-avto", destination: "/himchystka-avto-cherkasy", statusCode: 301 },
-  { source: "/ru/himchistka-avto", destination: "/himchystka-avto-cherkasy", statusCode: 301 },
-  { source: "/uk/himchystka-avto-cherkasy", destination: "/himchystka-avto-cherkasy", statusCode: 301 },
-  { source: "/ru/himchystka-avto-cherkasy", destination: "/himchystka-avto-cherkasy", statusCode: 301 },
-  { source: "/ru/himchistka-avto-cherkasy", destination: "/himchystka-avto-cherkasy", statusCode: 301 },
-  { source: "/uk/services/himchystka-avto", destination: "/himchystka-avto-cherkasy", statusCode: 301 },
-  { source: "/ru/services/himchystka-avto", destination: "/himchystka-avto-cherkasy", statusCode: 301 },
-  { source: "/ru/services/himchistka-avto", destination: "/himchystka-avto-cherkasy", statusCode: 301 },
-  { source: "/uk/services/himchystka-avto-cherkasy", destination: "/himchystka-avto-cherkasy", statusCode: 301 },
-  { source: "/ru/services/himchystka-avto-cherkasy", destination: "/himchystka-avto-cherkasy", statusCode: 301 },
-  { source: "/ru/services/himchistka-avto-cherkasy", destination: "/himchystka-avto-cherkasy", statusCode: 301 },
   { source: "/uk/myttya-vikon", destination: "/myttya-vikon-cherkasy", statusCode: 301 },
   { source: "/ru/myttya-vikon", destination: "/myttya-vikon-cherkasy", statusCode: 301 },
   { source: "/uk/services/myttya-vikon", destination: "/myttya-vikon-cherkasy", statusCode: 301 },
