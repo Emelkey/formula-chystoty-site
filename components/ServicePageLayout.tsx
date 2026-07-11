@@ -233,8 +233,12 @@ export function ServicePageLayout({ service }: { service: Service }) {
           <h2 className="text-3xl font-bold">Корисні розділи</h2>
           <div className="mt-5 flex flex-wrap gap-3">
             {internalLinks.map((link) => (
-              <a className="rounded-md border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green" href={link.href} key={link.href}>
-                {link.label}
+              <a
+                className="rounded-md border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green"
+                href={service.slug === "prybyrannya-kvartyr-cherkasy" && link.href === "/tsiny" ? absoluteUrl("/tsiny") : link.href}
+                key={link.href}
+              >
+                {service.slug === "prybyrannya-kvartyr-cherkasy" && link.href === "/tsiny" ? "ціни на клінінг у Черкасах" : link.label}
               </a>
             ))}
           </div>

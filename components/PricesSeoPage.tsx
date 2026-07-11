@@ -4,12 +4,12 @@ import { ContactButtons, PrimaryButton } from "@/components/Buttons";
 import { ContactForm } from "@/components/ContactForm";
 import { FAQSection } from "@/components/FAQSection";
 import { SeoJsonLd } from "@/components/SeoJsonLd";
-import { contacts, siteUrl, type Faq } from "@/lib/site";
+import { absoluteUrl, contacts, siteUrl, type Faq } from "@/lib/site";
 
 const advantages = ["працюємо зі своєю хімією", "приїжджаємо зі своїм інвентарем", "маємо професійну техніку", "працюємо по Черкасах і області", "робимо фото до/після", "контролюємо якість"];
 
 type PriceThumb = { image: string; imageAlt: string; imagePosition: string; backgroundSize?: string };
-type PriceRow = [string, string, PriceThumb?];
+type PriceRow = [string, string, PriceThumb?, string?];
 type PriceGroup = { title: string; note?: string; rows: PriceRow[] };
 
 const cleaningSprite = "/images/pricing/cleaning-service-price-items.jpg";
@@ -17,6 +17,10 @@ const extraSprite = "/images/pricing/extra-auto-price-items.jpg";
 const furnitureSprite = "/images/pricing/furniture-cleaning-price-items.jpg";
 const pos = ["0% 0%", "33.333% 0%", "66.666% 0%", "100% 0%", "0% 33.333%", "33.333% 33.333%", "66.666% 33.333%", "100% 33.333%", "0% 66.666%", "33.333% 66.666%", "66.666% 66.666%", "100% 66.666%", "0% 100%", "33.333% 100%", "66.666% 100%", "100% 100%"] as const;
 const thumb = (image: string, imageAlt: string, imagePosition: string, backgroundSize = "400% 400%"): PriceThumb => ({ image, imageAlt, imagePosition, backgroundSize });
+const apartmentCleaningUrl = absoluteUrl("/prybyrannya-kvartyr-cherkasy");
+const apartmentMaintenanceUrl = absoluteUrl("/pidtrymuyuche-prybyrannya-kvartyr-cherkasy");
+const apartmentGeneralUrl = absoluteUrl("/generalne-prybyrannya-kvartyry-cherkasy");
+const apartmentRenovationUrl = absoluteUrl("/prybyrannya-pislya-remontu-cherkasy");
 
 const serviceThumbs = {
   apartmentMaintenance: thumb(cleaningSprite, "Підтримуюче прибирання квартири у Черкасах", pos[0]),
@@ -72,10 +76,10 @@ const priceGroups: PriceGroup[] = [
     title: "Прибирання квартир",
     note: "Точна вартість залежить від площі, стану приміщення, кількості забруднень, наявності меблів, складності робіт та додаткових послуг.",
     rows: [
-      ["Підтримуюче прибирання квартири", "від 55 грн/м²", serviceThumbs.apartmentMaintenance],
-      ["Генеральне прибирання квартири без шаф усередині", "100 грн/м²", serviceThumbs.apartmentGeneral],
-      ["Генеральне прибирання квартири з шафами усередині", "120 грн/м²", serviceThumbs.apartmentGeneral],
-      ["Прибирання після ремонту", "від 100 грн/м²", serviceThumbs.apartmentRenovation],
+      ["Підтримуюче прибирання квартири", "від 55 грн/м²", serviceThumbs.apartmentMaintenance, apartmentMaintenanceUrl],
+      ["Генеральне прибирання квартири без шаф усередині", "100 грн/м²", serviceThumbs.apartmentGeneral, apartmentGeneralUrl],
+      ["Генеральне прибирання квартири з шафами усередині", "120 грн/м²", serviceThumbs.apartmentGeneral, apartmentGeneralUrl],
+      ["Прибирання після ремонту", "від 100 грн/м²", serviceThumbs.apartmentRenovation, apartmentRenovationUrl],
       ["Миття вікон", "від 160 грн/м²", serviceThumbs.window],
       ["Мінімальний виїзд", "від 3000 грн", serviceThumbs.minimumVisit]
     ]
@@ -173,8 +177,8 @@ const meterPriceGroups: PriceGroup[] = [
   {
     title: "Прибирання після ремонту — грн/м²",
     rows: [
-      ["Стандартне післяремонтне прибирання", "від 120 грн/м²", serviceThumbs.apartmentRenovation],
-      ["Складний будівельний пил", "від 140 грн/м²", serviceThumbs.renovationDust],
+      ["Стандартне післяремонтне прибирання", "від 120 грн/м²", serviceThumbs.apartmentRenovation, apartmentRenovationUrl],
+      ["Складний будівельний пил", "від 140 грн/м²", serviceThumbs.renovationDust, apartmentRenovationUrl],
       ["Плитка, санвузол, кухня після ремонту", "індивідуально", extraThumbs.difficultStains],
       ["Мінімальна вартість виїзду", "3000 грн", serviceThumbs.minimumVisit]
     ]
@@ -182,8 +186,8 @@ const meterPriceGroups: PriceGroup[] = [
   {
     title: "Генеральне прибирання — грн/м²",
     rows: [
-      ["Без миття шаф усередині", "100 грн/м²", serviceThumbs.apartmentGeneral],
-      ["З миттям шаф усередині", "120 грн/м²", extraThumbs.kitchenCabinets],
+      ["Без миття шаф усередині", "100 грн/м²", serviceThumbs.apartmentGeneral, apartmentGeneralUrl],
+      ["З миттям шаф усередині", "120 грн/м²", extraThumbs.kitchenCabinets, apartmentGeneralUrl],
       ["Після будівництва або складних забруднень", "120 грн/м²", serviceThumbs.renovationDust],
       ["Окремий санвузол або кухня", "від 3000 грн", extraThumbs.shower]
     ]
@@ -191,7 +195,7 @@ const meterPriceGroups: PriceGroup[] = [
   {
     title: "Підтримуюче прибирання — грн/м²",
     rows: [
-      ["Квартира або будинок у нормальному стані", "від 55 грн/м²", serviceThumbs.apartmentMaintenance],
+      ["Квартира або будинок у нормальному стані", "від 55 грн/м²", serviceThumbs.apartmentMaintenance, apartmentMaintenanceUrl],
       ["Регулярне прибирання за графіком", "індивідуально", serviceThumbs.commercialRegular],
       ["Після орендарів або активного користування", "від 70 грн/м²", serviceThumbs.houseMaintenance],
       ["Мінімальна вартість виїзду", "3000 грн", serviceThumbs.minimumVisit]
@@ -303,17 +307,32 @@ export function PricesSeoPage({
                 <h2 className="text-2xl font-bold">{group.title}</h2>
               </div>
               <div className="divide-y divide-black/5">
-                {group.rows.map(([service, price, thumbnail]) => (
+                {group.rows.map(([service, price, thumbnail, href]) => (
                   <div className="grid gap-3 px-5 py-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:px-6" key={`${group.title}-${service}`}>
                     <span className="flex min-w-0 items-center gap-3 text-brand-graphite">
                       <PriceThumbnail thumbnail={thumbnail} />
-                      <span>{service}</span>
+                      {href ? (
+                        <a className="font-semibold text-brand-hover underline decoration-brand-green/30 underline-offset-4 transition hover:decoration-brand-green" href={href}>
+                          {service}
+                        </a>
+                      ) : (
+                        <span>{service}</span>
+                      )}
                     </span>
                     <strong className="text-brand-hover">{price}</strong>
                   </div>
                 ))}
               </div>
-              {group.note ? <p className="border-t border-black/5 bg-brand-mist/60 px-5 py-4 text-sm leading-6 text-brand-graphite md:px-6">{group.note}</p> : null}
+              {group.note ? (
+                <div className="border-t border-black/5 bg-brand-mist/60 px-5 py-4 text-sm leading-6 text-brand-graphite md:px-6">
+                  <p>{group.note}</p>
+                  {group.title === "Прибирання квартир" ? (
+                    <a className="mt-4 inline-flex min-h-10 items-center justify-center rounded-md bg-brand-green px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" href={apartmentCleaningUrl}>
+                      Детальніше про прибирання квартир
+                    </a>
+                  ) : null}
+                </div>
+              ) : null}
             </article>
           ))}
         </div>
@@ -330,11 +349,17 @@ export function PricesSeoPage({
                   <h3 className="text-xl font-bold">{group.title}</h3>
                 </div>
                 <div className="divide-y divide-black/5">
-                  {group.rows.map(([service, price, thumbnail]) => (
+                  {group.rows.map(([service, price, thumbnail, href]) => (
                     <div className="grid gap-3 px-5 py-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center" key={`${group.title}-${service}`}>
                       <span className="flex min-w-0 items-center gap-3 text-brand-graphite">
                         <PriceThumbnail thumbnail={thumbnail} />
-                        <span>{service}</span>
+                        {href ? (
+                          <a className="font-semibold text-brand-hover underline decoration-brand-green/30 underline-offset-4 transition hover:decoration-brand-green" href={href}>
+                            {service}
+                          </a>
+                        ) : (
+                          <span>{service}</span>
+                        )}
                       </span>
                       <strong className="text-brand-hover">{price}</strong>
                     </div>

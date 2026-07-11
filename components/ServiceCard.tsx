@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Car, Droplets, Flame, Home, House, Leaf, PanelsTopLeft, Sofa, Sparkles, Store, Wind } from "lucide-react";
+import { absoluteUrl } from "@/lib/site";
 
 type CardService = {
   slug: string;
@@ -13,6 +14,7 @@ type CardService = {
 
 export function ServiceCard({ service }: { service: CardService }) {
   const Icon = serviceIcon(service.slug);
+  const href = service.slug === "prybyrannya-kvartyr-cherkasy" ? absoluteUrl(`/${service.slug}`) : `/${service.slug}`;
 
   return (
     <article data-service-card={service.slug} className="group flex h-full min-h-[420px] flex-col overflow-hidden rounded-[24px] border border-[#E8EEE5] bg-white p-5 shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(17,17,17,0.12)] sm:p-6">
@@ -24,7 +26,7 @@ export function ServiceCard({ service }: { service: CardService }) {
         <p className="mt-3 line-clamp-3 text-sm leading-6 text-brand-graphite">{service.shortDescription}</p>
         <p className="mt-4 inline-flex w-fit rounded-full bg-brand-mist px-3 py-2 text-sm font-bold text-brand-hover">{service.priceFrom}</p>
       </div>
-      <Link className="mt-5 inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-brand-hover" href={`/${service.slug}`}>
+      <Link className="mt-5 inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-brand-hover" href={href}>
         Детальніше <ArrowRight size={16} aria-hidden />
       </Link>
       <div className="relative mt-5 aspect-[16/10] w-full overflow-hidden rounded-[18px] border border-brand-green/10 bg-brand-mist shadow-soft">
