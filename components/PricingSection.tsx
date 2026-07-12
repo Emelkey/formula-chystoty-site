@@ -50,7 +50,7 @@ export function PricingSection({ compact = false }: { compact?: boolean }) {
                 <p className="mb-3 text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Вартість</p>
                 <h2 className="text-3xl font-bold leading-tight text-brand-black md:text-5xl">Ціни <span className="text-brand-green">від</span></h2>
               </div>
-              <Link className="inline-flex items-center text-sm font-semibold text-brand-hover" href="/tsiny">
+              <Link className="inline-flex items-center text-sm font-semibold text-brand-hover" href="/prices">
                 Усі ціни →
               </Link>
             </div>

@@ -19,8 +19,12 @@ const pos = ["0% 0%", "33.333% 0%", "66.666% 0%", "100% 0%", "0% 33.333%", "33.3
 const thumb = (image: string, imageAlt: string, imagePosition: string, backgroundSize = "400% 400%"): PriceThumb => ({ image, imageAlt, imagePosition, backgroundSize });
 const apartmentCleaningUrl = absoluteUrl("/prybyrannya-kvartyr-cherkasy");
 const apartmentMaintenanceUrl = absoluteUrl("/pidtrymuyuche-prybyrannya-kvartyr-cherkasy");
+const generalCleaningUrl = absoluteUrl("/generalne-prybyrannya-cherkasy");
 const apartmentGeneralUrl = absoluteUrl("/generalne-prybyrannya-kvartyry-cherkasy");
 const apartmentRenovationUrl = absoluteUrl("/prybyrannya-pislya-remontu-cherkasy");
+const furnitureCleaningUrl = absoluteUrl("/himchystka-mebliv-cherkasy");
+const sofaCleaningUrl = absoluteUrl("/himchystka-dyvana-cherkasy");
+const windowCleaningUrl = absoluteUrl("/myttya-vikon-cherkasy");
 
 const serviceThumbs = {
   apartmentMaintenance: thumb(cleaningSprite, "Підтримуюче прибирання квартири у Черкасах", pos[0]),
@@ -80,7 +84,7 @@ const priceGroups: PriceGroup[] = [
       ["Генеральне прибирання квартири без шаф усередині", "100 грн/м²", serviceThumbs.apartmentGeneral, apartmentGeneralUrl],
       ["Генеральне прибирання квартири з шафами усередині", "120 грн/м²", serviceThumbs.apartmentGeneral, apartmentGeneralUrl],
       ["Прибирання після ремонту", "від 100 грн/м²", serviceThumbs.apartmentRenovation, apartmentRenovationUrl],
-      ["Миття вікон", "від 160 грн/м²", serviceThumbs.window],
+      ["Миття вікон", "від 160 грн/м²", serviceThumbs.window, windowCleaningUrl],
       ["Мінімальний виїзд", "від 3000 грн", serviceThumbs.minimumVisit]
     ]
   },
@@ -109,9 +113,9 @@ const priceGroups: PriceGroup[] = [
   {
     title: "Хімчистка меблів",
     rows: [
-      ["Кутовий диван", "від 2500 грн, видалення запаху від 500 грн", furnitureThumbs.cornerSofa],
-      ["Двоспальний диван", "від 2000 грн, видалення запаху від 500 грн", furnitureThumbs.sleeperSofa],
-      ["Диван 2-х місний", "від 1300 грн, видалення запаху від 500 грн", furnitureThumbs.twoSeatSofa],
+      ["Кутовий диван", "від 2500 грн, видалення запаху від 500 грн", furnitureThumbs.cornerSofa, sofaCleaningUrl],
+      ["Двоспальний диван", "від 2000 грн, видалення запаху від 500 грн", furnitureThumbs.sleeperSofa, sofaCleaningUrl],
+      ["Диван 2-х місний", "від 1300 грн, видалення запаху від 500 грн", furnitureThumbs.twoSeatSofa, sofaCleaningUrl],
       ["Матрац 2-х спальний", "від 2000 грн, видалення запаху від 500 грн", furnitureThumbs.doubleMattress],
       ["Матрац 1.5", "від 1500 грн, видалення запаху від 500 грн", furnitureThumbs.oneHalfMattress],
       ["Матрац дитячий", "від 1200 грн", furnitureThumbs.childMattress],
@@ -233,6 +237,15 @@ const meterPriceGroups: PriceGroup[] = [
 const valueItems = ["професійна команда", "власна хімія та інвентар", "професійна техніка", "досвід у складних об’єктах", "фото до/після", "контроль якості", "відповідальність за результат", "робота з квартирами, будинками та комерційними приміщеннями"];
 const companyComparison = ["працює команда, а не випадкова людина", "є професійна хімія під різні поверхні", "є техніка для підлоги, меблів, ковроліну та складних забруднень", "є контроль якості після виконання робіт", "є відповідальність за результат і комунікація до старту", "є досвід складних прибирань після ремонту, пожежі, потопу та сильних забруднень", "можна працювати з бізнесом на постійній основі за регламентом"];
 
+const priceServiceLinks = [
+  { href: apartmentCleaningUrl, label: "Прибирання квартир у Черкасах" },
+  { href: generalCleaningUrl, label: "Генеральне прибирання" },
+  { href: apartmentRenovationUrl, label: "Прибирання після ремонту" },
+  { href: furnitureCleaningUrl, label: "Хімчистка меблів" },
+  { href: sofaCleaningUrl, label: "Хімчистка дивана" },
+  { href: windowCleaningUrl, label: "Миття вікон" }
+];
+
 const priceFaq: Faq[] = [
   { question: "Скільки коштує прибирання квартири у Черкасах?", answer: "Вартість залежить від площі, стану квартири, типу прибирання та додаткових робіт. Підтримуюче прибирання стартує від 55 грн/м², генеральне — від 100 грн/м² без шаф усередині або 120 грн/м² з шафами усередині, після ремонту — від 100 грн/м²." },
   { question: "Чому точна ціна розраховується індивідуально?", answer: "Тому що дві квартири однакової площі можуть мати різний стан. На ціну впливає кількість забруднень, будівельний пил, меблі, санвузли, кухня, вікна, плями та складність робіт." },
@@ -261,7 +274,7 @@ function PriceThumbnail({ thumbnail }: { thumbnail?: PriceThumb }) {
 }
 
 export function PricesSeoPage({
-  canonicalPath = "/tsiny",
+  canonicalPath = "/prices",
   heading = "Ціни на клінінг у Черкасах 2026",
   schemaName = "Ціни на клінінг у Черкасах 2026"
 }: {
@@ -367,6 +380,31 @@ export function PricesSeoPage({
                 </div>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section bg-white">
+        <div className="container rounded-[28px] border border-brand-green/15 bg-brand-mist p-6 shadow-soft md:p-8">
+          <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+            <div>
+              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Популярні послуги</p>
+              <h2 className="text-3xl font-bold">Перейдіть до детального опису послуги</h2>
+              <p className="mt-4 leading-7 text-brand-graphite">
+                Якщо потрібен не просто прайс, а перелік робіт, фото, FAQ і точний формат послуги, відкрийте окрему SEO-сторінку. Там пояснюємо, що входить у роботу, що рахується окремо та як формується ціна.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              {priceServiceLinks.map((link) => (
+                <a
+                  className="rounded-md border border-brand-green/20 bg-white px-4 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring"
+                  href={link.href}
+                  key={link.href}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </section>
