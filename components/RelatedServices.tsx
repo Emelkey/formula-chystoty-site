@@ -4,10 +4,10 @@ import { SectionHeading } from "@/components/SectionHeading";
 const relatedLinks: Record<string, { href: string; label: string }[]> = {
   "himchystka-mebliv-cherkasy": [
     { href: "/himchystka-dyvana-cherkasy", label: "хімчистка дивана в Черкасах" },
-    { href: "/himchystka-matratsa-cherkasy", label: "хімчистка матраца" },
-    { href: "/himchystka-kylymiv-cherkasy", label: "хімчистка килимів" },
-    { href: "/himchystka-avto-cherkasy", label: "хімчистка авто" },
-    { href: "/prybyrannya-kvartyr-cherkasy", label: "прибирання квартир" }
+    { href: "/prices", label: "ціни на хімчистку та клінінг" },
+    { href: "/prybyrannya-kvartyr-cherkasy", label: "прибирання квартир" },
+    { href: "/generalne-prybyrannya-cherkasy", label: "генеральне прибирання" },
+    { href: "/himchystka-matratsa-cherkasy", label: "хімчистка матраца" }
   ],
   "himchystka-dyvana-cherkasy": [
     { href: "/himchystka-mebliv-cherkasy", label: "хімчистка меблів" },

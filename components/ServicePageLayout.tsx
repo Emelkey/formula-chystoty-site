@@ -105,6 +105,13 @@ export function ServicePageLayout({ service }: { service: Service }) {
           <InfoBlock title="Чому обирають Формулу Чистоти" items={serviceTrustItems} />
         </div>
       </section>
+      {service.cleaningHelps ? (
+        <section className="section bg-white">
+          <div className="container">
+            <InfoBlock title="Що допомагає прибрати хімчистка" items={service.cleaningHelps} />
+          </div>
+        </section>
+      ) : null}
       <section className="section bg-white">
         <div className="container grid gap-8 rounded-[28px] border border-brand-green/15 bg-brand-mist p-6 shadow-soft md:p-8 lg:grid-cols-[0.85fr_1.15fr]">
           <div>
@@ -542,7 +549,7 @@ function getBeforeAfterCase(service: Service): BeforeAfterCase {
       title: "До/після хімчистки стільців",
       description: "Приклад результату хімчистки стільців: тканина стає світлішою, чистішою та візуально охайнішою після екстракторного очищення.",
       beforeAfterImage: "/images/works/chairs-cleaning-before-after-cherkasy.jpg",
-      beforeAfterAlt: "Хімчистка стільців у Черкасах — до та після",
+      beforeAfterAlt: "Чистка м’яких меблів до та після у Черкасах",
       caption: "Хімчистка стільців — результат до та після очищення",
       portrait: true
     };
