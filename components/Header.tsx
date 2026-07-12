@@ -11,7 +11,7 @@ import { contacts } from "@/lib/site";
 const menu = [
   ["Головна", "/"],
   ["Послуги", "/poslugy"],
-  ["Ціни", "/tsiny"],
+  ["Ціни", "/prices"],
   ["Наші роботи", "/nashi-roboty"],
   ["Відгуки", "/vidguky"],
   ["Блог", "/blog"],

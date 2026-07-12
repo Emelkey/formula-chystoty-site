@@ -86,6 +86,25 @@ export function HomePageContent() {
       <WorkSteps />
       <WhyChooseUs />
       <section className="section bg-white">
+        <div className="container grid gap-5 rounded-[24px] border border-brand-green/15 bg-white p-6 shadow-soft md:grid-cols-[0.8fr_1.2fr] md:p-8">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Клінінг Черкаси</p>
+            <h2 className="mt-3 text-3xl font-bold leading-tight text-brand-black">Клінінг у Черкасах для квартир, будинків і бізнесу</h2>
+          </div>
+          <div className="grid gap-4 leading-7 text-brand-graphite">
+            <p>Формула Чистоти виконує професійний клінінг у Черкасах для приватних клієнтів і бізнесу. Ми прибираємо квартири, будинки, комерційні приміщення, виконуємо генеральне прибирання, прибирання після ремонту, хімчистку меблів, миття вікон та регулярне обслуговування об’єктів.</p>
+            <p>Клієнт отримує не просто прибирання, а зрозумілий сервіс: погодження вартості до початку робіт, виїзд команди з професійною хімією та обладнанням, контроль результату і можливість замовити разове або регулярне прибирання.</p>
+            <p>
+              Якщо вам потрібне{" "}
+              <a className="font-semibold text-brand-hover underline decoration-brand-green/30 underline-offset-4 transition hover:decoration-brand-green" href={absoluteUrl("/prybyrannya-kvartyr-cherkasy")}>
+                прибирання квартири в Черкасах
+              </a>
+              , будинку чи комерційного приміщення — залиште заявку, і ми підкажемо орієнтовну вартість під ваш об’єкт.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section className="section bg-white">
         <div className="container rounded-[24px] border border-brand-green/15 bg-brand-mist p-6 shadow-soft md:p-8">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Популярні запити</p>

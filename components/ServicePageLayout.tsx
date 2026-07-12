@@ -14,7 +14,7 @@ const seoProcessSteps = ["Приймаємо заявку", "Уточнюємо 
 const valueItems = ["професійна команда", "власна хімія та інвентар", "професійна техніка", "досвід у складних об’єктах", "фото до/після", "контроль якості", "відповідальність за результат", "робота з квартирами, будинками та комерційними приміщеннями"];
 const internalLinks = [
   { href: "/poslugy", label: "Усі послуги" },
-  { href: "/tsiny", label: "Ціни" },
+  { href: "/prices", label: "Ціни" },
   { href: "/kontakty", label: "Контакти" },
   { href: "/nashi-roboty", label: "Наші роботи" },
   { href: "/blog", label: "Блог" }
@@ -187,7 +187,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
               <PrimaryButton>Отримати точний розрахунок</PrimaryButton>
-              <a className="inline-flex min-h-12 items-center justify-center rounded-md border border-brand-green/25 bg-white px-5 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring" href="/tsiny">
+              <a className="inline-flex min-h-12 items-center justify-center rounded-md border border-brand-green/25 bg-white px-5 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring" href="/prices">
                 Дивитися всі ціни
               </a>
             </div>
@@ -235,10 +235,10 @@ export function ServicePageLayout({ service }: { service: Service }) {
             {internalLinks.map((link) => (
               <a
                 className="rounded-md border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green"
-                href={service.slug === "prybyrannya-kvartyr-cherkasy" && link.href === "/tsiny" ? absoluteUrl("/tsiny") : link.href}
+                href={service.slug === "prybyrannya-kvartyr-cherkasy" && link.href === "/prices" ? absoluteUrl("/prices") : link.href}
                 key={link.href}
               >
-                {service.slug === "prybyrannya-kvartyr-cherkasy" && link.href === "/tsiny" ? "ціни на клінінг у Черкасах" : link.label}
+                {service.slug === "prybyrannya-kvartyr-cherkasy" && link.href === "/prices" ? "ціни на клінінг у Черкасах" : link.label}
               </a>
             ))}
           </div>
@@ -402,7 +402,7 @@ function ServicePriceSection({ service, hasPriceImages }: { service: Service; ha
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
             <PrimaryButton>Отримати точний розрахунок</PrimaryButton>
-            <a className="inline-flex min-h-12 items-center justify-center rounded-md border border-brand-green/25 bg-white px-5 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring" href="/tsiny">
+            <a className="inline-flex min-h-12 items-center justify-center rounded-md border border-brand-green/25 bg-white px-5 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring" href="/prices">
               Дивитися всі ціни
             </a>
           </div>

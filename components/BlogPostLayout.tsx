@@ -35,7 +35,7 @@ type BlogPost = {
 const internalLinks = [
   { text: "прибирання квартир у Черкасах", href: "/prybyrannya-kvartyr-cherkasy" },
   { text: "клінінгові послуги у Черкасах", href: "/poslugy" },
-  { text: "вартість прибирання", href: "/tsiny" },
+  { text: "вартість прибирання", href: "/prices" },
   { text: "залишити заявку", href: "/kontakty" },
   { text: "приклади наших робіт", href: "/nashi-roboty" }
 ];
@@ -115,7 +115,7 @@ export function BlogPostLayout({ post }: { post: BlogPost }) {
           <h2 className="mt-9 text-2xl font-bold">Корисні посилання</h2>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/poslugy">Усі послуги</Link>
-            <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/tsiny">Ціни</Link>
+            <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/prices">Ціни</Link>
             <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/kontakty">Контакти</Link>
             <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/nashi-roboty">Наші роботи</Link>
             {servicePages.slice(0, 4).map((service) => (
