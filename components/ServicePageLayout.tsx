@@ -75,10 +75,13 @@ export function ServicePageLayout({ service }: { service: Service }) {
       {service.seoIntro ? (
         <section className="section bg-white">
           <div className="container">
-            <div className="grid gap-4 rounded-[24px] border border-brand-green/15 bg-white p-6 leading-8 text-brand-graphite shadow-soft md:p-8">
-              {service.seoIntro.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
+            <div className="grid gap-5 rounded-[24px] border border-brand-green/15 bg-white p-6 shadow-soft md:p-8">
+              {service.seoIntroTitle ? <h2 className="text-3xl font-bold leading-tight text-brand-black">{service.seoIntroTitle}</h2> : null}
+              <div className="grid gap-4 leading-8 text-brand-graphite">
+                {service.seoIntro.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
             </div>
           </div>
         </section>
