@@ -13,8 +13,8 @@ const homeServices = [
   {
     slug: "prybyrannya-kvartyr-cherkasy",
     title: "Прибирання квартир",
-    shortDescription: "Підтримуюче, генеральне та післяремонтне прибирання квартир у Черкасах.",
-    priceFrom: "від 55 грн/м²",
+    shortDescription: "Професійне прибирання квартир у Черкасах з акцентом на генеральне прибирання.",
+    priceFrom: "від 4000 грн",
     image: "/images/services/premium-apartment-cleaning.webp",
     imageAlt: "Світле прибирання квартири клінінговою компанією"
   },

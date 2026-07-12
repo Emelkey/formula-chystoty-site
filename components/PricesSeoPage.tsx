@@ -21,9 +21,6 @@ const apartmentCleaningUrl = absoluteUrl("/prybyrannya-kvartyr-cherkasy");
 const apartmentMaintenanceUrl = absoluteUrl("/pidtrymuyuche-prybyrannya-kvartyr-cherkasy");
 const apartmentGeneralUrl = absoluteUrl("/generalne-prybyrannya-kvartyry-cherkasy");
 const apartmentRenovationUrl = absoluteUrl("/prybyrannya-pislya-remontu-cherkasy");
-const furnitureCleaningUrl = absoluteUrl("/himchystka-mebliv-cherkasy");
-const sofaCleaningUrl = absoluteUrl("/himchystka-dyvana-cherkasy");
-const windowCleaningUrl = absoluteUrl("/myttya-vikon-cherkasy");
 
 const serviceThumbs = {
   apartmentMaintenance: thumb(cleaningSprite, "Підтримуюче прибирання квартири у Черкасах", pos[0]),
@@ -83,7 +80,7 @@ const priceGroups: PriceGroup[] = [
       ["Генеральне прибирання квартири без шаф усередині", "100 грн/м²", serviceThumbs.apartmentGeneral, apartmentGeneralUrl],
       ["Генеральне прибирання квартири з шафами усередині", "120 грн/м²", serviceThumbs.apartmentGeneral, apartmentGeneralUrl],
       ["Прибирання після ремонту", "від 100 грн/м²", serviceThumbs.apartmentRenovation, apartmentRenovationUrl],
-      ["Миття вікон", "від 160 грн/м²", serviceThumbs.window, windowCleaningUrl],
+      ["Миття вікон", "від 160 грн/м²", serviceThumbs.window],
       ["Мінімальний виїзд", "від 3000 грн", serviceThumbs.minimumVisit]
     ]
   },
@@ -112,9 +109,9 @@ const priceGroups: PriceGroup[] = [
   {
     title: "Хімчистка меблів",
     rows: [
-      ["Кутовий диван", "від 2500 грн, видалення запаху від 500 грн", furnitureThumbs.cornerSofa, sofaCleaningUrl],
-      ["Двоспальний диван", "від 2000 грн, видалення запаху від 500 грн", furnitureThumbs.sleeperSofa, sofaCleaningUrl],
-      ["Диван 2-х місний", "від 1300 грн, видалення запаху від 500 грн", furnitureThumbs.twoSeatSofa, sofaCleaningUrl],
+      ["Кутовий диван", "від 2500 грн, видалення запаху від 500 грн", furnitureThumbs.cornerSofa],
+      ["Двоспальний диван", "від 2000 грн, видалення запаху від 500 грн", furnitureThumbs.sleeperSofa],
+      ["Диван 2-х місний", "від 1300 грн, видалення запаху від 500 грн", furnitureThumbs.twoSeatSofa],
       ["Матрац 2-х спальний", "від 2000 грн, видалення запаху від 500 грн", furnitureThumbs.doubleMattress],
       ["Матрац 1.5", "від 1500 грн, видалення запаху від 500 грн", furnitureThumbs.oneHalfMattress],
       ["Матрац дитячий", "від 1200 грн", furnitureThumbs.childMattress],
@@ -174,26 +171,6 @@ const examples = [
     price: "Вартість залежить від технічного завдання.",
     text: "Для бізнесу враховуємо площу, графік, кількість прибирань на тиждень, тип підлоги та вимоги до чистоти."
   }
-];
-
-const priceExamples = [
-  ["Прибирання 1-кімнатної квартири", "від 55 грн/м² для підтримуючого формату"],
-  ["Прибирання 2-кімнатної квартири", "від 55 грн/м² для підтримуючого формату"],
-  ["Генеральне прибирання квартири", "від 100 грн/м² без шаф усередині або 120 грн/м² з шафами"],
-  ["Прибирання після ремонту", "від 100 грн/м²"],
-  ["Генеральне прибирання кухні", "від 4000 грн"],
-  ["Хімчистка дивана", "від 1300 грн для 2-х місного дивана"],
-  ["Миття вікон", "від 160 грн/м²"],
-  ["Прибирання комерційного приміщення", "індивідуальний розрахунок"]
-];
-
-const priceServiceLinks = [
-  { href: apartmentCleaningUrl, label: "прибирання квартир у Черкасах" },
-  { href: apartmentGeneralUrl, label: "генеральне прибирання квартири" },
-  { href: apartmentRenovationUrl, label: "прибирання після ремонту" },
-  { href: furnitureCleaningUrl, label: "хімчистка меблів" },
-  { href: sofaCleaningUrl, label: "хімчистка дивана" },
-  { href: windowCleaningUrl, label: "миття вікон" }
 ];
 
 const meterPriceGroups: PriceGroup[] = [
@@ -257,14 +234,13 @@ const valueItems = ["професійна команда", "власна хім�
 const companyComparison = ["працює команда, а не випадкова людина", "є професійна хімія під різні поверхні", "є техніка для підлоги, меблів, ковроліну та складних забруднень", "є контроль якості після виконання робіт", "є відповідальність за результат і комунікація до старту", "є досвід складних прибирань після ремонту, пожежі, потопу та сильних забруднень", "можна працювати з бізнесом на постійній основі за регламентом"];
 
 const priceFaq: Faq[] = [
-  { question: "Скільки коштує клінінг у Черкасах?", answer: "Вартість залежить від типу прибирання, площі, стану приміщення та складності робіт. Орієнтовні ціни вказані на сайті, а точну суму менеджер підкаже після уточнення деталей." },
-  { question: "Чому ціна може змінюватися?", answer: "Ціна залежить від забруднення, кількості меблів, складності доступу, потреби у спеціальній хімії, техніці та кількості клінерів." },
-  { question: "Чи можна дізнатися ціну по фото?", answer: "Так. Ви можете надіслати фото або відео приміщення, і ми підкажемо орієнтовну вартість прибирання." },
-  { question: "Що входить у вартість?", answer: "У вартість входить робота клінерів, професійна хімія, інвентар та обладнання, якщо інше не погоджено окремо." },
-  { question: "Чи є мінімальна вартість виїзду?", answer: "Так, мінімальна вартість виїзду по місту — від 3000 грн. Для виїзду за межі Черкас дорога розраховується окремо." },
-  { question: "Як замовити точний розрахунок?", answer: "Залиште заявку на сайті або зателефонуйте. Менеджер уточнить деталі та підкаже ціну." },
+  { question: "Скільки коштує прибирання квартири у Черкасах?", answer: "Вартість залежить від площі, стану квартири, типу прибирання та додаткових робіт. Підтримуюче прибирання стартує від 55 грн/м², генеральне — від 100 грн/м² без шаф усередині або 120 грн/м² з шафами усередині, після ремонту — від 100 грн/м²." },
+  { question: "Чому точна ціна розраховується індивідуально?", answer: "Тому що дві квартири однакової площі можуть мати різний стан. На ціну впливає кількість забруднень, будівельний пил, меблі, санвузли, кухня, вікна, плями та складність робіт." },
+  { question: "Чи приїжджаєте ви зі своєю хімією та інвентарем?", answer: "Так, команда Формули Чистоти приїжджає зі своєю професійною хімією, інвентарем і технікою." },
   { question: "Чи можна замовити тільки миття вікон або хімчистку дивана?", answer: "Так, можна замовити окрему послугу: миття вікон, хімчистку дивана, хімчистку матраца, очищення санвузла, кухні або інші додаткові роботи." },
-  { question: "Чи працюєте ви з комерційними приміщеннями?", answer: "Так, ми прибираємо комерційні, сервісні, виробничі та інші бізнес-приміщення. Вартість для бізнесу розраховується індивідуально після уточнення площі, графіка та регламенту." }
+  { question: "Який мінімальний виїзд?", answer: "Мінімальний виїзд по місту — від 3000 грн. Виїзд за місто розраховується окремо — 25 грн/км." },
+  { question: "Чи працюєте ви з комерційними приміщеннями?", answer: "Так, ми прибираємо комерційні, сервісні, виробничі та інші бізнес-приміщення. Вартість для бізнесу розраховується індивідуально після уточнення площі, графіка та регламенту." },
+  { question: "Чи можна замовити прибирання після пожежі або потопу?", answer: "Так, ми виконуємо складні прибирання після пожежі, потопу, ремонту та сильних забруднень. Прибирання після пожежі стартує від 400 грн/м², після потопу — від 250 грн/м². Точна ціна залежить від стану об’єкта." }
 ];
 
 function PriceThumbnail({ thumbnail }: { thumbnail?: PriceThumb }) {
@@ -285,7 +261,7 @@ function PriceThumbnail({ thumbnail }: { thumbnail?: PriceThumb }) {
 }
 
 export function PricesSeoPage({
-  canonicalPath = "/prices",
+  canonicalPath = "/tsiny",
   heading = "Ціни на клінінг у Черкасах 2026",
   schemaName = "Ціни на клінінг у Черкасах 2026"
 }: {
@@ -359,36 +335,6 @@ export function PricesSeoPage({
               ) : null}
             </article>
           ))}
-        </div>
-      </section>
-
-      <section className="section bg-white">
-        <div className="container">
-          <div className="max-w-3xl">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Орієнтири</p>
-            <h2 className="text-3xl font-bold">Приклади вартості прибирання</h2>
-            <p className="mt-4 leading-7 text-brand-graphite">
-              Остаточна ціна залежить від площі, стану приміщення, кількості меблів, складності забруднень, терміновості, доступу до води та необхідного обладнання. Для точного розрахунку можна надіслати фото або відео приміщення.
-            </p>
-          </div>
-          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {priceExamples.map(([service, price]) => (
-              <article className="rounded-2xl border border-brand-green/15 bg-white p-5 shadow-soft" key={service}>
-                <h3 className="text-base font-bold text-brand-black">{service}</h3>
-                <p className="mt-3 text-lg font-bold text-brand-hover">{price}</p>
-              </article>
-            ))}
-          </div>
-          <div className="mt-8 rounded-[24px] border border-brand-green/15 bg-brand-mist p-5 shadow-soft">
-            <h3 className="text-xl font-bold text-brand-black">Перейти до послуг</h3>
-            <div className="mt-4 flex flex-wrap gap-3">
-              {priceServiceLinks.map((link) => (
-                <a className="rounded-md bg-white px-4 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:text-brand-black" href={link.href} key={link.href}>
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
