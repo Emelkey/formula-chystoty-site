@@ -37,6 +37,15 @@ const noindexExactPaths = new Set([
 
 const noindexPaginationPattern = /^\/(?:uk|ru)\/services\/page\/\d+$/;
 
+const exactLegacyRedirects = new Map([
+  ["/about", "/pro-nas"],
+  ["/works", "/nashi-roboty"],
+  ["/reviews", "/vidguky"],
+  ["/vidhuky", "/vidguky"],
+  ["/services", "/poslugy"],
+  ["/prybyrannya-kotedzhiv-cherkasy", "/prybyrannya-budynkiv-cherkasy"]
+]);
+
 function normalizePath(pathname: string) {
   if (pathname === "/") return pathname;
   return pathname.replace(/\/+$/, "");
@@ -53,6 +62,15 @@ export function middleware(request: NextRequest) {
   const host = request.headers.get("host")?.split(":")[0] ?? "";
   const forwardedProto = request.headers.get("x-forwarded-proto");
   const protocol = forwardedProto ?? request.nextUrl.protocol.replace(":", "");
+  const legacyDestination = exactLegacyRedirects.get(normalizedPath);
+
+  if (legacyDestination) {
+    const url = request.nextUrl.clone();
+    url.protocol = productionHosts.has(host) ? "https:" : request.nextUrl.protocol;
+    url.host = productionHosts.has(host) ? canonicalHost : request.nextUrl.host;
+    url.pathname = legacyDestination;
+    return NextResponse.redirect(url, 301);
+  }
 
   if (
     carCleaningLegacyPaths.has(normalizedPath) &&

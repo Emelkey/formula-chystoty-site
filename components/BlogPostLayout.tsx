@@ -40,11 +40,15 @@ type BlogPost = {
 };
 
 const internalLinks = [
+  { text: "хімчистка дивана у Черкасах", href: "/himchystka-dyvana-cherkasy" },
+  { text: "хімчистку дивана у Черкасах", href: "/himchystka-dyvana-cherkasy" },
+  { text: "хімчистка меблів", href: "/himchystka-mebliv-cherkasy" },
+  { text: "хімчистку меблів", href: "/himchystka-mebliv-cherkasy" },
+  { text: "хімчистку матраца", href: "/himchystka-matratsa-cherkasy" },
   { text: "прибирання квартир у Черкасах", href: "/prybyrannya-kvartyr-cherkasy" },
   { text: "ціни на клінінг", href: "/prices" },
   { text: "генеральне прибирання", href: "/generalne-prybyrannya-cherkasy" },
   { text: "прибирання після ремонту", href: "/prybyrannya-pislya-remontu-cherkasy" },
-  { text: "хімчистка меблів", href: "/himchystka-mebliv-cherkasy" },
   { text: "клінінгові послуги у Черкасах", href: "/poslugy" },
   { text: "вартість прибирання", href: "/prices" },
   { text: "залишити заявку", href: "/kontakty" },

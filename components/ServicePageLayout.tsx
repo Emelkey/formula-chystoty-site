@@ -35,6 +35,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
   const serviceTrustItems = service.trustItems ?? trustItems;
   const processSteps = service.processSteps ?? seoProcessSteps;
   const hasPriceImages = service.priceDetails?.some((item) => item.image);
+  const relatedArticle = getRelatedArticle(service.slug);
   const showPriceNearTop = [
     "prybyrannya-kvartyr-cherkasy",
     "pidtrymuyuche-prybyrannya-kvartyr-cherkasy",
@@ -238,6 +239,20 @@ export function ServicePageLayout({ service }: { service: Service }) {
         </div>
       </section>
       <RelatedServices currentSlug={service.slug} />
+      {relatedArticle ? (
+        <section className="section bg-white">
+          <div className="container">
+            <div className="rounded-[24px] border border-brand-green/15 bg-brand-mist p-6 shadow-soft md:p-8">
+              <p className="text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Корисна стаття</p>
+              <h2 className="mt-3 text-3xl font-bold text-brand-black">{relatedArticle.title}</h2>
+              <p className="mt-4 max-w-3xl leading-7 text-brand-graphite">{relatedArticle.description}</p>
+              <a className="mt-5 inline-flex min-h-11 items-center justify-center rounded-md bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" href={relatedArticle.href}>
+                Читати статтю
+              </a>
+            </div>
+          </div>
+        </section>
+      ) : null}
       <section className="section bg-white">
         <div className="container">
           <h2 className="text-3xl font-bold">Корисні розділи</h2>
@@ -434,6 +449,26 @@ function ensureFaq(faq: Faq[]) {
   return merged;
 }
 
+function getRelatedArticle(slug: string) {
+  if (slug.includes("dyvana") || slug.includes("mebliv")) {
+    return {
+      title: "Як часто потрібно робити хімчистку дивана",
+      description: "Пояснюємо, коли потрібна планова хімчистка дивана, як впливають діти, тварини, запахи й щоденне користування.",
+      href: "/blog/yak-chasto-potribno-robyty-himchystku-dyvana"
+    };
+  }
+
+  if (slug.includes("vikon")) {
+    return {
+      title: "Миття вікон після ремонту: що важливо знати",
+      description: "Пояснюємо, чим відрізняється післяремонтне миття вікон, коли сліди клею, пилу, плівки чи фарби рахуються окремо.",
+      href: "/blog/myttya-vikon-pislya-remontu"
+    };
+  }
+
+  return null;
+}
+
 function getServiceExamples(slug: string) {
   if (slug === "prybyrannya-kvartyr-cherkasy") {
     return workExamples
@@ -452,7 +487,12 @@ function getServiceExamples(slug: string) {
   if (slug.includes("pozhezhi")) return workExamples.filter((item) => item.category.includes("пожеж")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("potopu")) return workExamples.filter((item) => item.category.includes("Складне") || item.category.includes("Комерційний")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("plytky") || slug.includes("plitky") || slug.includes("fasadiv")) return workExamples.filter((item) => item.title.includes("плитки") || item.title.includes("паркану")).concat(workExamples.slice(0, 2)).slice(0, 3);
-  if (slug.includes("vikon")) return workExamples.filter((item) => item.category.includes("Вікна")).concat(workExamples.slice(0, 2)).slice(0, 3);
+  if (slug.includes("vikon")) {
+    return workExamples
+      .filter((item) => item.category.includes("Вікна"))
+      .concat(workExamples.filter((item) => item.category.includes("Миття вікон")))
+      .slice(0, 4);
+  }
   if (slug.includes("remontu")) {
     return workExamples
       .filter((item) => item.category.includes("Післяремонтне") || item.category.includes("Миття вікон") || item.title.includes("плитки"))
@@ -609,10 +649,13 @@ function getBeforeAfterCase(service: Service): BeforeAfterCase {
 
   if (slug.includes("vikon")) {
     return {
-      title: "Результат після миття вікон",
-      description: "Чисте скло, рами та підвіконня одразу роблять простір світлішим і доглянутішим.",
-      beforeAfterImage: "/images/works/window-cleaning-01.webp",
-      beforeAfterAlt: "Результат професійного миття вікон у Черкасах"
+      title: "До/після миття вікон, рам і підвіконь",
+      description: "Показуємо реальний результат очищення віконного блоку: прибираємо пил, павутиння, сезонний бруд, забруднення на рамах, фурнітурі та підвіконні.",
+      beforeImage: "/images/works/window-cleaning-before-after/window-frame-before-cleaning-cherkasy-01.jpg",
+      beforeAlt: "Віконна рама до миття у Черкасах",
+      afterImage: "/images/works/window-cleaning-before-after/window-frame-after-cleaning-cherkasy-01.jpg",
+      afterAlt: "Віконна рама після миття у Черкасах",
+      caption: "Миття вікон у Черкасах — рама, підвіконня та важкодоступні зони"
     };
   }
 
