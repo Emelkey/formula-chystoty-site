@@ -466,6 +466,14 @@ function getRelatedArticle(slug: string) {
     };
   }
 
+  if (slug.includes("remontu")) {
+    return {
+      title: "Скільки коштує прибирання після ремонту у Черкасах",
+      description: "Пояснюємо, від чого залежить ціна післяремонтного клінінгу: площа, пил, вікна, санвузли, плитка та стан об’єкта.",
+      href: "/blog/skilky-koshtuye-prybyrannya-pislya-remontu-u-cherkasakh"
+    };
+  }
+
   return null;
 }
 
@@ -539,11 +547,12 @@ function getBeforeAfterCase(service: Service): BeforeAfterCase {
   if (slug.includes("remontu")) {
     return {
       title: "До/після прибирання після ремонту та будівництва",
-      description: "Показуємо, як змінюється приміщення після видалення будівельного пилу, бруду на плитці та слідів ремонтних робіт.",
-      beforeImage: "/images/works/before-after/construction-cleaning-floor-before-optimized.jpg",
-      beforeAlt: "Прибирання після будівництва у Черкасах — до",
-      afterImage: "/images/works/before-after/construction-cleaning-floor-after-optimized.jpg",
-      afterAlt: "Прибирання після будівництва у Черкасах — після"
+      description: "Реальний приклад очищення санвузла після ремонту: прибрали будівельний бруд, наліт, забруднення на плитці та сантехніці.",
+      beforeImage: "/images/works/post-renovation-cleaning-before-after/bathroom-after-renovation-before-cherkasy.jpg",
+      beforeAlt: "Санвузол до прибирання після ремонту у Черкасах",
+      afterImage: "/images/works/post-renovation-cleaning-before-after/bathroom-after-renovation-after-cherkasy.jpg",
+      afterAlt: "Санвузол після прибирання після ремонту у Черкасах",
+      caption: "Прибирання санвузла після ремонту та складних забруднень"
     };
   }
 
