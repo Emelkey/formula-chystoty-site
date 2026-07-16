@@ -462,7 +462,12 @@ function getServiceExamples(slug: string) {
   if (slug.includes("dyvana")) return workExamples.filter((item) => item.title.toLowerCase().includes("дивана")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
   if (slug.includes("matratsa")) return workExamples.filter((item) => item.title.toLowerCase().includes("матраца")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
   if (slug.includes("mebliv")) return workExamples.filter((item) => item.title.toLowerCase().includes("стільців") || item.title.toLowerCase().includes("дивана") || item.category.includes("Хімчистка меблів")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
-  if (slug.includes("avto")) return workExamples.filter((item) => item.category.includes("Хімчистка")).concat(workExamples.slice(0, 2)).slice(0, 3);
+  if (slug.includes("avto")) {
+    return workExamples
+      .filter((item) => item.category.includes("Хімчистка авто"))
+      .concat(workExamples.filter((item) => item.category.includes("Хімчистка")))
+      .slice(0, 3);
+  }
   if (slug.includes("ofis")) return workExamples.filter((item) => item.title.includes("Офіс") || item.category.includes("Комерційний")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("magazyn") || slug.includes("supermarket") || slug.includes("komertsiynykh") || slug.includes("trts")) return workExamples.filter((item) => item.category.includes("Комерційний") || item.title.includes("супермаркет") || item.title.includes("офіс")).concat(workExamples.slice(0, 2)).slice(0, 3);
 
@@ -562,6 +567,16 @@ function getBeforeAfterCase(service: Service): BeforeAfterCase {
       beforeAfterImage: "/images/services/before-after-sofa-cleaning.jpg",
       beforeAfterAlt: "Хімчистка дивана у Черкасах — до та після",
       caption: "Хімчистка дивана — результат до та після очищення"
+    };
+  }
+
+  if (slug.includes("avto")) {
+    return {
+      title: "Наш бокс для хімчистки авто",
+      description: "Працюємо з професійним обладнанням, екстрактором, компресором та хімією для тканини, шкіри, пластику й запахів.",
+      beforeAfterImage: "/images/works/auto-cleaning-box/auto-cleaning-box-equipment-cherkasy.jpg",
+      beforeAfterAlt: "Бокс для хімчистки авто Формула Чистоти у Черкасах",
+      caption: "Фото нашого боксу для хімчистки авто у Черкасах"
     };
   }
 
