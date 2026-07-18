@@ -40,6 +40,8 @@ type BlogPost = {
 };
 
 const internalLinks = [
+  { text: "клінінг Черкаси", href: "/" },
+  { text: "клінінг у Черкасах", href: "/" },
   { text: "хімчистка дивана у Черкасах", href: "/himchystka-dyvana-cherkasy" },
   { text: "хімчистку дивана у Черкасах", href: "/himchystka-dyvana-cherkasy" },
   { text: "хімчистка меблів", href: "/himchystka-mebliv-cherkasy" },
@@ -47,7 +49,7 @@ const internalLinks = [
   { text: "хімчистку матраца", href: "/himchystka-matratsa-cherkasy" },
   { text: "прибирання квартир у Черкасах", href: "/prybyrannya-kvartyr-cherkasy" },
   { text: "ціни на клінінг", href: "/prices" },
-  { text: "генеральне прибирання", href: "/generalne-prybyrannya-cherkasy" },
+  { text: "генеральне прибирання", href: "/generalne-prybyrannya-kvartyry-cherkasy" },
   { text: "прибирання після ремонту", href: "/prybyrannya-pislya-remontu-cherkasy" },
   { text: "клінінгові послуги у Черкасах", href: "/poslugy" },
   { text: "вартість прибирання", href: "/prices" },
