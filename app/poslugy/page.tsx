@@ -20,7 +20,7 @@ const businessProfileServices = [
   { slug: "prybyrannya-pislya-potopu-cherkasy", description: "Прибирання після затоплення квартири, будинку або офісу." },
   { slug: "prybyrannya-pislya-pozhezhi-cherkasy", description: "Очищення сажі, гару, запахів і забруднень після пожежі." },
   { slug: "himchystka-kylymiv-cherkasy", description: "Хімчистка килимів і ковроліну у Черкасах." },
-  { slug: "himchystka-avto-cherkasy", description: "Хімчистка салону авто: комплекс, сидіння з тканини або шкіри, стеля, видалення запаху та дезінфекція." },
+  { slug: "himchystka-avto-cherkasy", description: "Хімчистка салону авто: комплекс, сидіння з тканини або шкіри, килимки та багажник. Стеля, видалення запаху й дезінфекція рахуються окремо." },
   { slug: "prybyrannya-komertsiynykh-prymishchen-cherkasy", description: "Клінінг бізнес-приміщень, сервісних просторів і комерційних площ за погодженим регламентом." },
   { slug: "dezinfektsiya-prymishchen-cherkasy", description: "Дезінфекція квартир, будинків та комерційних приміщень." },
   { slug: "myttya-fasadiv-cherkasy", description: "Миття фасадів будинків та комерційних об’єктів." },
