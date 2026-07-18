@@ -7,6 +7,7 @@ const lastModified = "2026-07-04T00:00:00.000Z";
 
 type SitemapUrl = {
   loc: string;
+  lastmod?: string;
   changefreq: "daily" | "weekly" | "monthly";
   priority: string;
 };
@@ -35,11 +36,16 @@ function absolutePath(path: string) {
   return `${siteUrl}${path === "/" ? "/" : path}`;
 }
 
-function buildUrlEntry({ loc, changefreq, priority }: SitemapUrl) {
+function normalizeLastmod(value?: string) {
+  if (!value) return lastModified;
+  return value.includes("T") ? value : `${value}T00:00:00.000Z`;
+}
+
+function buildUrlEntry({ loc, lastmod, changefreq, priority }: SitemapUrl) {
   return [
     "  <url>",
     `    <loc>${escapeXml(absolutePath(loc))}</loc>`,
-    `    <lastmod>${lastModified}</lastmod>`,
+    `    <lastmod>${normalizeLastmod(lastmod)}</lastmod>`,
     `    <changefreq>${changefreq}</changefreq>`,
     `    <priority>${priority}</priority>`,
     "  </url>"
@@ -55,6 +61,7 @@ export function GET() {
 
   const blogRoutes: SitemapUrl[] = blogPosts.map((post) => ({
     loc: `/blog/${post.slug}`,
+    lastmod: post.updatedAt,
     changefreq: "weekly",
     priority: "0.6"
   }));
