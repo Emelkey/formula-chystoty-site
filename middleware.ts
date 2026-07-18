@@ -15,6 +15,8 @@ const carCleaningLegacySlugs = [
   "khimchistka-avto-cherkasy",
   "himchystka-salonu-avto",
   "himchystka-salonu-avto-cherkasy",
+  "vyyizna-himchystka-avto",
+  "vyyizna-himchystka-avto-cherkasy",
   "himchistka-salona-avto",
   "himchistka-salona-avto-cherkasy",
   "himchystka-avtomobilya",
@@ -38,11 +40,26 @@ const noindexExactPaths = new Set([
 const noindexPaginationPattern = /^\/(?:uk|ru)\/services\/page\/\d+$/;
 
 const exactLegacyRedirects = new Map([
+  ["/uk", "/"],
+  ["/ru", "/"],
   ["/about", "/pro-nas"],
   ["/works", "/nashi-roboty"],
   ["/reviews", "/vidguky"],
   ["/vidhuky", "/vidguky"],
   ["/services", "/poslugy"],
+  ["/uk/services", "/poslugy"],
+  ["/ru/services", "/poslugy"],
+  ["/uk/services-uk", "/poslugy"],
+  ["/ru/services-ru", "/poslugy"],
+  ["/uk/blog-uk", "/blog"],
+  ["/ru/blog-ru", "/blog"],
+  ["/uk/video-gallery-uk", "/nashi-roboty"],
+  ["/ru/video-gallery-ru", "/nashi-roboty"],
+  ["/uk/services/myttya-vikon-vitryn-ta-fasadiv", "/myttya-vikon-cherkasy"],
+  ["/ru/services/mojka-okon-vitrin-i-fasadov", "/myttya-vikon-cherkasy"],
+  ["/uk/services/obslugovuvannya-ta-klining-promislovih-i-virobnichih-primishhen", "/prybyrannya-komertsiynykh-prymishchen-cherkasy"],
+  ["/ru/services/obsluzhivanie-i-klining-promyshlennyh-i-proizvodstvennyh-pomeshchenij", "/prybyrannya-komertsiynykh-prymishchen-cherkasy"],
+  ["/uk/services/prybyrannya-prylegloyi-terytoriyi", "/prybyrannya-prylegloyi-terytoriyi-cherkasy"],
   ["/prybyrannya-kotedzhiv-cherkasy", "/prybyrannya-budynkiv-cherkasy"]
 ]);
 

@@ -26,7 +26,7 @@ export function HomePageContent() {
           <div className="grid gap-5 rounded-[24px] border border-brand-green/15 bg-brand-mist p-6 shadow-soft md:grid-cols-[0.85fr_1.15fr] md:p-8">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Клінінг Черкаси</p>
-              <h2 className="mt-3 text-3xl font-bold leading-tight text-brand-black">Прибирання квартир, будинків і складних об’єктів</h2>
+              <h2 className="mt-3 text-3xl font-bold leading-tight text-brand-black">Клінінгова компанія у Черкасах для житла, бізнесу і складних об’єктів</h2>
             </div>
             <div className="grid gap-4 leading-7 text-brand-graphite">
               <p>
@@ -37,6 +37,16 @@ export function HomePageContent() {
                 , будинків, комерційних площ і складних об’єктів після ремонту.
               </p>
               <p>Команда приїжджає зі своїм інвентарем, професійною хімією та зрозумілим планом робіт. Ви можете замовити разове генеральне прибирання, регулярний клінінг, миття вікон, хімчистку меблів або складне прибирання після пожежі чи потопу.</p>
+              <p>
+                Якщо ви шукаєте <strong>клінінг Черкаси</strong>, важливо отримати не просто людину “на годину”, а команду, яка оцінить стан об’єкта, підбере засоби під поверхні, привезе обладнання і пояснить реальну вартість до початку робіт. Тому ми окремо показуємо{" "}
+                <Link className="font-semibold text-brand-hover underline decoration-brand-green/30 underline-offset-4 transition hover:decoration-brand-green" href="/prices">
+                  ціни на клінінг у Черкасах
+                </Link>
+                , приклади робіт і посадкові сторінки під основні послуги.
+              </p>
+              <p>
+                Найчастіше клієнти звертаються до нас, коли потрібно підготувати квартиру до заселення, прибрати після ремонту, привести до ладу будинок, освіжити диван чи матрац, помити вікна або організувати регулярне прибирання об’єкта. Для кожної задачі ми погоджуємо перелік робіт: що входить у базовий клінінг, що рахується окремо, скільки людей потрібно і скільки часу займе робота.
+              </p>
             </div>
           </div>
         </div>
