@@ -87,6 +87,31 @@ export function ServicePageLayout({ service }: { service: Service }) {
           </div>
         </section>
       ) : null}
+      {service.seoSections ? (
+        <section className="section bg-white pt-0">
+          <div className="container">
+            <div className="grid gap-5 lg:grid-cols-3">
+              {service.seoSections.map((section) => (
+                <article className="rounded-2xl border border-brand-green/15 bg-brand-mist p-5 shadow-soft" key={section.title}>
+                  <h2 className="text-xl font-bold leading-snug text-brand-black">{section.title}</h2>
+                  <div className="mt-4 grid gap-3 text-sm leading-7 text-brand-graphite">
+                    {section.paragraphs.map((paragraph) => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+                    {section.list ? (
+                      <ul className="grid gap-2">
+                        {section.list.map((item) => (
+                          <li key={item}>• {item}</li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
       <section className="section bg-white">
         <div className="container grid gap-5 md:grid-cols-3">
           <InfoBlock title="Коли потрібна ця послуга" items={service.whenNeeded} />

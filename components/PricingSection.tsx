@@ -8,7 +8,7 @@ const compactPrices = [
   {
     title: "Генеральне прибирання квартири",
     price: "від 100 грн/м²",
-    description: "Без шаф усередині — 100 грн/м², з шафами — 120 грн/м²",
+    description: "Без шаф усередині — від 100 грн/м², з шафами — від 120 грн/м²",
     href: "/generalne-prybyrannya-kvartyry-cherkasy",
     image: "/images/services/premium-general-cleaning.webp",
     imageAlt: "Професійне генеральне прибирання квартири у світлому інтер’єрі"
