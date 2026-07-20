@@ -413,6 +413,102 @@ function isNoindexLegacyPath(pathname: string) {
   return noindexExactPaths.has(normalized) || noindexPaginationPattern.test(normalized);
 }
 
+const serviceRedirectRules = [
+  {
+    canonicalPath: carCleaningCanonicalPath,
+    paths: carCleaningLegacyPaths,
+    patterns: [
+      /(?:himchystka|himchistka|khimchystka|khimchistka|chystka|chistka|vyyizna|vyizna|vyezdnaya).*(?:avto|avtomobil|salon)/,
+      /(?:avto|avtomobil).*(?:himchystka|himchistka|khimchystka|khimchistka|chystka|chistka)/
+    ]
+  },
+  {
+    canonicalPath: furnitureCleaningCanonicalPath,
+    paths: furnitureCleaningLegacyPaths,
+    patterns: [
+      /(?:himchystka|himchistka|khimchystka|khimchistka|chystka|chistka|vyyizna|vyizna|vyezdnaya).*(?:mebl|mebel|myak|myag|mjak)/,
+      /(?:mebl|mebel|myak|myag|mjak).*(?:himchystka|himchistka|khimchystka|khimchistka|chystka|chistka)/
+    ]
+  },
+  {
+    canonicalPath: postRenovationCanonicalPath,
+    paths: postRenovationLegacyPaths,
+    patterns: [
+      /(?:pislya|pislja|posle).*(?:remont|budivnytstv|budivel|stroi|stroy)/,
+      /(?:remont|budivnytstv|budivel|stroi|stroy).*(?:prybyrannya|uborka|klining|cleaning)/
+    ]
+  },
+  {
+    canonicalPath: kitchenGeneralCleaningCanonicalPath,
+    paths: kitchenGeneralCleaningLegacyPaths,
+    patterns: [/(?:generalne|generalnaya|generalna).*(?:kuhni|kuhny|kukhni|kukhny|kuhnya|kitchen)/]
+  },
+  {
+    canonicalPath: generalCleaningCanonicalPath,
+    paths: generalCleaningLegacyPaths,
+    patterns: [
+      /(?:generalne|generalnaya|generalna).*(?:prybyrannya|uborka|kvartyr|kvartyry|kvartir)/,
+      /(?:prybyrannya|uborka).*(?:generalne|generalnaya|generalna)/
+    ]
+  },
+  {
+    canonicalPath: maintenanceCleaningCanonicalPath,
+    paths: maintenanceCleaningLegacyPaths,
+    patterns: [
+      /(?:pidtrym|pidtrim|podderzh|podderz).*(?:prybyrannya|uborka|kvartyr|kvartyry|kvartir)/,
+      /(?:prybyrannya|uborka).*(?:pidtrym|pidtrim|podderzh|podderz)/
+    ]
+  },
+  {
+    canonicalPath: apartmentCleaningCanonicalPath,
+    paths: apartmentCleaningLegacyPaths,
+    patterns: [
+      /(?:prybyrannya|uborka|klining|cleaning).*(?:kvartyr|kvartyry|kvartir|kvartiry)/,
+      /(?:kvartyr|kvartyry|kvartir|kvartiry).*(?:prybyrannya|uborka|klining|cleaning)/
+    ]
+  },
+  {
+    canonicalPath: houseCleaningCanonicalPath,
+    paths: houseCleaningLegacyPaths,
+    patterns: [
+      /(?:prybyrannya|uborka|klining).*(?:budyn|budynku|dom|doma|domov|kotedzh|kottedzh|kottedz|cottage|chastn)/,
+      /(?:budyn|budynku|dom|doma|domov|kotedzh|kottedzh|kottedz|cottage|chastn).*(?:prybyrannya|uborka|klining)/
+    ]
+  },
+  {
+    canonicalPath: disinfectionCanonicalPath,
+    paths: disinfectionLegacyPaths,
+    patterns: [/(?:dezinfek|dezynfek|dezinfec|dezinfekciya|dezinfektsiya)/]
+  },
+  {
+    canonicalPath: carpetCleaningCanonicalPath,
+    paths: carpetCleaningLegacyPaths,
+    patterns: [
+      /(?:himchystka|himchistka|khimchystka|khimchistka|chystka|chistka).*(?:kylym|kilim|kovr|kovrolin)/,
+      /(?:kylym|kilim|kovr|kovrolin).*(?:himchystka|himchistka|khimchystka|khimchistka|chystka|chistka)/
+    ]
+  },
+  {
+    canonicalPath: windowCleaningCanonicalPath,
+    paths: windowCleaningLegacyPaths,
+    patterns: [
+      /(?:myttya|mojka|moyka).*(?:vikon|okon|vitrin|fasad)/,
+      /(?:vikon|okon|vitrin|fasad).*(?:myttya|mojka|moyka)/
+    ]
+  }
+];
+
+function getServiceRedirectDestination(pathname: string) {
+  const normalized = normalizePath(pathname).toLowerCase();
+  for (const rule of serviceRedirectRules) {
+    if (rule.paths.has(normalized) || rule.patterns.some((pattern) => pattern.test(normalized))) {
+      return rule.canonicalPath;
+    }
+  }
+
+  return undefined;
+}
+
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const normalizedPath = normalizePath(pathname);
@@ -426,6 +522,18 @@ export function middleware(request: NextRequest) {
     url.protocol = productionHosts.has(host) ? "https:" : request.nextUrl.protocol;
     url.host = productionHosts.has(host) ? canonicalHost : request.nextUrl.host;
     url.pathname = legacyDestination;
+    return NextResponse.redirect(url, 301);
+  }
+
+  const serviceDestination = getServiceRedirectDestination(normalizedPath);
+  if (
+    serviceDestination &&
+    (normalizedPath !== serviceDestination || host !== canonicalHost || protocol !== "https")
+  ) {
+    const url = request.nextUrl.clone();
+    url.protocol = "https:";
+    url.host = canonicalHost;
+    url.pathname = serviceDestination;
     return NextResponse.redirect(url, 301);
   }
 
