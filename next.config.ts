@@ -1,35 +1,6 @@
 import type { NextConfig } from "next";
 
-const carCleaningCanonicalPath = "/himchystka-avto-cherkasy";
-const carCleaningLegacySlugs = [
-  "himchystka-avto",
-  "himchystka-avto-cherkasy",
-  "himchistka-avto",
-  "himchistka-avto-cherkasy",
-  "khimchystka-avto",
-  "khimchystka-avto-cherkasy",
-  "khimchistka-avto",
-  "khimchistka-avto-cherkasy",
-  "himchystka-salonu-avto",
-  "himchystka-salonu-avto-cherkasy",
-  "vyyizna-himchystka-avto",
-  "vyyizna-himchystka-avto-cherkasy",
-  "himchistka-salona-avto",
-  "himchistka-salona-avto-cherkasy",
-  "himchystka-avtomobilya",
-  "himchystka-avtomobilya-cherkasy",
-  "himchistka-avtomobilya",
-  "himchistka-avtomobilya-cherkasy"
-];
-const carCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
-const carCleaningLegacyRedirects = carCleaningLegacyPrefixes
-  .flatMap((prefix) => carCleaningLegacySlugs.map((slug) => `${prefix}/${slug}`))
-  .filter((source, index, sources) => source !== carCleaningCanonicalPath && sources.indexOf(source) === index)
-  .map((source) => ({ source, destination: carCleaningCanonicalPath, statusCode: 301 as const }));
-
 const legacyRedirects = [
-  ...carCleaningLegacyRedirects,
-  { source: "/generalne-prybyrannya-cherkasy", destination: "/generalne-prybyrannya-kvartyry-cherkasy", statusCode: 301 },
   { source: "/uk", destination: "/", statusCode: 301 },
   { source: "/ru", destination: "/", statusCode: 301 },
   { source: "/services", destination: "/poslugy", statusCode: 301 },
@@ -48,11 +19,6 @@ const legacyRedirects = [
   { source: "/ru/services", destination: "/poslugy", statusCode: 301 },
   { source: "/uk/blog-uk", destination: "/blog", statusCode: 301 },
   { source: "/ru/blog-ru", destination: "/blog", statusCode: 301 },
-  { source: "/uk/services/pidtrymuyuche-", destination: "/prybyrannya-kvartyr-cherkasy", statusCode: 301 },
-  { source: "/ru/services/pidtrymuyuche-", destination: "/prybyrannya-kvartyr-cherkasy", statusCode: 301 },
-  { source: "/uk/services/pidtrymuyuche-prybyrannya-kvartyry", destination: "/pidtrymuyuche-prybyrannya-kvartyr-cherkasy", statusCode: 301 },
-  { source: "/ru/services/podderzhivayushchaya-uborka-kvartiry", destination: "/pidtrymuyuche-prybyrannya-kvartyr-cherkasy", statusCode: 301 },
-  { source: "/uk/services/generalne-prybyrannya-kvartyry", destination: "/generalne-prybyrannya-kvartyry-cherkasy", statusCode: 301 },
   { source: "/uk/services/generalne-prybyrannya-kuhni", destination: "/generalne-prybyrannya-kuhni-cherkasy", statusCode: 301 },
   { source: "/byudzhetne-prybyrannya-cherkasy", destination: "/prybyrannya-kvartyr-cherkasy", statusCode: 301 },
   { source: "/uk/services/byudzhetne-prybyrannya", destination: "/prybyrannya-kvartyr-cherkasy", statusCode: 301 },
@@ -77,28 +43,6 @@ const legacyRedirects = [
   { source: "/ru/about-us-ru", destination: "/pro-nas", statusCode: 301 },
   { source: "/uk/gallery-uk", destination: "/nashi-roboty", statusCode: 301 },
   { source: "/ru/gallery-ru", destination: "/nashi-roboty", statusCode: 301 },
-  { source: "/uk/prybyrannya-kvartyr", destination: "/prybyrannya-kvartyr-cherkasy", statusCode: 301 },
-  { source: "/ru/prybyrannya-kvartyr", destination: "/prybyrannya-kvartyr-cherkasy", statusCode: 301 },
-  { source: "/uk/services/prybyrannya-kvartyr", destination: "/prybyrannya-kvartyr-cherkasy", statusCode: 301 },
-  { source: "/ru/services/prybyrannya-kvartyr", destination: "/prybyrannya-kvartyr-cherkasy", statusCode: 301 },
-  { source: "/uk/generalne-prybyrannya", destination: "/generalne-prybyrannya-kvartyry-cherkasy", statusCode: 301 },
-  { source: "/ru/generalne-prybyrannya", destination: "/generalne-prybyrannya-kvartyry-cherkasy", statusCode: 301 },
-  { source: "/uk/services/generalne-prybyrannya", destination: "/generalne-prybyrannya-kvartyry-cherkasy", statusCode: 301 },
-  { source: "/ru/services/generalne-prybyrannya", destination: "/generalne-prybyrannya-kvartyry-cherkasy", statusCode: 301 },
-  { source: "/uk/prybyrannya-pislya-remontu", destination: "/prybyrannya-pislya-remontu-cherkasy", statusCode: 301 },
-  { source: "/ru/prybyrannya-pislya-remontu", destination: "/prybyrannya-pislya-remontu-cherkasy", statusCode: 301 },
-  { source: "/uk/services/prybyrannya-pislya-remontu", destination: "/prybyrannya-pislya-remontu-cherkasy", statusCode: 301 },
-  { source: "/ru/services/prybyrannya-pislya-remontu", destination: "/prybyrannya-pislya-remontu-cherkasy", statusCode: 301 },
-  { source: "/prybyrannya-pislya-budivnytstva-cherkasy", destination: "/prybyrannya-pislya-remontu-cherkasy", statusCode: 301 },
-  { source: "/pislyabudivelne-prybyrannya-cherkasy", destination: "/prybyrannya-pislya-remontu-cherkasy", statusCode: 301 },
-  { source: "/uk/services/prybyrannya-pislya-budivnytstva-cherkasy", destination: "/prybyrannya-pislya-remontu-cherkasy", statusCode: 301 },
-  { source: "/uk/services/pislyabudivelne-prybyrannya-cherkasy", destination: "/prybyrannya-pislya-remontu-cherkasy", statusCode: 301 },
-  { source: "/uk/prybyrannya-pislya-budivnytstva", destination: "/prybyrannya-pislya-remontu-cherkasy", statusCode: 301 },
-  { source: "/uk/pislyabudivelne-prybyrannya", destination: "/prybyrannya-pislya-remontu-cherkasy", statusCode: 301 },
-  { source: "/uk/himchystka-mebliv", destination: "/himchystka-mebliv-cherkasy", statusCode: 301 },
-  { source: "/ru/himchystka-mebliv", destination: "/himchystka-mebliv-cherkasy", statusCode: 301 },
-  { source: "/uk/services/himchystka-mebliv", destination: "/himchystka-mebliv-cherkasy", statusCode: 301 },
-  { source: "/ru/services/himchystka-mebliv", destination: "/himchystka-mebliv-cherkasy", statusCode: 301 },
   { source: "/uk/himchystka-dyvana", destination: "/himchystka-dyvana-cherkasy", statusCode: 301 },
   { source: "/ru/himchystka-dyvana", destination: "/himchystka-dyvana-cherkasy", statusCode: 301 },
   { source: "/uk/services/himchystka-dyvana", destination: "/himchystka-dyvana-cherkasy", statusCode: 301 },
@@ -107,12 +51,6 @@ const legacyRedirects = [
   { source: "/ru/himchystka-matratsa", destination: "/himchystka-matratsa-cherkasy", statusCode: 301 },
   { source: "/uk/services/himchystka-matratsa", destination: "/himchystka-matratsa-cherkasy", statusCode: 301 },
   { source: "/ru/services/himchystka-matratsa", destination: "/himchystka-matratsa-cherkasy", statusCode: 301 },
-  { source: "/uk/myttya-vikon", destination: "/myttya-vikon-cherkasy", statusCode: 301 },
-  { source: "/ru/myttya-vikon", destination: "/myttya-vikon-cherkasy", statusCode: 301 },
-  { source: "/uk/services/myttya-vikon", destination: "/myttya-vikon-cherkasy", statusCode: 301 },
-  { source: "/ru/services/myttya-vikon", destination: "/myttya-vikon-cherkasy", statusCode: 301 },
-  { source: "/uk/services/myttya-vikon-vitryn-ta-fasadiv", destination: "/myttya-vikon-cherkasy", statusCode: 301 },
-  { source: "/ru/services/mojka-okon-vitrin-i-fasadov", destination: "/myttya-vikon-cherkasy", statusCode: 301 },
   { source: "/uk/prybyrannya-ofisiv", destination: "/prybyrannya-komertsiynykh-prymishchen-cherkasy", statusCode: 301 },
   { source: "/ru/prybyrannya-ofisiv", destination: "/prybyrannya-komertsiynykh-prymishchen-cherkasy", statusCode: 301 },
   { source: "/uk/services/prybyrannya-ofisiv", destination: "/prybyrannya-komertsiynykh-prymishchen-cherkasy", statusCode: 301 },
@@ -123,14 +61,7 @@ const legacyRedirects = [
   { source: "/ru/services/prybyrannya-prylegloyi-terytoriyi", destination: "/prybyrannya-prylegloyi-terytoriyi-cherkasy", statusCode: 301 },
   { source: "/uk/services/prybyrannya-budynkiv", destination: "/prybyrannya-budynkiv-cherkasy", statusCode: 301 },
   { source: "/ru/services/prybyrannya-budynkiv", destination: "/prybyrannya-budynkiv-cherkasy", statusCode: 301 },
-  { source: "/ru/services/uborka-kvartir", destination: "/prybyrannya-kvartyr-cherkasy", statusCode: 301 },
-  { source: "/ru/services/generalnaya-uborka", destination: "/generalne-prybyrannya-kvartyry-cherkasy", statusCode: 301 },
-  { source: "/ru/services/uborka-posle-remonta", destination: "/prybyrannya-pislya-remontu-cherkasy", statusCode: 301 },
-  { source: "/ru/services/himchistka-mebeli", destination: "/himchystka-mebliv-cherkasy", statusCode: 301 },
-  { source: "/ru/services/himchistka-divana", destination: "/himchystka-dyvana-cherkasy", statusCode: 301 },
-  { source: "/ru/services/moyka-okon", destination: "/myttya-vikon-cherkasy", statusCode: 301 },
-  { source: "/uk/:path*", destination: "/", statusCode: 301 },
-  { source: "/ru/:path*", destination: "/", statusCode: 301 }
+  { source: "/ru/services/himchistka-divana", destination: "/himchystka-dyvana-cherkasy", statusCode: 301 }
 ];
 
 const nextConfig: NextConfig = {

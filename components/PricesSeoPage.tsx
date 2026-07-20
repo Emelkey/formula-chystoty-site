@@ -19,7 +19,7 @@ const pos = ["0% 0%", "33.333% 0%", "66.666% 0%", "100% 0%", "0% 33.333%", "33.3
 const thumb = (image: string, imageAlt: string, imagePosition: string, backgroundSize = "400% 400%"): PriceThumb => ({ image, imageAlt, imagePosition, backgroundSize });
 const apartmentCleaningUrl = absoluteUrl("/prybyrannya-kvartyr-cherkasy");
 const apartmentMaintenanceUrl = absoluteUrl("/pidtrymuyuche-prybyrannya-kvartyr-cherkasy");
-const generalCleaningUrl = absoluteUrl("/generalne-prybyrannya-cherkasy");
+const generalCleaningUrl = absoluteUrl("/generalne-prybyrannya-kvartyry-cherkasy");
 const apartmentGeneralUrl = absoluteUrl("/generalne-prybyrannya-kvartyry-cherkasy");
 const apartmentRenovationUrl = absoluteUrl("/prybyrannya-pislya-remontu-cherkasy");
 const furnitureCleaningUrl = absoluteUrl("/himchystka-mebliv-cherkasy");

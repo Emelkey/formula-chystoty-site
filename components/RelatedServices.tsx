@@ -6,7 +6,7 @@ const relatedLinks: Record<string, { href: string; label: string }[]> = {
     { href: "/himchystka-dyvana-cherkasy", label: "хімчистка дивана в Черкасах" },
     { href: "/prices", label: "ціни на хімчистку та клінінг" },
     { href: "/prybyrannya-kvartyr-cherkasy", label: "прибирання квартир" },
-    { href: "/generalne-prybyrannya-cherkasy", label: "генеральне прибирання" },
+    { href: "/generalne-prybyrannya-kvartyry-cherkasy", label: "генеральне прибирання квартири" },
     { href: "/himchystka-matratsa-cherkasy", label: "хімчистка матраца" }
   ],
   "himchystka-dyvana-cherkasy": [
@@ -24,7 +24,7 @@ const relatedLinks: Record<string, { href: string; label: string }[]> = {
   ],
   "prybyrannya-kvartyr-cherkasy": [
     { href: "/prices", label: "ціни на клінінг" },
-    { href: "/generalne-prybyrannya-cherkasy", label: "генеральне прибирання" },
+    { href: "/generalne-prybyrannya-kvartyry-cherkasy", label: "генеральне прибирання квартири" },
     { href: "/prybyrannya-pislya-remontu-cherkasy", label: "прибирання після ремонту" },
     { href: "/himchystka-mebliv-cherkasy", label: "хімчистка меблів" },
     { href: "/himchystka-dyvana-cherkasy", label: "хімчистка дивана" },
@@ -40,7 +40,7 @@ const relatedLinks: Record<string, { href: string; label: string }[]> = {
   "prybyrannya-pislya-remontu-cherkasy": [
     { href: "/prices", label: "ціни на клінінг" },
     { href: "/prybyrannya-kvartyr-cherkasy", label: "прибирання квартири" },
-    { href: "/generalne-prybyrannya-cherkasy", label: "генеральне прибирання" },
+    { href: "/generalne-prybyrannya-kvartyry-cherkasy", label: "генеральне прибирання квартири" },
     { href: "/himchystka-mebliv-cherkasy", label: "хімчистка меблів після ремонту" },
     { href: "/himchystka-dyvana-cherkasy", label: "хімчистка дивана" },
     { href: "/myttya-vikon-cherkasy", label: "миття вікон" }

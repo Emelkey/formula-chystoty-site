@@ -41,6 +41,9 @@ export function ServicePageLayout({ service }: { service: Service }) {
     "pidtrymuyuche-prybyrannya-kvartyr-cherkasy",
     "generalne-prybyrannya-kvartyry-cherkasy",
     "himchystka-mebliv-cherkasy",
+    "himchystka-dyvana-cherkasy",
+    "himchystka-matratsa-cherkasy",
+    "himchystka-kylymiv-cherkasy",
     "himchystka-avto-cherkasy",
   ].includes(service.slug);
 
