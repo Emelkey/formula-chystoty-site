@@ -506,6 +506,9 @@ function getServiceExamples(slug: string) {
   if (slug === "prybyrannya-kvartyr-cherkasy") {
     return workExamples
       .filter((item) =>
+        item.category.includes("Прибирання квартир") ||
+        item.title.includes("Прибирання квартири до та після") ||
+        item.title.includes("Робота команди під час прибирання квартири") ||
         item.title.includes("Підтримуюче прибирання квартири") ||
         item.title.includes("Генеральне очищення духовки") ||
         item.title.includes("Миття холодильника") ||
@@ -657,9 +660,12 @@ function getBeforeAfterCase(service: Service): BeforeAfterCase {
   if (slug.includes("kvartyr")) {
     return {
       title: "До/після прибирання квартири",
-      description: "Після професійного клінінгу квартира виглядає охайно для життя, оренди, продажу або прийому гостей.",
-      beforeAfterImage: "/images/works/apartment-before-after-01.webp",
-      beforeAfterAlt: "Прибирання квартири у Черкасах до та після"
+      description: "Реальний приклад роботи в квартирі: прибрали побутовий безлад, очистили поверхні та привели кімнату до охайного стану для життя, оренди або продажу.",
+      beforeImage: "/images/works/apartment-cleaning-before-after/apartment-room-before-cleaning-cherkasy.jpg",
+      beforeAlt: "Квартира до професійного прибирання у Черкасах",
+      afterImage: "/images/works/apartment-cleaning-before-after/apartment-room-after-cleaning-cherkasy.jpg",
+      afterAlt: "Квартира після професійного прибирання Формула Чистоти у Черкасах",
+      caption: "Прибирання квартири у Черкасах"
     };
   }
 

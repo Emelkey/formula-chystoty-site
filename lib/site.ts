@@ -806,6 +806,31 @@ export const workExamples: WorkExample[] = [
     description: "Очищення нижньої частини вікна, фурнітури та зон біля москітної сітки, де накопичується пил, павутиння й дрібний бруд."
   },
   {
+    title: "Прибирання квартири до та після",
+    category: "Прибирання квартир / Житловий клінінг",
+    beforeImage: "/images/works/apartment-cleaning-before-after/apartment-room-before-cleaning-cherkasy.jpg",
+    beforeImageAlt: "Квартира до професійного прибирання у Черкасах",
+    afterImage: "/images/works/apartment-cleaning-before-after/apartment-room-after-cleaning-cherkasy.jpg",
+    afterImageAlt: "Квартира після професійного прибирання Формула Чистоти у Черкасах",
+    description: "Реальний приклад прибирання квартири: розібрали побутовий безлад, очистили поверхні та підготували кімнату до комфортного користування."
+  },
+  {
+    title: "Миття холодильника в квартирі до та після",
+    category: "Прибирання квартир / Кухня",
+    beforeImage: "/images/works/apartment-cleaning-before-after/apartment-fridge-before-cleaning-cherkasy.jpg",
+    beforeImageAlt: "Холодильник у квартирі до очищення у Черкасах",
+    afterImage: "/images/works/apartment-cleaning-before-after/apartment-fridge-after-cleaning-cherkasy.jpg",
+    afterImageAlt: "Холодильник після очищення під час прибирання квартири у Черкасах",
+    description: "Показуємо додаткову роботу під час прибирання квартири: вимили холодильник усередині, прибрали наліт, залишки їжі та побутові забруднення."
+  },
+  {
+    title: "Робота команди під час прибирання квартири",
+    category: "Прибирання квартир / Процес",
+    image: "/images/works/apartment-cleaning-before-after/apartment-cleaner-process-cherkasy.jpg",
+    imageAlt: "Клінер Формула Чистоти під час прибирання квартири у Черкасах",
+    description: "Фото процесу роботи команди Формула Чистоти: приїжджаємо зі своїм інвентарем, хімією та працюємо по погодженому плану."
+  },
+  {
     title: "Очищення духовки від жиру та нагару",
     category: "Генеральне прибирання / очищення кухні",
     beforeImage: "/images/works/before-after/oven-cleaning-before-optimized.jpg",
