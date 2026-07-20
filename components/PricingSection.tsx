@@ -15,7 +15,7 @@ const compactPrices = [
   },
   {
     title: "Прибирання після ремонту",
-    price: "від 100 грн/м²",
+    price: "від 120 грн/м²",
     description: "Видалення пилу, бруду та слідів ремонту",
     href: "/prybyrannya-pislya-remontu-cherkasy",
     image: "/images/services/premium-cleaning-equipment.webp",

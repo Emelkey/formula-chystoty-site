@@ -22,7 +22,7 @@ const homeServices = [
     slug: "prybyrannya-pislya-remontu-cherkasy",
     title: "Після ремонту та будівництва",
     shortDescription: "Видаляємо будівельний пил, бруд, наліт і сліди ремонту перед заселенням.",
-    priceFrom: "від 100 грн/м²",
+    priceFrom: "від 120 грн/м²",
     image: "/images/services/premium-cleaning-equipment.webp",
     imageAlt: "Професійне обладнання для прибирання після ремонту та будівництва"
   },
