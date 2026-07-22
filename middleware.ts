@@ -360,8 +360,6 @@ const windowCleaningLegacySlugs = [
   "myttya-vikon-cherkasy",
   "myttya-vikon-v-cherkasah",
   "myttya-vikon-v-cherkasakh",
-  "myttya-vikon-vitryn-ta-fasadiv",
-  "myttya-vikon-vitryn-fasadiv",
   "myttya-vikon-i-vitryn",
   "myttya-vitryn",
   "myttya-vitryn-cherkasy",
@@ -369,18 +367,39 @@ const windowCleaningLegacySlugs = [
   "mojka-okon-cherkassy",
   "mojka-okon-v-cherkassah",
   "mojka-okon-v-cherkassakh",
-  "mojka-okon-vitrin-i-fasadov",
   "moyka-okon",
   "moyka-okon-cherkassy",
   "moyka-okon-v-cherkassah",
   "moyka-okon-v-cherkassakh",
-  "moyka-okon-vitrin-i-fasadov",
   "moyka-vitrin"
 ];
 const windowCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
 const windowCleaningLegacyPaths = new Set([
   windowCleaningCanonicalPath,
   ...windowCleaningLegacyPrefixes.flatMap((prefix) => windowCleaningLegacySlugs.map((slug) => `${prefix}/${slug}`))
+]);
+
+const facadeCleaningCanonicalPath = "/myttya-fasadiv-cherkasy";
+const facadeCleaningLegacySlugs = [
+  "myttya-fasadiv",
+  "myttya-fasadiv-cherkasy",
+  "myttya-fasadiv-v-cherkasah",
+  "myttya-fasadiv-v-cherkasakh",
+  "myttya-vikon-vitryn-ta-fasadiv",
+  "myttya-vikon-vitryn-fasadiv",
+  "myttya-vitryn-ta-fasadiv",
+  "myttya-fasadiv-i-vitryn",
+  "mojka-fasadov",
+  "mojka-fasadov-cherkassy",
+  "mojka-okon-vitrin-i-fasadov",
+  "moyka-fasadov",
+  "moyka-fasadov-cherkassy",
+  "moyka-okon-vitrin-i-fasadov"
+];
+const facadeCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
+const facadeCleaningLegacyPaths = new Set([
+  facadeCleaningCanonicalPath,
+  ...facadeCleaningLegacyPrefixes.flatMap((prefix) => facadeCleaningLegacySlugs.map((slug) => `${prefix}/${slug}`))
 ]);
 
 const noindexExactPaths = new Set([
@@ -408,8 +427,8 @@ const exactLegacyRedirects = new Map([
   ["/ru/blog-ru", "/blog"],
   ["/uk/video-gallery-uk", "/nashi-roboty"],
   ["/ru/video-gallery-ru", "/nashi-roboty"],
-  ["/uk/services/myttya-vikon-vitryn-ta-fasadiv", "/myttya-vikon-cherkasy"],
-  ["/ru/services/mojka-okon-vitrin-i-fasadov", "/myttya-vikon-cherkasy"],
+  ["/uk/services/myttya-vikon-vitryn-ta-fasadiv", "/myttya-fasadiv-cherkasy"],
+  ["/ru/services/mojka-okon-vitrin-i-fasadov", "/myttya-fasadiv-cherkasy"],
   ["/uk/services/obslugovuvannya-ta-klining-promislovih-i-virobnichih-primishhen", "/prybyrannya-komertsiynykh-prymishchen-cherkasy"],
   ["/ru/services/obsluzhivanie-i-klining-promyshlennyh-i-proizvodstvennyh-pomeshchenij", "/prybyrannya-komertsiynykh-prymishchen-cherkasy"],
   ["/uk/services/prybyrannya-prylegloyi-terytoriyi", "/prybyrannya-prylegloyi-terytoriyi-cherkasy"],
@@ -510,11 +529,19 @@ const serviceRedirectRules = [
     ]
   },
   {
+    canonicalPath: facadeCleaningCanonicalPath,
+    paths: facadeCleaningLegacyPaths,
+    patterns: [
+      /(?:myttya|mojka|moyka).*(?:fasad)/,
+      /(?:fasad).*(?:myttya|mojka|moyka)/
+    ]
+  },
+  {
     canonicalPath: windowCleaningCanonicalPath,
     paths: windowCleaningLegacyPaths,
     patterns: [
-      /(?:myttya|mojka|moyka).*(?:vikon|okon|vitrin|fasad)/,
-      /(?:vikon|okon|vitrin|fasad).*(?:myttya|mojka|moyka)/
+      /(?:myttya|mojka|moyka).*(?:vikon|okon|vitrin)/,
+      /(?:vikon|okon|vitrin).*(?:myttya|mojka|moyka)/
     ]
   }
 ];

@@ -47,13 +47,12 @@ const relatedLinks: Record<string, { href: string; label: string }[]> = {
     { href: "/prybyrannya-pislya-remontu-cherkasy", label: "прибирання після ремонту" }
   ],
   "prybyrannya-pislya-remontu-cherkasy": [
-    { href: "/prices", label: "ціни на клінінг" },
     { href: "/prybyrannya-kvartyr-cherkasy", label: "прибирання квартири" },
     { href: "/generalne-prybyrannya-cherkasy", label: "генеральне прибирання" },
     { href: "/generalne-prybyrannya-kvartyry-cherkasy", label: "генеральне прибирання квартири" },
+    { href: "/myttya-vikon-cherkasy", label: "миття вікон після ремонту" },
     { href: "/himchystka-mebliv-cherkasy", label: "хімчистка меблів після ремонту" },
-    { href: "/himchystka-dyvana-cherkasy", label: "хімчистка дивана" },
-    { href: "/myttya-vikon-cherkasy", label: "миття вікон" }
+    { href: "/prices", label: "ціни на прибирання після ремонту" }
   ],
   "myttya-vikon-cherkasy": [
     { href: "/generalne-prybyrannya-cherkasy", label: "генеральне прибирання" },

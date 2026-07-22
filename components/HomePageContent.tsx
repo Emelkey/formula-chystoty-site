@@ -13,6 +13,14 @@ import { WhyChooseUs } from "@/components/WhyChooseUs";
 import { WorkSteps } from "@/components/WorkSteps";
 import { absoluteUrl, importantSeoLinks, reviews } from "@/lib/site";
 
+const priorityServiceLinks = [
+  { href: "/prybyrannya-kvartyr-cherkasy", label: "прибирання квартир у Черкасах" },
+  { href: "/prybyrannya-pislya-remontu-cherkasy", label: "прибирання після ремонту у Черкасах" },
+  { href: "/himchystka-mebliv-cherkasy", label: "хімчистка меблів у Черкасах" },
+  { href: "/himchystka-avto-cherkasy", label: "хімчистка авто у Черкасах" },
+  { href: "/myttya-vikon-cherkasy", label: "миття вікон у Черкасах" }
+];
+
 export function HomePageContent() {
   return (
     <>
@@ -47,6 +55,17 @@ export function HomePageContent() {
               <p>
                 Найчастіше клієнти звертаються до нас, коли потрібно швидко привести об’єкт до чистого стану перед заселенням, відкриттям, здачею в оренду або важливою подією. Для кожної задачі ми погоджуємо перелік робіт: що входить у базовий клінінг, що рахується окремо, скільки людей потрібно і скільки часу займе робота.
               </p>
+              <div className="flex flex-wrap gap-2 pt-1" aria-label="Основні сторінки послуг">
+                {priorityServiceLinks.map((link) => (
+                  <a
+                    className="rounded-md border border-brand-green/20 bg-white px-3 py-2 text-sm font-semibold text-brand-hover transition hover:border-brand-green"
+                    href={absoluteUrl(link.href)}
+                    key={link.href}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>

@@ -25,6 +25,9 @@ const apartmentRenovationUrl = absoluteUrl("/prybyrannya-pislya-remontu-cherkasy
 const furnitureCleaningUrl = absoluteUrl("/himchystka-mebliv-cherkasy");
 const sofaCleaningUrl = absoluteUrl("/himchystka-dyvana-cherkasy");
 const windowCleaningUrl = absoluteUrl("/myttya-vikon-cherkasy");
+const facadeCleaningUrl = absoluteUrl("/myttya-fasadiv-cherkasy");
+const pavingCleaningUrl = absoluteUrl("/myttya-plytky-cherkasy");
+const disinfectionUrl = absoluteUrl("/dezinfektsiya-prymishchen-cherkasy");
 
 const serviceThumbs = {
   apartmentMaintenance: thumb(cleaningSprite, "Підтримуюче прибирання квартири у Черкасах", pos[0]),
@@ -145,7 +148,14 @@ const priceGroups: PriceGroup[] = [
       ["Прибирання балкона", "від 900 грн", extraThumbs.balcony],
       ["Складні забруднення", "індивідуальний розрахунок", extraThumbs.difficultStains],
       ["Прибирання після пожежі", "від 400 грн/м²", extraThumbs.fire],
-      ["Прибирання після потопу", "від 250 грн/м²", extraThumbs.flood]
+      ["Прибирання після потопу", "від 250 грн/м²", extraThumbs.flood],
+      ["Дезінфекція приміщень", "від 100 грн/м²", extraThumbs.carDisinfection, disinfectionUrl],
+      ["Дезінфекція після трупу", "від 25000 грн", extraThumbs.carDisinfection, disinfectionUrl],
+      ["Миття фасадів з землі", "від 70 грн/м²", serviceThumbs.renovationDust, facadeCleaningUrl],
+      ["Миття фасадів від 500 м²", "від 50 грн/м²", serviceThumbs.renovationDust, facadeCleaningUrl],
+      ["Автовишка для миття фасаду", "1700 грн/год", serviceThumbs.renovationDust, facadeCleaningUrl],
+      ["Миття тротуарної плитки до 100 м²", "100 грн/м²", serviceThumbs.renovationDust, pavingCleaningUrl],
+      ["Миття тротуарної плитки від 100 м²", "від 70 грн/м²", serviceThumbs.renovationDust, pavingCleaningUrl]
     ]
   }
 ];

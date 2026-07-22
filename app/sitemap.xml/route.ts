@@ -56,7 +56,7 @@ export function GET() {
   const serviceRoutes: SitemapUrl[] = servicePages.map((service) => ({
     loc: `/${service.slug}`,
     changefreq: "monthly",
-    priority: "0.8"
+    priority: service.slug === "prybyrannya-pislya-remontu-cherkasy" ? "0.95" : "0.8"
   }));
 
   const blogRoutes: SitemapUrl[] = blogPosts.map((post) => ({
