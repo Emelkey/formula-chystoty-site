@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const canonicalUrl = "https://www.formula-chistoty.ck.ua";
+
 const legacyRedirects = [
   { source: "/uk", destination: "/", statusCode: 301 },
   { source: "/ru", destination: "/", statusCode: 301 },
@@ -19,7 +21,11 @@ const legacyRedirects = [
   { source: "/ru/services", destination: "/poslugy", statusCode: 301 },
   { source: "/uk/blog-uk", destination: "/blog", statusCode: 301 },
   { source: "/ru/blog-ru", destination: "/blog", statusCode: 301 },
-  { source: "/uk/services/generalne-prybyrannya-kuhni", destination: "/generalne-prybyrannya-kuhni-cherkasy", statusCode: 301 },
+  { source: "/uk/services/generalne-prybyrannya", destination: `${canonicalUrl}/generalne-prybyrannya-cherkasy`, statusCode: 301 },
+  { source: "/ru/services/generalnaya-uborka", destination: `${canonicalUrl}/generalne-prybyrannya-cherkasy`, statusCode: 301 },
+  { source: "/uk/services/generalne-prybyrannya-kuhni", destination: `${canonicalUrl}/generalne-prybyrannya-kuhni-cherkasy`, statusCode: 301 },
+  { source: "/uk/services/generalne-prybyrannya-kvartyry", destination: `${canonicalUrl}/generalne-prybyrannya-kvartyry-cherkasy`, statusCode: 301 },
+  { source: "/ru/services/generalnaya-uborka-kvartiry", destination: `${canonicalUrl}/generalne-prybyrannya-kvartyry-cherkasy`, statusCode: 301 },
   { source: "/byudzhetne-prybyrannya-cherkasy", destination: "/prybyrannya-kvartyr-cherkasy", statusCode: 301 },
   { source: "/uk/services/byudzhetne-prybyrannya", destination: "/prybyrannya-kvartyr-cherkasy", statusCode: 301 },
   { source: "/prybyrannya-ofisiv-cherkasy", destination: "/prybyrannya-komertsiynykh-prymishchen-cherkasy", statusCode: 301 },

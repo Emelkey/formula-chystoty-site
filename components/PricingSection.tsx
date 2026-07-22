@@ -6,10 +6,10 @@ import { PrimaryButton } from "@/components/Buttons";
 
 const compactPrices = [
   {
-    title: "Генеральне прибирання квартири",
+    title: "Генеральне прибирання",
     price: "від 100 грн/м²",
-    description: "Без шаф усередині — від 100 грн/м², з шафами — від 120 грн/м²",
-    href: "/generalne-prybyrannya-kvartyry-cherkasy",
+    description: "Квартири, будинки, кухні та санвузли. З шафами — від 120 грн/м²",
+    href: "/generalne-prybyrannya-cherkasy",
     image: "/images/services/premium-general-cleaning.webp",
     imageAlt: "Професійне генеральне прибирання квартири у світлому інтер’єрі"
   },

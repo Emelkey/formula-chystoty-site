@@ -129,12 +129,27 @@ const kitchenGeneralCleaningLegacyPaths = new Set([
   )
 ]);
 
-const generalCleaningCanonicalPath = "/generalne-prybyrannya-kvartyry-cherkasy";
+const generalCleaningCanonicalPath = "/generalne-prybyrannya-cherkasy";
 const generalCleaningLegacySlugs = [
   "generalne-prybyrannya",
   "generalne-prybyrannya-cherkasy",
   "generalne-prybyrannya-v-cherkasah",
   "generalne-prybyrannya-v-cherkasakh",
+  "generalne-prybirannya",
+  "generalne-prybirannya-cherkasy",
+  "generalnaya-uborka",
+  "generalnaya-uborka-cherkassy",
+  "generalnaya-uborka-v-cherkassah",
+  "generalnaya-uborka-v-cherkassakh"
+];
+const generalCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
+const generalCleaningLegacyPaths = new Set([
+  generalCleaningCanonicalPath,
+  ...generalCleaningLegacyPrefixes.flatMap((prefix) => generalCleaningLegacySlugs.map((slug) => `${prefix}/${slug}`))
+]);
+
+const apartmentGeneralCleaningCanonicalPath = "/generalne-prybyrannya-kvartyry-cherkasy";
+const apartmentGeneralCleaningLegacySlugs = [
   "generalne-prybyrannya-kvartyry",
   "generalne-prybyrannya-kvartyry-cherkasy",
   "generalne-prybyrannya-kvartyry-v-cherkasah",
@@ -150,19 +165,17 @@ const generalCleaningLegacySlugs = [
   "generalne-prybirannya-kvartyry",
   "generalne-prybirannya-kvartyr",
   "generalne-prybirannya-kvartiry",
-  "generalnaya-uborka",
-  "generalnaya-uborka-cherkassy",
-  "generalnaya-uborka-v-cherkassah",
-  "generalnaya-uborka-v-cherkassakh",
   "generalnaya-uborka-kvartiry",
   "generalnaya-uborka-kvartiry-cherkassy",
   "generalnaya-uborka-kvartir",
   "generalnaya-uborka-kvartir-cherkassy"
 ];
-const generalCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
-const generalCleaningLegacyPaths = new Set([
-  generalCleaningCanonicalPath,
-  ...generalCleaningLegacyPrefixes.flatMap((prefix) => generalCleaningLegacySlugs.map((slug) => `${prefix}/${slug}`))
+const apartmentGeneralCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
+const apartmentGeneralCleaningLegacyPaths = new Set([
+  apartmentGeneralCleaningCanonicalPath,
+  ...apartmentGeneralCleaningLegacyPrefixes.flatMap((prefix) =>
+    apartmentGeneralCleaningLegacySlugs.map((slug) => `${prefix}/${slug}`)
+  )
 ]);
 
 const maintenanceCleaningCanonicalPath = "/pidtrymuyuche-prybyrannya-kvartyr-cherkasy";
@@ -444,10 +457,18 @@ const serviceRedirectRules = [
     patterns: [/(?:generalne|generalnaya|generalna).*(?:kuhni|kuhny|kukhni|kukhny|kuhnya|kitchen)/]
   },
   {
+    canonicalPath: apartmentGeneralCleaningCanonicalPath,
+    paths: apartmentGeneralCleaningLegacyPaths,
+    patterns: [
+      /(?:generalne|generalnaya|generalna).*(?:kvartyr|kvartyry|kvartir|kvartiry)/,
+      /(?:kvartyr|kvartyry|kvartir|kvartiry).*(?:generalne|generalnaya|generalna)/
+    ]
+  },
+  {
     canonicalPath: generalCleaningCanonicalPath,
     paths: generalCleaningLegacyPaths,
     patterns: [
-      /(?:generalne|generalnaya|generalna).*(?:prybyrannya|uborka|kvartyr|kvartyry|kvartir)/,
+      /(?:generalne|generalnaya|generalna).*(?:prybyrannya|uborka)/,
       /(?:prybyrannya|uborka).*(?:generalne|generalnaya|generalna)/
     ]
   },
@@ -520,7 +541,12 @@ export function middleware(request: NextRequest) {
   if (legacyDestination) {
     const url = request.nextUrl.clone();
     url.protocol = productionHosts.has(host) ? "https:" : request.nextUrl.protocol;
-    url.host = productionHosts.has(host) ? canonicalHost : request.nextUrl.host;
+    if (productionHosts.has(host)) {
+      url.hostname = canonicalHost;
+      url.port = "";
+    } else {
+      url.host = request.nextUrl.host;
+    }
     url.pathname = legacyDestination;
     return NextResponse.redirect(url, 301);
   }
@@ -532,7 +558,8 @@ export function middleware(request: NextRequest) {
   ) {
     const url = request.nextUrl.clone();
     url.protocol = "https:";
-    url.host = canonicalHost;
+    url.hostname = canonicalHost;
+    url.port = "";
     url.pathname = serviceDestination;
     return NextResponse.redirect(url, 301);
   }
@@ -543,7 +570,8 @@ export function middleware(request: NextRequest) {
   ) {
     const url = request.nextUrl.clone();
     url.protocol = "https:";
-    url.host = canonicalHost;
+    url.hostname = canonicalHost;
+    url.port = "";
     url.pathname = carCleaningCanonicalPath;
     return NextResponse.redirect(url, 301);
   }
@@ -554,7 +582,8 @@ export function middleware(request: NextRequest) {
   ) {
     const url = request.nextUrl.clone();
     url.protocol = "https:";
-    url.host = canonicalHost;
+    url.hostname = canonicalHost;
+    url.port = "";
     url.pathname = furnitureCleaningCanonicalPath;
     return NextResponse.redirect(url, 301);
   }
@@ -565,7 +594,8 @@ export function middleware(request: NextRequest) {
   ) {
     const url = request.nextUrl.clone();
     url.protocol = "https:";
-    url.host = canonicalHost;
+    url.hostname = canonicalHost;
+    url.port = "";
     url.pathname = postRenovationCanonicalPath;
     return NextResponse.redirect(url, 301);
   }
@@ -576,8 +606,21 @@ export function middleware(request: NextRequest) {
   ) {
     const url = request.nextUrl.clone();
     url.protocol = "https:";
-    url.host = canonicalHost;
+    url.hostname = canonicalHost;
+    url.port = "";
     url.pathname = kitchenGeneralCleaningCanonicalPath;
+    return NextResponse.redirect(url, 301);
+  }
+
+  if (
+    apartmentGeneralCleaningLegacyPaths.has(normalizedPath) &&
+    (normalizedPath !== apartmentGeneralCleaningCanonicalPath || host !== canonicalHost || protocol !== "https")
+  ) {
+    const url = request.nextUrl.clone();
+    url.protocol = "https:";
+    url.hostname = canonicalHost;
+    url.port = "";
+    url.pathname = apartmentGeneralCleaningCanonicalPath;
     return NextResponse.redirect(url, 301);
   }
 
@@ -587,7 +630,8 @@ export function middleware(request: NextRequest) {
   ) {
     const url = request.nextUrl.clone();
     url.protocol = "https:";
-    url.host = canonicalHost;
+    url.hostname = canonicalHost;
+    url.port = "";
     url.pathname = generalCleaningCanonicalPath;
     return NextResponse.redirect(url, 301);
   }
@@ -598,7 +642,8 @@ export function middleware(request: NextRequest) {
   ) {
     const url = request.nextUrl.clone();
     url.protocol = "https:";
-    url.host = canonicalHost;
+    url.hostname = canonicalHost;
+    url.port = "";
     url.pathname = maintenanceCleaningCanonicalPath;
     return NextResponse.redirect(url, 301);
   }
@@ -609,7 +654,8 @@ export function middleware(request: NextRequest) {
   ) {
     const url = request.nextUrl.clone();
     url.protocol = "https:";
-    url.host = canonicalHost;
+    url.hostname = canonicalHost;
+    url.port = "";
     url.pathname = apartmentCleaningCanonicalPath;
     return NextResponse.redirect(url, 301);
   }
@@ -620,7 +666,8 @@ export function middleware(request: NextRequest) {
   ) {
     const url = request.nextUrl.clone();
     url.protocol = "https:";
-    url.host = canonicalHost;
+    url.hostname = canonicalHost;
+    url.port = "";
     url.pathname = houseCleaningCanonicalPath;
     return NextResponse.redirect(url, 301);
   }
@@ -631,7 +678,8 @@ export function middleware(request: NextRequest) {
   ) {
     const url = request.nextUrl.clone();
     url.protocol = "https:";
-    url.host = canonicalHost;
+    url.hostname = canonicalHost;
+    url.port = "";
     url.pathname = disinfectionCanonicalPath;
     return NextResponse.redirect(url, 301);
   }
@@ -642,7 +690,8 @@ export function middleware(request: NextRequest) {
   ) {
     const url = request.nextUrl.clone();
     url.protocol = "https:";
-    url.host = canonicalHost;
+    url.hostname = canonicalHost;
+    url.port = "";
     url.pathname = carpetCleaningCanonicalPath;
     return NextResponse.redirect(url, 301);
   }
@@ -653,7 +702,8 @@ export function middleware(request: NextRequest) {
   ) {
     const url = request.nextUrl.clone();
     url.protocol = "https:";
-    url.host = canonicalHost;
+    url.hostname = canonicalHost;
+    url.port = "";
     url.pathname = windowCleaningCanonicalPath;
     return NextResponse.redirect(url, 301);
   }
@@ -661,7 +711,8 @@ export function middleware(request: NextRequest) {
   if (productionHosts.has(host) && (host !== canonicalHost || protocol !== "https")) {
     const url = request.nextUrl.clone();
     url.protocol = "https:";
-    url.host = canonicalHost;
+    url.hostname = canonicalHost;
+    url.port = "";
     return NextResponse.redirect(url, 301);
   }
 

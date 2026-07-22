@@ -7,7 +7,8 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { buildMetadata, homeFaq, importantSeoLinks, servicePages } from "@/lib/site";
 
 const businessProfileServices = [
-  { slug: "prybyrannya-kvartyr-cherkasy", description: "Прибирання квартир у Черкасах з акцентом на генеральне прибирання від 4000 грн. Підтримуюче та післяремонтне прибирання доступні окремо." },
+  { slug: "prybyrannya-kvartyr-cherkasy", description: "Прибирання квартир у Черкасах: підтримуюче від 55 грн/м², генеральне та післяремонтне прибирання доступні окремо." },
+  { slug: "generalne-prybyrannya-cherkasy", description: "Широка сторінка генерального прибирання для квартир, будинків, кухонь, санвузлів і складних житлових зон." },
   { slug: "pidtrymuyuche-prybyrannya-kvartyr-cherkasy", description: "Регулярне підтримання чистоти квартири без зайвих робіт." },
   { slug: "generalne-prybyrannya-kvartyry-cherkasy", description: "Окрема посадкова сторінка для генерального прибирання квартири." },
   { slug: "generalne-prybyrannya-kuhni-cherkasy", description: "Глибоке очищення кухні від жиру, нальоту та побутових забруднень." },
@@ -29,6 +30,7 @@ const businessProfileServices = [
 
 const popularCleaningServices = [
   { href: "/prybyrannya-kvartyr-cherkasy", label: "Прибирання квартир у Черкасах" },
+  { href: "/generalne-prybyrannya-cherkasy", label: "Генеральне прибирання у Черкасах" },
   { href: "/generalne-prybyrannya-kvartyry-cherkasy", label: "Генеральне прибирання квартири" },
   { href: "/prybyrannya-pislya-remontu-cherkasy", label: "Прибирання після ремонту та будівництва" },
   { href: "/himchystka-mebliv-cherkasy", label: "Хімчистка меблів" },

@@ -6,6 +6,7 @@ import { contacts, positioning, servicePages } from "@/lib/site";
 
 const footerServiceSlugs = [
   "prybyrannya-kvartyr-cherkasy",
+  "generalne-prybyrannya-cherkasy",
   "generalne-prybyrannya-kvartyry-cherkasy",
   "prybyrannya-pislya-remontu-cherkasy",
   "himchystka-mebliv-cherkasy",

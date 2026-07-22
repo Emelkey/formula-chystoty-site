@@ -39,6 +39,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
   const showPriceNearTop = [
     "prybyrannya-kvartyr-cherkasy",
     "pidtrymuyuche-prybyrannya-kvartyr-cherkasy",
+    "generalne-prybyrannya-cherkasy",
     "generalne-prybyrannya-kvartyry-cherkasy",
     "himchystka-mebliv-cherkasy",
     "himchystka-dyvana-cherkasy",
