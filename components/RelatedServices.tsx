@@ -75,6 +75,18 @@ const relatedLinks: Record<string, { href: string; label: string }[]> = {
     { href: "/prybyrannya-pislya-remontu-cherkasy", label: "прибирання після ремонту" },
     { href: "/prybyrannya-budynkiv-cherkasy", label: "прибирання будинків" },
     { href: "/myttya-plytky-cherkasy", label: "миття плитки" }
+  ],
+  "prybyrannya-pislya-potopu-cherkasy": [
+    { href: "/dezinfektsiya-prymishchen-cherkasy", label: "дезінфекція та озонація" },
+    { href: "/generalne-prybyrannya-kvartyry-cherkasy", label: "генеральне прибирання квартири" },
+    { href: "/prybyrannya-pislya-remontu-cherkasy", label: "прибирання після ремонту" },
+    { href: "/prybyrannya-pislya-pozhezhi-cherkasy", label: "прибирання після пожежі" }
+  ],
+  "dezinfektsiya-prymishchen-cherkasy": [
+    { href: "/prybyrannya-pislya-potopu-cherkasy", label: "прибирання після потопу" },
+    { href: "/prybyrannya-pislya-pozhezhi-cherkasy", label: "прибирання після пожежі" },
+    { href: "/generalne-prybyrannya-kvartyry-cherkasy", label: "генеральне прибирання квартири" },
+    { href: "/prices", label: "ціни на складне прибирання" }
   ]
 };
 

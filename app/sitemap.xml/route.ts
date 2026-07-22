@@ -23,6 +23,21 @@ const mainRoutes: SitemapUrl[] = [
   { loc: "/kontakty", changefreq: "monthly", priority: "0.8" }
 ];
 
+const servicePriorityOverrides: Record<string, string> = {
+  "prybyrannya-kvartyr-cherkasy": "0.95",
+  "generalne-prybyrannya-cherkasy": "0.95",
+  "generalne-prybyrannya-kvartyry-cherkasy": "0.9",
+  "generalne-prybyrannya-kuhni-cherkasy": "0.9",
+  "pidtrymuyuche-prybyrannya-kvartyr-cherkasy": "0.9",
+  "prybyrannya-pislya-remontu-cherkasy": "0.95",
+  "himchystka-mebliv-cherkasy": "0.95",
+  "himchystka-dyvana-cherkasy": "0.9",
+  "himchystka-avto-cherkasy": "0.9",
+  "myttya-vikon-cherkasy": "0.9",
+  "myttya-fasadiv-cherkasy": "0.9",
+  "dezinfektsiya-prymishchen-cherkasy": "0.9"
+};
+
 function escapeXml(value: string) {
   return value
     .replace(/&/g, "&amp;")
@@ -56,7 +71,7 @@ export function GET() {
   const serviceRoutes: SitemapUrl[] = servicePages.map((service) => ({
     loc: `/${service.slug}`,
     changefreq: "monthly",
-    priority: service.slug === "prybyrannya-pislya-remontu-cherkasy" ? "0.95" : "0.8"
+    priority: servicePriorityOverrides[service.slug] ?? "0.8"
   }));
 
   const blogRoutes: SitemapUrl[] = blogPosts.map((post) => ({

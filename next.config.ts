@@ -21,11 +21,22 @@ const legacyRedirects = [
   { source: "/ru/services", destination: "/poslugy", statusCode: 301 },
   { source: "/uk/blog-uk", destination: "/blog", statusCode: 301 },
   { source: "/ru/blog-ru", destination: "/blog", statusCode: 301 },
+  { source: "/prybyrannya-kvartyr", destination: `${canonicalUrl}/prybyrannya-kvartyr-cherkasy`, statusCode: 301 },
+  { source: "/uk/services/prybyrannya-kvartyr", destination: `${canonicalUrl}/prybyrannya-kvartyr-cherkasy`, statusCode: 301 },
+  { source: "/uk/services/prybyrannya-kvartyry", destination: `${canonicalUrl}/prybyrannya-kvartyr-cherkasy`, statusCode: 301 },
+  { source: "/ru/services/uborka-kvartir", destination: `${canonicalUrl}/prybyrannya-kvartyr-cherkasy`, statusCode: 301 },
+  { source: "/generalne-prybyrannya", destination: `${canonicalUrl}/generalne-prybyrannya-cherkasy`, statusCode: 301 },
   { source: "/uk/services/generalne-prybyrannya", destination: `${canonicalUrl}/generalne-prybyrannya-cherkasy`, statusCode: 301 },
   { source: "/ru/services/generalnaya-uborka", destination: `${canonicalUrl}/generalne-prybyrannya-cherkasy`, statusCode: 301 },
   { source: "/uk/services/generalne-prybyrannya-kuhni", destination: `${canonicalUrl}/generalne-prybyrannya-kuhni-cherkasy`, statusCode: 301 },
   { source: "/uk/services/generalne-prybyrannya-kvartyry", destination: `${canonicalUrl}/generalne-prybyrannya-kvartyry-cherkasy`, statusCode: 301 },
   { source: "/ru/services/generalnaya-uborka-kvartiry", destination: `${canonicalUrl}/generalne-prybyrannya-kvartyry-cherkasy`, statusCode: 301 },
+  { source: "/pidtrymuyuche-prybyrannya", destination: `${canonicalUrl}/pidtrymuyuche-prybyrannya-kvartyr-cherkasy`, statusCode: 301 },
+  { source: "/uk/services/pidtrymuyuche-prybyrannya", destination: `${canonicalUrl}/pidtrymuyuche-prybyrannya-kvartyr-cherkasy`, statusCode: 301 },
+  { source: "/uk/services/pidtrymuyuche-prybyrannya-kvartyr", destination: `${canonicalUrl}/pidtrymuyuche-prybyrannya-kvartyr-cherkasy`, statusCode: 301 },
+  { source: "/uk/services/pidtrymuyuche-prybyrannya-kvartyry", destination: `${canonicalUrl}/pidtrymuyuche-prybyrannya-kvartyr-cherkasy`, statusCode: 301 },
+  { source: "/ru/services/podderzhivayushchaya-uborka", destination: `${canonicalUrl}/pidtrymuyuche-prybyrannya-kvartyr-cherkasy`, statusCode: 301 },
+  { source: "/ru/services/podderzhivayushchaya-uborka-kvartiry", destination: `${canonicalUrl}/pidtrymuyuche-prybyrannya-kvartyr-cherkasy`, statusCode: 301 },
   { source: "/prybyrannya-pislya-remontu", destination: `${canonicalUrl}/prybyrannya-pislya-remontu-cherkasy`, statusCode: 301 },
   { source: "/uk/services/prybyrannya-pislya-remontu", destination: `${canonicalUrl}/prybyrannya-pislya-remontu-cherkasy`, statusCode: 301 },
   { source: "/uk/services/prybyrannya-kvartyr-pislya-remontu", destination: `${canonicalUrl}/prybyrannya-pislya-remontu-cherkasy`, statusCode: 301 },
@@ -34,6 +45,17 @@ const legacyRedirects = [
   { source: "/ru/services/uborka-posle-remonta", destination: `${canonicalUrl}/prybyrannya-pislya-remontu-cherkasy`, statusCode: 301 },
   { source: "/ru/services/uborka-kvartir-posle-remonta", destination: `${canonicalUrl}/prybyrannya-pislya-remontu-cherkasy`, statusCode: 301 },
   { source: "/ru/services/klining-posle-remonta", destination: `${canonicalUrl}/prybyrannya-pislya-remontu-cherkasy`, statusCode: 301 },
+  { source: "/myttya-fasadiv", destination: `${canonicalUrl}/myttya-fasadiv-cherkasy`, statusCode: 301 },
+  { source: "/uk/services/myttya-fasadiv", destination: `${canonicalUrl}/myttya-fasadiv-cherkasy`, statusCode: 301 },
+  { source: "/uk/services/myttya-vikon-vitryn-ta-fasadiv", destination: `${canonicalUrl}/myttya-fasadiv-cherkasy`, statusCode: 301 },
+  { source: "/uk/services/myttya-vikon-vitrin-ta-fasadiv", destination: `${canonicalUrl}/myttya-fasadiv-cherkasy`, statusCode: 301 },
+  { source: "/uk/services/myttya-vikon-vytryn-ta-fasadiv", destination: `${canonicalUrl}/myttya-fasadiv-cherkasy`, statusCode: 301 },
+  { source: "/ru/services/mojka-okon-vitrin-i-fasadov", destination: `${canonicalUrl}/myttya-fasadiv-cherkasy`, statusCode: 301 },
+  { source: "/prybyrannya-pislya-trupu-cherkasy", destination: `${canonicalUrl}/dezinfektsiya-prymishchen-cherkasy`, statusCode: 301 },
+  { source: "/uk/services/prybyrannya-pislya-trupu", destination: `${canonicalUrl}/dezinfektsiya-prymishchen-cherkasy`, statusCode: 301 },
+  { source: "/uk/services/dezinfektsiya-pislya-trupu", destination: `${canonicalUrl}/dezinfektsiya-prymishchen-cherkasy`, statusCode: 301 },
+  { source: "/ru/services/uborka-posle-trupa", destination: `${canonicalUrl}/dezinfektsiya-prymishchen-cherkasy`, statusCode: 301 },
+  { source: "/ru/services/dezinfekciya-posle-trupa", destination: `${canonicalUrl}/dezinfektsiya-prymishchen-cherkasy`, statusCode: 301 },
   { source: "/byudzhetne-prybyrannya-cherkasy", destination: "/prybyrannya-kvartyr-cherkasy", statusCode: 301 },
   { source: "/uk/services/byudzhetne-prybyrannya", destination: "/prybyrannya-kvartyr-cherkasy", statusCode: 301 },
   { source: "/prybyrannya-ofisiv-cherkasy", destination: "/prybyrannya-komertsiynykh-prymishchen-cherkasy", statusCode: 301 },
@@ -78,6 +100,11 @@ const legacyRedirects = [
   { source: "/ru/services/himchistka-divana", destination: "/himchystka-dyvana-cherkasy", statusCode: 301 }
 ];
 
+const canonicalRedirects = legacyRedirects.map((redirect) => ({
+  ...redirect,
+  destination: redirect.destination.startsWith("/") ? `${canonicalUrl}${redirect.destination}` : redirect.destination
+}));
+
 const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
@@ -89,7 +116,7 @@ const nextConfig: NextConfig = {
     ]
   },
   async redirects() {
-    return legacyRedirects;
+    return canonicalRedirects;
   }
 };
 
