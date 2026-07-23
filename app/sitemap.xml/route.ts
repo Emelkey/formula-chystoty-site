@@ -38,6 +38,21 @@ const servicePriorityOverrides: Record<string, string> = {
   "dezinfektsiya-prymishchen-cherkasy": "0.9"
 };
 
+const redirectedBlogSlugs = new Set([
+  "chomu-budivelnyi-pyl-nebezpechnyi-pislya-remontu",
+  "generalne-ta-pidtrymuyuche-prybyrannya-riznytsya",
+  "myttya-vikon-pislya-remontu",
+  "prybyrannya-budynku-pislya-remontu",
+  "prybyrannya-kvartyr-cherkasy",
+  "prybyrannya-kvartyry-pislya-orendariv",
+  "shcho-vkhodyt-u-generalne-prybyrannya-kvartyry",
+  "skilky-koshtuye-prybyrannya-pislya-remontu-u-cherkasakh",
+  "top-pomylok-pry-prybyranni-pislya-remontu",
+  "yak-doglyadaty-za-plytkoyu-pislya-remontu",
+  "yak-pidgotuvaty-kvartyru-do-prybyrannya",
+  "yak-pidgotuvaty-kvartyru-do-prybyrannya-cherkasy"
+]);
+
 function escapeXml(value: string) {
   return value
     .replace(/&/g, "&amp;")
@@ -74,12 +89,14 @@ export function GET() {
     priority: servicePriorityOverrides[service.slug] ?? "0.8"
   }));
 
-  const blogRoutes: SitemapUrl[] = blogPosts.map((post) => ({
-    loc: `/blog/${post.slug}`,
-    lastmod: post.updatedAt,
-    changefreq: "weekly",
-    priority: "0.6"
-  }));
+  const blogRoutes: SitemapUrl[] = blogPosts
+    .filter((post) => !redirectedBlogSlugs.has(post.slug))
+    .map((post) => ({
+      loc: `/blog/${post.slug}`,
+      lastmod: post.updatedAt,
+      changefreq: "weekly",
+      priority: "0.6"
+    }));
 
   const urls = [...mainRoutes, ...serviceRoutes, ...blogRoutes];
   const xml = [

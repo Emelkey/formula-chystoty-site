@@ -11,6 +11,7 @@ const legacyRedirects = [
   { source: "/works", destination: "/nashi-roboty", statusCode: 301 },
   { source: "/reviews", destination: "/vidguky", statusCode: 301 },
   { source: "/vidhuky", destination: "/vidguky", statusCode: 301 },
+  { source: "/tsiny", destination: "/prices", statusCode: 301 },
   { source: "/myttya-plitky-cherkasy", destination: "/myttya-plytky-cherkasy", statusCode: 301 },
   { source: "/uk/tsiny-na-klining-cherkasy-2026", destination: "/prices", statusCode: 301 },
   { source: "/uk/price-uk", destination: "/prices", statusCode: 301 },
