@@ -535,9 +535,8 @@ function getServiceExamples(slug: string) {
   }
   if (slug.includes("remontu")) {
     return workExamples
-      .filter((item) => item.category.includes("Післяремонтне") || item.category.includes("Миття вікон") || item.title.includes("плитки"))
-      .concat(workExamples.slice(0, 2))
-      .slice(0, 4);
+      .filter((item) => item.category.includes("Післяремонтне"))
+      .slice(0, 3);
   }
   if (slug.includes("dyvana")) return workExamples.filter((item) => item.title.toLowerCase().includes("дивана")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
   if (slug.includes("matratsa")) return workExamples.filter((item) => item.title.toLowerCase().includes("матраца")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);

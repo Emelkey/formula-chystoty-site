@@ -75,7 +75,7 @@ export function HomePageContent() {
           <Stat icon={<BadgeCheck size={22} aria-hidden />} value="5+" label="років досвіду" />
           <Stat icon={<HeartHandshake size={22} aria-hidden />} value="1000+" label="задоволених клієнтів" />
           <Stat icon={<BadgeCheck size={22} aria-hidden />} value="98%" label="рекомендують нас" />
-          <Stat icon={<CalendarDays size={22} aria-hidden />} value="7 днів" label="працюємо без вихідних" />
+          <Stat icon={<CalendarDays size={22} aria-hidden />} value="Пн-Сб" label="Нд за домовленістю" />
         </div>
       </section>
       <section className="bg-white pb-4">

@@ -23,6 +23,36 @@ const mainRoutes: SitemapUrl[] = [
   { loc: "/kontakty", changefreq: "monthly", priority: "0.8" }
 ];
 
+const servicePriorityOverrides: Record<string, string> = {
+  "prybyrannya-kvartyr-cherkasy": "0.95",
+  "generalne-prybyrannya-cherkasy": "0.95",
+  "generalne-prybyrannya-kvartyry-cherkasy": "0.9",
+  "generalne-prybyrannya-kuhni-cherkasy": "0.9",
+  "pidtrymuyuche-prybyrannya-kvartyr-cherkasy": "0.9",
+  "prybyrannya-pislya-remontu-cherkasy": "0.95",
+  "himchystka-mebliv-cherkasy": "0.95",
+  "himchystka-dyvana-cherkasy": "0.9",
+  "himchystka-avto-cherkasy": "0.9",
+  "myttya-vikon-cherkasy": "0.9",
+  "myttya-fasadiv-cherkasy": "0.9",
+  "dezinfektsiya-prymishchen-cherkasy": "0.9"
+};
+
+const redirectedBlogSlugs = new Set([
+  "chomu-budivelnyi-pyl-nebezpechnyi-pislya-remontu",
+  "generalne-ta-pidtrymuyuche-prybyrannya-riznytsya",
+  "myttya-vikon-pislya-remontu",
+  "prybyrannya-budynku-pislya-remontu",
+  "prybyrannya-kvartyr-cherkasy",
+  "prybyrannya-kvartyry-pislya-orendariv",
+  "shcho-vkhodyt-u-generalne-prybyrannya-kvartyry",
+  "skilky-koshtuye-prybyrannya-pislya-remontu-u-cherkasakh",
+  "top-pomylok-pry-prybyranni-pislya-remontu",
+  "yak-doglyadaty-za-plytkoyu-pislya-remontu",
+  "yak-pidgotuvaty-kvartyru-do-prybyrannya",
+  "yak-pidgotuvaty-kvartyru-do-prybyrannya-cherkasy"
+]);
+
 function escapeXml(value: string) {
   return value
     .replace(/&/g, "&amp;")
@@ -56,15 +86,17 @@ export function GET() {
   const serviceRoutes: SitemapUrl[] = servicePages.map((service) => ({
     loc: `/${service.slug}`,
     changefreq: "monthly",
-    priority: service.slug === "prybyrannya-pislya-remontu-cherkasy" ? "0.95" : "0.8"
+    priority: servicePriorityOverrides[service.slug] ?? "0.8"
   }));
 
-  const blogRoutes: SitemapUrl[] = blogPosts.map((post) => ({
-    loc: `/blog/${post.slug}`,
-    lastmod: post.updatedAt,
-    changefreq: "weekly",
-    priority: "0.6"
-  }));
+  const blogRoutes: SitemapUrl[] = blogPosts
+    .filter((post) => !redirectedBlogSlugs.has(post.slug))
+    .map((post) => ({
+      loc: `/blog/${post.slug}`,
+      lastmod: post.updatedAt,
+      changefreq: "weekly",
+      priority: "0.6"
+    }));
 
   const urls = [...mainRoutes, ...serviceRoutes, ...blogRoutes];
   const xml = [

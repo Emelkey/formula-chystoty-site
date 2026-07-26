@@ -23,7 +23,7 @@ const businessProfileServices = [
   { slug: "himchystka-kylymiv-cherkasy", description: "Хімчистка килимів і ковроліну у Черкасах." },
   { slug: "himchystka-avto-cherkasy", description: "Хімчистка салону авто: комплекс, сидіння з тканини або шкіри, килимки та багажник. Стеля, видалення запаху й дезінфекція рахуються окремо." },
   { slug: "prybyrannya-komertsiynykh-prymishchen-cherkasy", description: "Клінінг бізнес-приміщень, сервісних просторів і комерційних площ за погодженим регламентом." },
-  { slug: "dezinfektsiya-prymishchen-cherkasy", description: "Дезінфекція квартир, будинків та комерційних приміщень." },
+  { slug: "dezinfektsiya-prymishchen-cherkasy", description: "Дезінфекція, озонація та санітарне прибирання після трупу або біологічного забруднення." },
   { slug: "myttya-fasadiv-cherkasy", description: "Миття фасадів будинків та комерційних об’єктів." },
   { slug: "myttya-plytky-cherkasy", description: "Миття тротуарної плитки, доріжок, дворів і прибудинкової території." }
 ];
@@ -37,7 +37,8 @@ const popularCleaningServices = [
   { href: "/himchystka-dyvana-cherkasy", label: "Хімчистка дивана" },
   { href: "/myttya-vikon-cherkasy", label: "Миття вікон" },
   { href: "/prybyrannya-budynkiv-cherkasy", label: "Прибирання будинків" },
-  { href: "/prybyrannya-pislya-pozhezhi-cherkasy", label: "Прибирання після пожежі" }
+  { href: "/prybyrannya-pislya-pozhezhi-cherkasy", label: "Прибирання після пожежі" },
+  { href: "/dezinfektsiya-prymishchen-cherkasy", label: "Дезінфекція та прибирання після трупу" }
 ];
 
 export const metadata: Metadata = buildMetadata({
