@@ -166,7 +166,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
       <section className="section bg-white">
         <div className="container rounded-[24px] border border-brand-green/15 bg-brand-mist p-6 shadow-soft md:p-8">
           <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
-            <div>
+            <div className="min-w-0">
               <p className="text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Ціна</p>
               <h2 className="mt-3 text-3xl font-bold text-brand-black">Отримайте точний розрахунок для вашого об’єкта</h2>
               <p className="mt-4 max-w-3xl leading-7 text-brand-graphite">Вартість залежить від площі, стану приміщення, типу поверхонь, терміновості та додаткових робіт. Орієнтир для цієї послуги: <strong className="text-brand-hover">{service.priceFrom}</strong>.</p>
@@ -199,7 +199,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
                 </div>
               ) : null}
               {service.priceTable ? (
-                <div className="mt-6 overflow-hidden rounded-lg border border-brand-green/15 bg-white shadow-soft">
+                <div className="mt-6 min-w-0 overflow-hidden rounded-lg border border-brand-green/15 bg-white shadow-soft">
                   <div className="border-b border-brand-green/10 px-4 py-3">
                     <h3 className="text-base font-bold text-brand-black">{service.priceTable.title}</h3>
                   </div>
@@ -363,7 +363,7 @@ function ServicePriceSection({ service, hasPriceImages }: { service: Service; ha
     <section className="section bg-white">
       <div className="container rounded-[24px] border border-brand-green/15 bg-brand-mist p-6 shadow-soft md:p-8">
         <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
-          <div>
+          <div className="min-w-0">
             <p className="text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Ціна</p>
             <h2 className="mt-3 text-3xl font-bold text-brand-black">
               {service.slug === "prybyrannya-kvartyr-cherkasy" ? "Ціни на прибирання квартир у Черкасах" : "Отримайте точний розрахунок для вашого об’єкта"}
@@ -375,7 +375,7 @@ function ServicePriceSection({ service, hasPriceImages }: { service: Service; ha
               Орієнтир для цієї послуги: <strong className="text-brand-hover">{service.priceFrom}</strong>.
             </p>
             {service.slug === "prybyrannya-kvartyr-cherkasy" && service.priceDetails ? (
-              <div className="mt-6 overflow-hidden rounded-lg border border-brand-green/15 bg-white shadow-soft">
+              <div className="mt-6 min-w-0 overflow-hidden rounded-lg border border-brand-green/15 bg-white shadow-soft">
                 <div className="border-b border-brand-green/10 px-4 py-3">
                   <h3 className="text-base font-bold text-brand-black">Основні послуги</h3>
                 </div>
@@ -428,7 +428,7 @@ function ServicePriceSection({ service, hasPriceImages }: { service: Service; ha
               </div>
             ) : null}
             {service.priceTable ? (
-              <div className="mt-6 overflow-hidden rounded-lg border border-brand-green/15 bg-white shadow-soft">
+              <div className="mt-6 min-w-0 overflow-hidden rounded-lg border border-brand-green/15 bg-white shadow-soft">
                 <div className="border-b border-brand-green/10 px-4 py-3">
                   <h3 className="text-base font-bold text-brand-black">{service.priceTable.title}</h3>
                 </div>
