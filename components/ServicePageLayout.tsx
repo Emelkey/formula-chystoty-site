@@ -579,12 +579,12 @@ function getBeforeAfterCase(service: Service): BeforeAfterCase {
   if (slug.includes("remontu")) {
     return {
       title: "До/після прибирання після ремонту та будівництва",
-      description: "Реальний приклад очищення санвузла після ремонту: прибрали будівельний бруд, наліт, забруднення на плитці та сантехніці.",
+      description: "Реальний приклад післяремонтного прибирання об’єкта 100 м²: окремо рахували прибирання по 120 грн/м² та миття вікон після ремонту орієнтовно 30 м² по 200 грн/м².",
       beforeImage: "/images/works/post-renovation-cleaning-before-after/bathroom-after-renovation-before-cherkasy.jpg",
       beforeAlt: "Санвузол до прибирання після ремонту у Черкасах",
       afterImage: "/images/works/post-renovation-cleaning-before-after/bathroom-after-renovation-after-cherkasy.jpg",
       afterAlt: "Санвузол після прибирання після ремонту у Черкасах",
-      caption: "Прибирання санвузла після ремонту та складних забруднень"
+      caption: "Санвузол, пісуар, умивальник і плитка після ремонту — орієнтир за об’єкт 100 м² з вікнами близько 18 000 грн"
     };
   }
 
