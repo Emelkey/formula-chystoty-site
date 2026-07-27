@@ -694,10 +694,8 @@ function getBeforeAfterCase(service: Service): BeforeAfterCase {
     return {
       title: "До/після миття вікон, рам і підвіконь",
       description: "Показуємо реальний результат очищення віконного блоку: прибираємо пил, павутиння, сезонний бруд, забруднення на рамах, фурнітурі та підвіконні.",
-      beforeImage: "/images/works/window-cleaning-before-after/window-frame-before-cleaning-cherkasy-01.jpg",
-      beforeAlt: "Віконна рама до миття у Черкасах",
-      afterImage: "/images/works/window-cleaning-before-after/window-frame-after-cleaning-cherkasy-01.jpg",
-      afterAlt: "Віконна рама після миття у Черкасах",
+      beforeAfterImage: "/images/works/window-cleaning-before-after.jpg",
+      beforeAfterAlt: "Вікно до та після професійного миття у Черкасах",
       caption: "Миття вікон у Черкасах — рама, підвіконня та важкодоступні зони"
     };
   }
