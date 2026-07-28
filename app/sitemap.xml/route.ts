@@ -3,7 +3,7 @@ import { blogPosts, servicePages, siteUrl } from "@/lib/site";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-const lastModified = "2026-07-04T00:00:00.000Z";
+const lastModified = "2026-07-28T00:00:00.000Z";
 
 type SitemapUrl = {
   loc: string;
