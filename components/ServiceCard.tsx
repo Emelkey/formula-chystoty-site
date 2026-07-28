@@ -22,7 +22,11 @@ export function ServiceCard({ service }: { service: CardService }) {
         <span className="mb-5 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-brand-green/20 bg-brand-mist text-brand-green">
           <Icon size={23} strokeWidth={1.8} aria-hidden />
         </span>
-        <h3 className="line-clamp-2 min-h-[3.25rem] text-xl font-bold leading-tight text-brand-black">{service.title}</h3>
+        <h3 className="line-clamp-2 min-h-[3.25rem] text-xl font-bold leading-tight text-brand-black">
+          <Link className="transition hover:text-brand-hover" href={href}>
+            {service.title}
+          </Link>
+        </h3>
         <p className="mt-3 line-clamp-3 text-sm leading-6 text-brand-graphite">{service.shortDescription}</p>
         <p className="mt-4 inline-flex w-fit rounded-full bg-brand-mist px-3 py-2 text-sm font-bold text-brand-hover">{service.priceFrom}</p>
       </div>
