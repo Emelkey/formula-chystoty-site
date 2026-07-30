@@ -11,6 +11,13 @@ const advantages = ["працюємо зі своєю хімією", "приїж
 type PriceThumb = { image: string; imageAlt: string; imagePosition: string; backgroundSize?: string };
 type PriceRow = [string, string, PriceThumb?, string?];
 type PriceGroup = { title: string; note?: string; rows: PriceRow[] };
+type SummaryPriceRow = {
+  service: string;
+  unit: string;
+  price: string;
+  note: string;
+  href?: string;
+};
 
 const cleaningSprite = "/images/pricing/cleaning-service-price-items.jpg";
 const extraSprite = "/images/pricing/extra-auto-price-items.jpg";
@@ -256,6 +263,78 @@ const priceServiceLinks = [
   { href: windowCleaningUrl, label: "Миття вікон" }
 ];
 
+const summaryPriceRows: SummaryPriceRow[] = [
+  {
+    service: "Підтримуюче прибирання квартири",
+    unit: "м²",
+    price: "55 грн",
+    note: "Для приміщень у нормальному стані",
+    href: "/pidtrymuyuche-prybyrannya-kvartyr-cherkasy"
+  },
+  {
+    service: "Генеральне прибирання без шаф усередині",
+    unit: "м²",
+    price: "100 грн",
+    note: "Глибоке очищення основних поверхонь",
+    href: "/generalne-prybyrannya-kvartyry-cherkasy"
+  },
+  {
+    service: "Генеральне прибирання із шафами усередині",
+    unit: "м²",
+    price: "120 грн",
+    note: "Розширений перелік робіт",
+    href: "/generalne-prybyrannya-kvartyry-cherkasy"
+  },
+  {
+    service: "Прибирання після ремонту",
+    unit: "м²",
+    price: "120 грн",
+    note: "Будівельний пил та сліди ремонту",
+    href: "/prybyrannya-pislya-remontu-cherkasy"
+  },
+  {
+    service: "Миття вікон",
+    unit: "м²",
+    price: "160 грн",
+    note: "Сезонне миття скла, рам і підвіконь",
+    href: "/myttya-vikon-cherkasy"
+  },
+  {
+    service: "Хімчистка двомісного дивана",
+    unit: "шт.",
+    price: "1300 грн",
+    note: "Розрахунок залежить від тканини та плям",
+    href: "/himchystka-dyvana-cherkasy"
+  },
+  {
+    service: "Хімчистка двоспального дивана",
+    unit: "шт.",
+    price: "2000 грн",
+    note: "Розрахунок залежить від стану",
+    href: "/himchystka-dyvana-cherkasy"
+  },
+  {
+    service: "Хімчистка кутового дивана",
+    unit: "шт.",
+    price: "2500 грн",
+    note: "Розрахунок залежить від розміру",
+    href: "/himchystka-dyvana-cherkasy"
+  },
+  {
+    service: "Комплексна хімчистка авто",
+    unit: "авто",
+    price: "3800 грн",
+    note: "Остаточна ціна залежить від салону",
+    href: "/himchystka-avto-cherkasy"
+  },
+  {
+    service: "Мінімальний виїзд команди",
+    unit: "виїзд",
+    price: "3000 грн",
+    note: "У межах Черкас"
+  }
+];
+
 const priceFaq: Faq[] = [
   { question: "Скільки коштує прибирання квартири у Черкасах?", answer: "Вартість залежить від площі, стану квартири, типу прибирання та додаткових робіт. Підтримуюче прибирання стартує від 55 грн/м², генеральне — від 100 грн/м² без шаф усередині або від 120 грн/м² з шафами усередині, після ремонту — від 120 грн/м²." },
   { question: "Чому точна ціна розраховується індивідуально?", answer: "Тому що дві квартири однакової площі можуть мати різний стан. На ціну впливає кількість забруднень, будівельний пил, меблі, санвузли, кухня, вікна, плями та складність робіт." },
@@ -318,6 +397,56 @@ export function PricesSeoPage({
                 {item}
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section bg-white">
+        <div className="container min-w-0">
+          <div className="rounded-[28px] border border-brand-green/15 bg-white p-5 shadow-soft md:p-8">
+            <div className="max-w-3xl">
+              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Короткий прайс</p>
+              <h2 className="text-3xl font-bold text-brand-black">Основні ціни на клінінг у Черкасах</h2>
+              <p className="mt-4 leading-7 text-brand-graphite">
+                Короткий прайс на найпопулярніші послуги. Ціни перевірено 30.07.2026. Остаточна вартість залежить від площі, стану об’єкта та додаткових робіт.
+              </p>
+            </div>
+            <div className="mt-6 min-w-0 overflow-x-auto rounded-2xl border border-black/5">
+              <table className="min-w-[720px] w-full border-collapse bg-white text-left text-sm">
+                <caption className="bg-brand-mist px-4 py-3 text-left text-sm font-semibold text-brand-graphite">
+                  Коротка таблиця основних цін на клінінг у Черкасах
+                </caption>
+                <thead className="bg-brand-mist/70 text-brand-black">
+                  <tr>
+                    <th className="px-4 py-3 font-bold" scope="col">Послуга</th>
+                    <th className="px-4 py-3 font-bold" scope="col">Одиниця</th>
+                    <th className="px-4 py-3 font-bold" scope="col">Ціна від</th>
+                    <th className="px-4 py-3 font-bold" scope="col">Примітка</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-black/5">
+                  {summaryPriceRows.map((row) => (
+                    <tr className="align-top" key={row.service}>
+                      <th className="px-4 py-3 font-semibold text-brand-graphite" scope="row">
+                        {row.href ? (
+                          <a className="text-brand-hover underline decoration-brand-green/30 underline-offset-4 transition hover:decoration-brand-green" href={row.href}>
+                            {row.service}
+                          </a>
+                        ) : (
+                          row.service
+                        )}
+                      </th>
+                      <td className="px-4 py-3 text-brand-graphite">{row.unit}</td>
+                      <td className="whitespace-nowrap px-4 py-3 font-bold text-brand-hover">{row.price}</td>
+                      <td className="px-4 py-3 text-brand-graphite">{row.note}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-4 max-w-4xl text-sm leading-6 text-brand-graphite">
+              Ціни є орієнтовними. Для точного розрахунку надішліть площу, опис або фотографії об’єкта. До початку робіт погоджуємо перелік послуг і вартість.
+            </p>
           </div>
         </div>
       </section>
