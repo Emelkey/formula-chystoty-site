@@ -13,9 +13,9 @@ type SitemapUrl = {
 };
 
 const mainRoutes: SitemapUrl[] = [
-  { loc: "/", changefreq: "weekly", priority: "1.0" },
+  { loc: "/", lastmod: "2026-07-29T00:00:00.000Z", changefreq: "weekly", priority: "1.0" },
   { loc: "/poslugy", changefreq: "weekly", priority: "0.9" },
-  { loc: "/prices", changefreq: "monthly", priority: "0.9" },
+  { loc: "/prices", lastmod: "2026-07-30T00:00:00.000Z", changefreq: "monthly", priority: "0.9" },
   { loc: "/nashi-roboty", changefreq: "monthly", priority: "0.8" },
   { loc: "/vidguky", changefreq: "monthly", priority: "0.7" },
   { loc: "/blog", changefreq: "weekly", priority: "0.7" },
