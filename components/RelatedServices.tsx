@@ -26,7 +26,8 @@ const relatedLinks: Record<string, { href: string; label: string }[]> = {
     { href: "/pidtrymuyuche-prybyrannya-kvartyr-cherkasy", label: "підтримуюче прибирання квартири" },
     { href: "/generalne-prybyrannya-kvartyry-cherkasy", label: "генеральне прибирання квартири" },
     { href: "/prybyrannya-pislya-remontu-cherkasy", label: "прибирання квартири після ремонту" },
-    { href: "/himchystka-mebliv-cherkasy", label: "хімчистка м’яких меблів" }
+    { href: "/himchystka-mebliv-cherkasy", label: "хімчистка м’яких меблів" },
+    { href: "/himchystka-dyvana-cherkasy", label: "хімчистка дивана" }
   ],
   "generalne-prybyrannya-kvartyry-cherkasy": [
     { href: "/prybyrannya-kvartyr-cherkasy", label: "прибирання квартир" },
