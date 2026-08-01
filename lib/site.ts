@@ -480,7 +480,7 @@ export const servicePages: Service[] = [
     shortDescription: "Очищуємо односпальні та двоспальні матраци від пилу, запахів і побутових забруднень із виїздом майстра.",
     priceFrom: "від 1500 грн",
     category: "Хімчистка",
-    image: "/images/services/mattress-cleaning-generated.png",
+    image: "/images/services/mattress-cleaning-generated-optimized.jpg",
     imageAlt: "Професійна хімчистка матраца у світлій спальні у Черкасах",
     seoIntroTitle: "Хімчистка матраца у Черкасах для чистого спального місця",
     seoIntro: [
