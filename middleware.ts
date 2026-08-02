@@ -449,6 +449,7 @@ const exactLegacyRedirects = new Map([
   ["/uk", "/"],
   ["/ru", "/"],
   ["/about", "/pro-nas"],
+  ["/contact", "/kontakty"],
   ["/works", "/nashi-roboty"],
   ["/reviews", "/vidguky"],
   ["/vidhuky", "/vidguky"],
@@ -459,6 +460,12 @@ const exactLegacyRedirects = new Map([
   ["/ru/services-ru", "/poslugy"],
   ["/uk/blog-uk", "/blog"],
   ["/ru/blog-ru", "/blog"],
+  ["/uk/about", "/pro-nas"],
+  ["/ru/about", "/pro-nas"],
+  ["/uk/prices", "/prices"],
+  ["/ru/prices", "/prices"],
+  ["/uk/contact", "/kontakty"],
+  ["/ru/contact", "/kontakty"],
   ["/uk/video-gallery-uk", "/nashi-roboty"],
   ["/ru/video-gallery-ru", "/nashi-roboty"],
   ["/uk/services/myttya-vikon-vitryn-ta-fasadiv", "/myttya-fasadiv-cherkasy"],
@@ -592,6 +599,8 @@ const serviceRedirectRules = [
 
 function getServiceRedirectDestination(pathname: string) {
   const normalized = normalizePath(pathname).toLowerCase();
+  if (normalized.startsWith("/blog/")) return undefined;
+
   for (const rule of serviceRedirectRules) {
     if (rule.paths.has(normalized) || rule.patterns.some((pattern) => pattern.test(normalized))) {
       return rule.canonicalPath;
@@ -623,6 +632,10 @@ export function middleware(request: NextRequest) {
   }
 
   const serviceDestination = getServiceRedirectDestination(normalizedPath);
+  if (serviceDestination && normalizedPath === serviceDestination && !productionHosts.has(host)) {
+    return NextResponse.next();
+  }
+
   if (
     serviceDestination &&
     (normalizedPath !== serviceDestination || host !== canonicalHost || protocol !== "https")
@@ -784,12 +797,6 @@ export function middleware(request: NextRequest) {
     url.protocol = "https:";
     url.hostname = canonicalHost;
     url.port = "";
-    return NextResponse.redirect(url, 301);
-  }
-
-  if (normalizedPath.startsWith("/uk/") || normalizedPath.startsWith("/ru/")) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/";
     return NextResponse.redirect(url, 301);
   }
 
