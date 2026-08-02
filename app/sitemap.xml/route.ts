@@ -38,6 +38,11 @@ const servicePriorityOverrides: Record<string, string> = {
   "dezinfektsiya-prymishchen-cherkasy": "0.9"
 };
 
+const serviceLastmodOverrides: Record<string, string> = {
+  "prybyrannya-kvartyr-cherkasy": "2026-08-01T00:00:00.000Z",
+  "himchystka-matratsa-cherkasy": "2026-08-01T00:00:00.000Z"
+};
+
 const redirectedBlogSlugs = new Set([
   "chomu-budivelnyi-pyl-nebezpechnyi-pislya-remontu",
   "generalne-ta-pidtrymuyuche-prybyrannya-riznytsya",
@@ -85,6 +90,7 @@ function buildUrlEntry({ loc, lastmod, changefreq, priority }: SitemapUrl) {
 export function GET() {
   const serviceRoutes: SitemapUrl[] = servicePages.map((service) => ({
     loc: `/${service.slug}`,
+    lastmod: serviceLastmodOverrides[service.slug],
     changefreq: "monthly",
     priority: servicePriorityOverrides[service.slug] ?? "0.8"
   }));
