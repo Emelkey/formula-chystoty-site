@@ -42,7 +42,11 @@ export function HomePageContent() {
                 <a className="font-semibold text-brand-hover underline decoration-brand-green/30 underline-offset-4 transition hover:decoration-brand-green" href={absoluteUrl("/prybyrannya-kvartyr-cherkasy")}>
                   прибирання квартир у Черкасах
                 </a>
-                , будинків, комерційних площ і складних об’єктів після ремонту.
+                , будинків, {" "}
+                <Link className="font-semibold text-brand-hover underline decoration-brand-green/30 underline-offset-4 transition hover:decoration-brand-green" href="/prybyrannya-komertsiynykh-prymishchen-cherkasy">
+                  клінінг комерційних приміщень
+                </Link>{" "}
+                і складних об’єктів після ремонту.
               </p>
               <p>Команда приїжджає зі своїм інвентарем, професійною хімією та зрозумілим планом робіт. Для кожного формату клінінгу ми ведемо окрему сторінку з цінами, переліком робіт, фото, FAQ та кнопками заявки.</p>
               <p>

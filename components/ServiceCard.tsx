@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Car, Droplets, Flame, Home, House, Leaf, PanelsTopLeft, Sofa, Sparkles, Store, Wind } from "lucide-react";
+import { ArrowRight, Building2, Car, Clock3, Droplets, Flame, Home, House, Leaf, PanelsTopLeft, ShoppingBasket, Sofa, Sparkles, Store, UtensilsCrossed, Wind } from "lucide-react";
 import { absoluteUrl } from "@/lib/site";
 
 type CardService = {
@@ -41,6 +41,10 @@ export function ServiceCard({ service }: { service: CardService }) {
 }
 
 function serviceIcon(slug: string) {
+  if (slug.includes("ofis")) return Building2;
+  if (slug.includes("rehulyarne-prybyrannya-biznesu")) return Clock3;
+  if (slug.includes("mahazyn") || slug.includes("supermarket")) return ShoppingBasket;
+  if (slug.includes("restoran") || slug.includes("kafe")) return UtensilsCrossed;
   if (slug.includes("kvartyr")) return Home;
   if (slug.includes("generalne")) return Sparkles;
   if (slug.includes("remontu")) return PanelsTopLeft;

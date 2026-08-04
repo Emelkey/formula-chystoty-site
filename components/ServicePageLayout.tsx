@@ -12,6 +12,11 @@ const priceFactors = ["площа приміщення", "рівень забр�
 const trustItems = ["професійна хімія", "досвід роботи з різними об’єктами", "виїзд по Черкасах та області", "власний інвентар і обладнання", "реальні фото робіт", "заявка через сайт, телефон або месенджери"];
 const seoProcessSteps = ["Приймаємо заявку", "Уточнюємо обсяг робіт", "Погоджуємо ціну", "Приїжджаємо зі своїм інвентарем і хімією", "Виконуємо роботу", "Клієнт приймає результат"];
 const valueItems = ["професійна команда", "власна хімія та інвентар", "професійна техніка", "досвід у складних об’єктах", "фото до/після", "контроль якості", "відповідальність за результат", "робота з квартирами, будинками та комерційними приміщеннями"];
+const valueParagraphs = [
+  "Ми не працюємо як випадкові приватні клінери без відповідальності. Формула Чистоти — це команда, професійна хімія, інвентар, техніка, досвід і контроль якості.",
+  "У вартість входить не тільки саме прибирання, а й підготовка, виїзд команди, підбір хімії, професійний інвентар, робота з важкими забрудненнями та перевірка результату.",
+  "Клієнт платить не просто за години роботи, а за чистий результат, безпечний підхід до поверхонь і спокій, що об’єкт буде прибраний якісно."
+];
 const internalLinks = [
   { href: "/poslugy", label: "Усі послуги" },
   { href: "/prices", label: "Ціни" },
@@ -29,11 +34,13 @@ const fallbackFaq: Faq[] = [
 export function ServicePageLayout({ service }: { service: Service }) {
   const faq = ensureFaq(service.faq);
   const examples = getServiceExamples(service.slug);
-  const beforeAfter = getBeforeAfterCase(service);
+  const beforeAfter = service.hideBeforeAfter ? null : getBeforeAfterCase(service);
   const review = getServiceReview(service.slug);
   const servicePriceFactors = service.priceFactors ?? priceFactors;
   const serviceTrustItems = service.trustItems ?? trustItems;
   const processSteps = service.processSteps ?? seoProcessSteps;
+  const serviceValueItems = service.valueItems ?? valueItems;
+  const serviceValueParagraphs = service.valueParagraphs ?? valueParagraphs;
   const hasPriceImages = service.priceDetails?.some((item) => item.image);
   const relatedArticle = getRelatedArticle(service.slug);
   const showPriceNearTop = [
@@ -147,16 +154,14 @@ export function ServicePageLayout({ service }: { service: Service }) {
           <div>
             <p className="mb-4 inline-flex rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-hover">Цінність</p>
             <h2 className="text-3xl font-bold">
-              {service.slug === "prybyrannya-kvartyr-cherkasy" ? "Чому краще замовити клінінгову компанію, а не випадкового кліннера" : "Чому у нас не найдешевше, але вигідно"}
+              {service.valueTitle ?? (service.slug === "prybyrannya-kvartyr-cherkasy" ? "Чому краще замовити клінінгову компанію, а не випадкового кліннера" : "Чому у нас не найдешевше, але вигідно")}
             </h2>
             <div className="mt-5 grid gap-4 leading-7 text-brand-graphite">
-              <p>Ми не працюємо як випадкові приватні клінери без відповідальності. Формула Чистоти — це команда, професійна хімія, інвентар, техніка, досвід і контроль якості.</p>
-              <p>У вартість входить не тільки саме прибирання, а й підготовка, виїзд команди, підбір хімії, професійний інвентар, робота з важкими забрудненнями та перевірка результату.</p>
-              <p>Клієнт платить не просто за години роботи, а за чистий результат, безпечний підхід до поверхонь і спокій, що об’єкт буде прибраний якісно.</p>
+              {serviceValueParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
-            {valueItems.map((item) => (
+            {serviceValueItems.map((item) => (
               <div className="rounded-2xl bg-white p-4 text-sm font-semibold text-brand-graphite shadow-soft" key={item}>{item}</div>
             ))}
           </div>
@@ -253,7 +258,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
           </div>
         </div>
       </section>
-      <BeforeAfterSection caseItem={beforeAfter} />
+      {beforeAfter ? <BeforeAfterSection caseItem={beforeAfter} /> : null}
       <section className="section bg-brand-mist">
         <div className="container">
           <h2 className="text-3xl font-bold">Як проходить робота</h2>
@@ -299,7 +304,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
         </div>
       </section>
       <FAQSection faq={faq} />
-      <ServiceReview review={review} />
+      {service.hideReview ? null : <ServiceReview review={review} />}
       <section className="section bg-brand-mist">
         <div className="container grid gap-8 lg:grid-cols-[0.8fr_1fr]">
           <div>
@@ -309,7 +314,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
               <ContactButtons />
             </div>
           </div>
-          <ContactForm />
+          <ContactForm business={service.businessForm} />
         </div>
       </section>
       <SeoJsonLd
@@ -538,6 +543,19 @@ function getServiceExamples(slug: string) {
       .filter((item) => item.category.includes("Післяремонтне"))
       .slice(0, 3);
   }
+  if (
+    slug.includes("ofis") ||
+    slug.includes("komertsiynykh") ||
+    slug.includes("rehulyarne-prybyrannya-biznesu") ||
+    slug.includes("mahazyn") ||
+    slug.includes("supermarket") ||
+    slug.includes("restoran") ||
+    slug.includes("kafe")
+  ) {
+    return workExamples
+      .filter((item) => item.category.includes("Комерційний") || item.title.toLowerCase().includes("офіс"))
+      .slice(0, 3);
+  }
   if (slug.includes("dyvana")) return workExamples.filter((item) => item.title.toLowerCase().includes("дивана")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
   if (slug.includes("matratsa")) return workExamples.filter((item) => item.title.toLowerCase().includes("матраца")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
   if (slug.includes("mebliv")) return workExamples.filter((item) => item.title.toLowerCase().includes("стільців") || item.title.toLowerCase().includes("дивана") || item.category.includes("Хімчистка меблів")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
@@ -547,9 +565,6 @@ function getServiceExamples(slug: string) {
       .concat(workExamples.filter((item) => item.category.includes("Хімчистка")))
       .slice(0, 3);
   }
-  if (slug.includes("ofis")) return workExamples.filter((item) => item.title.includes("Офіс") || item.category.includes("Комерційний")).concat(workExamples.slice(0, 2)).slice(0, 3);
-  if (slug.includes("magazyn") || slug.includes("supermarket") || slug.includes("komertsiynykh") || slug.includes("trts")) return workExamples.filter((item) => item.category.includes("Комерційний") || item.title.includes("супермаркет") || item.title.includes("офіс")).concat(workExamples.slice(0, 2)).slice(0, 3);
-
   return workExamples.slice(0, 3);
 }
 

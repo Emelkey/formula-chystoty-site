@@ -7,8 +7,9 @@ import { trackAnalyticsEvent } from "@/lib/analytics";
 import { contacts } from "@/lib/site";
 
 const cleaningTypes = ["Генеральне прибирання квартири", "Підтримуюче прибирання", "Після ремонту", "Прибирання після потопу", "Прибирання після пожежі", "Прибирання прилеглої території", "Прибирання квартири", "Прибирання будинку", "Клінінг комерційного приміщення", "Хімчистка меблів або килимів", "Миття вікон"];
+const businessCleaningTypes = ["Прибирання офісу", "Регулярне прибирання бізнесу", "Прибирання магазину або супермаркету", "Прибирання ресторану або кафе"];
 
-export function ContactForm({ compact = false, submitLabel = "Надіслати заявку" }: { compact?: boolean; submitLabel?: string }) {
+export function ContactForm({ compact = false, submitLabel = "Надіслати заявку", business = false }: { compact?: boolean; submitLabel?: string; business?: boolean }) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -26,8 +27,9 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
 
     const type = String(formData.get("type") ?? "").trim();
     const area = String(formData.get("area") ?? "").trim();
+    const frequency = String(formData.get("frequency") ?? "").trim();
     const comment = String(formData.get("comment") ?? "").trim();
-    const messageParts = [area ? `Площа: ${area}` : "", comment].filter(Boolean);
+    const messageParts = [area ? `Площа: ${area}` : "", frequency ? `Формат: ${frequency}` : "", comment].filter(Boolean);
 
     setStatus("sending");
 
@@ -66,33 +68,43 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
       className="grid w-full min-w-0 gap-4 rounded-lg bg-white p-5 shadow-soft"
       onSubmit={handleSubmit}
     >
-      <div className="grid gap-4 md:grid-cols-2">
-        <label className="grid gap-2 text-sm font-semibold">
+      <div className="grid min-w-0 gap-4 md:grid-cols-2">
+        <label className="grid min-w-0 gap-2 text-sm font-semibold">
           Ім’я
-          <input required name="name" autoComplete="name" className="min-h-12 rounded-md border border-black/10 px-3 font-normal focus-visible:focus-ring" placeholder="Ваше ім’я" />
+          <input required name="name" autoComplete="name" className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 font-normal focus-visible:focus-ring" placeholder="Ваше ім’я" />
         </label>
-        <label className="grid gap-2 text-sm font-semibold">
+        <label className="grid min-w-0 gap-2 text-sm font-semibold">
           Телефон
-          <input required name="phone" autoComplete="tel" className="min-h-12 rounded-md border border-black/10 px-3 font-normal focus-visible:focus-ring" placeholder="+380..." inputMode="tel" pattern="^(\\+?38)?0[0-9]{9}$|^\\+380[0-9]{9}$" title="Введіть номер у форматі +380XXXXXXXXX або 0XXXXXXXXX" />
+          <input required name="phone" autoComplete="tel" className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 font-normal focus-visible:focus-ring" placeholder="+380..." inputMode="tel" pattern="^(\\+?38)?0[0-9]{9}$|^\\+380[0-9]{9}$" title="Введіть номер у форматі +380XXXXXXXXX або 0XXXXXXXXX" />
         </label>
       </div>
-      <div className={compact ? "grid gap-4" : "grid gap-4 md:grid-cols-2"}>
-        <label className="grid gap-2 text-sm font-semibold">
+      <div className={compact ? "grid min-w-0 gap-4" : "grid min-w-0 gap-4 md:grid-cols-2"}>
+        <label className="grid min-w-0 gap-2 text-sm font-semibold">
           Тип прибирання
-          <select name="type" className="min-h-12 rounded-md border border-black/10 px-3 font-normal focus-visible:focus-ring">
-            {cleaningTypes.map((type) => (
+          <select name="type" className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 font-normal focus-visible:focus-ring">
+            {(business ? businessCleaningTypes : cleaningTypes).map((type) => (
               <option key={type}>{type}</option>
             ))}
           </select>
         </label>
-        {!compact ? <label className="grid gap-2 text-sm font-semibold">
+        {!compact ? <label className="grid min-w-0 gap-2 text-sm font-semibold">
           Площа
-          <input name="area" className="min-h-12 rounded-md border border-black/10 px-3 font-normal focus-visible:focus-ring" placeholder="Наприклад, 65 м²" />
+          <input name="area" className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 font-normal focus-visible:focus-ring" placeholder="Наприклад, 65 м²" />
         </label> : null}
       </div>
-      {!compact ? <label className="grid gap-2 text-sm font-semibold">
+      {business && !compact ? (
+        <label className="grid min-w-0 gap-2 text-sm font-semibold">
+          Разове чи регулярне прибирання
+          <select name="frequency" className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 font-normal focus-visible:focus-ring">
+            <option>Разове прибирання</option>
+            <option>Регулярне прибирання</option>
+            <option>Потрібна консультація щодо графіка</option>
+          </select>
+        </label>
+      ) : null}
+      {!compact ? <label className="grid min-w-0 gap-2 text-sm font-semibold">
         Коментар
-        <textarea name="comment" className="min-h-28 rounded-md border border-black/10 p-3 font-normal focus-visible:focus-ring" placeholder="Опишіть задачу, бажану дату або стан приміщення" />
+        <textarea name="comment" className="min-h-28 w-full min-w-0 rounded-md border border-black/10 p-3 font-normal focus-visible:focus-ring" placeholder="Опишіть задачу, бажану дату або стан приміщення" />
       </label> : null}
       <button className="min-h-12 rounded-md bg-brand-green px-5 py-3 font-semibold text-white transition hover:bg-brand-hover focus-visible:focus-ring disabled:cursor-not-allowed disabled:opacity-70" type="submit" disabled={status === "sending"}>
         {status === "sending" ? "Відправляємо..." : submitLabel}
