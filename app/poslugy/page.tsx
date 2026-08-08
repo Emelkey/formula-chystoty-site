@@ -36,7 +36,6 @@ const businessProfileServices = [
 ];
 
 const popularCleaningServices = [
-  { href: "/prybyrannya-kvartyr-cherkasy", label: "Прибирання квартир у Черкасах" },
   { href: "/generalne-prybyrannya-cherkasy", label: "Генеральне прибирання у Черкасах" },
   { href: "/generalne-prybyrannya-kvartyry-cherkasy", label: "Генеральне прибирання квартири" },
   { href: "/prybyrannya-pislya-remontu-cherkasy", label: "Прибирання після ремонту та будівництва" },

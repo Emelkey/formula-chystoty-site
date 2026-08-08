@@ -39,7 +39,10 @@ const servicePriorityOverrides: Record<string, string> = {
 };
 
 const serviceLastmodOverrides: Record<string, string> = {
-  "prybyrannya-kvartyr-cherkasy": "2026-08-01T00:00:00.000Z",
+  "prybyrannya-kvartyr-cherkasy": "2026-08-09T00:00:00.000Z",
+  "generalne-prybyrannya-cherkasy": "2026-08-09T00:00:00.000Z",
+  "generalne-prybyrannya-kvartyry-cherkasy": "2026-08-09T00:00:00.000Z",
+  "pidtrymuyuche-prybyrannya-kvartyr-cherkasy": "2026-08-09T00:00:00.000Z",
   "himchystka-matratsa-cherkasy": "2026-08-01T00:00:00.000Z",
   "prybyrannya-ofisiv-cherkasy": "2026-08-04T00:00:00.000Z",
   "rehulyarne-prybyrannya-biznesu-cherkasy": "2026-08-04T00:00:00.000Z",

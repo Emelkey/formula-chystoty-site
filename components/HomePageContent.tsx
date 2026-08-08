@@ -14,7 +14,6 @@ import { WorkSteps } from "@/components/WorkSteps";
 import { absoluteUrl, importantSeoLinks, reviews } from "@/lib/site";
 
 const priorityServiceLinks = [
-  { href: "/prybyrannya-kvartyr-cherkasy", label: "прибирання квартир у Черкасах" },
   { href: "/prybyrannya-pislya-remontu-cherkasy", label: "прибирання після ремонту у Черкасах" },
   { href: "/himchystka-mebliv-cherkasy", label: "хімчистка меблів у Черкасах" },
   { href: "/himchystka-avto-cherkasy", label: "хімчистка авто у Черкасах" },

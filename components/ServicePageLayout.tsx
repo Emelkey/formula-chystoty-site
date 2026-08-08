@@ -24,6 +24,10 @@ const internalLinks = [
   { href: "/nashi-roboty", label: "Наші роботи" },
   { href: "/blog", label: "Блог" }
 ];
+const apartmentChildSlugs = new Set([
+  "pidtrymuyuche-prybyrannya-kvartyr-cherkasy",
+  "generalne-prybyrannya-kvartyry-cherkasy"
+]);
 const fallbackFaq: Faq[] = [
   { question: "Чи можна отримати розрахунок по фото?", answer: "Так, надішліть фото або відео об’єкта, і ми дамо попередній орієнтир вартості." },
   { question: "Що впливає на фінальну ціну?", answer: "Площа, стан приміщення, тип поверхонь, додаткові роботи, терміновість і складність доступу." },
@@ -43,6 +47,13 @@ export function ServicePageLayout({ service }: { service: Service }) {
   const serviceValueParagraphs = service.valueParagraphs ?? valueParagraphs;
   const hasPriceImages = service.priceDetails?.some((item) => item.image);
   const relatedArticle = getRelatedArticle(service.slug);
+  const breadcrumbItems = apartmentChildSlugs.has(service.slug)
+    ? [
+        { name: "Послуги", href: "/poslugy" },
+        { name: "Прибирання квартир", href: "/prybyrannya-kvartyr-cherkasy" },
+        { name: service.title, href: `/${service.slug}` }
+      ]
+    : [{ name: "Послуги", href: "/poslugy" }, { name: service.title, href: `/${service.slug}` }];
   const showPriceNearTop = [
     "prybyrannya-kvartyr-cherkasy",
     "pidtrymuyuche-prybyrannya-kvartyr-cherkasy",
@@ -60,7 +71,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
 
   return (
     <>
-      <Breadcrumbs items={[{ name: "Послуги", href: "/poslugy" }, { name: service.title, href: `/${service.slug}` }]} />
+      <Breadcrumbs items={breadcrumbItems} />
       <section className="bg-brand-mist py-12">
         <div className="container grid gap-8 lg:grid-cols-[1fr_0.75fr]">
           <div>
@@ -333,7 +344,50 @@ export function ServicePageLayout({ service }: { service: Service }) {
             provider: { "@id": absoluteUrl("/#localbusiness"), "@type": "LocalBusiness", name: contacts.companyName },
             areaServed: "Черкаси",
             priceRange: service.priceFrom,
-            url: absoluteUrl(`/${service.slug}`)
+            url: absoluteUrl(`/${service.slug}`),
+            ...(service.slug === "prybyrannya-kvartyr-cherkasy"
+              ? {
+                  hasOfferCatalog: {
+                    "@type": "OfferCatalog",
+                    name: "Формати прибирання квартир",
+                    itemListElement: [
+                      {
+                        "@type": "Offer",
+                        url: absoluteUrl("/pidtrymuyuche-prybyrannya-kvartyr-cherkasy"),
+                        priceSpecification: {
+                          "@type": "UnitPriceSpecification",
+                          price: "55",
+                          priceCurrency: "UAH",
+                          unitText: "м²"
+                        },
+                        itemOffered: { "@type": "Service", name: "Підтримуюче прибирання квартири" }
+                      },
+                      {
+                        "@type": "Offer",
+                        url: absoluteUrl("/generalne-prybyrannya-kvartyry-cherkasy"),
+                        priceSpecification: {
+                          "@type": "UnitPriceSpecification",
+                          price: "100",
+                          priceCurrency: "UAH",
+                          unitText: "м²"
+                        },
+                        itemOffered: { "@type": "Service", name: "Генеральне прибирання квартири без шаф усередині" }
+                      },
+                      {
+                        "@type": "Offer",
+                        url: absoluteUrl("/prybyrannya-pislya-remontu-cherkasy"),
+                        priceSpecification: {
+                          "@type": "UnitPriceSpecification",
+                          price: "120",
+                          priceCurrency: "UAH",
+                          unitText: "м²"
+                        },
+                        itemOffered: { "@type": "Service", name: "Прибирання квартири після ремонту" }
+                      }
+                    ]
+                  }
+                }
+              : {})
           },
           {
             "@context": "https://schema.org",
@@ -369,6 +423,22 @@ export function ServicePageLayout({ service }: { service: Service }) {
 }
 
 function ServicePriceSection({ service, hasPriceImages }: { service: Service; hasPriceImages?: boolean }) {
+  const isApartmentHub = service.slug === "prybyrannya-kvartyr-cherkasy";
+  const apartmentFormatCards = isApartmentHub && service.priceDetails
+    ? [
+        service.priceDetails[0],
+        {
+          title: "Генеральне прибирання квартири",
+          price: "від 100 грн/м²",
+          description: "Без шаф усередині — від 100 грн/м², із шафами усередині — від 120 грн/м².",
+          linkHref: "/generalne-prybyrannya-kvartyry-cherkasy",
+          linkLabel: "Що входить"
+        },
+        service.priceDetails[3]
+      ].filter(Boolean)
+    : null;
+  const priceCards = apartmentFormatCards ?? service.priceDetails;
+
   return (
     <section className="section bg-white">
       <div className="container rounded-[24px] border border-brand-green/15 bg-brand-mist p-6 shadow-soft md:p-8">
@@ -386,34 +456,9 @@ function ServicePriceSection({ service, hasPriceImages }: { service: Service; ha
                 : "Вартість залежить від площі, стану приміщення, типу поверхонь, терміновості та додаткових робіт."}{" "}
               Орієнтир для цієї послуги: <strong className="text-brand-hover">{service.priceFrom}</strong>.
             </p>
-            {service.slug === "prybyrannya-kvartyr-cherkasy" && service.priceDetails ? (
-              <div className="mt-6 min-w-0 overflow-hidden rounded-lg border border-brand-green/15 bg-white shadow-soft">
-                <div className="border-b border-brand-green/10 px-4 py-3">
-                  <h3 className="text-base font-bold text-brand-black">Основні послуги</h3>
-                </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full min-w-[420px] text-left text-sm">
-                    <thead className="bg-brand-mist text-brand-black">
-                      <tr>
-                        <th className="px-4 py-3 font-bold">Послуга</th>
-                        <th className="px-4 py-3 font-bold">Ціна</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-black/5">
-                      {service.priceDetails.map((item) => (
-                        <tr key={item.title}>
-                          <td className="px-4 py-3 text-brand-graphite">{item.title}</td>
-                          <td className="px-4 py-3 font-bold text-brand-hover">{item.price}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            ) : null}
-            {service.priceDetails ? (
-              <div className={`mt-5 grid gap-3 sm:grid-cols-2 ${hasPriceImages ? "xl:grid-cols-4" : ""}`}>
-                {service.priceDetails.map((item) => (
+            {priceCards ? (
+              <div className={`mt-5 grid gap-3 sm:grid-cols-2 ${isApartmentHub ? "lg:grid-cols-3" : hasPriceImages ? "xl:grid-cols-4" : ""}`}>
+                {priceCards.map((item) => (
                   <div className="overflow-hidden rounded-lg bg-white p-4 shadow-soft" key={item.title}>
                     {item.image ? (
                       <div
@@ -446,10 +491,11 @@ function ServicePriceSection({ service, hasPriceImages }: { service: Service; ha
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[420px] text-left text-sm">
+                    <caption className="sr-only">{service.priceTable.title}</caption>
                     <thead className="bg-brand-mist text-brand-black">
                       <tr>
-                        <th className="px-4 py-3 font-bold">{service.priceTable.columns?.[0] ?? "Площа"}</th>
-                        <th className="px-4 py-3 font-bold">{service.priceTable.columns?.[1] ?? "Орієнтовна ціна"}</th>
+                        <th className="px-4 py-3 font-bold" scope="col">{service.priceTable.columns?.[0] ?? "Площа"}</th>
+                        <th className="px-4 py-3 font-bold" scope="col">{service.priceTable.columns?.[1] ?? "Орієнтовна ціна"}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-black/5">
@@ -522,15 +568,11 @@ function getServiceExamples(slug: string) {
   if (slug === "prybyrannya-kvartyr-cherkasy") {
     return workExamples
       .filter((item) =>
-        item.category.includes("Прибирання квартир") ||
-        item.title.includes("Прибирання квартири до та після") ||
-        item.title.includes("Робота команди під час прибирання квартири") ||
-        item.title.includes("Підтримуюче прибирання квартири") ||
-        item.title.includes("Генеральне очищення духовки") ||
-        item.title.includes("Миття холодильника") ||
-        item.title.includes("Очищення плитки")
+        item.title === "Прибирання квартири до та після" ||
+        item.title === "Миття холодильника в квартирі до та після" ||
+        item.title === "Робота команди під час прибирання квартири"
       )
-      .slice(0, 4);
+      .slice(0, 3);
   }
   if (slug.includes("kvartyr")) return workExamples.filter((item) => item.category.includes("Житловий") || item.title.includes("квартир")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("generalne")) return workExamples.filter((item) => item.category.includes("Генеральне") || item.title.includes("духовки")).concat(workExamples.slice(0, 2)).slice(0, 3);
