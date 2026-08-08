@@ -8,6 +8,7 @@ type LeadPayload = {
   pageUrl?: unknown;
   area?: unknown;
   type?: unknown;
+  website?: unknown;
 };
 
 function asText(value: unknown) {
@@ -16,6 +17,10 @@ function asText(value: unknown) {
 
 function hasEnoughPhoneDigits(phone: string) {
   return phone.replace(/\D/g, "").length >= 7;
+}
+
+function exceedsLength(value: string, maxLength: number) {
+  return value.length > maxLength;
 }
 
 function logLeadApi(message: string, details?: Record<string, unknown>) {
@@ -42,6 +47,22 @@ export async function POST(request: Request) {
     const area = asText(body.area);
     const leadMessage = asText(body.message);
     const pageUrl = asText(body.pageUrl);
+    const website = asText(body.website);
+
+    if (website) {
+      return NextResponse.json({ success: true });
+    }
+
+    if (
+      exceedsLength(name, 120) ||
+      exceedsLength(phone, 40) ||
+      exceedsLength(service, 160) ||
+      exceedsLength(area, 80) ||
+      exceedsLength(leadMessage, 2000) ||
+      exceedsLength(pageUrl, 500)
+    ) {
+      return NextResponse.json({ success: false, error: "payload_too_large" }, { status: 400 });
+    }
 
     if (!name) {
       return NextResponse.json({ success: false, error: "name_required" }, { status: 400 });
@@ -60,9 +81,7 @@ export async function POST(request: Request) {
 
     logLeadApi("telegram_env", {
       hasToken: Boolean(botToken),
-      tokenLength: botToken?.length ?? 0,
-      hasChatId: Boolean(chatId),
-      chatId
+      hasChatId: Boolean(chatId)
     });
 
     if (!botToken || !chatId) {
@@ -98,19 +117,8 @@ export async function POST(request: Request) {
 
     logLeadApi("telegram_response_status", { status: telegramResponse.status, ok: telegramResponse.ok });
 
-    const telegramResponseBody = await telegramResponse.text();
-    let telegramResult: unknown = telegramResponseBody;
-
-    try {
-      telegramResult = JSON.parse(telegramResponseBody) as unknown;
-    } catch {
-      telegramResult = telegramResponseBody;
-    }
-
-    logLeadApi("telegram_response_body", { body: telegramResult });
-
     if (!telegramResponse.ok) {
-      return NextResponse.json({ success: false, error: "telegram_send_failed", details: telegramResult }, { status: 502 });
+      return NextResponse.json({ success: false, error: "telegram_send_failed" }, { status: 502 });
     }
 
     return NextResponse.json({ success: true });

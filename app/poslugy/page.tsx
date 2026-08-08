@@ -27,6 +27,9 @@ const businessProfileServices = [
   { slug: "rehulyarne-prybyrannya-biznesu-cherkasy", description: "Клінінгове обслуговування бізнесу за регулярним графіком і заздалегідь визначеним регламентом." },
   { slug: "prybyrannya-mahazyniv-supermarketiv-cherkasy", description: "Прибирання магазинів, супермаркетів і торгових залів з урахуванням режиму роботи та потоку відвідувачів." },
   { slug: "prybyrannya-restoraniv-kafe-cherkasy", description: "Клінінг ресторанів і кафе з окремим погодженням гостьових, службових та кухонних зон." },
+  { slug: "prybyrannya-vyrobnychykh-prymishchen-cherkasy", description: "Клінінг виробничих зон із погодженими межами біля обладнання, технологічних ліній і робочих ділянок." },
+  { slug: "prybyrannya-skladiv-cherkasy", description: "Разове та регулярне прибирання складів із поділом на проходи, рампи, службові й завантажувальні зони." },
+  { slug: "prybyrannya-medychnykh-tsentriv-cherkasy", description: "Прибирання медичних центрів за погодженим регламентом без непідтверджених заяв про стерилізацію." },
   { slug: "dezinfektsiya-prymishchen-cherkasy", description: "Дезінфекція, озонація та санітарне прибирання після трупу або біологічного забруднення." },
   { slug: "myttya-fasadiv-cherkasy", description: "Миття фасадів будинків та комерційних об’єктів." },
   { slug: "myttya-plytky-cherkasy", description: "Миття тротуарної плитки, доріжок, дворів і прибудинкової території." }
@@ -45,6 +48,9 @@ const popularCleaningServices = [
   { href: "/rehulyarne-prybyrannya-biznesu-cherkasy", label: "Регулярне прибирання для бізнесу" },
   { href: "/prybyrannya-mahazyniv-supermarketiv-cherkasy", label: "Прибирання магазинів і супермаркетів" },
   { href: "/prybyrannya-restoraniv-kafe-cherkasy", label: "Прибирання ресторанів і кафе" },
+  { href: "/prybyrannya-vyrobnychykh-prymishchen-cherkasy", label: "Прибирання виробничих приміщень" },
+  { href: "/prybyrannya-skladiv-cherkasy", label: "Прибирання складів" },
+  { href: "/prybyrannya-medychnykh-tsentriv-cherkasy", label: "Прибирання медичних центрів" },
   { href: "/prybyrannya-pislya-pozhezhi-cherkasy", label: "Прибирання після пожежі" },
   { href: "/dezinfektsiya-prymishchen-cherkasy", label: "Дезінфекція та прибирання після трупу" }
 ];

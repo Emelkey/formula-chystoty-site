@@ -349,8 +349,6 @@ const carpetCleaningLegacySlugs = [
   "himchystka-kylymiv-kovrolinu",
   "himchystka-kilimiv",
   "himchystka-kilimiv-cherkasy",
-  "himchystka-kovrolinu",
-  "himchystka-kovrolinu-cherkasy",
   "khimchystka-kylymiv",
   "khimchystka-kylymiv-cherkasy",
   "chystka-kylymiv",
@@ -358,24 +356,34 @@ const carpetCleaningLegacySlugs = [
   "chystka-kylymiv-kovrolinu",
   "chystka-kilimiv",
   "chystka-kilimiv-cherkasy",
-  "chystka-kovrolinu",
-  "chystka-kovrolinu-cherkasy",
   "himchistka-kovrov",
   "himchistka-kovrov-cherkassy",
-  "himchistka-kovrolina",
-  "himchistka-kovrolina-cherkassy",
   "khimchistka-kovrov",
   "khimchistka-kovrov-cherkassy",
   "chistka-kovrov",
   "chistka-kovrov-cherkassy",
-  "chistka-kovrov-kovrolina",
-  "chistka-kovrolina",
-  "chistka-kovrolina-cherkassy"
+  "chistka-kovrov-kovrolina"
 ];
 const carpetCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
 const carpetCleaningLegacyPaths = new Set([
   carpetCleaningCanonicalPath,
   ...carpetCleaningLegacyPrefixes.flatMap((prefix) => carpetCleaningLegacySlugs.map((slug) => `${prefix}/${slug}`))
+]);
+
+const carpetFlooringCleaningCanonicalPath = "/himchystka-kovrolinu-cherkasy";
+const carpetFlooringCleaningLegacySlugs = [
+  "himchystka-kovrolinu",
+  "chystka-kovrolinu",
+  "chystka-kovrolinu-cherkasy",
+  "himchistka-kovrolina",
+  "himchistka-kovrolina-cherkassy",
+  "chistka-kovrolina",
+  "chistka-kovrolina-cherkassy"
+];
+const carpetFlooringCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
+const carpetFlooringCleaningLegacyPaths = new Set([
+  carpetFlooringCleaningCanonicalPath,
+  ...carpetFlooringCleaningLegacyPrefixes.flatMap((prefix) => carpetFlooringCleaningLegacySlugs.map((slug) => `${prefix}/${slug}`))
 ]);
 
 const windowCleaningCanonicalPath = "/myttya-vikon-cherkasy";
@@ -476,8 +484,18 @@ const exactLegacyRedirects = new Map([
   ["/uk/services/dezinfektsiya-pislya-trupu", "/dezinfektsiya-prymishchen-cherkasy"],
   ["/ru/services/uborka-posle-trupa", "/dezinfektsiya-prymishchen-cherkasy"],
   ["/ru/services/dezinfekciya-posle-trupa", "/dezinfektsiya-prymishchen-cherkasy"],
-  ["/uk/services/obslugovuvannya-ta-klining-promislovih-i-virobnichih-primishhen", "/prybyrannya-komertsiynykh-prymishchen-cherkasy"],
-  ["/ru/services/obsluzhivanie-i-klining-promyshlennyh-i-proizvodstvennyh-pomeshchenij", "/prybyrannya-komertsiynykh-prymishchen-cherkasy"],
+  ["/uk/services/obslugovuvannya-ta-klining-promislovih-i-virobnichih-primishhen", "/prybyrannya-vyrobnychykh-prymishchen-cherkasy"],
+  ["/ru/services/obsluzhivanie-i-klining-promyshlennyh-i-proizvodstvennyh-pomeshchenij", "/prybyrannya-vyrobnychykh-prymishchen-cherkasy"],
+  ["/uk/services/prybyrannya-skladiv", "/prybyrannya-skladiv-cherkasy"],
+  ["/ru/services/uborka-skladov", "/prybyrannya-skladiv-cherkasy"],
+  ["/uk/services/prybyrannya-medychnykh-tsentriv", "/prybyrannya-medychnykh-tsentriv-cherkasy"],
+  ["/ru/services/uborka-meditsinskih-centrov", "/prybyrannya-medychnykh-tsentriv-cherkasy"],
+  ["/uk/services/himchystka-stiltsiv", "/himchystka-stiltsiv-cherkasy"],
+  ["/ru/services/himchistka-stulev", "/himchystka-stiltsiv-cherkasy"],
+  ["/uk/services/himchystka-krisel", "/himchystka-krisel-cherkasy"],
+  ["/ru/services/himchistka-kresel", "/himchystka-krisel-cherkasy"],
+  ["/uk/services/himchystka-kovrolinu", "/himchystka-kovrolinu-cherkasy"],
+  ["/ru/services/himchistka-kovrolina", "/himchystka-kovrolinu-cherkasy"],
   ["/uk/services/prybyrannya-prylegloyi-terytoriyi", "/prybyrannya-prylegloyi-terytoriyi-cherkasy"],
   ["/prybyrannya-kotedzhiv-cherkasy", "/prybyrannya-budynkiv-cherkasy"]
 ]);
@@ -572,11 +590,19 @@ const serviceRedirectRules = [
     ]
   },
   {
+    canonicalPath: carpetFlooringCleaningCanonicalPath,
+    paths: carpetFlooringCleaningLegacyPaths,
+    patterns: [
+      /(?:himchystka|himchistka|khimchystka|khimchistka|chystka|chistka).*(?:kovrolin)/,
+      /(?:kovrolin).*(?:himchystka|himchistka|khimchystka|khimchistka|chystka|chistka)/
+    ]
+  },
+  {
     canonicalPath: carpetCleaningCanonicalPath,
     paths: carpetCleaningLegacyPaths,
     patterns: [
-      /(?:himchystka|himchistka|khimchystka|khimchistka|chystka|chistka).*(?:kylym|kilim|kovr|kovrolin)/,
-      /(?:kylym|kilim|kovr|kovrolin).*(?:himchystka|himchistka|khimchystka|khimchistka|chystka|chistka)/
+      /(?:himchystka|himchistka|khimchystka|khimchistka|chystka|chistka).*(?:kylym|kilim|kovr)/,
+      /(?:kylym|kilim|kovr).*(?:himchystka|himchistka|khimchystka|khimchistka|chystka|chistka)/
     ]
   },
   {

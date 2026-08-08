@@ -44,7 +44,13 @@ const serviceLastmodOverrides: Record<string, string> = {
   "prybyrannya-ofisiv-cherkasy": "2026-08-04T00:00:00.000Z",
   "rehulyarne-prybyrannya-biznesu-cherkasy": "2026-08-04T00:00:00.000Z",
   "prybyrannya-mahazyniv-supermarketiv-cherkasy": "2026-08-04T00:00:00.000Z",
-  "prybyrannya-restoraniv-kafe-cherkasy": "2026-08-04T00:00:00.000Z"
+  "prybyrannya-restoraniv-kafe-cherkasy": "2026-08-04T00:00:00.000Z",
+  "prybyrannya-vyrobnychykh-prymishchen-cherkasy": "2026-08-08T00:00:00.000Z",
+  "prybyrannya-skladiv-cherkasy": "2026-08-08T00:00:00.000Z",
+  "prybyrannya-medychnykh-tsentriv-cherkasy": "2026-08-08T00:00:00.000Z",
+  "himchystka-stiltsiv-cherkasy": "2026-08-08T00:00:00.000Z",
+  "himchystka-krisel-cherkasy": "2026-08-08T00:00:00.000Z",
+  "himchystka-kovrolinu-cherkasy": "2026-08-08T00:00:00.000Z"
 };
 
 function escapeXml(value: string) {

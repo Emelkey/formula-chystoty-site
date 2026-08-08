@@ -5,13 +5,14 @@ const relatedLinks: Record<string, { href: string; label: string }[]> = {
   "himchystka-mebliv-cherkasy": [
     { href: "/himchystka-dyvana-cherkasy", label: "хімчистка дивана в Черкасах" },
     { href: "/himchystka-matratsa-cherkasy", label: "хімчистка матраца" },
-    { href: "/himchystka-kylymiv-cherkasy", label: "хімчистка килимів і ковроліну" },
-    { href: "/prices", label: "ціни на хімчистку меблів" },
-    { href: "/nashi-roboty", label: "результати хімчистки до та після" }
+    { href: "/himchystka-stiltsiv-cherkasy", label: "хімчистка м’яких стільців" },
+    { href: "/himchystka-krisel-cherkasy", label: "хімчистка крісел" },
+    { href: "/himchystka-kovrolinu-cherkasy", label: "хімчистка ковроліну" }
   ],
   "himchystka-dyvana-cherkasy": [
     { href: "/himchystka-mebliv-cherkasy", label: "хімчистка м’яких меблів" },
     { href: "/himchystka-matratsa-cherkasy", label: "хімчистка матраца" },
+    { href: "/himchystka-krisel-cherkasy", label: "хімчистка крісел" },
     { href: "/prices", label: "прайс на хімчистку" },
     { href: "/nashi-roboty", label: "дивани до та після хімчистки" }
   ],
@@ -53,14 +54,36 @@ const relatedLinks: Record<string, { href: string; label: string }[]> = {
   "himchystka-matratsa-cherkasy": [
     { href: "/himchystka-mebliv-cherkasy", label: "хімчистка м’яких меблів" },
     { href: "/himchystka-dyvana-cherkasy", label: "хімчистка дивана" },
+    { href: "/himchystka-krisel-cherkasy", label: "хімчистка крісел" },
     { href: "/prices", label: "ціни на хімчистку" },
     { href: "/nashi-roboty", label: "матраци до та після хімчистки" }
   ],
   "himchystka-kylymiv-cherkasy": [
+    { href: "/himchystka-kovrolinu-cherkasy", label: "хімчистка ковроліну на місці" },
     { href: "/himchystka-mebliv-cherkasy", label: "хімчистка м’яких меблів" },
-    { href: "/himchystka-dyvana-cherkasy", label: "хімчистка дивана" },
     { href: "/prices", label: "ціни на хімчистку килимів" },
     { href: "/nashi-roboty", label: "килими та ковролін до і після" }
+  ],
+  "himchystka-stiltsiv-cherkasy": [
+    { href: "/himchystka-mebliv-cherkasy", label: "хімчистка м’яких меблів" },
+    { href: "/himchystka-krisel-cherkasy", label: "хімчистка крісел" },
+    { href: "/prybyrannya-restoraniv-kafe-cherkasy", label: "клінінг ресторанів і кафе" },
+    { href: "/prices", label: "ціни на хімчистку" },
+    { href: "/nashi-roboty", label: "стільці до та після очищення" }
+  ],
+  "himchystka-krisel-cherkasy": [
+    { href: "/himchystka-mebliv-cherkasy", label: "хімчистка м’яких меблів" },
+    { href: "/himchystka-dyvana-cherkasy", label: "хімчистка дивана" },
+    { href: "/himchystka-stiltsiv-cherkasy", label: "хімчистка стільців" },
+    { href: "/himchystka-matratsa-cherkasy", label: "хімчистка матраца" },
+    { href: "/prices", label: "ціни на хімчистку" }
+  ],
+  "himchystka-kovrolinu-cherkasy": [
+    { href: "/himchystka-kylymiv-cherkasy", label: "хімчистка килимів" },
+    { href: "/prybyrannya-komertsiynykh-prymishchen-cherkasy", label: "клінінг комерційних приміщень" },
+    { href: "/prybyrannya-ofisiv-cherkasy", label: "прибирання офісів" },
+    { href: "/rehulyarne-prybyrannya-biznesu-cherkasy", label: "регулярне прибирання бізнесу" },
+    { href: "/prices", label: "ціни на хімчистку покриттів" }
   ],
   "pidtrymuyuche-prybyrannya-kvartyr-cherkasy": [
     { href: "/prybyrannya-kvartyr-cherkasy", label: "професійне прибирання квартири" },
@@ -111,9 +134,9 @@ const relatedLinks: Record<string, { href: string; label: string }[]> = {
   "prybyrannya-komertsiynykh-prymishchen-cherkasy": [
     { href: "/prybyrannya-ofisiv-cherkasy", label: "прибирання офісів" },
     { href: "/rehulyarne-prybyrannya-biznesu-cherkasy", label: "регулярне прибирання для бізнесу" },
-    { href: "/prybyrannya-mahazyniv-supermarketiv-cherkasy", label: "клінінг магазинів і торгових залів" },
-    { href: "/prybyrannya-restoraniv-kafe-cherkasy", label: "прибирання ресторанів і кафе" },
-    { href: "/prices", label: "ціни на клінінгові послуги" },
+    { href: "/prybyrannya-vyrobnychykh-prymishchen-cherkasy", label: "клінінг виробничих приміщень" },
+    { href: "/prybyrannya-skladiv-cherkasy", label: "прибирання складів" },
+    { href: "/prybyrannya-medychnykh-tsentriv-cherkasy", label: "прибирання медичних центрів" }
   ],
   "prybyrannya-ofisiv-cherkasy": [
     { href: "/rehulyarne-prybyrannya-biznesu-cherkasy", label: "регулярний клінінг офісу" },
@@ -142,6 +165,27 @@ const relatedLinks: Record<string, { href: string; label: string }[]> = {
     { href: "/prybyrannya-ofisiv-cherkasy", label: "прибирання адміністративних зон" },
     { href: "/himchystka-mebliv-cherkasy", label: "хімчистка стільців і м’яких меблів" },
     { href: "/prices", label: "ціни на додаткові роботи" }
+  ],
+  "prybyrannya-vyrobnychykh-prymishchen-cherkasy": [
+    { href: "/prybyrannya-skladiv-cherkasy", label: "прибирання складських зон" },
+    { href: "/prybyrannya-komertsiynykh-prymishchen-cherkasy", label: "клінінг комерційних приміщень" },
+    { href: "/rehulyarne-prybyrannya-biznesu-cherkasy", label: "регулярне обслуговування бізнесу" },
+    { href: "/prybyrannya-pislya-remontu-cherkasy", label: "прибирання після ремонту" },
+    { href: "/prices", label: "орієнтовні ціни на клінінг" }
+  ],
+  "prybyrannya-skladiv-cherkasy": [
+    { href: "/prybyrannya-vyrobnychykh-prymishchen-cherkasy", label: "прибирання виробничих приміщень" },
+    { href: "/prybyrannya-komertsiynykh-prymishchen-cherkasy", label: "клінінг комерційних площ" },
+    { href: "/rehulyarne-prybyrannya-biznesu-cherkasy", label: "регулярне прибирання бізнесу" },
+    { href: "/prybyrannya-pislya-remontu-cherkasy", label: "післяремонтне прибирання" },
+    { href: "/prices", label: "прайс на клінінгові послуги" }
+  ],
+  "prybyrannya-medychnykh-tsentriv-cherkasy": [
+    { href: "/rehulyarne-prybyrannya-biznesu-cherkasy", label: "регулярне прибирання для бізнесу" },
+    { href: "/prybyrannya-ofisiv-cherkasy", label: "прибирання адміністративних зон" },
+    { href: "/prybyrannya-komertsiynykh-prymishchen-cherkasy", label: "клінінг комерційних приміщень" },
+    { href: "/dezinfektsiya-prymishchen-cherkasy", label: "дезінфекція приміщень" },
+    { href: "/prices", label: "орієнтовні ціни на клінінг" }
   ]
 };
 

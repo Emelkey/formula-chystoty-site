@@ -7,7 +7,15 @@ import { trackAnalyticsEvent } from "@/lib/analytics";
 import { contacts } from "@/lib/site";
 
 const cleaningTypes = ["Генеральне прибирання квартири", "Підтримуюче прибирання", "Після ремонту", "Прибирання після потопу", "Прибирання після пожежі", "Прибирання прилеглої території", "Прибирання квартири", "Прибирання будинку", "Клінінг комерційного приміщення", "Хімчистка меблів або килимів", "Миття вікон"];
-const businessCleaningTypes = ["Прибирання офісу", "Регулярне прибирання бізнесу", "Прибирання магазину або супермаркету", "Прибирання ресторану або кафе"];
+const businessCleaningTypes = [
+  "Прибирання офісу",
+  "Регулярне прибирання бізнесу",
+  "Прибирання магазину або супермаркету",
+  "Прибирання ресторану або кафе",
+  "Прибирання виробничого приміщення",
+  "Прибирання складу",
+  "Прибирання медичного центру"
+];
 
 export function ContactForm({ compact = false, submitLabel = "Надіслати заявку", business = false }: { compact?: boolean; submitLabel?: string; business?: boolean }) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -19,6 +27,7 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
     const formData = new FormData(form);
     const name = String(formData.get("name") ?? "").trim();
     const phone = String(formData.get("phone") ?? "").trim();
+    const website = String(formData.get("website") ?? "").trim();
 
     if (!name || !phone || !form.checkValidity()) {
       form.reportValidity();
@@ -42,7 +51,8 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
           phone,
           service: type,
           message: messageParts.join("\n"),
-          pageUrl: window.location.href
+          pageUrl: window.location.href,
+          website
         })
       });
 
@@ -68,6 +78,10 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
       className="grid w-full min-w-0 gap-4 rounded-lg bg-white p-5 shadow-soft"
       onSubmit={handleSubmit}
     >
+      <label className="pointer-events-none absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
+        Вебсайт
+        <input name="website" autoComplete="off" tabIndex={-1} />
+      </label>
       <div className="grid min-w-0 gap-4 md:grid-cols-2">
         <label className="grid min-w-0 gap-2 text-sm font-semibold">
           Ім’я

@@ -52,6 +52,9 @@ export function ServicePageLayout({ service }: { service: Service }) {
     "himchystka-dyvana-cherkasy",
     "himchystka-matratsa-cherkasy",
     "himchystka-kylymiv-cherkasy",
+    "himchystka-stiltsiv-cherkasy",
+    "himchystka-krisel-cherkasy",
+    "himchystka-kovrolinu-cherkasy",
     "himchystka-avto-cherkasy",
   ].includes(service.slug);
 
@@ -65,7 +68,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
             <h1 className="text-4xl font-bold leading-tight md:text-5xl">{service.h1}</h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-brand-graphite">{service.shortDescription}</p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <PrimaryButton />
+              <PrimaryButton>{service.slug === "himchystka-mebliv-cherkasy" ? "Розрахувати вартість за фото" : "Розрахувати вартість"}</PrimaryButton>
               <ContactButtons />
             </div>
           </div>
@@ -77,6 +80,8 @@ export function ServicePageLayout({ service }: { service: Service }) {
             <p className="mt-4 text-sm leading-6 text-brand-graphite">
               {service.slug === "prybyrannya-kvartyr-cherkasy"
                 ? "Точний розрахунок робимо після уточнення площі, стану квартири, кількості кімнат і додаткових задач."
+                : service.slug === "himchystka-mebliv-cherkasy"
+                  ? "Надішліть фото меблів і проблемних зон — попередньо оцінимо розмір, тканину, плями та потребу в окремій обробці запаху."
                 : "Точний розрахунок робимо після уточнення площі, стану приміщення та додаткових задач."}
             </p>
             </div>
@@ -376,6 +381,8 @@ function ServicePriceSection({ service, hasPriceImages }: { service: Service; ha
             <p className="mt-4 max-w-3xl leading-7 text-brand-graphite">
               {service.slug === "prybyrannya-kvartyr-cherkasy"
                 ? "Вартість залежить від площі, стану квартири, кількості кімнат, кухні, санвузлів, вікон, меблів і додаткових робіт."
+                : service.slug === "himchystka-mebliv-cherkasy"
+                  ? "Вартість залежить від виду й розміру меблів, тканини, кількості посадкових місць, плям, запахів і додаткової обробки."
                 : "Вартість залежить від площі, стану приміщення, типу поверхонь, терміновості та додаткових робіт."}{" "}
               Орієнтир для цієї послуги: <strong className="text-brand-hover">{service.priceFrom}</strong>.
             </p>
@@ -528,7 +535,7 @@ function getServiceExamples(slug: string) {
   if (slug.includes("kvartyr")) return workExamples.filter((item) => item.category.includes("Житловий") || item.title.includes("квартир")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("generalne")) return workExamples.filter((item) => item.category.includes("Генеральне") || item.title.includes("духовки")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("kotedzhiv")) return workExamples.filter((item) => item.title.includes("будинку") || item.category.includes("Приватні будинки") || item.category.includes("Житловий")).concat(workExamples.slice(0, 2)).slice(0, 3);
-  if (slug.includes("kylym")) return workExamples.filter((item) => item.title.includes("ковроліну")).concat(workExamples.slice(0, 2)).slice(0, 3);
+  if (slug.includes("kylym") || slug.includes("kovrolin")) return workExamples.filter((item) => item.title.toLowerCase().includes("ковролін")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
   if (slug.includes("pozhezhi")) return workExamples.filter((item) => item.category.includes("пожеж")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("potopu")) return workExamples.filter((item) => item.category.includes("Складне") || item.category.includes("Комерційний")).concat(workExamples.slice(0, 2)).slice(0, 3);
   if (slug.includes("plytky") || slug.includes("plitky") || slug.includes("fasadiv")) return workExamples.filter((item) => item.title.includes("плитки") || item.title.includes("паркану")).concat(workExamples.slice(0, 2)).slice(0, 3);
@@ -550,7 +557,10 @@ function getServiceExamples(slug: string) {
     slug.includes("mahazyn") ||
     slug.includes("supermarket") ||
     slug.includes("restoran") ||
-    slug.includes("kafe")
+    slug.includes("kafe") ||
+    slug.includes("vyrobnychykh") ||
+    slug.includes("skladiv") ||
+    slug.includes("medychnykh")
   ) {
     return workExamples
       .filter((item) => item.category.includes("Комерційний") || item.title.toLowerCase().includes("офіс"))
@@ -558,6 +568,8 @@ function getServiceExamples(slug: string) {
   }
   if (slug.includes("dyvana")) return workExamples.filter((item) => item.title.toLowerCase().includes("дивана")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
   if (slug.includes("matratsa")) return workExamples.filter((item) => item.title.toLowerCase().includes("матраца")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
+  if (slug.includes("stiltsiv")) return workExamples.filter((item) => item.title.toLowerCase().includes("стільц")).concat(workExamples.filter((item) => item.category.includes("Хімчистка меблів"))).slice(0, 3);
+  if (slug.includes("krisel")) return workExamples.filter((item) => item.title.toLowerCase().includes("крісл") || item.title.toLowerCase().includes("мебл")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
   if (slug.includes("mebliv")) return workExamples.filter((item) => item.title.toLowerCase().includes("стільців") || item.title.toLowerCase().includes("дивана") || item.category.includes("Хімчистка меблів")).concat(workExamples.filter((item) => item.category.includes("Хімчистка"))).slice(0, 3);
   if (slug.includes("avto")) {
     return workExamples
@@ -641,6 +653,29 @@ function getBeforeAfterCase(service: Service): BeforeAfterCase {
       beforeAfterAlt: "Хімчистка матраца у Черкасах — до та після",
       caption: "Хімчистка матраца — результат до та після очищення",
       portrait: true
+    };
+  }
+
+  if (slug.includes("stiltsiv")) {
+    return {
+      title: "До/після хімчистки стільців",
+      description: "Реальний приклад очищення текстильної оббивки стільців: результат залежить від матеріалу, давності плям і попередніх спроб очищення.",
+      beforeAfterImage: "/images/works/chairs-cleaning-before-after-cherkasy.jpg",
+      beforeAfterAlt: "Хімчистка стільців у Черкасах — до та після",
+      caption: "Хімчистка стільців — реальний результат до та після",
+      portrait: true
+    };
+  }
+
+  if (slug.includes("kovrolin")) {
+    return {
+      title: "До/після хімчистки ковроліну",
+      description: "Приклад глибокого очищення стаціонарного покриття від пилу, прохідного бруду та побутових забруднень без демонтажу.",
+      beforeImage: "/images/works/before-after/carpet-cleaning-before.webp",
+      beforeAlt: "Ковролін до професійної хімчистки у Черкасах",
+      afterImage: "/images/works/before-after/carpet-cleaning-after.webp",
+      afterAlt: "Ковролін після професійної хімчистки у Черкасах",
+      caption: "Хімчистка ковроліну у Черкасах — результат до та після"
     };
   }
 
@@ -742,7 +777,8 @@ function getBeforeAfterCase(service: Service): BeforeAfterCase {
 }
 
 function getServiceReview(slug: string) {
-  if (slug.includes("dyvana") || slug.includes("matratsa") || slug.includes("mebliv")) return reviews[1];
+  if (slug.includes("stiltsiv")) return reviews[0];
+  if (slug.includes("dyvana") || slug.includes("matratsa") || slug.includes("mebliv") || slug.includes("krisel") || slug.includes("kovrolin")) return reviews[1];
   if (slug.includes("kvartyr") || slug.includes("generalne") || slug.includes("remontu")) return reviews[2];
   return reviews[0];
 }

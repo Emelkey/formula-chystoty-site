@@ -27,8 +27,7 @@ export function ContactAction({
   const label = ariaLabel ?? (type === "phone" ? `Подзвонити ${contacts.viberNumber}` : `Написати у Viber ${contacts.viberNumber}`);
 
   if (type === "viber") {
-    function handleViberClick(event: MouseEvent<HTMLAnchorElement>) {
-      event.preventDefault();
+    function handleViberClick() {
       trackAnalyticsEvent("viber_click", {
         event_category: "contact",
         event_label: "viber"
