@@ -1,5 +1,24 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ContactButtons, PrimaryButton } from "@/components/Buttons";
+
+const heroPrices = [
+  {
+    href: "/pidtrymuyuche-prybyrannya-kvartyr-cherkasy",
+    label: "Підтримуюче",
+    price: "від 55 грн/м²"
+  },
+  {
+    href: "/generalne-prybyrannya-cherkasy",
+    label: "Генеральне",
+    price: "від 100 грн/м²"
+  },
+  {
+    href: "/prybyrannya-pislya-remontu-cherkasy",
+    label: "Після ремонту",
+    price: "від 120 грн/м²"
+  }
+];
 
 export function HeroSection({ eyebrow = "Клінінг у Черкасах", title, accent, description }: { eyebrow?: string; title: string; accent: string; description: string }) {
   return (
@@ -11,7 +30,19 @@ export function HeroSection({ eyebrow = "Клінінг у Черкасах", ti
             {title} <span className="text-brand-green">{accent}</span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-brand-graphite">{description}</p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="mt-5 grid max-w-2xl grid-cols-3 gap-2" aria-label="Основні ціни на прибирання">
+            {heroPrices.map((item) => (
+              <Link
+                className="min-w-0 rounded-md border border-brand-green/20 bg-brand-mist px-2 py-3 text-center transition hover:border-brand-green hover:bg-white focus-visible:focus-ring sm:px-3"
+                href={item.href}
+                key={item.href}
+              >
+                <span className="block text-[11px] font-semibold leading-tight text-brand-graphite sm:text-sm">{item.label}</span>
+                <strong className="mt-1 block text-xs leading-tight text-brand-black sm:text-base">{item.price}</strong>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
             <PrimaryButton />
             <ContactButtons compact />
           </div>
