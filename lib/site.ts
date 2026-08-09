@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { blogPostContentEnhancements } from "@/lib/blog-post-content";
 
 export const siteUrl = "https://www.formula-chistoty.ck.ua";
 
@@ -1784,7 +1785,7 @@ export const homeFaq: Faq[] = [
   { question: "Чи працюєте тільки в Черкасах?", answer: "Основний регіон — Черкаси. Виїзд по області погоджуємо індивідуально." }
 ];
 
-export const blogPosts = [
+const rawBlogPosts = [
   {
     slug: "skilky-koshtuye-klining-u-cherkasakh-2026",
     title: "Скільки коштує клінінг у Черкасах у 2026 році",
@@ -2683,6 +2684,11 @@ export const blogPosts = [
     updatedAt: "2026-03-27"
   }
 ];
+
+export const blogPosts = rawBlogPosts.map((post) => ({
+  ...post,
+  ...(blogPostContentEnhancements[post.slug] ?? {})
+}));
 
 const serviceSeoEnhancements: Record<string, Partial<Service>> = {
   "prybyrannya-kvartyr-cherkasy": {
