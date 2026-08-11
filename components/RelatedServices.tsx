@@ -124,6 +124,12 @@ const relatedLinks: Record<string, { href: string; label: string }[]> = {
     { href: "/prybyrannya-pislya-remontu-cherkasy", label: "прибирання після ремонту" },
     { href: "/prybyrannya-pislya-pozhezhi-cherkasy", label: "прибирання після пожежі" }
   ],
+  "prybyrannya-prylegloyi-terytoriyi-cherkasy": [
+    { href: "/prybyrannya-pislya-remontu-cherkasy", label: "прибирання приміщення після ремонту" },
+    { href: "/myttya-fasadiv-cherkasy", label: "миття фасадів" },
+    { href: "/myttya-plytky-cherkasy", label: "миття тротуарної плитки" },
+    { href: "/prybyrannya-komertsiynykh-prymishchen-cherkasy", label: "клінінг комерційних приміщень" }
+  ],
   "dezinfektsiya-prymishchen-cherkasy": [
     { href: "/prybyrannya-pislya-potopu-cherkasy", label: "прибирання після потопу" },
     { href: "/prybyrannya-pislya-pozhezhi-cherkasy", label: "прибирання після пожежі" },
