@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ContactButtons, PrimaryButton } from "@/components/Buttons";
 import { SeoJsonLd } from "@/components/SeoJsonLd";
-import { absoluteUrl, contacts, servicePages } from "@/lib/site";
+import { absoluteUrl, contacts } from "@/lib/site";
 
 type BlogPostSection = {
   heading: string;
@@ -136,9 +136,6 @@ export function BlogPostLayout({ post }: { post: BlogPost }) {
             <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/prices">Ціни</Link>
             <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/kontakty">Контакти</Link>
             <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/nashi-roboty">Наші роботи</Link>
-            {servicePages.slice(0, 4).map((service) => (
-              <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href={`/${service.slug}`} key={service.slug}>{service.title}</Link>
-            ))}
           </div>
           <div className="mt-10 rounded-lg bg-brand-green p-6 text-white">
             <h2 className="text-2xl font-bold">{post.cta?.title ?? "Замовити прибирання"}</h2>

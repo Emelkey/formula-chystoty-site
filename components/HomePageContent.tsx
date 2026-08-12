@@ -11,7 +11,7 @@ import { SeoJsonLd } from "@/components/SeoJsonLd";
 import { ServicesGrid } from "@/components/ServicesGrid";
 import { WhyChooseUs } from "@/components/WhyChooseUs";
 import { WorkSteps } from "@/components/WorkSteps";
-import { absoluteUrl, importantSeoLinks, reviews } from "@/lib/site";
+import { absoluteUrl, reviews } from "@/lib/site";
 
 const priorityServiceLinks = [
   { href: "/prybyrannya-pislya-remontu-cherkasy", label: "прибирання після ремонту у Черкасах" },
@@ -119,22 +119,6 @@ export function HomePageContent() {
       </section>
       <WorkSteps />
       <WhyChooseUs />
-      <section className="section bg-white">
-        <div className="container rounded-[24px] border border-brand-green/15 bg-brand-mist p-6 shadow-soft md:p-8">
-          <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Популярні запити</p>
-            <h2 className="mt-3 text-3xl font-bold text-brand-black">Послуги, які найчастіше шукають у Черкасах</h2>
-            <p className="mt-4 leading-7 text-brand-graphite">Зібрали окремі сторінки для найпопулярніших форматів клінінгу, щоб можна було швидко перейти до умов, ціни, прикладів робіт і FAQ.</p>
-          </div>
-          <div className="mt-6 flex flex-wrap gap-3">
-            {importantSeoLinks.map((link) => (
-              <Link className="rounded-md border border-brand-green/20 bg-white px-4 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green" href={link.href} key={link.href}>
-                {link.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
       <PricingSection compact />
       <BeforeAfterGallery />
       <ReviewsSection />

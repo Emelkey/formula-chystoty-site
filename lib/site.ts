@@ -83,40 +83,14 @@ export type Service = {
   businessForm?: boolean;
 };
 
-export const importantSeoLinks = [
-  { href: "/generalne-prybyrannya-cherkasy", label: "Генеральне прибирання" },
-  { href: "/generalne-prybyrannya-kvartyry-cherkasy", label: "Генеральне прибирання квартири" },
-  { href: "/pidtrymuyuche-prybyrannya-kvartyr-cherkasy", label: "Підтримуюче прибирання квартири" },
-  { href: "/prybyrannya-pislya-remontu-cherkasy", label: "Прибирання після ремонту та будівництва" },
-  { href: "/himchystka-dyvana-cherkasy", label: "Хімчистка дивана" },
-  { href: "/himchystka-matratsa-cherkasy", label: "Хімчистка матраца" },
-  { href: "/myttya-vikon-cherkasy", label: "Миття вікон" },
-  { href: "/dezinfektsiya-prymishchen-cherkasy", label: "Дезінфекція та прибирання після трупу" },
-  { href: "/myttya-fasadiv-cherkasy", label: "Миття фасадів" },
-  { href: "/myttya-plytky-cherkasy", label: "Миття тротуарної плитки" },
-  { href: "/prybyrannya-komertsiynykh-prymishchen-cherkasy", label: "Клінінг комерційних приміщень" },
-  { href: "/prybyrannya-ofisiv-cherkasy", label: "Прибирання офісів" },
-  { href: "/rehulyarne-prybyrannya-biznesu-cherkasy", label: "Регулярне прибирання для бізнесу" },
-  { href: "/prybyrannya-mahazyniv-supermarketiv-cherkasy", label: "Прибирання магазинів і супермаркетів" },
-  { href: "/prybyrannya-restoraniv-kafe-cherkasy", label: "Прибирання ресторанів і кафе" },
-  { href: "/prybyrannya-vyrobnychykh-prymishchen-cherkasy", label: "Прибирання виробничих приміщень" },
-  { href: "/prybyrannya-skladiv-cherkasy", label: "Прибирання складів" },
-  { href: "/prybyrannya-medychnykh-tsentriv-cherkasy", label: "Прибирання медичних центрів" },
-  { href: "/himchystka-kylymiv-cherkasy", label: "Хімчистка килимів" },
-  { href: "/himchystka-stiltsiv-cherkasy", label: "Хімчистка стільців" },
-  { href: "/himchystka-krisel-cherkasy", label: "Хімчистка крісел" },
-  { href: "/himchystka-kovrolinu-cherkasy", label: "Хімчистка ковроліну" },
-  { href: "/himchystka-avto-cherkasy", label: "Хімчистка авто" }
-];
-
 export const servicePages: Service[] = [
   {
     slug: "prybyrannya-kvartyr-cherkasy",
     title: "Прибирання квартир",
     seoTitle: "Прибирання квартир у Черкасах — ціни від 55 грн/м² | Формула Чистоти",
-    seoDescription: "Професійне прибирання квартир у Черкасах: підтримуюче від 55 грн/м², генеральне від 100 грн/м², після ремонту від 120 грн/м². Приїжджаємо зі своєю хімією та інвентарем.",
+    seoDescription: "Професійне прибирання квартир у Черкасах: підтримуюче, генеральне та після ремонту. Власне обладнання та засоби. Розрахунок вартості за фото.",
     h1: "Прибирання квартир у Черкасах",
-    shortDescription: "Формула Чистоти виконує професійне прибирання квартир у Черкасах: підтримуюче, генеральне, після ремонту, після орендарів, перед заселенням або продажем. Приїжджаємо зі своїм інвентарем, професійною хімією та погодженим планом робіт.",
+    shortDescription: "Професійне прибирання квартир у Черкасах: підтримуюче, генеральне та після ремонту. Приїжджаємо зі своєю технікою й засобами. Підберемо формат прибирання під стан квартири та розрахуємо точну вартість.",
     priceFrom: "від 55 грн/м²",
     category: "Житловий клінінг",
     image: "/images/services/premium-apartment-cleaning.webp",
@@ -2694,9 +2668,9 @@ export const blogPosts = rawBlogPosts.map((post) => ({
 const serviceSeoEnhancements: Record<string, Partial<Service>> = {
   "prybyrannya-kvartyr-cherkasy": {
     seoTitle: "Прибирання квартир у Черкасах — ціни від 55 грн/м² | Формула Чистоти",
-    seoDescription: "Професійне прибирання квартир у Черкасах: підтримуюче від 55 грн/м², генеральне від 100 грн/м², після ремонту від 120 грн/м². Приїжджаємо зі своєю хімією та інвентарем.",
+    seoDescription: "Професійне прибирання квартир у Черкасах: підтримуюче, генеральне та після ремонту. Власне обладнання та засоби. Розрахунок вартості за фото.",
     priceFrom: "від 55 грн/м²",
-    shortDescription: "Формула Чистоти виконує професійне прибирання квартир у Черкасах: підтримуюче, генеральне, після ремонту, після орендарів, перед заселенням або продажем. Приїжджаємо зі своїм інвентарем, професійною хімією та погодженим планом робіт.",
+    shortDescription: "Професійне прибирання квартир у Черкасах: підтримуюче, генеральне та після ремонту. Приїжджаємо зі своєю технікою й засобами. Підберемо формат прибирання під стан квартири та розрахуємо точну вартість.",
     seoIntroTitle: "Прибирання квартир у Черкасах під ваш стан житла",
     seoIntro: [
       "Прибирання квартири може бути різним: регулярний догляд за охайним житлом, глибоке генеральне очищення або окрема робота з будівельним пилом після ремонту. Формула Чистоти спочатку визначає потрібний формат, а потім погоджує перелік зон і вартість.",

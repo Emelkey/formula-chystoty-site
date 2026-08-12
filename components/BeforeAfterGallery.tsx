@@ -1,6 +1,41 @@
 import Image from "next/image";
+import Link from "next/link";
 import { workExamples } from "@/lib/site";
 import { SectionHeading } from "@/components/SectionHeading";
+
+const workServiceLinks: Record<string, string> = {
+  "Хімчистка сидіння авто в процесі": "/himchystka-avto-cherkasy",
+  "Бокс для хімчистки авто": "/himchystka-avto-cherkasy",
+  "Професійна хімія для авто": "/himchystka-avto-cherkasy",
+  "Миття рами та підвіконня до і після": "/myttya-vikon-cherkasy",
+  "Очищення підвіконня та віконного блоку": "/myttya-vikon-cherkasy",
+  "Миття фурнітури та нижньої частини вікна": "/myttya-vikon-cherkasy",
+  "Прибирання квартири до та після": "/prybyrannya-kvartyr-cherkasy",
+  "Миття холодильника в квартирі до та після": "/prybyrannya-kvartyr-cherkasy",
+  "Робота команди під час прибирання квартири": "/prybyrannya-kvartyr-cherkasy",
+  "Очищення духовки від жиру та нагару": "/generalne-prybyrannya-kuhni-cherkasy",
+  "Хімчистка ковроліну": "/himchystka-kovrolinu-cherkasy",
+  "Хімчистка стільців": "/himchystka-stiltsiv-cherkasy",
+  "Хімчистка дивана": "/himchystka-dyvana-cherkasy",
+  "Хімчистка дивана в процесі": "/himchystka-dyvana-cherkasy",
+  "Хімчистка матраца": "/himchystka-matratsa-cherkasy",
+  "Генеральне очищення духовки": "/generalne-prybyrannya-kuhni-cherkasy",
+  "Очищення плитки під час генерального прибирання": "/generalne-prybyrannya-cherkasy",
+  "Миття вікон до та після": "/myttya-vikon-cherkasy",
+  "Миття холодильника всередині": "/generalne-prybyrannya-kuhni-cherkasy",
+  "Прибирання кухні після пожежі": "/prybyrannya-pislya-pozhezhi-cherkasy",
+  "Миття тротуарної плитки": "/myttya-plytky-cherkasy",
+  "Санвузол після ремонту — до та після": "/prybyrannya-pislya-remontu-cherkasy",
+  "Очищення раковини та плитки після ремонту": "/prybyrannya-pislya-remontu-cherkasy",
+  "Прибирання після будівництва": "/prybyrannya-pislya-remontu-cherkasy",
+  "Підтримуюче прибирання квартири": "/pidtrymuyuche-prybyrannya-kvartyr-cherkasy",
+  "Генеральне прибирання важкодоступних місць": "/generalne-prybyrannya-cherkasy",
+  "Миття великих вікон": "/myttya-vikon-cherkasy",
+  "Офіс після робочого дня": "/prybyrannya-ofisiv-cherkasy",
+  "Прибирання будинку": "/prybyrannya-budynkiv-cherkasy",
+  "Прибирання після пожежі": "/prybyrannya-pislya-pozhezhi-cherkasy",
+  "Автомобіль та офіс Формула Чистоти": "/pro-nas"
+};
 
 export function BeforeAfterGallery({ realPhotosOnly = false }: { realPhotosOnly?: boolean }) {
   const examples = realPhotosOnly ? workExamples.filter(isRealWorkPhoto) : workExamples;
@@ -24,7 +59,14 @@ export function BeforeAfterGallery({ realPhotosOnly = false }: { realPhotosOnly?
               )}
               <div className="p-5">
                 <p className="text-xs font-semibold uppercase tracking-[0.08em] text-brand-hover">{work.category}</p>
-                <h2 className="mt-2 text-xl font-bold">{index + 1}. {work.title}</h2>
+                <h2 className="mt-2 text-xl font-bold">
+                  {index + 1}.{" "}
+                  {workServiceLinks[work.title] ? (
+                    <Link className="transition hover:text-brand-hover" href={workServiceLinks[work.title]}>
+                      {work.title}
+                    </Link>
+                  ) : work.title}
+                </h2>
                 <p className="mt-3 text-sm leading-6 text-brand-graphite">{work.description}</p>
               </div>
             </article>
