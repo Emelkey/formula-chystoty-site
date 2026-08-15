@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { getUkLegacyDestination } from "@/lib/legacy-uk-routes";
 
 const canonicalHost = "www.formula-chistoty.ck.ua";
 const productionHosts = new Set(["formula-chistoty.ck.ua", canonicalHost]);
@@ -24,7 +25,7 @@ const carCleaningLegacySlugs = [
   "himchistka-avtomobilya",
   "himchistka-avtomobilya-cherkasy"
 ];
-const carCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
+const carCleaningLegacyPrefixes = ["", "/services", "/ru", "/ru/services"];
 const carCleaningLegacyPaths = new Set([
   carCleaningCanonicalPath,
   ...carCleaningLegacyPrefixes.flatMap((prefix) => carCleaningLegacySlugs.map((slug) => `${prefix}/${slug}`))
@@ -62,7 +63,7 @@ const furnitureCleaningLegacySlugs = [
   "vyezdnaya-himchistka-myagkoj-mebeli",
   "vyezdnaya-himchistka-myagkoy-mebeli"
 ];
-const furnitureCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
+const furnitureCleaningLegacyPrefixes = ["", "/services", "/ru", "/ru/services"];
 const furnitureCleaningLegacyPaths = new Set([
   furnitureCleaningCanonicalPath,
   ...furnitureCleaningLegacyPrefixes.flatMap((prefix) => furnitureCleaningLegacySlugs.map((slug) => `${prefix}/${slug}`))
@@ -93,7 +94,7 @@ const postRenovationLegacySlugs = [
   "klining-posle-remonta",
   "klining-posle-remonta-cherkassy"
 ];
-const postRenovationLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
+const postRenovationLegacyPrefixes = ["", "/services", "/ru", "/ru/services"];
 const postRenovationLegacyPaths = new Set([
   postRenovationCanonicalPath,
   ...postRenovationLegacyPrefixes.flatMap((prefix) => postRenovationLegacySlugs.map((slug) => `${prefix}/${slug}`))
@@ -121,7 +122,7 @@ const kitchenGeneralCleaningLegacySlugs = [
   "generalnaya-uborka-kuhny",
   "generalnaya-uborka-kuhny-cherkassy"
 ];
-const kitchenGeneralCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
+const kitchenGeneralCleaningLegacyPrefixes = ["", "/services", "/ru", "/ru/services"];
 const kitchenGeneralCleaningLegacyPaths = new Set([
   kitchenGeneralCleaningCanonicalPath,
   ...kitchenGeneralCleaningLegacyPrefixes.flatMap((prefix) =>
@@ -142,7 +143,7 @@ const generalCleaningLegacySlugs = [
   "generalnaya-uborka-v-cherkassah",
   "generalnaya-uborka-v-cherkassakh"
 ];
-const generalCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
+const generalCleaningLegacyPrefixes = ["", "/services", "/ru", "/ru/services"];
 const generalCleaningLegacyPaths = new Set([
   generalCleaningCanonicalPath,
   ...generalCleaningLegacyPrefixes.flatMap((prefix) => generalCleaningLegacySlugs.map((slug) => `${prefix}/${slug}`))
@@ -170,7 +171,7 @@ const apartmentGeneralCleaningLegacySlugs = [
   "generalnaya-uborka-kvartir",
   "generalnaya-uborka-kvartir-cherkassy"
 ];
-const apartmentGeneralCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
+const apartmentGeneralCleaningLegacyPrefixes = ["", "/services", "/ru", "/ru/services"];
 const apartmentGeneralCleaningLegacyPaths = new Set([
   apartmentGeneralCleaningCanonicalPath,
   ...apartmentGeneralCleaningLegacyPrefixes.flatMap((prefix) =>
@@ -205,7 +206,7 @@ const maintenanceCleaningLegacySlugs = [
   "podderzhivayushhaya-uborka",
   "podderzhivayushhaya-uborka-kvartiry"
 ];
-const maintenanceCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
+const maintenanceCleaningLegacyPrefixes = ["", "/services", "/ru", "/ru/services"];
 const maintenanceCleaningLegacyPaths = new Set([
   maintenanceCleaningCanonicalPath,
   ...maintenanceCleaningLegacyPrefixes.flatMap((prefix) => maintenanceCleaningLegacySlugs.map((slug) => `${prefix}/${slug}`))
@@ -234,7 +235,7 @@ const apartmentCleaningLegacySlugs = [
   "klining-kvartir-v-cherkassah",
   "klining-kvartir-v-cherkassakh"
 ];
-const apartmentCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
+const apartmentCleaningLegacyPrefixes = ["", "/services", "/ru", "/ru/services"];
 const apartmentCleaningLegacyPaths = new Set([
   apartmentCleaningCanonicalPath,
   ...apartmentCleaningLegacyPrefixes.flatMap((prefix) => apartmentCleaningLegacySlugs.map((slug) => `${prefix}/${slug}`))
@@ -271,7 +272,7 @@ const houseCleaningLegacySlugs = [
   "uborka-kottedzhej-cherkassy",
   "uborka-kottedzhey-cherkassy"
 ];
-const houseCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
+const houseCleaningLegacyPrefixes = ["", "/services", "/ru", "/ru/services"];
 const houseCleaningLegacyPaths = new Set([
   houseCleaningCanonicalPath,
   ...houseCleaningLegacyPrefixes.flatMap((prefix) => houseCleaningLegacySlugs.map((slug) => `${prefix}/${slug}`))
@@ -334,7 +335,7 @@ const disinfectionLegacySlugs = [
   "sanitarnaya-uborka-posle-trupa",
   "sanitarnaya-uborka-posle-smerti"
 ];
-const disinfectionLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
+const disinfectionLegacyPrefixes = ["", "/services", "/ru", "/ru/services"];
 const disinfectionLegacyPaths = new Set([
   disinfectionCanonicalPath,
   ...disinfectionLegacyPrefixes.flatMap((prefix) => disinfectionLegacySlugs.map((slug) => `${prefix}/${slug}`))
@@ -364,7 +365,7 @@ const carpetCleaningLegacySlugs = [
   "chistka-kovrov-cherkassy",
   "chistka-kovrov-kovrolina"
 ];
-const carpetCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
+const carpetCleaningLegacyPrefixes = ["", "/services", "/ru", "/ru/services"];
 const carpetCleaningLegacyPaths = new Set([
   carpetCleaningCanonicalPath,
   ...carpetCleaningLegacyPrefixes.flatMap((prefix) => carpetCleaningLegacySlugs.map((slug) => `${prefix}/${slug}`))
@@ -380,7 +381,7 @@ const carpetFlooringCleaningLegacySlugs = [
   "chistka-kovrolina",
   "chistka-kovrolina-cherkassy"
 ];
-const carpetFlooringCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
+const carpetFlooringCleaningLegacyPrefixes = ["", "/services", "/ru", "/ru/services"];
 const carpetFlooringCleaningLegacyPaths = new Set([
   carpetFlooringCleaningCanonicalPath,
   ...carpetFlooringCleaningLegacyPrefixes.flatMap((prefix) => carpetFlooringCleaningLegacySlugs.map((slug) => `${prefix}/${slug}`))
@@ -405,7 +406,7 @@ const windowCleaningLegacySlugs = [
   "moyka-okon-v-cherkassakh",
   "moyka-vitrin"
 ];
-const windowCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
+const windowCleaningLegacyPrefixes = ["", "/services", "/ru", "/ru/services"];
 const windowCleaningLegacyPaths = new Set([
   windowCleaningCanonicalPath,
   ...windowCleaningLegacyPrefixes.flatMap((prefix) => windowCleaningLegacySlugs.map((slug) => `${prefix}/${slug}`))
@@ -438,23 +439,20 @@ const facadeCleaningLegacySlugs = [
   "moyka-fasadov-cherkassy",
   "moyka-okon-vitrin-i-fasadov"
 ];
-const facadeCleaningLegacyPrefixes = ["", "/services", "/uk", "/ru", "/uk/services", "/ru/services"];
+const facadeCleaningLegacyPrefixes = ["", "/services", "/ru", "/ru/services"];
 const facadeCleaningLegacyPaths = new Set([
   facadeCleaningCanonicalPath,
   ...facadeCleaningLegacyPrefixes.flatMap((prefix) => facadeCleaningLegacySlugs.map((slug) => `${prefix}/${slug}`))
 ]);
 
 const noindexExactPaths = new Set([
-  "/uk/feed",
   "/ru/feed",
-  "/uk/services/feed",
   "/ru/services/feed"
 ]);
 
-const noindexPaginationPattern = /^\/(?:uk|ru)\/services\/page\/\d+$/;
+const noindexPaginationPattern = /^\/ru\/services\/page\/\d+$/;
 
 const exactLegacyRedirects = new Map([
-  ["/uk", "/"],
   ["/ru", "/"],
   ["/about", "/pro-nas"],
   ["/contact", "/kontakty"],
@@ -462,41 +460,22 @@ const exactLegacyRedirects = new Map([
   ["/reviews", "/vidguky"],
   ["/vidhuky", "/vidguky"],
   ["/services", "/poslugy"],
-  ["/uk/services", "/poslugy"],
   ["/ru/services", "/poslugy"],
-  ["/uk/services-uk", "/poslugy"],
   ["/ru/services-ru", "/poslugy"],
-  ["/uk/blog-uk", "/blog"],
   ["/ru/blog-ru", "/blog"],
-  ["/uk/about", "/pro-nas"],
   ["/ru/about", "/pro-nas"],
-  ["/uk/prices", "/prices"],
   ["/ru/prices", "/prices"],
-  ["/uk/contact", "/kontakty"],
   ["/ru/contact", "/kontakty"],
-  ["/uk/video-gallery-uk", "/nashi-roboty"],
   ["/ru/video-gallery-ru", "/nashi-roboty"],
-  ["/uk/services/myttya-vikon-vitryn-ta-fasadiv", "/myttya-fasadiv-cherkasy"],
-  ["/uk/services/myttya-vikon-vitrin-ta-fasadiv", "/myttya-fasadiv-cherkasy"],
-  ["/uk/services/myttya-vikon-vytryn-ta-fasadiv", "/myttya-fasadiv-cherkasy"],
   ["/ru/services/mojka-okon-vitrin-i-fasadov", "/myttya-fasadiv-cherkasy"],
-  ["/uk/services/prybyrannya-pislya-trupu", "/dezinfektsiya-prymishchen-cherkasy"],
-  ["/uk/services/dezinfektsiya-pislya-trupu", "/dezinfektsiya-prymishchen-cherkasy"],
   ["/ru/services/uborka-posle-trupa", "/dezinfektsiya-prymishchen-cherkasy"],
   ["/ru/services/dezinfekciya-posle-trupa", "/dezinfektsiya-prymishchen-cherkasy"],
-  ["/uk/services/obslugovuvannya-ta-klining-promislovih-i-virobnichih-primishhen", "/prybyrannya-vyrobnychykh-prymishchen-cherkasy"],
   ["/ru/services/obsluzhivanie-i-klining-promyshlennyh-i-proizvodstvennyh-pomeshchenij", "/prybyrannya-vyrobnychykh-prymishchen-cherkasy"],
-  ["/uk/services/prybyrannya-skladiv", "/prybyrannya-skladiv-cherkasy"],
   ["/ru/services/uborka-skladov", "/prybyrannya-skladiv-cherkasy"],
-  ["/uk/services/prybyrannya-medychnykh-tsentriv", "/prybyrannya-medychnykh-tsentriv-cherkasy"],
   ["/ru/services/uborka-meditsinskih-centrov", "/prybyrannya-medychnykh-tsentriv-cherkasy"],
-  ["/uk/services/himchystka-stiltsiv", "/himchystka-stiltsiv-cherkasy"],
   ["/ru/services/himchistka-stulev", "/himchystka-stiltsiv-cherkasy"],
-  ["/uk/services/himchystka-krisel", "/himchystka-krisel-cherkasy"],
   ["/ru/services/himchistka-kresel", "/himchystka-krisel-cherkasy"],
-  ["/uk/services/himchystka-kovrolinu", "/himchystka-kovrolinu-cherkasy"],
   ["/ru/services/himchistka-kovrolina", "/himchystka-kovrolinu-cherkasy"],
-  ["/uk/services/prybyrannya-prylegloyi-terytoriyi", "/prybyrannya-prylegloyi-terytoriyi-cherkasy"],
   ["/prybyrannya-kotedzhiv-cherkasy", "/prybyrannya-budynkiv-cherkasy"]
 ]);
 
@@ -642,7 +621,7 @@ export function middleware(request: NextRequest) {
   const host = request.headers.get("host")?.split(":")[0] ?? "";
   const forwardedProto = request.headers.get("x-forwarded-proto");
   const protocol = forwardedProto ?? request.nextUrl.protocol.replace(":", "");
-  const legacyDestination = exactLegacyRedirects.get(normalizedPath);
+  const legacyDestination = getUkLegacyDestination(normalizedPath) ?? exactLegacyRedirects.get(normalizedPath);
 
   if (legacyDestination) {
     const url = request.nextUrl.clone();
