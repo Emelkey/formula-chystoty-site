@@ -636,6 +636,19 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url, 301);
   }
 
+  if (pathname !== normalizedPath) {
+    const url = request.nextUrl.clone();
+    if (productionHosts.has(host)) {
+      url.protocol = "https:";
+      url.hostname = canonicalHost;
+      url.port = "";
+    } else {
+      url.host = request.nextUrl.host;
+    }
+    url.pathname = normalizedPath;
+    return NextResponse.redirect(url, 301);
+  }
+
   const serviceDestination = getServiceRedirectDestination(normalizedPath);
   if (serviceDestination && normalizedPath === serviceDestination && !productionHosts.has(host)) {
     return NextResponse.next();

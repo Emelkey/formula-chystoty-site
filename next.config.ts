@@ -76,6 +76,7 @@ const canonicalRedirects = legacyRedirects.map((redirect) => ({
 }));
 
 const nextConfig: NextConfig = {
+  skipTrailingSlashRedirect: true,
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [

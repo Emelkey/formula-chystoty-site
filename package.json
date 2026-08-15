@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test:seo": "node --experimental-strip-types --test scripts/legacy-uk-routes.test.mjs",
+    "test:seo": "node --experimental-strip-types --test scripts/legacy-uk-routes.test.mjs scripts/seo-architecture.test.mjs",
     "test:seo:http": "node --experimental-strip-types --test scripts/legacy-uk-http.test.mjs"
   },
   "dependencies": {

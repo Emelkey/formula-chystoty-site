@@ -92,3 +92,13 @@ test("trailing slashes, uppercase paths and services pagination remain permanent
     assert.equal(response.headers.get("location"), `${canonicalUrl}${destination}`);
   }
 });
+
+test("canonical trailing slashes redirect once to the slashless canonical URL", async () => {
+  const response = await fetch(`${localUrl}/prices/?source=legacy-check`, {
+    headers: { host: "www.formula-chistoty.ck.ua" },
+    redirect: "manual"
+  });
+
+  assert.equal(response.status, 301);
+  assert.equal(response.headers.get("location"), `${canonicalUrl}/prices?source=legacy-check`);
+});

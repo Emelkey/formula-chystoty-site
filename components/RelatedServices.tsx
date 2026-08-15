@@ -97,12 +97,25 @@ const relatedLinks: Record<string, { href: string; label: string }[]> = {
     { href: "/prices", label: "ціни на генеральне прибирання" }
   ],
   "myttya-vikon-cherkasy": [
-    { href: "/generalne-prybyrannya-cherkasy", label: "генеральне прибирання" },
     { href: "/generalne-prybyrannya-kvartyry-cherkasy", label: "генеральне прибирання квартири" },
     { href: "/prybyrannya-kvartyr-cherkasy", label: "прибирання квартири" },
     { href: "/prybyrannya-komertsiynykh-prymishchen-cherkasy", label: "клінінг комерційних приміщень" },
     { href: "/prybyrannya-pislya-remontu-cherkasy", label: "прибирання після ремонту" },
     { href: "/myttya-fasadiv-cherkasy", label: "миття фасадів" }
+  ],
+  "myttya-fasadiv-cherkasy": [
+    { href: "/myttya-vikon-cherkasy", label: "миття вікон і скляних конструкцій" },
+    { href: "/myttya-plytky-cherkasy", label: "миття тротуарної плитки" },
+    { href: "/prybyrannya-prylegloyi-terytoriyi-cherkasy", label: "прибирання прилеглої території" },
+    { href: "/prybyrannya-komertsiynykh-prymishchen-cherkasy", label: "клінінг комерційних приміщень" },
+    { href: "/prices", label: "ціни на зовнішні роботи" }
+  ],
+  "myttya-plytky-cherkasy": [
+    { href: "/myttya-fasadiv-cherkasy", label: "професійне миття фасадів" },
+    { href: "/prybyrannya-prylegloyi-terytoriyi-cherkasy", label: "догляд за прилеглою територією" },
+    { href: "/prybyrannya-pislya-remontu-cherkasy", label: "прибирання після ремонту" },
+    { href: "/prybyrannya-komertsiynykh-prymishchen-cherkasy", label: "прибирання комерційних об’єктів" },
+    { href: "/prices", label: "орієнтовні ціни на клінінг" }
   ],
   "prybyrannya-budynkiv-cherkasy": [
     { href: "/prybyrannya-kvartyr-cherkasy", label: "прибирання квартир" },
