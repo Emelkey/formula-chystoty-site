@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
+    "seo:legacy-manifest": "node --experimental-strip-types scripts/generate-legacy-redirects-manifest.mjs",
     "test:seo": "node --experimental-strip-types --test scripts/legacy-uk-routes.test.mjs scripts/seo-architecture.test.mjs",
     "test:seo:http": "node --experimental-strip-types --test scripts/legacy-uk-http.test.mjs"
   },

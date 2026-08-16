@@ -637,13 +637,11 @@ export function middleware(request: NextRequest) {
   }
 
   if (pathname !== normalizedPath) {
-    const url = request.nextUrl.clone();
+    const url = new URL(request.url);
     if (productionHosts.has(host)) {
       url.protocol = "https:";
       url.hostname = canonicalHost;
       url.port = "";
-    } else {
-      url.host = request.nextUrl.host;
     }
     url.pathname = normalizedPath;
     return NextResponse.redirect(url, 301);

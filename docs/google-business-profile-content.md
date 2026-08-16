@@ -25,15 +25,14 @@
 
 ## Графік
 
-Пн–Сб: 08:00–20:00  
-Нд: за домовленістю
+Щодня: 09:00–21:00
 
 ## Посилання
 
-Сайт: https://formula-chistoty.ck.ua  
+Сайт: https://www.formula-chistoty.ck.ua/
 Instagram: https://www.instagram.com/formula__chistoty/  
-Google Maps: https://maps.app.goo.gl/R6cVYHx2ZCReLiRb9
+Google Maps: https://maps.app.goo.gl/z12jY8uJuUHYkakKA
 
 ## Шаблон повідомлення клієнту для відгуку
 
-Доброго дня! Дякуємо, що замовили прибирання у “Формули Чистоти”. Якщо вам сподобався результат, будемо дуже вдячні за відгук у Google. Це допомагає іншим людям у Черкасах знайти надійну клінінгову компанію. Посилання: https://maps.app.goo.gl/R6cVYHx2ZCReLiRb9
+Доброго дня! Дякуємо, що замовили прибирання у “Формули Чистоти”. Якщо вам сподобався результат, будемо дуже вдячні за відгук у Google. Це допомагає іншим людям у Черкасах знайти надійну клінінгову компанію. Посилання: https://maps.app.goo.gl/z12jY8uJuUHYkakKA

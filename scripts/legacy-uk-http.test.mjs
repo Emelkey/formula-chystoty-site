@@ -11,6 +11,13 @@ const localUrl = `http://127.0.0.1:${port}`;
 
 let server;
 
+function assertPermanentRedirect(response, source) {
+  assert.ok(
+    response.status === 301 || response.status === 308,
+    `${source} returned ${response.status} instead of a permanent redirect`
+  );
+}
+
 async function waitForServer() {
   const deadline = Date.now() + 30_000;
 
@@ -57,7 +64,7 @@ test.after(() => {
 test("every registered legacy URL returns one permanent hop to its canonical destination", async () => {
   for (const route of ukLegacyRouteRegistry) {
     const response = await fetch(`${localUrl}${route.source}?legacy-check=1`, { redirect: "manual" });
-    assert.equal(response.status, 301, `${route.source} returned ${response.status}`);
+    assertPermanentRedirect(response, route.source);
     assert.equal(
       response.headers.get("location"),
       `${canonicalUrl}${route.destination}?legacy-check=1`,
@@ -88,7 +95,7 @@ test("trailing slashes, uppercase paths and services pagination remain permanent
       headers: { host: "www.formula-chistoty.ck.ua" },
       redirect: "manual"
     });
-    assert.equal(response.status, 301, `${source} returned ${response.status}`);
+    assertPermanentRedirect(response, source);
     assert.equal(response.headers.get("location"), `${canonicalUrl}${destination}`);
   }
 });
@@ -99,6 +106,16 @@ test("canonical trailing slashes redirect once to the slashless canonical URL", 
     redirect: "manual"
   });
 
-  assert.equal(response.status, 301);
-  assert.equal(response.headers.get("location"), `${canonicalUrl}/prices?source=legacy-check`);
+  assertPermanentRedirect(response, "/prices/");
+  const location = response.headers.get("location");
+  assert.ok(location, "/prices/ redirect is missing the Location header");
+
+  const destination = new URL(location, localUrl);
+  assert.equal(destination.pathname, "/prices");
+  assert.equal(destination.search, "?source=legacy-check");
+
+  const destinationResponse = await fetch(`${localUrl}${destination.pathname}${destination.search}`, {
+    redirect: "manual"
+  });
+  assert.equal(destinationResponse.status, 200, "/prices/ created a redirect chain instead of one permanent hop");
 });

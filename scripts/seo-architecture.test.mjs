@@ -130,6 +130,18 @@ function staticHrefs(file) {
   return hrefs;
 }
 
+function staticImagePaths(file) {
+  const images = [];
+  function visit(node) {
+    if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) {
+      if (node.text.startsWith("/images/")) images.push(node.text);
+    }
+    ts.forEachChild(node, visit);
+  }
+  visit(file);
+  return images;
+}
+
 function canonicalPathFromHref(href) {
   if (href.startsWith("https://www.formula-chistoty.ck.ua")) {
     const url = new URL(href);
@@ -284,6 +296,19 @@ test("static internal links use canonical routes instead of redirects or missing
       assert.equal(redirectOnlyPaths.has(internalPath), false, `${relative(root, path)} links through redirect ${href}`);
       assert.equal(internalPath.startsWith("/uk") || internalPath.startsWith("/ru"), false, `${relative(root, path)} links to legacy URL ${href}`);
       assert.ok(canonicalPaths.has(internalPath), `${relative(root, path)} links to missing or unregistered URL ${href}`);
+    }
+  }
+});
+
+test("all statically referenced local images exist", () => {
+  const files = ["app", "components", "lib"]
+    .flatMap((directory) => walkSourceFiles(resolve(root, directory)))
+    .filter((path) => /\.(?:ts|tsx)$/.test(path));
+
+  for (const path of files) {
+    const file = sourceFile(relative(root, path));
+    for (const imagePath of staticImagePaths(file)) {
+      assert.ok(existsSync(resolve(root, "public", imagePath.slice(1))), `${relative(root, path)} references missing image ${imagePath}`);
     }
   }
 });

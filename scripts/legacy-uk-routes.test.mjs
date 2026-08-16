@@ -46,6 +46,15 @@ test("the centralized registry contains unique permanent Ukrainian legacy routes
   }
 });
 
+test("the committed legacy manifest matches the redirect registry", () => {
+  const manifest = readFileSync(join(root, "LEGACY_REDIRECTS.md"), "utf8");
+  assert.match(manifest, new RegExp(`Exact legacy URLs: \\*\\*${ukLegacyRouteRegistry.length}\\*\\*`));
+  for (const route of ukLegacyRouteRegistry) {
+    const row = `| \`${route.source}\` | \`${route.destination}\` | 301 | ${route.reason} | ${route.migrationDate} |`;
+    assert.ok(manifest.includes(row), `legacy manifest is missing ${route.source}`);
+  }
+});
+
 test("all mandatory and normalized variants resolve to the intended canonical path", () => {
   for (const [source, destination] of requiredRoutes) {
     assert.equal(getUkLegacyDestination(source), destination);
