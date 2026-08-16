@@ -78,7 +78,17 @@ Official snapshot generated 2026-08-16, final data through 2026-08-14:
 | 2026-08-08 to 2026-08-14 | 49 | 1,184 | 4.14% | 13.68 |
 | 2026-08-01 to 2026-08-07 | 52 | 1,034 | 5.03% | 10.30 |
 
-Detailed query-to-page evidence and data limitations are in `growth-baseline-2026-08-16.md`. The snapshot does not provide a verified 28-day versus previous 28-day or three-month versus previous three-month comparison, so those values were not invented.
+Detailed query-to-page evidence and methodology are in `growth-baseline-2026-08-16.md`. The longer-window values below were obtained through the same read-only API and are reported separately from the daily snapshot.
+
+Official longer-window comparisons obtained through the same read-only API:
+
+| Period | Clicks | Impressions | CTR | Average position |
+| --- | ---: | ---: | ---: | ---: |
+| 2026-07-18 to 2026-08-14 | 225 | 4,988 | 4.51% | 13.85 |
+| 2026-06-20 to 2026-07-17 | 54 | 1,214 | 4.45% | 13.02 |
+| 2026-05-15 to 2026-08-14 | 279 | 6,202 | 4.50% | 13.69 |
+
+The preceding three-month window has no recorded performance and is retained only as an unavailable historical comparator.
 
 ## G. Competitor gap
 
@@ -133,8 +143,8 @@ npm run build
 | Citation corrections | Requires third-party approvals | Submit corrections and retain confirmation |
 | Backlinks | Require real outreach and editorial acceptance | Follow `LINK_BUILDING_PLAN.md` |
 | Complete case facts | Not present in repository | Supply approved area, duration, work list and price data |
-| 28-day and 3-month comparisons | Not present in the current API snapshot | Export when final periods are available |
-| Production Search Console selected canonical | Requires live GSC inspection | Check after deployment and recrawl |
+| Organic conversion totals | Not present in Search Console | Complete analytics conversion configuration and preserve a clean baseline |
+| Historical three-month comparator | No recorded GSC performance in the preceding window | Retain as unavailable; do not manufacture a percentage comparison |
 
 ## K. Release and monitoring decision
 
@@ -143,16 +153,23 @@ Repository work is classified as `PASS WITH WARNINGS`.
 Validation completed on 2026-08-16:
 
 - `pnpm test:seo`: 20/20 tests passed;
+- `pnpm test:seo:http`: 4/4 production redirect checks passed;
 - `pnpm lint`: passed;
 - `pnpm typecheck`: passed;
 - `npm run build`: passed, 70 routes generated;
 - `git diff --check`: passed;
-- production browser QA: six priority pages checked at 360, 390, 430 and 1440 px;
-- all 24 page/viewport combinations had one H1, `index, follow`, a www canonical, no broken images and no document-level horizontal overflow;
-- the official Search Console sitemap record is healthy: 61 submitted URLs, zero errors and zero warnings, last downloaded 2026-08-15.
+- production browser QA: six priority pages checked at 320, 360, 390, 430, 768, 1024 and 1440 px;
+- all 42 page/viewport combinations had one H1, `index, follow`, a www canonical, no broken images, no browser console errors and no document-level horizontal overflow;
+- the official Search Console sitemap record is healthy: 61 submitted URLs, zero errors and zero warnings, last downloaded 2026-08-15;
+- all ten priority URL Inspection checks report indexed, mobile crawl, allowed robots and matching www canonicals;
+- live HTTP checks confirm 200 responses for priority canonical pages and one-hop permanent redirects for `/uk`, `/ru`, `/services`, `/tsiny`, `/uk/price-uk` and sampled legacy service URLs.
 
-`pnpm test:seo:http` could not start its temporary localhost server because the managed sandbox rejected the port bind with `EPERM` on `127.0.0.1:3210`. The test now correctly accepts either permanent status allowed by the specification, 301 or 308, while still rejecting temporary 302/307 redirects. The suite must be rerun in a normal local Terminal or CI before release.
+Warnings are limited to external/manual authority work, unavailable lead attribution, missing owner-approved facts for several real-work cases, outcomes that require elapsed 28/90-day observation and compact mobile touch targets on several inline, breadcrumb, service-title and contact links. No broken interaction or overflow was observed, but increasing those touch targets remains a P2 accessibility improvement. These items are not presented as completed work.
 
-Warnings are limited to the blocked localhost HTTP run, external/manual authority work, unavailable measurement periods and production redirect-header verification that requires an unrestricted network environment. They are not presented as completed work.
+## L. Completion boundary
 
-No commit, push or deployment is part of this report.
+- `MASTER SEO FIX`: complete against its repository and production PASS criteria.
+- `MASTER SEO GROWTH & AUTHORITY`: all immediately executable repository, audit, baseline, planning and QA work is complete.
+- External authority work and measured growth are an ongoing 90-day operating program, not repository changes that can be truthfully completed in one release.
+
+This report update changes documentation only and does not alter the deployed site.

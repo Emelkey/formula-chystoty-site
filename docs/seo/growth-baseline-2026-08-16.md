@@ -1,6 +1,6 @@
 # SEO growth baseline: 2026-08-16
 
-Source: official Google Search Console API snapshot generated `2026-08-16T17:03:52Z`. Final available date: `2026-08-14`.
+Source: official Google Search Console API snapshot generated `2026-08-16T18:50:17Z`. Final available date: `2026-08-14`.
 
 ## Seven-day comparison
 
@@ -10,6 +10,24 @@ Source: official Google Search Console API snapshot generated `2026-08-16T17:03:
 | 2026-08-01 to 2026-08-07 | 52 | 1,034 | 5.03% | 10.30 |
 
 This is a diagnostic baseline, not proof that a specific release caused a ranking change. Search Console rows can be withheld by privacy thresholds; an absent query/page row is not a confirmed zero.
+
+## Twenty-eight-day comparison
+
+| Period | Clicks | Impressions | CTR | Average position |
+| --- | ---: | ---: | ---: | ---: |
+| 2026-07-18 to 2026-08-14 | 225 | 4,988 | 4.51% | 13.85 |
+| 2026-06-20 to 2026-07-17 | 54 | 1,214 | 4.45% | 13.02 |
+
+The longer window shows substantially wider visibility and more clicks, while average position is slightly weaker. It is a site-level comparison, not attribution to any single release.
+
+## Three-month baseline
+
+| Period | Clicks | Impressions | CTR | Average position |
+| --- | ---: | ---: | ---: | ---: |
+| 2026-05-15 to 2026-08-14 | 279 | 6,202 | 4.50% | 13.69 |
+| 2026-02-14 to 2026-05-14 | 0 recorded | 0 recorded | n/a | n/a |
+
+The earlier three-month window contains no recorded Search Console performance and therefore is not a meaningful growth comparator. It must not be interpreted as proof of infinite or percentage growth.
 
 ## Tracked commercial mappings
 
@@ -29,12 +47,15 @@ This is a diagnostic baseline, not proof that a specific release caused a rankin
 
 ## Measurement gaps
 
-- The available snapshot does not contain a verified 28-day versus previous 28-day table.
-- It does not contain a verified three-month versus previous three-month table.
 - It does not expose complete page-indexing issue groups or a complete list of crawled-not-indexed URLs.
 - Competitor positions and backlink counts are not available from GSC and are not estimated here.
+- Organic calls and form submissions are not available in this Search Console snapshot.
 
-These gaps must be filled with a later official export or an approved SEO tool. They must not be reconstructed from screenshots or missing rows.
+These gaps must be filled with a later official export, analytics conversion tracking or an approved SEO tool. They must not be reconstructed from screenshots or missing rows.
+
+## Indexing control
+
+Fresh URL Inspection checks for the ten priority URLs returned `PASS`, `Submitted and indexed`, successful mobile fetch, allowed robots/indexing and matching Google/user canonicals on the www host. The sitemap record reports 61 submitted URLs, zero errors and zero warnings, last downloaded 2026-08-15. The API sitemap `indexed` counter is not used as an indexed-page total because URL Inspection provides direct evidence for the control pages.
 
 ## Monitoring decision
 
