@@ -163,6 +163,7 @@ const primaryServices = variableValue(homeFile, "primaryServices");
 const secondaryGroups = variableValue(homeFile, "secondaryGroups");
 const relatedLinks = variableValue(relatedFile, "relatedLinks");
 const mainRoutes = variableValue(sitemapFile, "mainRoutes");
+const contacts = variableValue(siteFile, "contacts");
 const services = baseServices.map((service) => ({ ...service, ...(serviceEnhancements[service.slug] ?? {}) }));
 const serviceRegistry = seoIntentRegistry.filter((item) => item.path.slice(1) in Object.fromEntries(services.map((service) => [service.slug, true])));
 const registryPaths = new Set(seoIntentRegistry.map((item) => item.path));
@@ -260,6 +261,25 @@ test("homepage implements the approved six-card hierarchy", () => {
   const source = readFileSync(resolve(root, "components/HomeServicesSection.tsx"), "utf8");
   assert.match(source, /Послуги[\s\S]*«Формули Чистоти»/);
   assert.match(source, /Обирайте потрібний формат прибирання — від регулярного догляду за квартирою до складного післяремонтного та комерційного клінінгу\./);
+});
+
+test("homepage trust signals are verifiable and business hours use the central NAP source", () => {
+  const homepage = readFileSync(resolve(root, "components/HomePageContent.tsx"), "utf8");
+  const layout = readFileSync(resolve(root, "app/layout.tsx"), "utf8");
+  const structuredSources = ["app", "components", "lib"]
+    .flatMap((directory) => walkSourceFiles(resolve(root, directory)))
+    .filter((path) => /\.(?:ts|tsx)$/.test(path))
+    .map((path) => readFileSync(path, "utf8"))
+    .join("\n");
+
+  assert.equal(contacts.workingHours, "Щодня: 09:00–21:00");
+  assert.equal(contacts.workingHoursShort, "09:00–21:00");
+  assert.equal(contacts.openingHoursSchema, "Mo-Su 09:00-21:00");
+  assert.match(homepage, /value={contacts\.workingHoursShort}/, "Homepage hours must use the central NAP source");
+  assert.match(layout, /openingHours:\s*contacts\.openingHoursSchema/, "Business schema hours must use the central NAP source");
+  assert.doesNotMatch(homepage, /value=["'](?:5\+|1000\+|98%)["']/, "Unsupported trust counters must not return");
+  assert.doesNotMatch(homepage, /"@type":\s*"Review"/, "Do not publish self-authored LocalBusiness review schema");
+  assert.doesNotMatch(structuredSources, /"@type":\s*"AggregateRating"/, "AggregateRating requires independently verified source data");
 });
 
 test("related-service blocks use two to five direct canonical targets", () => {

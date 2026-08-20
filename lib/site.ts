@@ -18,6 +18,8 @@ export const contacts = {
   email: "formula-chistoty@ukr.net",
   address: "Черкаси, Україна",
   workingHours: "Щодня: 09:00–21:00",
+  workingHoursShort: "09:00–21:00",
+  openingHoursSchema: "Mo-Su 09:00-21:00",
   mapUrl: "https://maps.app.goo.gl/z12jY8uJuUHYkakKA",
   googleMapUrl: "https://maps.app.goo.gl/z12jY8uJuUHYkakKA",
   viberNumber: "+380978095800"

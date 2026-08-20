@@ -68,7 +68,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               priceRange: "₴₴",
               address: { "@type": "PostalAddress", addressLocality: contacts.city, addressCountry: contacts.country },
               areaServed: { "@type": "City", name: `${contacts.city}, ${contacts.country}` },
-              openingHours: "Mo-Su 09:00-21:00",
+              openingHours: contacts.openingHoursSchema,
               makesOffer: servicePages.slice(0, 16).map((service) => ({
                 "@type": "Offer",
                 itemOffered: {

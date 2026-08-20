@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { BadgeCheck, CalendarDays, Clock, HeartHandshake } from "lucide-react";
+import { BadgeCheck, CalendarDays, Camera, Clock, MapPin } from "lucide-react";
 import { BeforeAfterGallery } from "@/components/BeforeAfterGallery";
 import { ContactForm } from "@/components/ContactForm";
 import { GoogleMapsTrust } from "@/components/GoogleMapsTrust";
@@ -7,10 +7,9 @@ import { HomeServicesSection } from "@/components/HomeServicesSection";
 import { HeroSection } from "@/components/HeroSection";
 import { PricingSection } from "@/components/PricingSection";
 import { ReviewsSection } from "@/components/ReviewsSection";
-import { SeoJsonLd } from "@/components/SeoJsonLd";
 import { WhyChooseUs } from "@/components/WhyChooseUs";
 import { WorkSteps } from "@/components/WorkSteps";
-import { absoluteUrl, reviews } from "@/lib/site";
+import { contacts } from "@/lib/site";
 
 export function HomePageContent() {
   return (
@@ -22,10 +21,10 @@ export function HomePageContent() {
       />
       <section className="bg-white pb-16 md:pb-20">
         <div className="container grid gap-4 rounded-[24px] border border-brand-green/15 bg-white p-4 shadow-soft md:grid-cols-4">
-          <Stat icon={<BadgeCheck size={22} aria-hidden />} value="5+" label="років досвіду" />
-          <Stat icon={<HeartHandshake size={22} aria-hidden />} value="1000+" label="задоволених клієнтів" />
-          <Stat icon={<BadgeCheck size={22} aria-hidden />} value="98%" label="рекомендують нас" />
-          <Stat icon={<CalendarDays size={22} aria-hidden />} value="09:00–21:00" label="щодня" />
+          <Stat icon={<BadgeCheck size={22} aria-hidden />} value="Своя техніка" label="на кожен виїзд" />
+          <Stat icon={<Camera size={22} aria-hidden />} value="Розрахунок" label="за фото об’єкта" />
+          <Stat icon={<MapPin size={22} aria-hidden />} value={contacts.city} label="основний регіон" />
+          <Stat icon={<CalendarDays size={22} aria-hidden />} value={contacts.workingHoursShort} label="щодня" />
         </div>
       </section>
       <section className="bg-white pb-4">
@@ -63,17 +62,6 @@ export function HomePageContent() {
           <ContactForm compact submitLabel="Отримати розрахунок" />
         </div>
       </section>
-      <SeoJsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "Review",
-          itemReviewed: { "@type": "LocalBusiness", name: "Формула Чистоти" },
-          reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
-          author: { "@type": "Person", name: reviews[0].name },
-          reviewBody: reviews[0].text,
-          url: absoluteUrl("/")
-        }}
-      />
     </>
   );
 }
