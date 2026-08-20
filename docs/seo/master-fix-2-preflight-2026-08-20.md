@@ -40,4 +40,4 @@ The owner has previously confirmed the schedule as daily 09:00–21:00, so this 
 
 ## Planned validation
 
-After the safe patch: `pnpm test:seo`, `pnpm test:seo:http`, `pnpm lint`, `pnpm typecheck`, `npm run build`, `git diff --check`, sitemap/redirect/schema checks, priority-page HTTP checks and responsive browser QA. Commit, push and production deployment remain outside this run unless separately requested.
+After the safe patch: `pnpm test:seo`, `pnpm test:seo:http`, `pnpm lint`, `pnpm typecheck`, `npm run build`, `git diff --check`, sitemap/redirect/schema checks, priority-page HTTP checks and responsive browser QA. Commit, push and production deployment initially remained outside this run; the owner subsequently requested all three explicitly.
