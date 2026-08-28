@@ -213,7 +213,7 @@ test("sitemap is XML and contains only direct canonical routes", () => {
 
   assert.equal(new Set(sitemapPaths).size, sitemapPaths.length, "Sitemap routes must be unique");
   assert.equal(sitemapPaths.length, mainRoutes.length + services.length + blogPosts.length);
-  assert.equal(sitemapPaths.length, 61, "Sitemap must contain 8 main, 30 service, and 23 blog URLs");
+  assert.equal(sitemapPaths.length, 62, "Sitemap must contain 8 main, 30 service, and 24 blog URLs");
   for (const path of sitemapPaths) {
     assert.equal(redirectOnlyPaths.has(path), false, `Sitemap contains redirect-only URL: ${path}`);
     assert.equal(path.startsWith("/uk") || path.startsWith("/ru"), false, `Sitemap contains legacy URL: ${path}`);
