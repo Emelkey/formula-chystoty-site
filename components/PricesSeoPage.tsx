@@ -1,3 +1,4 @@
+import { priceTarget } from "@/seo/price-links";
 import { CheckCircle2 } from "lucide-react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ContactButtons, PrimaryButton } from "@/components/Buttons";
@@ -345,6 +346,10 @@ const priceFaq: Faq[] = [
   { question: "Чи можна замовити прибирання після пожежі або потопу?", answer: "Так, ми виконуємо складні прибирання після пожежі, потопу, ремонту та сильних забруднень. Прибирання після пожежі стартує від 400 грн/м², після потопу — від 250 грн/м². Точна ціна залежить від стану об’єкта." }
 ];
 
+function addPriceLinks(group: PriceGroup): PriceGroup {
+  return { ...group, rows: group.rows.map(([label, price, image, href]) => [label, price, image, href ?? priceTarget(label, group.title)]) };
+}
+
 function PriceThumbnail({ thumbnail }: { thumbnail?: PriceThumb }) {
   if (!thumbnail) return null;
 
@@ -374,6 +379,7 @@ export function PricesSeoPage({
   return (
     <>
       <Breadcrumbs items={[{ name: "Ціни", href: canonicalPath }]} />
+      <div id="umovy" className="scroll-mt-24" />
       <section className="bg-white py-12 md:py-16">
         <div className="container grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-center">
           <div>
@@ -453,8 +459,8 @@ export function PricesSeoPage({
 
       <section className="section bg-brand-mist">
         <div className="container grid gap-6">
-          {priceGroups.map((group) => (
-            <article className="overflow-hidden rounded-2xl border border-black/5 bg-white shadow-soft" key={group.title}>
+          {priceGroups.map(addPriceLinks).map((group) => (
+            <article data-price-group className="overflow-hidden rounded-2xl border border-black/5 bg-white shadow-soft" key={group.title}>
               <div className="border-b border-black/5 px-5 py-4 md:px-6">
                 <h2 className="text-2xl font-bold">{group.title}</h2>
               </div>
@@ -495,8 +501,8 @@ export function PricesSeoPage({
           <h2 className="text-3xl font-bold">Тарифи у форматі грн/м²</h2>
           <p className="mt-4 max-w-3xl leading-7 text-brand-graphite">Ці ставки допомагають швидко зорієнтуватися у бюджеті. Для точного розрахунку ми враховуємо не тільки площу, а й стан об’єкта, доступ, кількість санвузлів, кухню, вікна, меблі, тип підлоги та складність забруднень.</p>
           <div className="mt-8 grid gap-5 lg:grid-cols-2">
-            {meterPriceGroups.map((group) => (
-              <article className="overflow-hidden rounded-2xl border border-black/5 bg-white shadow-soft" key={group.title}>
+            {meterPriceGroups.map(addPriceLinks).map((group) => (
+              <article data-price-group className="overflow-hidden rounded-2xl border border-black/5 bg-white shadow-soft" key={group.title}>
                 <div className="border-b border-black/5 bg-brand-mist px-5 py-4">
                   <h3 className="text-xl font-bold">{group.title}</h3>
                 </div>
@@ -553,7 +559,7 @@ export function PricesSeoPage({
           <h2 className="text-3xl font-bold">Приклади розрахунку вартості</h2>
           <div className="mt-8 grid gap-5 md:grid-cols-2">
             {examples.map((example) => (
-              <article className="rounded-2xl border border-black/5 bg-white p-6 shadow-soft" key={example.title}>
+              <article data-price-group className="rounded-2xl border border-black/5 bg-white p-6 shadow-soft" key={example.title}>
                 <h3 className="text-xl font-bold">{example.title}</h3>
                 <p className="mt-4 font-semibold text-brand-graphite">{example.object}</p>
                 <p className="mt-3 font-bold text-brand-hover">{example.price}</p>

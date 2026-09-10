@@ -9,8 +9,9 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "seo:legacy-manifest": "node --experimental-strip-types scripts/generate-legacy-redirects-manifest.mjs",
-    "test:seo": "node --experimental-strip-types --test scripts/legacy-uk-routes.test.mjs scripts/seo-architecture.test.mjs",
-    "test:seo:http": "node --experimental-strip-types --test scripts/legacy-uk-http.test.mjs"
+    "test:seo": "node --experimental-strip-types --test scripts/legacy-uk-routes.test.mjs scripts/seo-architecture.test.mjs scripts/query-map.test.mjs",
+    "test:seo:http": "node --experimental-strip-types --test scripts/legacy-uk-http.test.mjs",
+    "seo:lint": "node --experimental-strip-types --test scripts/query-map.test.mjs"
   },
   "dependencies": {
     "@portabletext/react": "^3.1.0",

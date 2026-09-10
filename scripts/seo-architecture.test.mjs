@@ -380,3 +380,10 @@ test("service route templates preserve canonical metadata and structured layout"
   assert.match(site, /alternates:\s*{\s*canonical:\s*url/s, "Service metadata must remain self-canonical");
   assert.match(site, /openGraph:\s*{[\s\S]*?url,/s, "Open Graph must use the canonical page URL");
 });
+
+
+test("after-repair approved fields remain unchanged", () => {
+  const protectedService = JSON.parse(readFileSync(resolve(root, "seo/protected-after-repair.json"), "utf8"));
+  const actual = services.find((service) => service.slug === protectedService.slug);
+  assert.deepEqual(JSON.parse(JSON.stringify(actual)), protectedService);
+});

@@ -45,7 +45,7 @@ export function HomePageContent() {
       <WorkSteps />
       <WhyChooseUs />
       <PricingSection compact />
-      <BeforeAfterGallery />
+      <BeforeAfterGallery realPhotosOnly compact />
       <ReviewsSection />
       <GoogleMapsTrust />
       <section className="section bg-white">

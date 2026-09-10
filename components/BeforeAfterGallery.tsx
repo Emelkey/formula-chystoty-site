@@ -37,8 +37,14 @@ const workServiceLinks: Record<string, string> = {
   "Автомобіль та офіс Формула Чистоти": "/pro-nas"
 };
 
-export function BeforeAfterGallery({ realPhotosOnly = false }: { realPhotosOnly?: boolean }) {
-  const examples = realPhotosOnly ? workExamples.filter(isRealWorkPhoto) : workExamples;
+const featuredTitles = [
+  "Прибирання квартири до та після", "Миття рами та підвіконня до і після",
+  "Санвузол після ремонту — до та після", "Хімчистка стільців",
+  "Прибирання кухні після пожежі", "Хімчистка сидіння авто в процесі"
+];
+export function BeforeAfterGallery({ realPhotosOnly = false, compact = false }: { realPhotosOnly?: boolean; compact?: boolean }) {
+  const available = realPhotosOnly ? workExamples.filter(isRealWorkPhoto) : workExamples;
+  const examples = compact ? featuredTitles.flatMap((title) => available.filter((work) => work.title === title)) : available;
 
   return (
     <section className="section bg-white">
@@ -46,9 +52,9 @@ export function BeforeAfterGallery({ realPhotosOnly = false }: { realPhotosOnly?
         <SectionHeading eyebrow="Роботи" title="Наші роботи" description="Показуємо типові задачі, з якими працює команда: квартири, будинки, офіси, вікна та регулярний сервіс." />
         <div className="grid gap-5 md:grid-cols-3">
           {examples.map((work, index) => (
-            <article className={`overflow-hidden rounded-2xl border border-black/5 bg-white shadow-soft ${"beforeImage" in work || "beforeAfterImage" in work ? "md:col-span-3" : ""}`} key={work.title}>
+            <article className={`overflow-hidden rounded-2xl border border-black/5 bg-white shadow-soft ${!compact && ("beforeImage" in work || "beforeAfterImage" in work) ? "md:col-span-3" : ""}`} key={work.title}>
               {"beforeImage" in work ? (
-                <div className="grid gap-3 p-3 md:grid-cols-2">
+                <div className={`grid gap-3 p-3 ${compact ? "grid-cols-2" : "md:grid-cols-2"}`}>
                   <BeforeAfterImage label="До" src={work.beforeImage} alt={work.beforeImageAlt} />
                   <BeforeAfterImage label="Після" src={work.afterImage} alt={work.afterImageAlt} />
                 </div>
@@ -59,19 +65,20 @@ export function BeforeAfterGallery({ realPhotosOnly = false }: { realPhotosOnly?
               )}
               <div className="p-5">
                 <p className="text-xs font-semibold uppercase tracking-[0.08em] text-brand-hover">{work.category}</p>
-                <h2 className="mt-2 text-xl font-bold">
+                <h3 className="mt-2 text-xl font-bold">
                   {index + 1}.{" "}
                   {workServiceLinks[work.title] ? (
                     <Link className="transition hover:text-brand-hover" href={workServiceLinks[work.title]}>
                       {work.title}
                     </Link>
                   ) : work.title}
-                </h2>
+                </h3>
                 <p className="mt-3 text-sm leading-6 text-brand-graphite">{work.description}</p>
               </div>
             </article>
           ))}
         </div>
+        {compact ? <Link className="mt-8 inline-flex min-h-12 items-center font-semibold text-brand-hover underline underline-offset-4" href="/nashi-roboty">Переглянути всі наші роботи →</Link> : null}
       </div>
     </section>
   );
