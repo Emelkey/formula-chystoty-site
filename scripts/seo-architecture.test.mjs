@@ -275,8 +275,13 @@ test("homepage trust signals are verifiable and business hours use the central N
   assert.equal(contacts.workingHours, "Щодня: 09:00–21:00");
   assert.equal(contacts.workingHoursShort, "09:00–21:00");
   assert.equal(contacts.openingHoursSchema, "Mo-Su 09:00-21:00");
+  assert.equal(contacts.streetAddress, "вулиця Надпільна, 220/2");
+  assert.equal(contacts.addressRegion, "Черкаська область");
+  assert.equal(contacts.postalCode, "18006");
   assert.match(homepage, /value={contacts\.workingHoursShort}/, "Homepage hours must use the central NAP source");
   assert.match(layout, /openingHours:\s*contacts\.openingHoursSchema/, "Business schema hours must use the central NAP source");
+  assert.match(layout, /streetAddress:\s*contacts\.streetAddress/, "Business schema must use the central street address");
+  assert.match(layout, /postalCode:\s*contacts\.postalCode/, "Business schema must use the central postal code");
   assert.doesNotMatch(homepage, /value=["'](?:5\+|1000\+|98%)["']/, "Unsupported trust counters must not return");
   assert.doesNotMatch(homepage, /"@type":\s*"Review"/, "Do not publish self-authored LocalBusiness review schema");
   assert.doesNotMatch(structuredSources, /"@type":\s*"AggregateRating"/, "AggregateRating requires independently verified source data");
@@ -386,4 +391,10 @@ test("after-repair approved fields remain unchanged", () => {
   const protectedService = JSON.parse(readFileSync(resolve(root, "seo/protected-after-repair.json"), "utf8"));
   const actual = services.find((service) => service.slug === protectedService.slug);
   assert.deepEqual(JSON.parse(JSON.stringify(actual)), protectedService);
+});
+
+test("the custom 404 does not reintroduce index/follow from the root layout", () => {
+  const notFound = readFileSync(resolve(root, "app/not-found.tsx"), "utf8");
+  assert.match(notFound, /export const metadata[\s\S]*robots:\s*null/);
+  assert.doesNotMatch(notFound, /robots:\s*{[\s\S]*index:\s*true/);
 });

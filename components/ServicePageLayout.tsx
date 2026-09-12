@@ -401,7 +401,10 @@ export function ServicePageLayout({ service }: { service: Service }) {
             logo: absoluteUrl("/brand/logo.png"),
             address: {
               "@type": "PostalAddress",
+              streetAddress: contacts.streetAddress,
               addressLocality: contacts.city,
+              addressRegion: contacts.addressRegion,
+              postalCode: contacts.postalCode,
               addressCountry: contacts.country
             },
             areaServed: [contacts.city, "Черкаська область"],

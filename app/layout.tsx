@@ -66,7 +66,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               sameAs: [contacts.instagram, contacts.googleMapUrl],
               hasMap: contacts.googleMapUrl,
               priceRange: "₴₴",
-              address: { "@type": "PostalAddress", addressLocality: contacts.city, addressCountry: contacts.country },
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: contacts.streetAddress,
+                addressLocality: contacts.city,
+                addressRegion: contacts.addressRegion,
+                postalCode: contacts.postalCode,
+                addressCountry: contacts.country
+              },
               areaServed: { "@type": "City", name: `${contacts.city}, ${contacts.country}` },
               openingHours: contacts.openingHoursSchema,
               makesOffer: servicePages.slice(0, 16).map((service) => ({
