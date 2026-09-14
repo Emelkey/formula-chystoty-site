@@ -4,6 +4,7 @@ import { CTASection } from "@/components/CTASection";
 import { FAQSection } from "@/components/FAQSection";
 import Link from "next/link";
 import { ServiceCard } from "@/components/ServiceCard";
+import { SeoJsonLd } from "@/components/SeoJsonLd";
 import { serviceCatalog } from "@/seo/service-catalog";
 import { buildMetadata, homeFaq, getService } from "@/lib/site";
 
@@ -40,6 +41,15 @@ export default function ServicesPage() {
       </section>
       <CTASection />
       <FAQSection faq={homeFaq} />
+      <SeoJsonLd data={{
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: homeFaq.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: { "@type": "Answer", text: item.answer }
+        }))
+      }} />
     </>
   );
 }

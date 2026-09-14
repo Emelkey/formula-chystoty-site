@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
+import { createRequire } from "node:module";
 import { setTimeout as delay } from "node:timers/promises";
 import test from "node:test";
 
@@ -10,6 +11,7 @@ const port = 3210;
 const localUrl = `http://127.0.0.1:${port}`;
 
 let server;
+const require = createRequire(import.meta.url);
 
 function assertPermanentRedirect(response, source) {
   assert.ok(
@@ -35,7 +37,7 @@ async function waitForServer() {
 }
 
 test.before(async () => {
-  server = spawn("pnpm", ["exec", "next", "start", "-H", "127.0.0.1", "-p", String(port)], {
+  server = spawn(process.execPath, [require.resolve("next/dist/bin/next"), "start", "-H", "127.0.0.1", "-p", String(port)], {
     env: { ...process.env, NODE_ENV: "production" },
     stdio: ["ignore", "pipe", "pipe"]
   });

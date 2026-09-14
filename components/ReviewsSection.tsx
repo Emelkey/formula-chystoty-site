@@ -11,7 +11,7 @@ export function ReviewsSection() {
           {reviews.map((review) => (
             <article className="rounded-2xl bg-white p-6 shadow-soft" key={review.name}>
               <Quote className="mb-5 text-brand-green" size={28} aria-hidden />
-              <div className="flex gap-1 text-brand-green" aria-label={`${review.rating} з 5`}>
+              <div className="flex gap-1 text-brand-green" role="img" aria-label={`${review.rating} з 5`}>
                 {Array.from({ length: review.rating }).map((_, index) => (
                   <Star fill="currentColor" size={16} key={index} aria-hidden />
                 ))}

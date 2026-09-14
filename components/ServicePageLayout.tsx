@@ -2,11 +2,13 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import Image from "next/image";
 import { ContactButtons, PrimaryButton } from "@/components/Buttons";
 import { ContactForm } from "@/components/ContactForm";
+import { CaseStudy } from "@/components/CaseStudy";
 import { FAQSection } from "@/components/FAQSection";
 import { RelatedServices } from "@/components/RelatedServices";
 import { SeoJsonLd } from "@/components/SeoJsonLd";
 import { Quote, Star } from "lucide-react";
 import { absoluteUrl, contacts, reviews, workExamples, type Faq, type Service } from "@/lib/site";
+import { getServiceCaseStudies } from "@/lib/case-studies";
 
 const priceFactors = ["площа приміщення", "рівень забруднення", "кількість кімнат або зон", "додаткові роботи", "терміновість виконання", "особливості об’єкта та доступу"];
 const trustItems = ["професійна хімія", "досвід роботи з різними об’єктами", "виїзд по Черкасах та області", "власний інвентар і обладнання", "реальні фото робіт", "заявка через сайт, телефон або месенджери"];
@@ -38,6 +40,7 @@ const fallbackFaq: Faq[] = [
 export function ServicePageLayout({ service }: { service: Service }) {
   const faq = ensureFaq(service.faq);
   const examples = getServiceExamples(service.slug);
+  const caseStudies = service.hideBeforeAfter ? [] : getServiceCaseStudies(service.slug);
   const beforeAfter = service.hideBeforeAfter ? null : getBeforeAfterCase(service);
   const review = getServiceReview(service.slug);
   const servicePriceFactors = service.priceFactors ?? priceFactors;
@@ -274,7 +277,9 @@ export function ServicePageLayout({ service }: { service: Service }) {
           </div>
         </div>
       </section>
-      {beforeAfter ? <BeforeAfterSection caseItem={beforeAfter} /> : null}
+      {caseStudies.length
+        ? caseStudies.map((caseStudy) => <CaseStudy caseStudy={caseStudy} key={caseStudy.id} />)
+        : beforeAfter ? <BeforeAfterSection caseItem={beforeAfter} /> : null}
       <section className="section bg-brand-mist">
         <div className="container">
           <h2 className="text-3xl font-bold">Як проходить робота</h2>
@@ -338,12 +343,17 @@ export function ServicePageLayout({ service }: { service: Service }) {
           {
             "@context": "https://schema.org",
             "@type": "Service",
+            "@id": absoluteUrl(`/${service.slug}#service`),
             name: service.h1,
             serviceType: service.title,
             description: service.shortDescription,
             provider: { "@id": absoluteUrl("/#localbusiness"), "@type": "LocalBusiness", name: contacts.companyName },
             areaServed: "Черкаси",
-            priceRange: service.priceFrom,
+            offers: {
+              "@type": "Offer",
+              description: service.priceFrom,
+              url: absoluteUrl(`/${service.slug}`)
+            },
             url: absoluteUrl(`/${service.slug}`),
             ...(service.slug === "prybyrannya-kvartyr-cherkasy"
               ? {
@@ -894,7 +904,7 @@ function ServiceReview({ review }: { review: (typeof reviews)[number] }) {
       <div className="container">
         <article className="rounded-[28px] border border-brand-green/15 bg-brand-mist p-6 shadow-soft md:p-8">
           <Quote className="mb-5 text-brand-green" size={30} aria-hidden />
-          <div className="flex gap-1 text-brand-green" aria-label={`${review.rating} з 5`}>
+          <div className="flex gap-1 text-brand-green" role="img" aria-label={`${review.rating} з 5`}>
             {Array.from({ length: review.rating }).map((_, index) => (
               <Star fill="currentColor" size={17} key={index} aria-hidden />
             ))}

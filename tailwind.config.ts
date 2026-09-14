@@ -6,8 +6,8 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          green: "#63B532",
-          hover: "#4E9D26",
+          green: "#327218",
+          hover: "#286315",
           black: "#111111",
           graphite: "#2B2B2B",
           mist: "#F6F8F5"

@@ -36,7 +36,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           `}
         </Script>
         <Header />
-        <main>{children}</main>
+        <main className="min-h-screen">{children}</main>
         <Footer />
         <FloatingContactButtons />
         <ContactActionToast />
@@ -45,6 +45,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             {
               "@context": "https://schema.org",
               "@type": "Organization",
+              "@id": absoluteUrl("/#organization"),
               name: contacts.companyName,
               description: positioning,
               url: absoluteUrl("/"),
@@ -55,7 +56,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             },
             {
               "@context": "https://schema.org",
-              "@type": "CleaningService",
+              "@type": "LocalBusiness",
+              "@id": absoluteUrl("/#localbusiness"),
+              parentOrganization: { "@id": absoluteUrl("/#organization") },
               name: contacts.companyName,
               description: "Формула Чистоти — клінінгова компанія у Черкасах. Виконуємо прибирання квартир, будинків, комерційних приміщень, прибирання після ремонту, хімчистку меблів, миття вікон, прибирання після потопу та пожежі.",
               image: absoluteUrl("/images/hero/professional-floor-cleaning-hero.webp"),
@@ -90,9 +93,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             {
               "@context": "https://schema.org",
               "@type": "WebSite",
+              "@id": absoluteUrl("/#website"),
               name: contacts.companyName,
               url: absoluteUrl("/"),
-              potentialAction: { "@type": "SearchAction", target: absoluteUrl("/blog?search={search_term_string}"), "query-input": "required name=search_term_string" }
+              publisher: { "@id": absoluteUrl("/#organization") }
             }
           ]}
         />

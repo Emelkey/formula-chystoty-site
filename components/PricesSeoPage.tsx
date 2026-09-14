@@ -20,9 +20,9 @@ type SummaryPriceRow = {
   href?: string;
 };
 
-const cleaningSprite = "/images/pricing/cleaning-service-price-items.jpg";
-const extraSprite = "/images/pricing/extra-auto-price-items.jpg";
-const furnitureSprite = "/images/pricing/furniture-cleaning-price-items.jpg";
+const cleaningSprite = "/images/pricing/cleaning-service-price-items.webp";
+const extraSprite = "/images/pricing/extra-auto-price-items.webp";
+const furnitureSprite = "/images/pricing/furniture-cleaning-price-items.webp";
 const pos = ["0% 0%", "33.333% 0%", "66.666% 0%", "100% 0%", "0% 33.333%", "33.333% 33.333%", "66.666% 33.333%", "100% 33.333%", "0% 66.666%", "33.333% 66.666%", "66.666% 66.666%", "100% 66.666%", "0% 100%", "33.333% 100%", "66.666% 100%", "100% 100%"] as const;
 const thumb = (image: string, imageAlt: string, imagePosition: string, backgroundSize = "400% 400%"): PriceThumb => ({ image, imageAlt, imagePosition, backgroundSize });
 const apartmentCleaningUrl = absoluteUrl("/prybyrannya-kvartyr-cherkasy");
@@ -637,7 +637,7 @@ export function PricesSeoPage({
             "@context": "https://schema.org",
             "@type": "Service",
             name: schemaName,
-            provider: { "@type": "LocalBusiness", name: contacts.companyName, telephone: contacts.phoneE164, areaServed: "Черкаси" },
+            provider: { "@id": absoluteUrl("/#localbusiness"), "@type": "LocalBusiness", name: contacts.companyName, telephone: contacts.phoneE164, areaServed: "Черкаси" },
             areaServed: "Черкаси",
             url: `${siteUrl}${canonicalPath}`
           }
