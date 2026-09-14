@@ -7,6 +7,7 @@ export const contacts = {
   companyName: "Формула Чистоти",
   city: "Черкаси",
   country: "Україна",
+  countryCode: "UA",
   phone: "+38 (097) 809 58 00",
   phonePlain: "+38 (097) 809 58 00",
   phoneE164: "+380978095800",

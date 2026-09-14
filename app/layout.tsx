@@ -75,7 +75,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 addressLocality: contacts.city,
                 addressRegion: contacts.addressRegion,
                 postalCode: contacts.postalCode,
-                addressCountry: contacts.country
+                addressCountry: contacts.countryCode
               },
               areaServed: { "@type": "City", name: `${contacts.city}, ${contacts.country}` },
               openingHours: contacts.openingHoursSchema,

@@ -32,3 +32,7 @@ Baseline production `c8167e9`: Lighthouse 20/20 (10 P0 × mobile/desktop), бе�
 - URL Inspection PASS до релізу не є новим recrawl після релізу. Request indexing потребує Search Console UI; API inspection лише читає стан. Не застосовувати Google Indexing API для цих сторінок.
 
 Тип [LocalBusiness](https://schema.org/LocalBusiness) та правила [Google LocalBusiness structured data](https://developers.google.com/search/docs/appearance/structured-data/local-business) використано для виправлення business entity. Self-serving aggregateRating/review не додавалися.
+
+## Післярелізне точкове уточнення
+
+`4860b9a` отримав Vercel Ready; production crawl62/62 і schemaHTTP10/10 PASS, зовнішній schema.org не знайшов критичних помилок. Google Rich Results післяремонтної сторінки показав4 valid items та два некритичні зауваження «Неверный код страны» для тієї самої зв’язаної адреси. Для сумісності з Google PostalAddress.addressCountry тепер використовує ISO-код `UA`; видима назва країни лишається «Україна». Додано HTTP-regression, який перевіряє це поле. Дата/географія бізнесу не змінюються.

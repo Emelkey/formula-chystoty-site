@@ -91,6 +91,7 @@ function assertEntityAndServiceContracts(nodes, path) {
   assert.ok(businesses.length, `${path}: shared LocalBusiness ${businessId} is missing`);
   assert.ok(businesses.every((node) => node.name === businesses[0].name), `${path}: inconsistent business name for one @id`);
   assert.ok(businesses.some((node) => node.telephone && node.address), `${path}: business definition lacks phone/address`);
+  assert.ok(businesses.every((node) => node.address?.addressCountry === 'UA'), `${path}: business country must use the verified ISO code UA`);
   assert.ok(nodes.some((node) => node['@id'] === organizationId && types(node).includes('Organization')), `${path}: shared Organization is missing`);
   const website = nodes.find((node) => types(node).includes('WebSite'));
   assert.equal(website?.publisher?.['@id'], organizationId, `${path}: WebSite publisher does not resolve to the organization`);

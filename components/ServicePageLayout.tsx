@@ -415,7 +415,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
               addressLocality: contacts.city,
               addressRegion: contacts.addressRegion,
               postalCode: contacts.postalCode,
-              addressCountry: contacts.country
+              addressCountry: contacts.countryCode
             },
             areaServed: [contacts.city, "Черкаська область"],
             sameAs: [contacts.telegram, contacts.instagram, contacts.facebook]
