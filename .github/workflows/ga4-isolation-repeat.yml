@@ -1,0 +1,55 @@
+name: GA4 isolated production repeat
+
+on:
+  push:
+    branches: ['verify/ga4-isolation-2026-09-25']
+
+permissions:
+  contents: read
+
+jobs:
+  verify-production-twice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install isolated browser dependency
+        run: |
+          npm install --prefix "$RUNNER_TEMP/ga4-browser" --ignore-scripts --no-package-lock playwright@1.55.1
+          node "$RUNNER_TEMP/ga4-browser/node_modules/playwright/cli.js" install --with-deps chromium
+      - name: Add diagnostics without changing test criteria or site code
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from 'node:fs';
+          import assert from 'node:assert/strict';
+          let source = readFileSync('scripts/ga4-verification.mjs', 'utf8');
+          const replacements = [
+            ['mockedLeadRequests: 0, pass: false', 'mockedLeadRequests: 0, blockedRequests: [], requestFailures: [], pass: false'],
+            ['return route.abort();', "result.blockedRequests.push({ host: url.hostname, path: url.pathname, method: request.method() }); return route.abort();"],
+            ["const page = await context.newPage();", "const page = await context.newPage(); page.on('requestfailed', (request) => { const url = new URL(request.url()); result.requestFailures.push({ host: url.hostname, path: url.pathname, error: request.failure()?.errorText }); });"],
+            ['result.failure = String(error.message).slice(0, 700);', "result.failure = String(error.message).slice(0, 700); result.domAtFailure = await page.evaluate(() => ({ title: document.title, gtagType: typeof window.gtag, disabledOld: window['ga-disable-G-FNN4YK664L'], disabledVerified: window['ga-disable-G-E2Q1N11QWJ'], configIds: (window.dataLayer || []).filter((entry) => entry?.[0] === 'config').map((entry) => entry[1]), scriptPaths: [...document.scripts].filter((script) => script.src).map((script) => { const url = new URL(script.src); return url.hostname + url.pathname; }) })).catch(() => ({ unavailable: true }));"]
+          ];
+          for (const [from, to] of replacements) { assert.equal(source.split(from).length, 2); source = source.replace(from, to); }
+          writeFileSync('scripts/ga4-diagnostic-local.mjs', source);
+          NODE
+      - name: Run two consecutive checks with all telemetry intercepted
+        env:
+          GA4_PLAYWRIGHT_DIR: ${{ runner.temp }}/ga4-browser
+        run: |
+          outcome=0
+          for run in 1 2; do
+            node --experimental-strip-types scripts/ga4-diagnostic-local.mjs --live || outcome=1
+            mkdir -p "outputs/ga4-repeat/run-$run"
+            cp -R outputs/ga4-browser/. "outputs/ga4-repeat/run-$run/"
+          done
+          exit "$outcome"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ga4-isolation-production-repeat
+          path: outputs/ga4-repeat/
+          retention-days: 7
+          if-no-files-found: warn
