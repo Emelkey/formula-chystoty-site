@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { normalizeUkrainianPhone } from "@/lib/phone";
 
 type LeadPayload = {
   name?: unknown;
@@ -13,10 +14,6 @@ type LeadPayload = {
 
 function asText(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
-}
-
-function hasEnoughPhoneDigits(phone: string) {
-  return phone.replace(/\D/g, "").length >= 7;
 }
 
 function exceedsLength(value: string, maxLength: number) {
@@ -34,7 +31,11 @@ export async function POST(request: Request) {
     let body: LeadPayload = {};
 
     try {
-      body = (await request.json()) as LeadPayload;
+      const parsed: unknown = await request.json();
+      if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+        return NextResponse.json({ success: false, error: "invalid_payload" }, { status: 400 });
+      }
+      body = parsed as LeadPayload;
       logLeadApi("body_received", { received: true });
     } catch (error) {
       logLeadApi("body_received", { received: false, error: error instanceof Error ? error.message : "unknown" });
@@ -42,7 +43,7 @@ export async function POST(request: Request) {
     }
 
     const name = asText(body.name);
-    const phone = asText(body.phone);
+    const rawPhone = asText(body.phone);
     const service = asText(body.service) || asText(body.type);
     const area = asText(body.area);
     const leadMessage = asText(body.message);
@@ -55,7 +56,7 @@ export async function POST(request: Request) {
 
     if (
       exceedsLength(name, 120) ||
-      exceedsLength(phone, 40) ||
+      exceedsLength(rawPhone, 40) ||
       exceedsLength(service, 160) ||
       exceedsLength(area, 80) ||
       exceedsLength(leadMessage, 2000) ||
@@ -68,11 +69,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: "name_required" }, { status: 400 });
     }
 
-    if (!phone) {
+    if (!rawPhone) {
       return NextResponse.json({ success: false, error: "phone_required" }, { status: 400 });
     }
 
-    if (!hasEnoughPhoneDigits(phone)) {
+    const phone = normalizeUkrainianPhone(rawPhone);
+    if (!phone) {
       return NextResponse.json({ success: false, error: "phone_invalid" }, { status: 400 });
     }
 
@@ -117,7 +119,9 @@ export async function POST(request: Request) {
 
     logLeadApi("telegram_response_status", { status: telegramResponse.status, ok: telegramResponse.ok });
 
-    if (!telegramResponse.ok) {
+    const telegramResult: unknown = await telegramResponse.json().catch(() => null);
+    if (!telegramResponse.ok || !telegramResult || typeof telegramResult !== "object" ||
+        !("ok" in telegramResult) || telegramResult.ok !== true) {
       return NextResponse.json({ success: false, error: "telegram_send_failed" }, { status: 502 });
     }
 
