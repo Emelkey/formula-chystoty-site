@@ -1,0 +1,55 @@
+name: GA4 verification
+
+on:
+  pull_request:
+    paths:
+      - 'app/layout.tsx'
+      - 'scripts/ga4-verification.mjs'
+      - '.github/workflows/ga4-verification.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'app/layout.tsx'
+      - 'scripts/ga4-verification.mjs'
+      - '.github/workflows/ga4-verification.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-config:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/ga4-verification.mjs
+
+  verify-public-site:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install isolated browser test dependency
+        run: |
+          npm install --prefix "$RUNNER_TEMP/ga4-browser" --ignore-scripts --no-package-lock playwright@1.55.1
+          node "$RUNNER_TEMP/ga4-browser/node_modules/playwright/cli.js" install --with-deps chromium
+      - name: Verify public pages without submitting leads
+        env:
+          GA4_PLAYWRIGHT_DIR: ${{ runner.temp }}/ga4-browser
+        run: node scripts/ga4-verification.mjs --live
+      - name: Preserve non-identifying verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ga4-production-verification
+          path: outputs/ga4-browser/
+          if-no-files-found: warn
+          retention-days: 7
