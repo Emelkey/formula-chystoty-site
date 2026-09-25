@@ -1,10 +1,11 @@
 "use client";
 
 import type { FormEvent } from "react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { TrackedLink } from "@/components/TrackedLink";
 import { trackAnalyticsEvent } from "@/lib/analytics";
 import { contacts } from "@/lib/site";
+import { normalizeUkrainianPhone, PHONE_VALIDATION_MESSAGE } from "@/lib/phone";
 
 const cleaningTypes = ["Генеральне прибирання квартири", "Підтримуюче прибирання", "Після ремонту", "Прибирання після потопу", "Прибирання після пожежі", "Прибирання прилеглої території", "Прибирання квартири", "Прибирання будинку", "Клінінг комерційного приміщення", "Хімчистка меблів або килимів", "Миття вікон"];
 const businessCleaningTypes = [
@@ -18,16 +19,26 @@ const businessCleaningTypes = [
 ];
 
 export function ContactForm({ compact = false, submitLabel = "Надіслати заявку", business = false }: { compact?: boolean; submitLabel?: string; business?: boolean }) {
+  const submittingRef = useRef(false);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (submittingRef.current) return;
 
     const form = event.currentTarget;
     const formData = new FormData(form);
     const name = String(formData.get("name") ?? "").trim();
-    const phone = String(formData.get("phone") ?? "").trim();
+    const phone = normalizeUkrainianPhone(formData.get("phone"));
     const website = String(formData.get("website") ?? "").trim();
+
+    // Honeypot submissions must not create leads or analytics events.
+    if (website) return;
+
+    const phoneInput = form.elements.namedItem("phone");
+    if (phoneInput instanceof HTMLInputElement) {
+      phoneInput.setCustomValidity(phone ? "" : PHONE_VALIDATION_MESSAGE);
+    }
 
     if (!name || !phone || !form.checkValidity()) {
       form.reportValidity();
@@ -40,6 +51,7 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
     const comment = String(formData.get("comment") ?? "").trim();
     const messageParts = [area ? `Площа: ${area}` : "", frequency ? `Формат: ${frequency}` : "", comment].filter(Boolean);
 
+    submittingRef.current = true;
     setStatus("sending");
 
     try {
@@ -56,19 +68,29 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
         })
       });
 
-      if (!response.ok) {
+      const result: unknown = await response.json().catch(() => null);
+      if (!response.ok || !result || typeof result !== "object" ||
+          !("success" in result) || result.success !== true) {
         setStatus("error");
         return;
       }
 
       form.reset();
       setStatus("sent");
-      trackAnalyticsEvent("lead_submit", {
-        event_category: "lead",
-        event_label: "contact_form"
-      });
+      // Preserve the existing event name until GA4/Ads mappings are verified.
+      // A tracking failure must not turn a delivered lead into a form error.
+      try {
+        trackAnalyticsEvent("lead_submit", {
+          event_category: "lead",
+          event_label: "contact_form"
+        });
+      } catch {
+        // The lead was delivered; analytics must not trigger a duplicate retry.
+      }
     } catch {
       setStatus("error");
+    } finally {
+      submittingRef.current = false;
     }
   }
 
@@ -89,7 +111,27 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
         </label>
         <label className="grid min-w-0 gap-2 text-sm font-semibold">
           Телефон
-          <input required name="phone" autoComplete="tel" className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 font-normal focus-visible:focus-ring" placeholder="+380..." inputMode="tel" pattern="^(\\+?38)?0[0-9]{9}$|^\\+380[0-9]{9}$" title="Введіть номер у форматі +380XXXXXXXXX або 0XXXXXXXXX" />
+          <input
+            required
+            type="tel"
+            name="phone"
+            autoComplete="tel"
+            maxLength={40}
+            className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 font-normal focus-visible:focus-ring"
+            placeholder="+380..."
+            inputMode="tel"
+            title={PHONE_VALIDATION_MESSAGE}
+            onInput={(event) => {
+              const input = event.currentTarget;
+              input.setCustomValidity(!input.value || normalizeUkrainianPhone(input.value) ? "" : PHONE_VALIDATION_MESSAGE);
+            }}
+            onBlur={(event) => {
+              const input = event.currentTarget;
+              const normalized = normalizeUkrainianPhone(input.value);
+              if (normalized) input.value = normalized;
+              input.setCustomValidity(!input.value || normalized ? "" : PHONE_VALIDATION_MESSAGE);
+            }}
+          />
         </label>
       </div>
       <div className={compact ? "grid min-w-0 gap-4" : "grid min-w-0 gap-4 md:grid-cols-2"}>
