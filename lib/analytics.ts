@@ -13,11 +13,19 @@ type AnalyticsParams = {
 };
 
 type AnalyticsWindow = Window & {
-  gtag?: (command: "event", eventName: AnalyticsEventName, params: AnalyticsParams) => void;
+  gtag?: (command: "event", eventName: AnalyticsEventName, params: AnalyticsParams & { send_to: string }) => void;
 };
 
 export function trackAnalyticsEvent(eventName: AnalyticsEventName, params: AnalyticsParams) {
   if (typeof window === "undefined") return;
 
-  (window as AnalyticsWindow).gtag?.("event", eventName, params);
+  try {
+    // Keep contact events in the verified stream, not the tag's default destination group.
+    (window as AnalyticsWindow).gtag?.("event", eventName, {
+      ...params,
+      send_to: "G-E2Q1N11QWJ"
+    });
+  } catch {
+    // Analytics availability must not block a contact action or a delivered lead.
+  }
 }

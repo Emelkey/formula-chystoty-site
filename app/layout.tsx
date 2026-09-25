@@ -26,6 +26,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="uk">
       <body>
+        <Script id="google-analytics-destination-guard" strategy="beforeInteractive">
+          {`window['ga-disable-G-FNN4YK664L'] = true;`}
+        </Script>
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-E2Q1N11QWJ" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
