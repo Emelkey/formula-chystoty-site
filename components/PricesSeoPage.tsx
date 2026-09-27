@@ -1,3 +1,4 @@
+import { minimumVisitPrice, minimumVisitFromPrice } from "@/lib/order-conditions";
 import { priceTarget } from "@/seo/price-links";
 import { CheckCircle2 } from "lucide-react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -96,7 +97,7 @@ const priceGroups: PriceGroup[] = [
       ["Генеральне прибирання квартири з шафами усередині", "від 120 грн/м²", serviceThumbs.apartmentGeneral, apartmentGeneralUrl],
       ["Прибирання після ремонту", "від 120 грн/м²", serviceThumbs.apartmentRenovation, apartmentRenovationUrl],
       ["Миття вікон", "від 160 грн/м²", serviceThumbs.window, windowCleaningUrl],
-      ["Мінімальний виїзд", "від 3000 грн", serviceThumbs.minimumVisit]
+      ["Мінімальний виїзд", minimumVisitFromPrice, serviceThumbs.minimumVisit]
     ]
   },
   {
@@ -202,7 +203,7 @@ const meterPriceGroups: PriceGroup[] = [
       ["Стандартне післяремонтне прибирання", "від 120 грн/м²", serviceThumbs.apartmentRenovation, apartmentRenovationUrl],
       ["Складний будівельний пил", "від 140 грн/м²", serviceThumbs.renovationDust, apartmentRenovationUrl],
       ["Плитка, санвузол, кухня після ремонту", "індивідуально", extraThumbs.difficultStains],
-      ["Мінімальна вартість виїзду", "3000 грн", serviceThumbs.minimumVisit]
+      ["Мінімальна вартість виїзду", minimumVisitPrice, serviceThumbs.minimumVisit]
     ]
   },
   {
@@ -220,7 +221,7 @@ const meterPriceGroups: PriceGroup[] = [
       ["Квартира або будинок у нормальному стані", "від 55 грн/м²", serviceThumbs.apartmentMaintenance, apartmentMaintenanceUrl],
       ["Регулярне прибирання за графіком", "індивідуально", serviceThumbs.commercialRegular],
       ["Після орендарів або активного користування", "від 70 грн/м²", serviceThumbs.houseMaintenance],
-      ["Мінімальна вартість виїзду", "3000 грн", serviceThumbs.minimumVisit]
+      ["Мінімальна вартість виїзду", minimumVisitPrice, serviceThumbs.minimumVisit]
     ]
   },
   {
@@ -229,7 +230,7 @@ const meterPriceGroups: PriceGroup[] = [
       ["Сезонне миття скла, рам і підвіконь", "від 160 грн/м²", serviceThumbs.window],
       ["Післяремонтне миття вікон", "від 200 грн/м²", serviceThumbs.window],
       ["Зняття застарілої монтажної плівки", "від 300 грн/м²", extraThumbs.difficultStains],
-      ["Мінімальна вартість виїзду", "3000 грн", serviceThumbs.minimumVisit]
+      ["Мінімальна вартість виїзду", minimumVisitPrice, serviceThumbs.minimumVisit]
     ]
   },
   {
@@ -238,7 +239,7 @@ const meterPriceGroups: PriceGroup[] = [
       ["Ковролін у квартирі або комерційному приміщенні", "від 90 грн/м²", extraThumbs.carpet],
       ["Килим", "від 100 грн/м²", extraThumbs.carpet],
       ["Сильні плями або запахи", "індивідуально", extraThumbs.difficultStains],
-      ["Мінімальна вартість виїзду", "3000 грн", serviceThumbs.minimumVisit]
+      ["Мінімальна вартість виїзду", minimumVisitPrice, serviceThumbs.minimumVisit]
     ]
   },
   {
@@ -331,7 +332,7 @@ const summaryPriceRows: SummaryPriceRow[] = [
   {
     service: "Мінімальний виїзд команди",
     unit: "виїзд",
-    price: "3000 грн",
+    price: minimumVisitPrice,
     note: "У межах Черкас"
   }
 ];
@@ -341,7 +342,7 @@ const priceFaq: Faq[] = [
   { question: "Чому точна ціна розраховується індивідуально?", answer: "Тому що дві квартири однакової площі можуть мати різний стан. На ціну впливає кількість забруднень, будівельний пил, меблі, санвузли, кухня, вікна, плями та складність робіт." },
   { question: "Чи приїжджаєте ви зі своєю хімією та інвентарем?", answer: "Так, команда Формули Чистоти приїжджає зі своєю професійною хімією, інвентарем і технікою." },
   { question: "Чи можна замовити тільки миття вікон або хімчистку дивана?", answer: "Так, можна замовити окрему послугу: миття вікон, хімчистку дивана, хімчистку матраца, очищення санвузла, кухні або інші додаткові роботи." },
-  { question: "Який мінімальний виїзд?", answer: "Мінімальний виїзд по місту — від 3000 грн. Виїзд за місто розраховується окремо — 25 грн/км." },
+  { question: "Який мінімальний виїзд?", answer: `Мінімальний виїзд по місту — ${minimumVisitFromPrice}. Виїзд за місто розраховується окремо — 25 грн/км.` },
   { question: "Чи працюєте ви з комерційними приміщеннями?", answer: "Так, ми прибираємо комерційні, сервісні, виробничі та інші бізнес-приміщення. Вартість для бізнесу розраховується індивідуально після уточнення площі, графіка та регламенту." },
   { question: "Чи можна замовити прибирання після пожежі або потопу?", answer: "Так, ми виконуємо складні прибирання після пожежі, потопу, ремонту та сильних забруднень. Прибирання після пожежі стартує від 400 грн/м², після потопу — від 250 грн/м². Точна ціна залежить від стану об’єкта." }
 ];

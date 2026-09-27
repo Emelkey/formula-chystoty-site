@@ -606,8 +606,13 @@ function getServiceRedirectDestination(pathname: string) {
   const normalized = normalizePath(pathname).toLowerCase();
   if (normalized.startsWith("/blog/")) return undefined;
 
+  // Explicit legacy mappings must win over another service's broad pattern.
   for (const rule of serviceRedirectRules) {
-    if (rule.paths.has(normalized) || rule.patterns.some((pattern) => pattern.test(normalized))) {
+    if (rule.paths.has(normalized)) return rule.canonicalPath;
+  }
+
+  for (const rule of serviceRedirectRules) {
+    if (rule.patterns.some((pattern) => pattern.test(normalized))) {
       return rule.canonicalPath;
     }
   }

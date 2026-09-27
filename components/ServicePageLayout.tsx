@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ContactButtons, PrimaryButton } from "@/components/Buttons";
 import { ContactForm } from "@/components/ContactForm";
 import { CaseStudy } from "@/components/CaseStudy";
+import { MinimumOrderNote } from "@/components/MinimumOrderNote";
 import { FAQSection } from "@/components/FAQSection";
 import { RelatedServices } from "@/components/RelatedServices";
 import { SeoJsonLd } from "@/components/SeoJsonLd";
@@ -331,6 +332,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
           <div>
             <h2 className="text-3xl font-bold">Хочете дізнатися точну вартість?</h2>
             <p className="mt-4 leading-7 text-brand-graphite">Залиште заявку — ми уточнимо деталі, підкажемо оптимальний формат прибирання та зорієнтуємо по ціні.</p>
+            {service.slug === "himchystka-mebliv-cherkasy" ? <MinimumOrderNote /> : null}
             <div className="mt-6">
               <ContactButtons />
             </div>
@@ -469,6 +471,7 @@ function ServicePriceSection({ service, hasPriceImages }: { service: Service; ha
                 : "Вартість залежить від площі, стану приміщення, типу поверхонь, терміновості та додаткових робіт."}{" "}
               Орієнтир для цієї послуги: <strong className="text-brand-hover">{service.priceFrom}</strong>.
             </p>
+            {service.slug === "himchystka-mebliv-cherkasy" ? <MinimumOrderNote /> : null}
             {priceCards ? (
               <div className={`mt-5 grid gap-3 sm:grid-cols-2 ${isApartmentHub ? "lg:grid-cols-3" : hasPriceImages ? "xl:grid-cols-4" : ""}`}>
                 {priceCards.map((item) => (
