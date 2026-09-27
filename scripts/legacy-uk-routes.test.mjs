@@ -3,6 +3,9 @@ import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
+import { createRequire } from "node:module";
+import vm from "node:vm";
+import ts from "typescript";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const canonicalUrl = "https://www.formula-chistoty.ck.ua";
@@ -24,6 +27,46 @@ const requiredRoutes = new Map([
   ["/uk/services/prybyrannya-torgovyh-czentriv", "/prybyrannya-mahazyniv-supermarketiv-cherkasy"],
   ["/uk/services/himchystka-avtomobilya", "/himchystka-avto-cherkasy"]
 ]);
+
+// Exercise the actual middleware with Next request/response primitives, offline.
+function loadMiddleware() {
+  const require = createRequire(import.meta.url);
+  const compiled = ts.transpileModule(readFileSync(join(root, "middleware.ts"), "utf8"), {
+    reportDiagnostics: true,
+    compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, strict: true }
+  });
+  assert.equal((compiled.diagnostics ?? []).filter((item) => item.category === ts.DiagnosticCategory.Error).length, 0);
+  const context = {
+    exports: {}, URL, Response,
+    require: (id) => id === "@/lib/legacy-uk-routes"
+      ? { getUkLegacyDestination }
+      : require(id)
+  };
+  vm.runInNewContext(compiled.outputText, context, { filename: "middleware.ts" });
+  return { middleware: context.exports.middleware, NextRequest: require("next/server").NextRequest };
+}
+
+test("explicit mixed carpet aliases take priority over carpet-flooring heuristics", () => {
+  const { middleware, NextRequest } = loadMiddleware();
+  const search = "?utm_source=qa&qa_marker=synthetic%2Bmarker&check=preserve";
+  for (const prefix of ["", "/services", "/ru", "/ru/services"]) {
+    for (const slug of ["chistka-kovrov-kovrolina", "chystka-kylymiv-kovrolinu", "himchystka-kylymiv-kovrolinu"]) {
+      const source = `${prefix}/${slug}`;
+      const request = new NextRequest(`${canonicalUrl}${source}${search}`, { headers: { host: "www.formula-chistoty.ck.ua" } });
+      const response = middleware(request);
+      assert.equal(response?.status, 301, `${source}: expected permanent redirect`);
+      assert.equal(response.headers.get("location"), `${canonicalUrl}/himchystka-kylymiv-cherkasy${search}`, source);
+    }
+  }
+  for (const source of ["/himchystka-kovrolinu", "/ru/services/himchistka-kovrolina", "/services/chistka-kovrolina-cherkassy"]) {
+    const response = middleware(new NextRequest(`${canonicalUrl}${source}${search}`, { headers: { host: "www.formula-chistoty.ck.ua" } }));
+    assert.equal(response?.status, 301, source);
+    assert.equal(response.headers.get("location"), `${canonicalUrl}/himchystka-kovrolinu-cherkasy${search}`, source);
+  }
+  for (const source of ["/qa-unknown-route", "/blog/himchystka-kylymiv-kovrolinu"]) {
+    assert.equal(middleware(new NextRequest(`${canonicalUrl}${source}`, { headers: { host: "www.formula-chistoty.ck.ua" } })), undefined, source);
+  }
+});
 
 function walk(directory) {
   if (!existsSync(directory)) return [];

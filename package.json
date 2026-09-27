@@ -13,7 +13,8 @@
     "test:leads": "node scripts/lead-contract.test.mjs",
     "test:seo:schema:http": "node --test scripts/schema-http.test.mjs",
     "test:seo:http": "node --experimental-strip-types --test scripts/legacy-uk-http.test.mjs",
-    "seo:lint": "node --experimental-strip-types --test scripts/query-map.test.mjs"
+    "seo:lint": "node --experimental-strip-types --test scripts/query-map.test.mjs",
+    "test:leads:browser": "node scripts/form-browser-verification.mjs"
   },
   "dependencies": {
     "@portabletext/react": "^3.1.0",

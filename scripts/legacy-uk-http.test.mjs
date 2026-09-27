@@ -121,3 +121,23 @@ test("canonical trailing slashes redirect once to the slashless canonical URL", 
   });
   assert.equal(destinationResponse.status, 200, "/prices/ created a redirect chain instead of one permanent hop");
 });
+
+test("mixed carpet legacy mappings keep their exact destination and query string", async () => {
+  const search = "?utm_source=qa&qa_marker=synthetic%2Bmarker&check=preserve";
+  const carpetCases = ["", "/services", "/ru", "/ru/services"].flatMap((prefix) =>
+    ["chistka-kovrov-kovrolina", "chystka-kylymiv-kovrolinu", "himchystka-kylymiv-kovrolinu"]
+      .map((slug) => [`${prefix}/${slug}`, "/himchystka-kylymiv-cherkasy"])
+  );
+  const controls = ["/himchystka-kovrolinu", "/ru/services/himchistka-kovrolina", "/services/chistka-kovrolina-cherkassy"]
+    .map((source) => [source, "/himchystka-kovrolinu-cherkasy"]);
+  for (const [source, expected] of [...carpetCases, ...controls]) {
+    const response = await fetch(`${localUrl}${source}${search}`, {
+      headers: { host: "www.formula-chistoty.ck.ua" }, redirect: "manual"
+    });
+    assertPermanentRedirect(response, source);
+    const destination = new URL(response.headers.get("location"), canonicalUrl);
+    assert.equal(destination.href, `${canonicalUrl}${expected}${search}`, source);
+    const target = await fetch(`${localUrl}${destination.pathname}${destination.search}`, { redirect: "manual" });
+    assert.equal(target.status, 200, `${source}: target must render in one hop`);
+  }
+});

@@ -1,0 +1,65 @@
+name: Form browser regression
+on:
+  pull_request:
+    paths:
+      - 'components/ContactForm.tsx'
+      - 'components/Buttons.tsx'
+      - 'components/TrackedLink.tsx'
+      - 'lib/analytics.ts'
+      - 'lib/phone.ts'
+      - 'app/api/lead/route.ts'
+      - 'app/layout.tsx'
+      - 'scripts/form-browser-verification.mjs'
+      - '.github/workflows/form-regression.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'components/ContactForm.tsx'
+      - 'lib/analytics.ts'
+      - 'lib/phone.ts'
+      - 'app/api/lead/route.ts'
+      - 'app/layout.tsx'
+      - 'scripts/form-browser-verification.mjs'
+      - '.github/workflows/form-regression.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - name: Prepare isolated browser dependencies
+        run: |
+          npm install --prefix "$RUNNER_TEMP/form-browser" --ignore-scripts --no-package-lock playwright@1.55.1
+          node "$RUNNER_TEMP/form-browser/node_modules/playwright/cli.js" install --with-deps chromium webkit
+      - name: Start production server
+        run: |
+          pnpm start --hostname 127.0.0.1 --port 3100 > "$RUNNER_TEMP/form-server.log" 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:3100/kontakty > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat "$RUNNER_TEMP/form-server.log"
+          exit 1
+      - name: Verify hydrated forms without sending leads or telemetry
+        env:
+          GA4_PLAYWRIGHT_DIR: ${{ runner.temp }}/form-browser
+          FORM_QA_EXPECT_UX: '1'
+        run: pnpm test:leads:browser
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: form-browser-regression
+          path: outputs/form-browser/
+          retention-days: 7
