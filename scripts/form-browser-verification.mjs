@@ -18,7 +18,7 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
     for (const viewport of [{ width: 390, height: 844 }, { width: 1365, height: 900 }]) {
       const context = await browser.newContext({ viewport, locale: 'uk-UA', serviceWorkers: 'block' });
       let requests = [], blocked = [], reply = { status: 200, body: '{"success":true}' }, delayMs = 0;
-      // Default deny. Only GETs to the tested site and public tag loader are allowed out.
+      // Default deny. Form behavior needs only site GETs; ga4-verification.mjs separately exercises the real external tag.
       await context.route('**/*', async route => {
         const request = route.request(), url = new URL(request.url());
         if (url.origin === origin && url.pathname === '/api/lead') {
@@ -30,7 +30,7 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
           blocked.push({ host: url.host, kind: 'telemetry' });
           return route.fulfill({ status: 204, headers: { 'access-control-allow-origin': origin, 'access-control-allow-credentials': 'true' } });
         }
-        if (request.method() === 'GET' && (url.origin === origin || (url.hostname === 'www.googletagmanager.com' && /^\/gtag\/(js|destination)$/.test(url.pathname)))) return route.continue();
+        if (request.method() === 'GET' && url.origin === origin) return route.continue();
         blocked.push({ host: url.host, kind: 'denied' });
         return route.abort();
       });
@@ -41,7 +41,12 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
       const leads = async () => page.evaluate(() => (window.dataLayer || []).filter(x => x[0] === 'event' && x[1] === 'lead_submit').map(x => x[2]));
       async function reset(path = '/kontakty') {
         requests = []; reply = { status: 200, body: '{"success":true}' }; delayMs = 0;
-        await page.goto(origin + path, { waitUntil: 'networkidle' });
+        await page.goto(origin + path, { waitUntil: 'domcontentloaded' });
+        await page.waitForFunction(() => typeof window.gtag === 'function');
+        // Verify the real React input handler is active before each scenario.
+        await form.locator('[name="phone"]').fill('qa');
+        await page.waitForFunction(() => document.querySelector('form#contact-form input[name="phone"]')?.validity.customError);
+        await form.locator('[name="phone"]').fill('');
         await form.locator('[name="name"]').fill('SYNTHETIC QA');
       }
       async function fill(value = phone) { await form.locator('[name="phone"]').fill(value); }
