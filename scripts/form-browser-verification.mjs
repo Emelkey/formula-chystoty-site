@@ -35,11 +35,34 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
         return route.abort();
       });
       const page = await context.newPage();
+      // Let the previous document finish its same-origin RSC prefetches before a forced fixture reset.
+      // This is reset isolation, not a page-readiness signal; hydration assertions below stay unchanged.
+      const inflightRsc = new Set();
+      let lastRscActivity = 0;
+      page.on('request', request => {
+        const url = new URL(request.url());
+        if (url.origin === origin && (url.searchParams.has('_rsc') || request.headers().rsc === '1')) {
+          inflightRsc.add(request);
+          lastRscActivity = Date.now();
+        }
+      });
+      for (const event of ['requestfinished', 'requestfailed']) page.on(event, request => {
+        if (inflightRsc.delete(request)) lastRscActivity = Date.now();
+      });
+      async function drainRscBeforeForcedNavigation() {
+        if (page.url() === 'about:blank') return;
+        const started = Date.now();
+        while (inflightRsc.size || Date.now() - lastRscActivity < 200) {
+          if (Date.now() - started > 30000) throw new Error('RSC requests did not settle before fixture reset: ' + [...inflightRsc].map(request => request.url()).join(', '));
+          await new Promise(resolve => setTimeout(resolve, 25));
+        }
+      }
       const errors = [];
       page.on('pageerror', e => errors.push(e.message));
       const form = page.locator('form#contact-form').first();
       const leads = async () => page.evaluate(() => (window.dataLayer || []).filter(x => x[0] === 'event' && x[1] === 'lead_submit').map(x => x[2]));
       async function reset(path = '/kontakty') {
+        await drainRscBeforeForcedNavigation();
         requests = []; reply = { status: 200, body: '{"success":true}' }; delayMs = 0;
         await page.goto(origin + path, { waitUntil: 'domcontentloaded' });
         await page.waitForFunction(() => typeof window.gtag === 'function');
