@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ChevronDown } from "lucide-react";
+import styles from "./HomeServicesSection.module.css";
 
 const primaryServices = [
   {
@@ -84,44 +85,46 @@ const secondaryGroups = [
 
 export function HomeServicesSection() {
   return (
-    <section className="bg-white py-16 md:py-24" aria-labelledby="home-services-title">
+    <section className={`${styles.section} py-16 md:py-24`} aria-labelledby="home-services-title">
       <div className="container">
-        <div className="max-w-3xl">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Послуги</p>
-          <h2 id="home-services-title" className="text-3xl font-bold leading-tight text-brand-black md:text-5xl">
-            Послуги <span className="text-brand-green">«Формули Чистоти»</span>
-          </h2>
-          <p className="mt-5 leading-7 text-brand-graphite">
-            Обирайте потрібний формат прибирання — від регулярного догляду за квартирою до складного післяремонтного та комерційного клінінгу. Працюємо у Черкасах та області зі своєю технікою, інвентарем і професійними засобами.
-          </p>
-        </div>
+        <div className={styles.stage}>
+          <div className={styles.intro}>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Послуги</p>
+            <h2 id="home-services-title" className="text-3xl font-bold leading-tight text-brand-black md:text-5xl">
+              Послуги <span className="text-brand-green">«Формули Чистоти»</span>
+            </h2>
+            <p className="mt-5 leading-7 text-brand-graphite">
+              Обирайте потрібний формат прибирання — від регулярного догляду за квартирою до складного післяремонтного та комерційного клінінгу. Працюємо у Черкасах та області зі своєю технікою, інвентарем і професійними засобами.
+            </p>
+          </div>
 
-        <div className="mt-10 grid items-stretch gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {primaryServices.map((service) => (
-            <article className="group flex min-w-0 flex-col overflow-hidden rounded-[24px] border border-[#E8EEE5] bg-white p-5 shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(17,17,17,0.12)] sm:p-6" key={service.href}>
-              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[18px] border border-brand-green/10 bg-brand-mist">
-                <Image
-                  alt={service.imageAlt}
-                  className="object-cover transition duration-300 group-hover:scale-105"
-                  fill
-                  loading="lazy"
-                  sizes="(max-width: 767px) 92vw, (max-width: 1023px) 46vw, 31vw"
-                  src={service.image}
-                />
-              </div>
-              <div className="flex flex-1 flex-col pt-6">
-                <h3 className="text-xl font-bold leading-tight text-brand-black">
-                  <Link className="transition hover:text-brand-hover focus-visible:focus-ring" href={service.href}>
-                    {service.title}
+          <div className={styles.rail} role="region" aria-label="Основні послуги — горизонтальна стрічка із шести карток" tabIndex={0}>
+            {primaryServices.map((service) => (
+              <article className={styles.card} key={service.href}>
+                <div className={styles.media}>
+                  <Image
+                    alt={service.imageAlt}
+                    className={styles.image}
+                    fill
+                    loading="lazy"
+                    sizes="(max-width: 640px) 78vw, (max-width: 1023px) 320px, 320px"
+                    src={service.image}
+                  />
+                </div>
+                <div className={styles.cardBody}>
+                  <h3 className="text-xl font-bold leading-tight text-brand-black">
+                    <Link className="transition hover:text-brand-hover focus-visible:focus-ring" href={service.href}>
+                      {service.title}
+                    </Link>
+                  </h3>
+                  <p className="mt-3 flex-1 text-sm leading-6 text-brand-graphite">{service.description}</p>
+                  <Link className="mt-5 inline-flex min-h-11 w-fit items-center gap-2 text-sm font-semibold text-brand-hover focus-visible:focus-ring" href={service.href}>
+                    Детальніше <ArrowRight size={16} aria-hidden />
                   </Link>
-                </h3>
-                <p className="mt-3 flex-1 text-sm leading-6 text-brand-graphite">{service.description}</p>
-                <Link className="mt-5 inline-flex min-h-11 w-fit items-center gap-2 text-sm font-semibold text-brand-hover focus-visible:focus-ring" href={service.href}>
-                  Детальніше <ArrowRight size={16} aria-hidden />
-                </Link>
-              </div>
-            </article>
-          ))}
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
 
         <div className="mt-16">

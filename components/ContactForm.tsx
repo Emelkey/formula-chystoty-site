@@ -97,7 +97,7 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
   return (
     <form
       id="contact-form"
-      className="grid w-full min-w-0 gap-4 rounded-lg bg-white p-5 shadow-soft"
+      className="grid w-full min-w-0 scroll-mt-24 gap-4 rounded-lg bg-white p-5 shadow-soft"
       onSubmit={handleSubmit}
     >
       <label className="pointer-events-none absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
@@ -107,7 +107,7 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
       <div className="grid min-w-0 gap-4 md:grid-cols-2">
         <label className="grid min-w-0 gap-2 text-sm font-semibold">
           Ім’я
-          <input required name="name" autoComplete="name" className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 font-normal focus-visible:focus-ring" placeholder="Ваше ім’я" />
+          <input required name="name" autoComplete="name" className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 text-base font-normal focus-visible:focus-ring" placeholder="Ваше ім’я" />
         </label>
         <label className="grid min-w-0 gap-2 text-sm font-semibold">
           Телефон
@@ -117,7 +117,7 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
             name="phone"
             autoComplete="tel"
             maxLength={40}
-            className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 font-normal focus-visible:focus-ring"
+            className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 text-base font-normal focus-visible:focus-ring"
             placeholder="+380..."
             inputMode="tel"
             title={PHONE_VALIDATION_MESSAGE}
@@ -137,7 +137,7 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
       <div className={compact ? "grid min-w-0 gap-4" : "grid min-w-0 gap-4 md:grid-cols-2"}>
         <label className="grid min-w-0 gap-2 text-sm font-semibold">
           Тип прибирання
-          <select name="type" className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 font-normal focus-visible:focus-ring">
+          <select name="type" className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 text-base font-normal focus-visible:focus-ring">
             {(business ? businessCleaningTypes : cleaningTypes).map((type) => (
               <option key={type}>{type}</option>
             ))}
@@ -145,13 +145,13 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
         </label>
         {!compact ? <label className="grid min-w-0 gap-2 text-sm font-semibold">
           Площа
-          <input name="area" className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 font-normal focus-visible:focus-ring" placeholder="Наприклад, 65 м²" />
+          <input name="area" className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 text-base font-normal focus-visible:focus-ring" placeholder="Наприклад, 65 м²" />
         </label> : null}
       </div>
       {business && !compact ? (
         <label className="grid min-w-0 gap-2 text-sm font-semibold">
           Разове чи регулярне прибирання
-          <select name="frequency" className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 font-normal focus-visible:focus-ring">
+          <select name="frequency" className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 text-base font-normal focus-visible:focus-ring">
             <option>Разове прибирання</option>
             <option>Регулярне прибирання</option>
             <option>Потрібна консультація щодо графіка</option>
@@ -160,7 +160,7 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
       ) : null}
       {!compact ? <label className="grid min-w-0 gap-2 text-sm font-semibold">
         Коментар
-        <textarea name="comment" className="min-h-28 w-full min-w-0 rounded-md border border-black/10 p-3 font-normal focus-visible:focus-ring" placeholder="Опишіть задачу, бажану дату або стан приміщення" />
+        <textarea name="comment" className="min-h-28 w-full min-w-0 rounded-md border border-black/10 p-3 text-base font-normal focus-visible:focus-ring" placeholder="Опишіть задачу, бажану дату або стан приміщення" />
       </label> : null}
       <div className="rounded-md bg-brand-mist p-4 text-sm leading-6 text-brand-graphite" data-photo-estimate>
         <p className="font-semibold text-brand-black">Потрібен розрахунок за фото?</p>

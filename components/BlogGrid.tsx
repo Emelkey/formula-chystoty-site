@@ -23,7 +23,7 @@ export function BlogGrid() {
       </div>
       <label className="max-w-xl text-sm font-semibold">
         Пошук по статтях
-        <input className="mt-2 min-h-12 w-full rounded-md border border-black/10 px-3 font-normal focus-visible:focus-ring" placeholder="Введіть тему" value={query} onChange={(event) => setQuery(event.target.value)} />
+        <input className="mt-2 min-h-12 w-full rounded-md border border-black/10 px-3 text-base font-normal focus-visible:focus-ring" placeholder="Введіть тему" value={query} onChange={(event) => setQuery(event.target.value)} />
       </label>
       <div className="grid gap-5 md:grid-cols-3">
         {filteredPosts.map((post) => (
