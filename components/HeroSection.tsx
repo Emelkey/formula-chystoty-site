@@ -167,6 +167,10 @@ export function HeroSection({ eyebrow = "Клінінг у Черкасах", ti
             </button>
           </div>
           <div className={styles.contacts}><ContactButtons compact /></div>
+          <div className={styles.badges}>
+            <span>Виїзд у день звернення</span>
+            <span>Працюємо у Черкасах та області</span>
+          </div>
           <p className={styles.conceptNote}>Ілюстрація дизайну. Приклади реальних робіт — нижче на сторінці.</p>
         </div>
         <p className={styles.scrollHint}>Прокрутіть, щоб побачити результат <span aria-hidden="true">↓</span></p>
