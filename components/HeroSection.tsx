@@ -54,6 +54,16 @@ export function HeroSection({ eyebrow = "Клінінг у Черкасах", ti
       if (scrollFrame === null) scrollFrame = window.requestAnimationFrame(updateFromScroll);
     };
     const updateMode = () => {
+      if (reduced.matches && playingRef.current) {
+        if (animationRef.current !== null) window.cancelAnimationFrame(animationRef.current);
+        animationRef.current = null;
+        playingRef.current = false;
+        manualRef.current = true;
+        setSplit(0);
+        setPlaying(false);
+        setPlayed(true);
+        return;
+      }
       if (!manualRef.current && !playingRef.current && (!desktop.matches || reduced.matches)) setSplit(INITIAL_SPLIT);
       else schedule();
     };

@@ -208,7 +208,7 @@
   z-index: 3;
   top: 0;
   bottom: 0;
-  left: var(--split);
+  left: clamp(29px, var(--split), calc(100% - 29px));
   width: 2px;
   background: #f4fff6;
   box-shadow: 0 0 18px rgba(224, 255, 232, .8);
@@ -257,9 +257,13 @@
   left: clamp(12px, calc(var(--split) + 27px), calc(100% - 72px));
 }
 
-.stage[data-clean="true"] .sideLabel,
-.stage[data-clean="true"] .splitLine {
+.stage[data-clean="true"] .sideLabel {
   opacity: 0;
+}
+
+.stage[data-clean="true"] .splitLine {
+  background: transparent;
+  box-shadow: none;
 }
 
 .compareInput {
@@ -326,6 +330,8 @@
   }
 
   .stage {
+    --media-zone-height: clamp(190px, 34svh, 300px);
+    --compare-y: clamp(96px, 17svh, 150px);
     position: relative;
     top: auto;
     height: auto;
@@ -345,7 +351,7 @@
   .content {
     min-height: calc(100svh - 76px);
     justify-content: flex-end;
-    padding-top: 76px;
+    padding-top: var(--media-zone-height);
     padding-bottom: 22px;
   }
 
@@ -408,18 +414,42 @@
   }
 
   .splitLine span {
-    top: 28%;
+    top: var(--compare-y);
     width: 44px;
     height: 44px;
     font-size: 21px;
   }
 
   .compareInput {
-    top: 28%;
+    top: var(--compare-y);
   }
 
   .sideLabel {
-    top: 33%;
+    top: calc(var(--compare-y) + 42px);
+  }
+
+  .scrollHint {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-height: 700px) {
+  .story {
+    height: auto;
+  }
+
+  .stage {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: calc(100svh - 76px);
+  }
+
+  .content {
+    height: auto;
+    min-height: calc(100svh - 76px);
+    padding-top: 48px;
+    padding-bottom: 60px;
   }
 
   .scrollHint {
