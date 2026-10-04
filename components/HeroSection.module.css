@@ -348,18 +348,26 @@
   }
 
   .stage {
-    --media-zone-height: clamp(190px, 34svh, 300px);
-    --compare-y: clamp(96px, 17svh, 150px);
+    --media-zone-height: clamp(220px, 32svh, 300px);
+    --compare-y: clamp(110px, 16svh, 150px);
     position: relative;
     top: auto;
     height: auto;
     min-height: calc(100svh - 76px);
+    background: #101b17;
+  }
+
+  .images {
+    inset: 0 0 auto;
+    height: var(--media-zone-height);
   }
 
   .shade {
-    background:
-      linear-gradient(0deg, rgba(5, 16, 10, .97) 0%, rgba(5, 16, 10, .91) 33%, rgba(5, 16, 10, .55) 66%, rgba(5, 16, 10, .25) 100%),
-      linear-gradient(90deg, rgba(5, 13, 10, .50), transparent 75%);
+    background: linear-gradient(to bottom,
+      rgba(4, 14, 9, .12) 0,
+      rgba(4, 14, 9, .12) calc(var(--media-zone-height) - 64px),
+      #101b17 var(--media-zone-height),
+      #101b17 100%);
   }
 
   .roomImage {
@@ -368,8 +376,8 @@
 
   .content {
     min-height: calc(100svh - 76px);
-    justify-content: flex-end;
-    padding-top: var(--media-zone-height);
+    justify-content: flex-start;
+    padding-top: calc(var(--media-zone-height) + 16px);
     padding-bottom: 22px;
   }
 
@@ -446,6 +454,11 @@
     width: 44px;
     height: 44px;
     font-size: 21px;
+  }
+
+  .splitLine {
+    bottom: auto;
+    height: var(--media-zone-height);
   }
 
   .compareInput {

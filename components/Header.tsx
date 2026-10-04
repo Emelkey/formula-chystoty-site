@@ -43,7 +43,7 @@ export function Header() {
           <PrimaryButton>Розрахувати</PrimaryButton>
         </div>
         <div className="flex items-center gap-2 xl:hidden">
-          <ContactAction type="phone" revealPhoneNumber phoneNumberPosition="left" className="inline-flex h-11 min-w-11 items-center justify-center gap-2 rounded-md bg-brand-green px-3 text-sm font-semibold text-white focus-visible:focus-ring">
+          <ContactAction type="phone" className="inline-flex h-11 min-w-11 items-center justify-center gap-2 rounded-md bg-brand-green px-3 text-sm font-semibold text-white focus-visible:focus-ring">
             <Phone size={20} aria-hidden />
           </ContactAction>
           <button
