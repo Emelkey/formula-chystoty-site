@@ -1,6 +1,6 @@
 .story {
   height: 185svh;
-  background: #101b17;
+  background: #f6f8f5;
 }
 
 .stage {
@@ -11,8 +11,8 @@
   min-height: 580px;
   overflow: hidden;
   isolation: isolate;
-  color: #fff;
-  background: #14211b;
+  color: #17271d;
+  background: #f6f8f5;
 }
 
 .images,
@@ -45,8 +45,8 @@
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(5, 13, 10, .88) 0%, rgba(5, 13, 10, .76) 27%, rgba(5, 13, 10, .20) 51%, transparent 71%),
-    linear-gradient(0deg, rgba(4, 14, 9, .36), transparent 28%);
+    linear-gradient(90deg, #f6f8f5 0%, rgba(246, 248, 245, .92) 27%, rgba(246, 248, 245, .78) 51%, transparent 76%),
+    linear-gradient(0deg, rgba(246, 248, 245, .4), transparent 28%);
 }
 
 .content {
@@ -68,7 +68,7 @@
 
 .eyebrow {
   margin: 0 0 20px;
-  color: #b8efc5;
+  color: #356f26;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: .18em;
@@ -87,13 +87,13 @@
 }
 
 .title span {
-  color: #fff;
+  color: inherit;
 }
 
 .description {
   max-width: min(530px, 47vw);
   margin: 24px 0 0;
-  color: #edf3ee;
+  color: #3c4c41;
   font-size: clamp(14px, 1.14vw, 17px);
   line-height: 1.6;
   text-wrap: pretty;
@@ -113,9 +113,9 @@
   min-width: 0;
   flex-direction: column;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, .35);
+  border: 1px solid #c7d4c6;
   border-radius: 10px;
-  background: rgba(7, 24, 15, .66);
+  background: rgba(255, 255, 255, .88);
   padding: 8px 10px;
   transition: background .2s, border-color .2s;
   backdrop-filter: blur(8px);
@@ -123,12 +123,12 @@
 
 .price:hover,
 .price:focus-visible {
-  border-color: #8aeeaa;
-  background: rgba(7, 40, 19, .88);
+  border-color: #4e9d26;
+  background: #eaf4e5;
 }
 
 .price span {
-  color: #e7f4ea;
+  color: #3c4c41;
   font-size: 11px;
   font-weight: 650;
   line-height: 1.15;
@@ -166,15 +166,20 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  border: 1px solid rgba(255, 255, 255, .75);
+  border: 1px solid #71856f;
   border-radius: 999px;
-  background: rgba(8, 22, 13, .52);
+  background: rgba(255, 255, 255, .88);
   padding: 10px 18px;
-  color: #fff;
+  color: #17271d;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   backdrop-filter: blur(8px);
+}
+
+.replay:hover:not(:disabled) {
+  border-color: #356f26;
+  background: #eaf4e5;
 }
 
 .replay:disabled {
@@ -184,7 +189,7 @@
 
 .replay:focus-visible,
 .compareInput:focus-visible {
-  outline: 3px solid #8ff0aa;
+  outline: 3px solid #356f26;
   outline-offset: 3px;
 }
 
@@ -204,11 +209,11 @@
 }
 
 .badges span {
-  border: 1px solid rgba(255, 255, 255, .32);
+  border: 1px solid #c7d4c6;
   border-radius: 999px;
-  background: rgba(7, 24, 15, .66);
+  background: rgba(255, 255, 255, .88);
   padding: 7px 11px;
-  color: #edf3ee;
+  color: #3c4c41;
   font-size: 11px;
   font-weight: 700;
   line-height: 1.2;
@@ -216,7 +221,7 @@
 
 .conceptNote {
   margin: 14px 0 0;
-  color: #d4e4d7;
+  color: #3c4c41;
   font-size: 11px;
   line-height: 1.4;
 }
@@ -229,7 +234,7 @@
   left: var(--split);
   width: 2px;
   background: #f4fff6;
-  box-shadow: 0 0 18px rgba(224, 255, 232, .8);
+  box-shadow: 0 0 0 1px rgba(23, 39, 29, .45), 0 0 18px rgba(224, 255, 232, .8);
   pointer-events: none;
 }
 
@@ -323,7 +328,7 @@
 }
 
 .stage:has(.compareInput:focus-visible) .splitLine span {
-  outline: 3px solid #8ff0aa;
+  outline: 3px solid #356f26;
   outline-offset: 3px;
 }
 
@@ -333,7 +338,10 @@
   right: max(20px, calc((100vw - 1200px) / 2));
   bottom: 24px;
   margin: 0;
-  color: #eaf4eb;
+  border-radius: 999px;
+  background: rgba(246, 248, 245, .94);
+  padding: 8px 12px;
+  color: #3c4c41;
   font-size: 11px;
   font-weight: 650;
   letter-spacing: .04em;
@@ -357,7 +365,7 @@
     top: auto;
     height: auto;
     min-height: calc(100svh - 76px);
-    background: #101b17;
+    background: #f6f8f5;
   }
 
   .images {
@@ -367,10 +375,10 @@
 
   .shade {
     background: linear-gradient(to bottom,
-      rgba(4, 14, 9, .12) 0,
-      rgba(4, 14, 9, .12) calc(var(--media-zone-height) - 64px),
-      #101b17 var(--media-zone-height),
-      #101b17 100%);
+      transparent 0,
+      transparent calc(var(--media-zone-height) - 64px),
+      #f6f8f5 var(--media-zone-height),
+      #f6f8f5 100%);
   }
 
   .roomImage {
