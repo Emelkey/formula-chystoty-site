@@ -104,7 +104,7 @@ export function HeroSection({ eyebrow = "Клінінг у Черкасах", ti
     if (event.key === "ArrowUp" || event.key === "ArrowDown") {
       event.preventDefault();
       manualRef.current = false;
-      window.scrollBy({ top: event.key === "ArrowDown" ? 80 : -80, behavior: "instant" });
+      window.scrollBy({ top: (event.key === "ArrowDown" ? 1 : -1) * (event.repeat ? 80 : 160), behavior: "instant" });
     }
   };
 
