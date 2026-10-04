@@ -223,10 +223,10 @@
 
 .splitLine {
   position: absolute;
-  z-index: 3;
+  z-index: 7;
   top: 0;
   bottom: 0;
-  left: clamp(29px, var(--split), calc(100% - 29px));
+  left: var(--split);
   width: 2px;
   background: #f4fff6;
   box-shadow: 0 0 18px rgba(224, 255, 232, .8);
@@ -249,6 +249,32 @@
   font-size: 24px;
   font-weight: 700;
   white-space: nowrap;
+  pointer-events: auto;
+  touch-action: none;
+  user-select: none;
+  cursor: ew-resize;
+}
+
+.dragHint {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid rgba(255, 255, 255, .65);
+  border-radius: 999px;
+  background: rgba(8, 25, 16, .82);
+  padding: 8px 12px;
+  color: #fff;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 750;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.stage[data-interacted="true"] .dragHint {
+  display: none;
 }
 
 .sideLabel {
@@ -286,42 +312,19 @@
 
 .compareInput {
   position: absolute;
-  z-index: 5;
-  top: 50%;
+  top: 0;
   left: 0;
-  width: 100%;
-  height: 64px;
-  margin: -32px 0 0;
-  appearance: none;
-  background: transparent;
-  cursor: ew-resize;
-}
-
-.compareInput::-webkit-slider-runnable-track {
-  height: 64px;
-  background: transparent;
-}
-
-.compareInput::-webkit-slider-thumb {
-  width: 58px;
-  height: 58px;
-  appearance: none;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
   border: 0;
-  border-radius: 50%;
-  background: transparent;
+  pointer-events: none;
 }
 
-.compareInput::-moz-range-track {
-  height: 64px;
-  background: transparent;
-}
-
-.compareInput::-moz-range-thumb {
-  width: 58px;
-  height: 58px;
-  border: 0;
-  border-radius: 50%;
-  background: transparent;
+.stage:has(.compareInput:focus-visible) .splitLine span {
+  outline: 3px solid #8ff0aa;
+  outline-offset: 3px;
 }
 
 .scrollHint {
@@ -459,10 +462,6 @@
   .splitLine {
     bottom: auto;
     height: var(--media-zone-height);
-  }
-
-  .compareInput {
-    top: var(--compare-y);
   }
 
   .sideLabel {
