@@ -42,10 +42,10 @@ export function HomePageContent() {
         </div>
       </section>
       <HomeServicesSection />
+      <BeforeAfterGallery realPhotosOnly compact />
       <WorkSteps />
       <WhyChooseUs />
       <PricingSection compact />
-      <BeforeAfterGallery realPhotosOnly compact />
       <ReviewsSection />
       <GoogleMapsTrust />
       <section className="section bg-white">
