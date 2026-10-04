@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type FormEvent, type KeyboardEvent, type PointerEvent } from "react";
 import { ContactButtons, PrimaryButton } from "@/components/Buttons";
 import styles from "@/components/HeroSection.module.css";
 
@@ -21,6 +21,7 @@ export function HeroSection({ eyebrow = "Клінінг у Черкасах", ti
   const stageRef = useRef<HTMLDivElement>(null);
   const rangeRef = useRef<HTMLInputElement>(null);
   const animationRef = useRef<number | null>(null);
+  const pointerIdRef = useRef<number | null>(null);
   const manualRef = useRef(false);
   const playingRef = useRef(false);
   const [playing, setPlaying] = useState(false);
@@ -48,6 +49,7 @@ export function HeroSection({ eyebrow = "Клінінг у Черкасах", ti
       if (!story) return;
       const travel = Math.max(1, story.offsetHeight - (window.innerHeight - 76));
       const progress = Math.max(0, Math.min(1, (76 - story.getBoundingClientRect().top) / travel));
+      if (progress > 0.01 && stageRef.current) stageRef.current.dataset.interacted = "true";
       setSplit(INITIAL_SPLIT * (1 - smooth(progress)));
     };
     const schedule = () => {
@@ -58,7 +60,7 @@ export function HeroSection({ eyebrow = "Клінінг у Черкасах", ti
         if (animationRef.current !== null) window.cancelAnimationFrame(animationRef.current);
         animationRef.current = null;
         playingRef.current = false;
-        manualRef.current = true;
+        manualRef.current = false;
         setSplit(0);
         setPlaying(false);
         setPlayed(true);
@@ -84,16 +86,60 @@ export function HeroSection({ eyebrow = "Клінінг у Черкасах", ti
     };
   }, [setSplit]);
 
-  const onCompare = (event: FormEvent<HTMLInputElement>) => {
-    manualRef.current = true;
-    playingRef.current = false;
+  const stopPlayback = () => {
     if (animationRef.current !== null) window.cancelAnimationFrame(animationRef.current);
+    animationRef.current = null;
+    playingRef.current = false;
     setPlaying(false);
+  };
+
+  const onCompare = (event: FormEvent<HTMLInputElement>) => {
+    if (stageRef.current) stageRef.current.dataset.interacted = "true";
+    manualRef.current = true;
+    stopPlayback();
     setSplit(Number(event.currentTarget.value));
   };
 
+  const onCompareKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+      event.preventDefault();
+      manualRef.current = false;
+      window.scrollBy({ top: event.key === "ArrowDown" ? 80 : -80, behavior: "instant" });
+    }
+  };
+
+  const updateFromPointer = (clientX: number) => {
+    const bounds = stageRef.current?.getBoundingClientRect();
+    if (!bounds?.width) return;
+    setSplit(((clientX - bounds.left) / bounds.width) * 100);
+  };
+
+  const onHandlePointerDown = (event: PointerEvent<HTMLSpanElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    event.preventDefault();
+    rangeRef.current?.blur();
+    pointerIdRef.current = event.pointerId;
+    event.currentTarget.setPointerCapture(event.pointerId);
+    if (stageRef.current) stageRef.current.dataset.interacted = "true";
+    manualRef.current = true;
+    stopPlayback();
+    updateFromPointer(event.clientX);
+  };
+
+  const onHandlePointerMove = (event: PointerEvent<HTMLSpanElement>) => {
+    if (pointerIdRef.current === event.pointerId) updateFromPointer(event.clientX);
+  };
+
+  const onHandlePointerEnd = (event: PointerEvent<HTMLSpanElement>) => {
+    if (pointerIdRef.current !== event.pointerId) return;
+    pointerIdRef.current = null;
+    manualRef.current = false;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+  };
+
   const replay = () => {
-    if (animationRef.current !== null) window.cancelAnimationFrame(animationRef.current);
+    if (stageRef.current) stageRef.current.dataset.interacted = "true";
+    stopPlayback();
     manualRef.current = false;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setSplit(0);
@@ -107,13 +153,12 @@ export function HeroSection({ eyebrow = "Клінінг у Черкасах", ti
     const started = window.performance.now();
     const frame = (now: number) => {
       const time = Math.max(0, Math.min(1, (now - started) / 8000));
-      const reveal = smooth(Math.max(0, Math.min(1, (time - 0.16) / 0.54)));
-      setSplit(INITIAL_SPLIT * (1 - reveal));
+      setSplit(INITIAL_SPLIT * (1 - time));
       if (time < 1) animationRef.current = window.requestAnimationFrame(frame);
       else {
         animationRef.current = null;
         playingRef.current = false;
-        manualRef.current = true;
+        manualRef.current = false;
         setPlaying(false);
         setPlayed(true);
       }
@@ -133,7 +178,11 @@ export function HeroSection({ eyebrow = "Клінінг у Черкасах", ti
           </div>
         </div>
         <div className={styles.shade} aria-hidden="true" />
-        <div className={styles.splitLine} aria-hidden="true"><span>‹ ›</span></div>
+        <div className={styles.splitLine} aria-hidden="true">
+          <span onPointerDown={onHandlePointerDown} onPointerMove={onHandlePointerMove} onPointerUp={onHandlePointerEnd} onPointerCancel={onHandlePointerEnd} onLostPointerCapture={onHandlePointerEnd}>
+            <em className={styles.dragHint}>Погортай мене</em>‹ ›
+          </span>
+        </div>
         <span className={styles.sideLabel + " " + styles.beforeLabel} aria-hidden="true">До</span>
         <span className={styles.sideLabel + " " + styles.afterLabel} aria-hidden="true">Після</span>
         <input
@@ -146,6 +195,10 @@ export function HeroSection({ eyebrow = "Клінінг у Черкасах", ti
           step="1"
           defaultValue={INITIAL_SPLIT}
           onInput={onCompare}
+          onChange={onCompare}
+          onKeyDown={onCompareKeyDown}
+          onKeyUp={() => { manualRef.current = false; }}
+          onBlur={() => { manualRef.current = false; }}
         />
 
         <div className={"container " + styles.content}>
