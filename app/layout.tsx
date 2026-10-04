@@ -5,6 +5,7 @@ import { ContactActionToast } from "@/components/ContactAction";
 import { Footer } from "@/components/Footer";
 import { FloatingContactButtons } from "@/components/FloatingContactButtons";
 import { Header } from "@/components/Header";
+import { KeyboardPageScroll } from "@/components/KeyboardPageScroll";
 import { SeoJsonLd } from "@/components/SeoJsonLd";
 import { absoluteUrl, contacts, positioning, servicePages } from "@/lib/site";
 
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           `}
         </Script>
         <Header />
+        <KeyboardPageScroll />
         <main className="min-h-screen">{children}</main>
         <Footer />
         <FloatingContactButtons />

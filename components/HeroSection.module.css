@@ -280,7 +280,7 @@
 .sideLabel {
   position: absolute;
   z-index: 3;
-  top: 56%;
+  top: 24px;
   border: 1px solid rgba(255, 255, 255, .68);
   border-radius: 100px;
   background: rgba(8, 23, 13, .55);
