@@ -213,7 +213,7 @@ test("sitemap is XML and contains only direct canonical routes", () => {
 
   assert.equal(new Set(sitemapPaths).size, sitemapPaths.length, "Sitemap routes must be unique");
   assert.equal(sitemapPaths.length, mainRoutes.length + services.length + blogPosts.length);
-  assert.equal(sitemapPaths.length, 62, "Sitemap must contain 8 main, 30 service, and 24 blog URLs");
+  assert.equal(sitemapPaths.length, 63, "Sitemap must contain 8 main, 30 service, and 25 blog URLs");
   for (const path of sitemapPaths) {
     assert.equal(redirectOnlyPaths.has(path), false, `Sitemap contains redirect-only URL: ${path}`);
     assert.equal(path.startsWith("/uk") || path.startsWith("/ru"), false, `Sitemap contains legacy URL: ${path}`);
@@ -345,6 +345,27 @@ test("blog titles and headings do not duplicate landing-page signals", () => {
     assert.equal(titles.has(normalize(post.title)), false, `Blog Title duplicates a landing page: ${post.slug}`);
     assert.equal(headings.has(normalize(post.h1 ?? post.title)), false, `Blog H1 duplicates a landing page: ${post.slug}`);
   }
+});
+
+test("autumn sofa article keeps its drying focus, sources and service links", () => {
+  const post = blogPosts.find((item) => item.slug === "himchystka-dyvana-voseny-skilky-sohne");
+  assert.ok(post, "The autumn article must be included in the blog inventory and sitemap source");
+  assert.equal(post.publishedAt, "2026-10-06");
+  assert.equal(post.updatedAt, "2026-10-06");
+  assert.equal(post.cta.href, "/himchystka-dyvana-cherkasy");
+  assert.ok(existsSync(resolve(root, "public", post.mainImage.slice(1))));
+  assert.match(post.imageCaption, /Ілюстрація/);
+  const body = [post.excerpt, ...post.intro, ...post.content.flatMap((section) => [section.heading, ...(section.paragraphs ?? []), ...(section.list ?? [])]), ...post.faq.flatMap((item) => [item.question, item.answer])].join(" ");
+  const wordCount = body.split(/\s+/u).length;
+  assert.ok(wordCount >= 800 && wordCount <= 1100, `Expected 800–1100 words, got ${wordCount}`);
+  assert.match(body, /6–12 годин/);
+  assert.match(body, /не гарантує/);
+  assert.match(body, /хімчистка меблів/);
+  const links = post.content.flatMap((section) => section.links ?? []);
+  assert.ok(links.some((link) => link.href === "/blog/yak-chasto-potribno-robyty-himchystku-dyvana"));
+  assert.ok(links.some((link) => new URL(link.href, "https://www.formula-chistoty.ck.ua").hostname === "www.karcher.com"));
+  assert.ok(links.some((link) => new URL(link.href, "https://www.formula-chistoty.ck.ua").hostname === "bissell.com.au"));
+  assert.ok(blogPosts.some((item) => item.slug === "yak-chasto-potribno-robyty-himchystku-dyvana"), "Keep the distinct frequency article available");
 });
 
 test("service pages do not have critically duplicated body content", (context) => {

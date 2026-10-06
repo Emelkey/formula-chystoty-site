@@ -9,6 +9,7 @@ type BlogPostSection = {
   heading: string;
   paragraphs?: string[];
   list?: string[];
+  links?: { title: string; href: string }[];
   subSections?: {
     heading: string;
     paragraphs?: string[];
@@ -27,6 +28,7 @@ type BlogPost = {
   excerpt: string;
   mainImage: string;
   imageAlt: string;
+  imageCaption?: string;
   readingTime?: string;
   intro?: string[];
   content?: BlogPostSection[];
@@ -78,6 +80,7 @@ export function BlogPostLayout({ post }: { post: BlogPost }) {
             {post.readingTime ? <span>{post.readingTime}</span> : null}
           </div>
           <Image src={post.mainImage} alt={post.imageAlt} width={1200} height={800} priority sizes="(max-width: 768px) 92vw, 768px" className="my-8 aspect-[3/2] w-full rounded-lg object-cover" />
+          {post.imageCaption ? <p className="-mt-5 mb-8 text-sm text-brand-graphite">{post.imageCaption}</p> : null}
           <p className="text-lg leading-8 text-brand-graphite">{post.excerpt}</p>
 
           {post.content ? (
@@ -92,6 +95,11 @@ export function BlogPostLayout({ post }: { post: BlogPost }) {
                     <p className="mt-4 leading-8 text-brand-graphite" key={paragraph}>{renderTextWithLinks(paragraph)}</p>
                   ))}
                   {section.list ? <ArticleList items={section.list} /> : null}
+                  {section.links?.map((link) => (
+                    <p className="mt-4 leading-7" key={link.href}>
+                      <Link className="font-semibold text-brand-hover underline underline-offset-4" href={link.href}>{link.title}</Link>
+                    </p>
+                  ))}
                   {section.subSections?.map((subSection) => (
                     <section className="mt-7" key={subSection.heading}>
                       <h3 className="text-xl font-bold">{subSection.heading}</h3>
@@ -156,6 +164,8 @@ export function BlogPostLayout({ post }: { post: BlogPost }) {
             description: post.seoDescription,
             datePublished: post.publishedAt,
             dateModified: post.updatedAt,
+            image: absoluteUrl(post.mainImage),
+            inLanguage: "uk-UA",
             author: { "@type": "Organization", name: contacts.companyName },
             publisher: { "@type": "Organization", name: contacts.companyName },
             mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`)
