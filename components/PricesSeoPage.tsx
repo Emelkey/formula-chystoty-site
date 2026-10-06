@@ -391,7 +391,7 @@ export function PricesSeoPage({
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <PrimaryButton>Розрахувати вартість</PrimaryButton>
-              <a className="inline-flex min-h-12 items-center justify-center rounded-md border border-brand-green/25 bg-white px-5 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring" href={contacts.phoneHref}>
+              <a className="button-spring inline-flex min-h-12 items-center justify-center rounded-md border border-brand-green/25 bg-white px-5 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring" href={contacts.phoneHref}>
                 Зателефонувати
               </a>
               <ContactButtons compact />
@@ -486,7 +486,7 @@ export function PricesSeoPage({
                 <div className="border-t border-black/5 bg-brand-mist/60 px-5 py-4 text-sm leading-6 text-brand-graphite md:px-6">
                   <p>{group.note}</p>
                   {group.title === "Прибирання квартир" ? (
-                    <a className="mt-4 inline-flex min-h-10 items-center justify-center rounded-md bg-brand-green px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" href={apartmentCleaningUrl}>
+                    <a className="button-spring mt-4 inline-flex min-h-10 items-center justify-center rounded-md bg-brand-green px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" href={apartmentCleaningUrl}>
                       Детальніше про прибирання квартир
                     </a>
                   ) : null}
@@ -543,7 +543,7 @@ export function PricesSeoPage({
             <div className="flex flex-wrap gap-3">
               {priceServiceLinks.map((link) => (
                 <a
-                  className="rounded-md border border-brand-green/20 bg-white px-4 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring"
+                  className="button-spring rounded-md border border-brand-green/20 bg-white px-4 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring"
                   href={link.href}
                   key={link.href}
                 >

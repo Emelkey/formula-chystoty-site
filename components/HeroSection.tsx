@@ -207,14 +207,14 @@ export function HeroSection({ eyebrow = "Клінінг у Черкасах", ti
           <p className={styles.description}>{description}</p>
           <div className={styles.prices} aria-label="Основні ціни на прибирання">
             {heroPrices.map((item) => (
-              <Link className={styles.price} href={item.href} key={item.href}>
+              <Link className={"button-spring " + styles.price} href={item.href} key={item.href}>
                 <span>{item.label}</span><strong>{item.price}</strong>
               </Link>
             ))}
           </div>
           <div className={styles.actions}>
             <div className={styles.primary}><PrimaryButton /></div>
-            <button className={styles.replay} type="button" onClick={replay} disabled={playing}>
+            <button className={"button-spring " + styles.replay} type="button" onClick={replay} disabled={playing}>
               <span aria-hidden="true">{playing ? "◼" : played ? "↺" : "▶"}</span>
               {playing ? "Відтворюється" : played ? "Повторити рух" : "Переглянути рух · 8 с"}
             </button>

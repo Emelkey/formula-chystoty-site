@@ -15,10 +15,10 @@ export function GoogleMapsTrust({ compact = false }: { compact?: boolean }) {
               <p className={compact ? "mt-3 max-w-3xl text-sm leading-6 text-white/75" : "mt-3 max-w-3xl leading-7 text-brand-graphite"}>Ми працюємо у Черкасах і приймаємо заявки через сайт, телефон та месенджери. Перегляньте нашу компанію на Google Maps, побудуйте маршрут або залиште відгук після виконаного прибирання.</p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <a className="inline-flex min-h-11 items-center justify-center rounded-md bg-brand-green px-4 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" href={contacts.googleMapUrl} target="_blank" rel="noopener noreferrer">
+              <a className="button-spring inline-flex min-h-11 items-center justify-center rounded-md bg-brand-green px-4 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" href={contacts.googleMapUrl} target="_blank" rel="noopener noreferrer">
                 Відкрити на Google Maps
               </a>
-              <a className={compact ? "inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-white/20 px-4 py-3 text-sm font-semibold text-white transition hover:border-white" : "inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-brand-green/25 bg-white px-4 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring"} href={contacts.googleMapUrl} target="_blank" rel="noopener noreferrer">
+              <a className={compact ? "button-spring inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-white/20 px-4 py-3 text-sm font-semibold text-white transition hover:border-white" : "button-spring inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-brand-green/25 bg-white px-4 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring"} href={contacts.googleMapUrl} target="_blank" rel="noopener noreferrer">
                 <Star size={16} aria-hidden />
                 Залишити відгук
               </a>

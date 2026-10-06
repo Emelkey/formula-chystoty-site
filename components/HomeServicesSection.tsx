@@ -139,7 +139,7 @@ export function HomeServicesSection() {
                 <ul className="mt-3 grid gap-1 border-t border-brand-green/15 pt-3">
                   {group.links.map((link) => (
                     <li key={link.href}>
-                      <Link className="flex min-h-11 items-center rounded-md px-2 py-2 text-sm font-semibold leading-5 text-brand-graphite transition hover:bg-white hover:text-brand-hover focus-visible:focus-ring" href={link.href}>
+                      <Link className="button-spring flex min-h-11 items-center rounded-md px-2 py-2 text-sm font-semibold leading-5 text-brand-graphite transition hover:bg-white hover:text-brand-hover focus-visible:focus-ring" href={link.href}>
                         {link.label}
                       </Link>
                     </li>
@@ -149,7 +149,7 @@ export function HomeServicesSection() {
             ))}
           </div>
           <div className="mt-8 flex justify-center">
-            <Link className="inline-flex min-h-12 items-center justify-center rounded-md bg-brand-green px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" href="/poslugy">
+            <Link className="button-spring inline-flex min-h-12 items-center justify-center rounded-md bg-brand-green px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" href="/poslugy">
               Переглянути всі послуги
             </Link>
           </div>

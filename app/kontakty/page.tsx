@@ -39,7 +39,7 @@ export default function ContactsPage() {
             </div>
             <div className="mt-6 flex flex-wrap gap-2">
               <ContactButtons />
-              <TrackedLink className="inline-flex items-center gap-2 rounded-md border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-brand-black transition hover:border-brand-green hover:text-brand-hover focus-visible:focus-ring" href={contacts.instagram} target="_blank" rel="noopener noreferrer" eventName="instagram_click" eventCategory="social" eventLabel="instagram">
+              <TrackedLink className="button-spring inline-flex items-center gap-2 rounded-md border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-brand-black transition hover:border-brand-green hover:text-brand-hover focus-visible:focus-ring" href={contacts.instagram} target="_blank" rel="noopener noreferrer" eventName="instagram_click" eventCategory="social" eventLabel="instagram">
                 <Instagram size={16} aria-hidden />
                 Instagram
               </TrackedLink>
@@ -69,7 +69,7 @@ export default function ContactsPage() {
             <p className="mb-4 inline-flex rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-hover">Як нас знайти</p>
             <h2 className="text-3xl font-bold leading-tight md:text-5xl">Знайдіть нас на карті</h2>
             <p className="mt-5 max-w-xl text-lg leading-8 text-brand-graphite">Відкрийте точку Формула Чистоти на Google Maps, щоб побудувати маршрут або швидко знайти нас.</p>
-            <a className="mt-7 inline-flex min-h-12 items-center justify-center rounded-md bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" href={contacts.googleMapUrl} target="_blank" rel="noopener noreferrer">
+            <a className="button-spring mt-7 inline-flex min-h-12 items-center justify-center rounded-md bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" href={contacts.googleMapUrl} target="_blank" rel="noopener noreferrer">
               Відкрити в Google Maps
             </a>
           </div>
@@ -89,7 +89,7 @@ export default function ContactsPage() {
                 </span>
                 <h3 className="mt-5 text-xl font-bold text-brand-black">Формула Чистоти на Google Maps</h3>
                 <p className="mt-3 max-w-sm text-sm leading-6 text-brand-graphite">Відкрийте нашу точку в Google Maps, побудуйте маршрут або залиште відгук після виконаного прибирання.</p>
-                <a className="mt-6 inline-flex min-h-11 items-center justify-center rounded-md border border-brand-green/25 bg-white px-4 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring" href={contacts.googleMapUrl} target="_blank" rel="noopener noreferrer">
+                <a className="button-spring mt-6 inline-flex min-h-11 items-center justify-center rounded-md border border-brand-green/25 bg-white px-4 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring" href={contacts.googleMapUrl} target="_blank" rel="noopener noreferrer">
                   Відкрити на Google Maps
                 </a>
               </div>

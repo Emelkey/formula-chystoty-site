@@ -166,12 +166,12 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
         <p className="font-semibold text-brand-black">Потрібен розрахунок за фото?</p>
         <p className="mt-1">Надішліть загальний вигляд об’єкта та крупні плани забруднень у месенджер. Додайте приблизну площу або розміри й перелік потрібних робіт. Фото через цю форму не передаються.</p>
         <div className="mt-3 flex flex-wrap gap-3">
-          <TrackedLink className="inline-flex min-h-11 items-center rounded-md border border-brand-green/25 bg-white px-4 py-2 font-semibold text-brand-hover focus-visible:focus-ring" href={contacts.telegram} target="_blank" rel="noopener noreferrer" eventName="telegram_click" eventCategory="contact" eventLabel="photo_estimate">Надіслати фото в Telegram</TrackedLink>
-          <TrackedLink className="inline-flex min-h-11 items-center rounded-md border border-brand-green/25 bg-white px-4 py-2 font-semibold text-brand-hover focus-visible:focus-ring" href={contacts.viber} eventName="viber_click" eventCategory="contact" eventLabel="photo_estimate">Надіслати фото у Viber</TrackedLink>
+          <TrackedLink className="button-spring inline-flex min-h-11 items-center rounded-md border border-brand-green/25 bg-white px-4 py-2 font-semibold text-brand-hover focus-visible:focus-ring" href={contacts.telegram} target="_blank" rel="noopener noreferrer" eventName="telegram_click" eventCategory="contact" eventLabel="photo_estimate">Надіслати фото в Telegram</TrackedLink>
+          <TrackedLink className="button-spring inline-flex min-h-11 items-center rounded-md border border-brand-green/25 bg-white px-4 py-2 font-semibold text-brand-hover focus-visible:focus-ring" href={contacts.viber} eventName="viber_click" eventCategory="contact" eventLabel="photo_estimate">Надіслати фото у Viber</TrackedLink>
         </div>
         <p className="mt-2">Або залиште заявку нижче — ми уточнимо зручний спосіб отримати фото.</p>
       </div>
-      <button className="min-h-12 rounded-md bg-brand-green px-5 py-3 font-semibold text-white transition hover:bg-brand-hover focus-visible:focus-ring disabled:cursor-not-allowed disabled:opacity-70" type="submit" disabled={status === "sending"}>
+      <button className="button-spring min-h-12 rounded-md bg-brand-green px-5 py-3 font-semibold text-white transition hover:bg-brand-hover focus-visible:focus-ring disabled:cursor-not-allowed disabled:opacity-70" type="submit" disabled={status === "sending"}>
         {status === "sending" ? "Відправляємо..." : submitLabel}
       </button>
       {status === "sent" ? <p className="rounded-md bg-brand-mist p-3 text-sm font-medium text-brand-hover" role="status">Дякуємо! Ми отримали заявку і скоро зв’яжемося з вами.</p> : null}
