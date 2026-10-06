@@ -29,6 +29,8 @@ const submitSelector = `${formSelector} button[type="submit"]`;
 const heroSelector = 'section[aria-label="Порівняння простору до і після прибирання"]';
 const summarySelector = 'details > summary.button-spring';
 const menuSelector = 'header button[aria-controls="mobile-menu"]';
+const pageProfiles = new WeakMap();
+const narrowFormScreenshotPages = new WeakSet();
 const slug = value => value.replace(/[^a-z0-9-]+/gi, '-').replace(/^-|-$/g, '').slice(0, 90);
 
 // Assert the computed result rather than trusting class presence or CSS text.
@@ -123,6 +125,61 @@ async function assertNoOverflow(page) {
     body: document.body.scrollWidth,
   }));
   if (dimensions.document > dimensions.viewport + 1 || dimensions.body > dimensions.viewport + 1) {
+    dimensions.contentDiagnostics = await page.evaluate(() => {
+      const viewport = document.documentElement.clientWidth;
+      const compactForms = [...document.querySelectorAll('form#contact-form')].filter(form => !form.querySelector('[name="area"]'));
+      const describe = element => {
+        const rect = element.getBoundingClientRect();
+        const style = getComputedStyle(element);
+        return { tag: element.tagName, class: element.getAttribute('class'), name: element.getAttribute('name'),
+          text: element.textContent?.trim().replace(/\s+/g, ' ').slice(0, 100),
+          rect: { left: rect.left, right: rect.right, top: rect.top, width: rect.width },
+          scrollWidth: element.scrollWidth, clientWidth: element.clientWidth,
+          overflowX: style.overflowX, whiteSpace: style.whiteSpace, overflowWrap: style.overflowWrap,
+          font: style.font, minWidth: style.minWidth, maxWidth: style.maxWidth, appearance: style.appearance };
+      };
+      const overflowingCompactDescendants = compactForms.flatMap(form => [form, ...form.querySelectorAll('*')])
+        .filter(element => element.getClientRects().length && element.scrollWidth > element.clientWidth + 1)
+        .map(describe).slice(0, 20);
+      const compactNativeControls = compactForms.flatMap(form => [...form.querySelectorAll('input:not([name="website"]), select, button')])
+        .map(element => ({ ...describe(element), selectedText: element.selectedOptions?.[0]?.textContent, value: element.value }));
+      const textRangesCrossingViewport = [];
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      let node;
+      while ((node = walker.nextNode()) && textRangesCrossingViewport.length < 15) {
+        const parent = node.parentElement;
+        if (!node.textContent.trim() || !parent || parent.closest('script, style, noscript, [aria-hidden="true"]')) continue;
+        let clipRight = Infinity, hidden = false;
+        for (let ancestor = parent; ancestor; ancestor = ancestor.parentElement) {
+          const style = getComputedStyle(ancestor);
+          if (style.display === 'none' || style.visibility === 'hidden') { hidden = true; break; }
+          if (['hidden', 'clip', 'scroll', 'auto'].includes(style.overflowX)) clipRight = Math.min(clipRight, ancestor.getBoundingClientRect().right);
+        }
+        if (hidden || clipRight <= viewport + 1) continue;
+        const range = document.createRange(); range.selectNodeContents(node);
+        const crossingRects = [...range.getClientRects()].filter(rect => Math.min(rect.right, clipRight) > viewport + 1)
+          .map(rect => ({ left: rect.left, right: rect.right, top: rect.top, width: rect.width }));
+        if (crossingRects.length) textRangesCrossingViewport.push({ text: node.textContent.trim().slice(0, 140), parent: describe(parent), rects: crossingRects.slice(0, 3) });
+      }
+      const probe = (elements, styles) => {
+        const saved = elements.map(element => ({ element, style: element.getAttribute('style') }));
+        try {
+          for (const element of elements) for (const [property, value] of Object.entries(styles)) element.style.setProperty(property, value, 'important');
+          return { document: document.documentElement.scrollWidth, body: document.body.scrollWidth };
+        } finally {
+          for (const { element, style } of saved) {
+            if (style === null) element.removeAttribute('style'); else element.setAttribute('style', style);
+          }
+        }
+      };
+      const compactSelects = compactForms.flatMap(form => [...form.querySelectorAll('select')]);
+      return { compactForms: compactForms.map(describe), overflowingCompactDescendants, compactNativeControls, textRangesCrossingViewport,
+        temporaryRestoredProbes: {
+          compactSelectOverflowHidden: probe(compactSelects, { overflow: 'hidden' }),
+          compactSelectTextEllipsis: probe(compactSelects, { overflow: 'hidden', 'text-overflow': 'ellipsis', 'white-space': 'nowrap' }),
+          compactFormOverflowHidden: probe(compactForms, { overflow: 'hidden' }),
+        } };
+    });
     dimensions.crossingElements = await page.evaluate(() => {
       const width = document.documentElement.clientWidth;
       return [...document.querySelectorAll('body *')].map(element => {
@@ -155,6 +212,16 @@ async function assertNoOverflow(page) {
       }
     });
     console.error(`OVERFLOW DIAGNOSTIC ${JSON.stringify({ path: new URL(page.url()).pathname, ...dimensions })}`);
+    const profile = pageProfiles.get(page);
+    if (profile?.engine === 'webkit' && profile.viewport.width === 360 && new URL(page.url()).pathname === '/kontakty' && !narrowFormScreenshotPages.has(page)) {
+      narrowFormScreenshotPages.add(page);
+      try {
+        const file = 'diagnostic-webkit-360-compact-form.jpg';
+        const bytes = await page.locator('form#contact-form').last().screenshot({ type: 'jpeg', quality: 55, path: resolve(output, file) });
+        receipt.screenshots.push({ ...profile, name: 'Narrow compact form overflow diagnostic', file });
+        console.log(`NARROW_FORM_SCREENSHOT ${bytes.toString('base64')}`);
+      } catch (error) { console.error(`NARROW_FORM_SCREENSHOT unavailable: ${error.message}`); }
+    }
   }
   assert.ok(dimensions.document <= dimensions.viewport + 1 && dimensions.body <= dimensions.viewport + 1,
     `Horizontal overflow: ${JSON.stringify(dimensions)}`);
@@ -208,6 +275,7 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
       });
       await context.routeWebSocket('**/*', socket => socket.close());
       const page = await context.newPage();
+      pageProfiles.set(page, meta);
       page.setDefaultTimeout(10000);
       page.setDefaultNavigationTimeout(30000);
       page.on('pageerror', error => runtimeErrors.push(error.message));

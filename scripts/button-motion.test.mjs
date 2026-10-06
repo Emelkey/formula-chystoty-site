@@ -29,7 +29,7 @@ test("hover is limited to a fine pointer and presses exclude disabled controls",
   const hover = rules.find(rule => rule.selector.endsWith(":hover"));
   assert.ok(hover.media.includes("(hover: hover) and (pointer: fine)"));
   for (const state of [":hover", ":active", ":focus-visible"]) {
-    const rule = rules.find(rule => rule.selector.endsWith(state) && rule.declarations.transform);
+    const rule = rules.find(rule => rule.selector.includes(state) && rule.declarations.transform);
     assert.match(rule.selector, /:not\(:disabled\):not\(\[aria-disabled="true"\]\)/);
     assert.ok(rule.media.includes("(prefers-reduced-motion: no-preference)"));
   }
@@ -56,4 +56,14 @@ test("shared lead, contact, hero, form and mobile controls opt into the same spr
   assert.match(read("components/FloatingContactButtons.tsx"), /<summary className="button-spring /);
   assert.ok(!read("components/ContactAction.tsx").includes("button-spring"), "inline contact links must not be opted in globally");
   assert.ok(!read("components/TrackedLink.tsx").includes("button-spring"), "inline tracked links must not be opted in globally");
+});
+
+
+test("touch feedback is passive and releases on cancellation without intercepting native actions", () => {
+  const source = read("components/ButtonSpringFeedback.tsx");
+  assert.match(source, /pointerdown[\s\S]*passive: true/);
+  for (const event of ["pointerup", "pointercancel", "pointermove", "scroll", "blur", "pagehide", "visibilitychange"]) assert.ok(source.includes(`"${event}"`), event);
+  assert.ok(!source.includes("preventDefault(") && !source.includes("setPointerCapture("));
+  assert.ok(source.includes("reducedMotion.matches"));
+  assert.ok(rules.some(rule => rule.selector.includes("[data-spring-pressed]") && rule.declarations.transform.includes("0.97")));
 });

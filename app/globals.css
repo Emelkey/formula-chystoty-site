@@ -89,7 +89,7 @@ img {
     }
   }
 
-  .button-spring:where(:not(:disabled):not([aria-disabled="true"])):active {
+  .button-spring:where(:not(:disabled):not([aria-disabled="true"])):is(:active, [data-spring-pressed]) {
     transform: translateY(0) scale(0.97);
     transition-duration: 90ms;
     transition-timing-function: ease-out;

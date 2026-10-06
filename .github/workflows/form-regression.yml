@@ -4,6 +4,7 @@ on:
     paths:
       - 'app/globals.css'
       - 'components/Header.tsx'
+      - 'components/ButtonSpringFeedback.tsx'
       - 'components/HeroSection.tsx'
       - 'components/FloatingContactButtons.tsx'
       - 'scripts/button-motion.test.mjs'
@@ -22,6 +23,7 @@ on:
     paths:
       - 'app/globals.css'
       - 'components/Header.tsx'
+      - 'components/ButtonSpringFeedback.tsx'
       - 'components/HeroSection.tsx'
       - 'components/FloatingContactButtons.tsx'
       - 'scripts/button-motion.test.mjs'
