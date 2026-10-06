@@ -48,7 +48,7 @@ for(const profile of [{name:'desktop',width:1440,height:1000},{name:'mobile',wid
  await page.evaluate(()=>scrollTo(0,0));await page.screenshot({path:`${output}/${profile.name}-top.png`});
  const cta=article.getByRole('link',{name:post.cta.buttonLabel,exact:true});await cta.scrollIntoViewIfNeeded();await page.screenshot({path:`${output}/${profile.name}-cta.png`});
  await cta.click();await page.waitForURL(origin+'/himchystka-dyvana-cherkasy');assert.equal(await page.locator('h1').innerText(),'Хімчистка дивана у Черкасах');
- await page.goto(origin+'/kontakty#contact-form',{waitUntil:'networkidle'});assert.ok(await page.locator('form#contact-form').isVisible());
+ await page.goto(origin+'/kontakty#contact-form',{waitUntil:'networkidle'});assert.ok(await page.locator('form#contact-form').first().isVisible());
  await page.goto(origin+'/blog',{waitUntil:'networkidle'});await page.getByPlaceholder('Введіть тему').fill('восени');const card=page.locator(`a[href="${dest}"]`);assert.ok(await card.count()>0);await card.first().click();await page.waitForURL(origin+dest);assert.equal(await page.locator('h1').innerText(),post.h1);
  assert.deepEqual(errors,[]);receipt.profiles.push({profile:profile.name,status:'passed',paragraphsVerified:parts.length,horizontalOverflow:false,heroImageLoaded:true,ctaNavigation:true,contactFormVisible:true,blogSearchNavigation:true,consolePageErrors:errors});await context.close();
 }
