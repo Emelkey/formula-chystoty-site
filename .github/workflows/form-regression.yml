@@ -2,6 +2,12 @@ name: Form browser regression
 on:
   pull_request:
     paths:
+      - 'app/globals.css'
+      - 'components/Header.tsx'
+      - 'components/HeroSection.tsx'
+      - 'components/FloatingContactButtons.tsx'
+      - 'scripts/button-motion.test.mjs'
+      - 'scripts/button-motion-browser.mjs'
       - 'components/ContactForm.tsx'
       - 'components/Buttons.tsx'
       - 'components/TrackedLink.tsx'
@@ -14,6 +20,12 @@ on:
   push:
     branches: [main]
     paths:
+      - 'app/globals.css'
+      - 'components/Header.tsx'
+      - 'components/HeroSection.tsx'
+      - 'components/FloatingContactButtons.tsx'
+      - 'scripts/button-motion.test.mjs'
+      - 'scripts/button-motion-browser.mjs'
       - 'components/ContactForm.tsx'
       - 'lib/analytics.ts'
       - 'lib/phone.ts'
@@ -57,9 +69,17 @@ jobs:
           GA4_PLAYWRIGHT_DIR: ${{ runner.temp }}/form-browser
           FORM_QA_EXPECT_UX: '1'
         run: pnpm test:leads:browser
+      - name: Verify spring feedback, desktop and mobile behavior
+        env:
+          GA4_PLAYWRIGHT_DIR: ${{ runner.temp }}/form-browser
+        run: |
+          node --test scripts/button-motion.test.mjs
+          node scripts/button-motion-browser.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: form-browser-regression
-          path: outputs/form-browser/
+          path: |
+            outputs/form-browser/
+            outputs/button-motion/
           retention-days: 7
