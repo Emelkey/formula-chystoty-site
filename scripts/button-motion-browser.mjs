@@ -113,27 +113,38 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
       const runtimeErrors = [];
       let pendingLead = null;
       let releaseLead = null;
+      let contextClosing = false;
       await context.route('**/*', async route => {
-        const request = route.request();
-        const url = new URL(request.url());
-        if (url.origin === origin && url.pathname === '/api/lead') {
-          network.mockedLeads += 1;
-          if (pendingLead) await pendingLead;
-          return route.fulfill({ status: 502, contentType: 'application/json', body: '{"success":false,"error":"synthetic-motion-qa"}' });
-        }
-        if (url.origin === origin && request.method() === 'GET' && !url.pathname.endsWith('/collect')) {
-          network.allowedRequests += 1;
-          // continue() can follow redirects without routing the destination again.
-          // Fetch only this canonical local URL and reject any redirect response.
-          const response = await route.fetch({ maxRedirects: 0, timeout: 30000 });
-          if (response.status() >= 300 && response.status() < 400) {
-            network.rejectedRedirects.push({ path: url.pathname, status: response.status(), location: response.headers().location });
-            return route.abort('blockedbyclient');
+        try {
+          // Keep the guard installed throughout teardown; new requests remain denied.
+          if (contextClosing) return await route.abort('blockedbyclient');
+          const request = route.request();
+          const url = new URL(request.url());
+          if (url.origin === origin && url.pathname === '/api/lead') {
+            network.mockedLeads += 1;
+            if (pendingLead) await pendingLead;
+            return await route.fulfill({ status: 502, contentType: 'application/json', body: '{"success":false,"error":"synthetic-motion-qa"}' });
           }
-          return route.fulfill({ response });
+          if (url.origin === origin && request.method() === 'GET' && !url.pathname.endsWith('/collect')) {
+            network.allowedRequests += 1;
+            // continue() can follow redirects without routing the destination again.
+            // Fetch only this canonical local URL and reject any redirect response.
+            const response = await route.fetch({ maxRedirects: 0, timeout: 30000 });
+            if (response.status() >= 300 && response.status() < 400) {
+              network.rejectedRedirects.push({ path: url.pathname, status: response.status(), location: response.headers().location });
+              return await route.abort('blockedbyclient');
+            }
+            return await route.fulfill({ response });
+          }
+          network.blocked.push({ host: url.host, path: url.pathname, method: request.method() });
+          return await route.abort('blockedbyclient');
+        } catch (error) {
+          // Next may still have a prefetched RSC response in flight when close()
+          // disposes its request context. Only that explicit teardown is ignored.
+          if (contextClosing && (error.name === 'TargetClosedError'
+            || /Target page, context or browser has been closed|Target closed|Request context disposed/i.test(error.message))) return;
+          throw error;
         }
-        network.blocked.push({ host: url.host, path: url.pathname, method: request.method() });
-        return route.abort('blockedbyclient');
       });
       await context.routeWebSocket('**/*', socket => socket.close());
       const page = await context.newPage();
@@ -494,6 +505,7 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
           return { ...network, realLeadsSent: 0, telemetryDelivered: 0 };
         }, null);
       } finally {
+        contextClosing = true;
         releaseLead?.();
         await context.close();
       }
