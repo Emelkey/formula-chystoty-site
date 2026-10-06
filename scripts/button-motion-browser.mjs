@@ -387,6 +387,33 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
           }, path);
         }
 
+        await check('native selects stay contained with a visible outer focus ring', async () => {
+          const selects = page.locator('form#contact-form select[name="type"]');
+          const evidence = [];
+          for (let index = 0; index < await selects.count(); index += 1) {
+            const select = selects.nth(index);
+            await select.selectOption({ index: 1 });
+            await select.focus();
+            const state = await select.evaluate(element => {
+              const wrapper = element.parentElement;
+              const style = getComputedStyle(wrapper);
+              return { value: element.value, label: element.labels[0]?.textContent,
+                clipped: wrapper.hasAttribute('data-select-clip'), overflow: style.overflowX,
+                outlineStyle: style.outlineStyle, outlineWidth: style.outlineWidth,
+                width: element.getBoundingClientRect().width, wrapperWidth: wrapper.getBoundingClientRect().width };
+            });
+            assert.ok(state.value && state.label.includes('Тип прибирання'));
+            assert.ok(state.clipped && state.overflow === 'hidden');
+            assert.notEqual(state.outlineStyle, 'none');
+            assert.ok(Number.parseFloat(state.outlineWidth) >= 2);
+            assert.ok(state.width <= state.wrapperWidth + 1);
+            await assertNoOverflow(page);
+            evidence.push(state);
+          }
+          await capture('native-select-focus');
+          return evidence;
+        });
+
         await check('idle, hover policy, transform-only layout and mouse release/cancel', async () => {
           // Isolate visual input states from native invalid-form auto-scroll. The
           // real submit and its disabled state are exercised separately below.

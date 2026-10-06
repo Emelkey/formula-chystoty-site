@@ -137,11 +137,13 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
       <div className={compact ? "grid min-w-0 gap-4" : "grid min-w-0 gap-4 md:grid-cols-2"}>
         <label className="grid min-w-0 gap-2 text-sm font-semibold">
           Тип прибирання
-          <select name="type" className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 text-base font-normal focus-visible:focus-ring">
-            {(business ? businessCleaningTypes : cleaningTypes).map((type) => (
-              <option key={type}>{type}</option>
-            ))}
-          </select>
+          <span className="block min-w-0 overflow-hidden rounded-md focus-within:focus-ring" data-select-clip>
+            <select name="type" className="block min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 text-base font-normal focus:outline-none">
+              {(business ? businessCleaningTypes : cleaningTypes).map((type) => (
+                <option key={type}>{type}</option>
+              ))}
+            </select>
+          </span>
         </label>
         {!compact ? <label className="grid min-w-0 gap-2 text-sm font-semibold">
           Площа
@@ -151,11 +153,13 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
       {business && !compact ? (
         <label className="grid min-w-0 gap-2 text-sm font-semibold">
           Разове чи регулярне прибирання
-          <select name="frequency" className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 text-base font-normal focus-visible:focus-ring">
-            <option>Разове прибирання</option>
-            <option>Регулярне прибирання</option>
-            <option>Потрібна консультація щодо графіка</option>
-          </select>
+          <span className="block min-w-0 overflow-hidden rounded-md focus-within:focus-ring" data-select-clip>
+            <select name="frequency" className="block min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 text-base font-normal focus:outline-none">
+              <option>Разове прибирання</option>
+              <option>Регулярне прибирання</option>
+              <option>Потрібна консультація щодо графіка</option>
+            </select>
+          </span>
         </label>
       ) : null}
       {!compact ? <label className="grid min-w-0 gap-2 text-sm font-semibold">
