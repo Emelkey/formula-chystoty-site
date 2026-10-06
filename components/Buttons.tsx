@@ -10,7 +10,7 @@ import { contacts } from "@/lib/site";
 export function PrimaryButton({ href = "/kontakty#contact-form", children = "Розрахувати вартість" }: { href?: string; children?: ReactNode }) {
   return (
     <a
-      className="inline-flex min-h-12 items-center justify-center rounded-md bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring"
+      className="button-spring inline-flex min-h-12 items-center justify-center rounded-md bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring"
       href={href}
       onClick={() => {
         trackAnalyticsEvent("calculate_click", {
@@ -33,15 +33,15 @@ export function ContactButtons({ compact = false }: { compact?: boolean }) {
 
   return (
     <div className="flex flex-wrap gap-2">
-      <ContactAction type="phone" revealPhoneNumber className={`inline-flex items-center gap-2 rounded-md border border-black/10 bg-white font-semibold text-brand-black transition hover:border-brand-green hover:text-brand-hover focus-visible:focus-ring ${size}`}>
+      <ContactAction type="phone" revealPhoneNumber className={`button-spring inline-flex items-center gap-2 rounded-md border border-black/10 bg-white font-semibold text-brand-black transition hover:border-brand-green hover:text-brand-hover focus-visible:focus-ring ${size}`}>
         <Phone size={16} aria-hidden />
         Подзвонити
       </ContactAction>
-      <ContactAction type="viber" revealPhoneNumber className={`inline-flex items-center gap-2 rounded-md border border-black/10 bg-white font-semibold text-brand-black transition hover:border-brand-green hover:text-brand-hover focus-visible:focus-ring ${size}`}>
+      <ContactAction type="viber" revealPhoneNumber className={`button-spring inline-flex items-center gap-2 rounded-md border border-black/10 bg-white font-semibold text-brand-black transition hover:border-brand-green hover:text-brand-hover focus-visible:focus-ring ${size}`}>
         <MessageCircle size={16} aria-hidden />
         Viber
       </ContactAction>
-      <TrackedLink className={`inline-flex items-center gap-2 rounded-md border border-black/10 bg-white font-semibold text-brand-black transition hover:border-brand-green hover:text-brand-hover focus-visible:focus-ring ${size}`} href={contacts.telegram} target="_blank" rel="noopener noreferrer" eventName="telegram_click" eventCategory="contact" eventLabel="telegram">
+      <TrackedLink className={`button-spring inline-flex items-center gap-2 rounded-md border border-black/10 bg-white font-semibold text-brand-black transition hover:border-brand-green hover:text-brand-hover focus-visible:focus-ring ${size}`} href={contacts.telegram} target="_blank" rel="noopener noreferrer" eventName="telegram_click" eventCategory="contact" eventLabel="telegram">
         <Send size={16} aria-hidden />
         Telegram
       </TrackedLink>

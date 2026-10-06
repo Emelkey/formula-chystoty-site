@@ -132,10 +132,10 @@ export function BlogPostLayout({ post }: { post: BlogPost }) {
 
           <h2 className="mt-9 text-2xl font-bold">Корисні посилання</h2>
           <div className="mt-4 flex flex-wrap gap-2">
-            <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/poslugy">Усі послуги</Link>
-            <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/prices">Ціни</Link>
-            <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/kontakty">Контакти</Link>
-            <Link className="rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/nashi-roboty">Наші роботи</Link>
+            <Link className="button-spring rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/poslugy">Усі послуги</Link>
+            <Link className="button-spring rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/prices">Ціни</Link>
+            <Link className="button-spring rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/kontakty">Контакти</Link>
+            <Link className="button-spring rounded-md bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover" href="/nashi-roboty">Наші роботи</Link>
           </div>
           <div className="mt-10 rounded-lg bg-brand-green p-6 text-white">
             <h2 className="text-2xl font-bold">{post.cta?.title ?? "Замовити прибирання"}</h2>

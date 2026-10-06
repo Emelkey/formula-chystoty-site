@@ -36,18 +36,18 @@ export function Header() {
           ))}
         </nav>
         <div className="hidden items-center gap-2 xl:flex">
-          <ContactAction type="phone" revealPhoneNumber className="inline-flex min-h-12 items-center gap-2 whitespace-nowrap rounded-md border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-brand-black transition hover:border-brand-green hover:text-brand-hover focus-visible:focus-ring">
+          <ContactAction type="phone" revealPhoneNumber className="button-spring inline-flex min-h-12 items-center gap-2 whitespace-nowrap rounded-md border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-brand-black transition hover:border-brand-green hover:text-brand-hover focus-visible:focus-ring">
             <Phone size={16} aria-hidden />
             Подзвонити
           </ContactAction>
           <PrimaryButton>Розрахувати</PrimaryButton>
         </div>
         <div className="flex items-center gap-2 xl:hidden">
-          <ContactAction type="phone" className="inline-flex h-11 min-w-11 items-center justify-center gap-2 rounded-md bg-brand-green px-3 text-sm font-semibold text-white focus-visible:focus-ring">
+          <ContactAction type="phone" className="button-spring inline-flex h-11 min-w-11 items-center justify-center gap-2 rounded-md bg-brand-green px-3 text-sm font-semibold text-white focus-visible:focus-ring">
             <Phone size={20} aria-hidden />
           </ContactAction>
           <button
-            className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-black/10 bg-white lg:hidden"
+            className="button-spring inline-flex h-11 w-11 items-center justify-center rounded-md border border-black/10 bg-white lg:hidden"
             aria-label={isOpen ? "Закрити меню" : "Відкрити меню"}
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
@@ -65,7 +65,7 @@ export function Header() {
               {label}
             </Link>
           ))}
-          <ContactAction type="phone" revealPhoneNumber className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-black/10 bg-white px-4 py-3 font-semibold text-brand-black">
+          <ContactAction type="phone" revealPhoneNumber className="button-spring inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-black/10 bg-white px-4 py-3 font-semibold text-brand-black">
             <Phone size={16} aria-hidden />
             Подзвонити
           </ContactAction>

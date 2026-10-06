@@ -215,7 +215,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
                       <p className="mt-2 text-2xl font-bold text-brand-hover">{item.price}</p>
                       <p className="mt-2 text-sm leading-6 text-brand-graphite">{item.description}</p>
                       {item.linkHref ? (
-                        <a className="mt-4 inline-flex min-h-10 items-center justify-center rounded-md border border-brand-green/25 bg-brand-mist px-4 py-2 text-sm font-semibold text-brand-hover transition hover:border-brand-green focus-visible:focus-ring" href={item.linkHref}>
+                        <a className="button-spring mt-4 inline-flex min-h-10 items-center justify-center rounded-md border border-brand-green/25 bg-brand-mist px-4 py-2 text-sm font-semibold text-brand-hover transition hover:border-brand-green focus-visible:focus-ring" href={item.linkHref}>
                           {item.linkLabel ?? "Детальніше"}
                         </a>
                       ) : null}
@@ -252,7 +252,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
               <PrimaryButton>Отримати точний розрахунок</PrimaryButton>
-              <a className="inline-flex min-h-12 items-center justify-center rounded-md border border-brand-green/25 bg-white px-5 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring" href="/prices">
+              <a className="button-spring inline-flex min-h-12 items-center justify-center rounded-md border border-brand-green/25 bg-white px-5 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring" href="/prices">
                 Дивитися всі ціни
               </a>
             </div>
@@ -302,7 +302,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
               <p className="text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Корисна стаття</p>
               <h2 className="mt-3 text-3xl font-bold text-brand-black">{relatedArticle.title}</h2>
               <p className="mt-4 max-w-3xl leading-7 text-brand-graphite">{relatedArticle.description}</p>
-              <a className="mt-5 inline-flex min-h-11 items-center justify-center rounded-md bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" href={relatedArticle.href}>
+              <a className="button-spring mt-5 inline-flex min-h-11 items-center justify-center rounded-md bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" href={relatedArticle.href}>
                 Читати статтю
               </a>
             </div>
@@ -315,7 +315,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
           <div className="mt-5 flex flex-wrap gap-3">
             {internalLinks.map((link) => (
               <a
-                className="rounded-md border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green"
+                className="button-spring rounded-md border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green"
                 href={service.slug === "prybyrannya-kvartyr-cherkasy" && link.href === "/prices" ? absoluteUrl("/prices") : link.href}
                 key={link.href}
               >
@@ -492,7 +492,7 @@ function ServicePriceSection({ service, hasPriceImages }: { service: Service; ha
                     <p className="mt-2 text-2xl font-bold text-brand-hover">{item.price}</p>
                     <p className="mt-2 text-sm leading-6 text-brand-graphite">{item.description}</p>
                     {item.linkHref ? (
-                      <a className="mt-4 inline-flex min-h-10 items-center justify-center rounded-md border border-brand-green/25 bg-brand-mist px-4 py-2 text-sm font-semibold text-brand-hover transition hover:border-brand-green focus-visible:focus-ring" href={item.linkHref}>
+                      <a className="button-spring mt-4 inline-flex min-h-10 items-center justify-center rounded-md border border-brand-green/25 bg-brand-mist px-4 py-2 text-sm font-semibold text-brand-hover transition hover:border-brand-green focus-visible:focus-ring" href={item.linkHref}>
                         {item.linkLabel ?? "Детальніше"}
                       </a>
                     ) : null}
@@ -530,7 +530,7 @@ function ServicePriceSection({ service, hasPriceImages }: { service: Service; ha
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
             <PrimaryButton>Отримати точний розрахунок</PrimaryButton>
-            <a className="inline-flex min-h-12 items-center justify-center rounded-md border border-brand-green/25 bg-white px-5 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring" href="/prices">
+            <a className="button-spring inline-flex min-h-12 items-center justify-center rounded-md border border-brand-green/25 bg-white px-5 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring" href="/prices">
               Дивитися всі ціни
             </a>
           </div>

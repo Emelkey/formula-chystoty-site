@@ -14,7 +14,7 @@ export function ReviewRequest() {
               <h2 className="text-3xl font-bold text-brand-black">Залиште відгук</h2>
               <p className="mt-3 max-w-3xl leading-7 text-brand-graphite">Якщо ви вже замовляли прибирання у Формули Чистоти, залиште, будь ласка, відгук на Google. Це допомагає іншим клієнтам обрати надійну клінінгову компанію в Черкасах.</p>
             </div>
-            <a className="inline-flex min-h-12 items-center justify-center rounded-md bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" href={contacts.googleMapUrl} target="_blank" rel="noopener noreferrer">
+            <a className="button-spring inline-flex min-h-12 items-center justify-center rounded-md bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" href={contacts.googleMapUrl} target="_blank" rel="noopener noreferrer">
               Залишити відгук
             </a>
           </div>

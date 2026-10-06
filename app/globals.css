@@ -57,3 +57,53 @@ img {
   outline: 3px solid rgba(99, 181, 50, 0.35);
   outline-offset: 3px;
 }
+
+/* Opt in button-shaped actions only. Transforms leave the surrounding layout still. */
+.button-spring:is(a, button, summary) {
+  transform-origin: center;
+}
+
+.button-spring:focus-visible {
+  outline: 3px solid rgba(99, 181, 50, 0.5);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .button-spring:is(a, button, summary) {
+    transition:
+      transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1),
+      background-color 160ms ease,
+      border-color 160ms ease,
+      color 160ms ease,
+      box-shadow 160ms ease;
+  }
+
+  .button-spring:where(:not(:disabled):not([aria-disabled="true"])):focus-visible {
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  /* Touch devices get press/release feedback without a sticky hover state. */
+  @media (hover: hover) and (pointer: fine) {
+    .button-spring:where(:not(:disabled):not([aria-disabled="true"])):hover {
+      transform: translateY(-2px) scale(1.02);
+    }
+  }
+
+  .button-spring:where(:not(:disabled):not([aria-disabled="true"])):is(:active, [data-spring-pressed]) {
+    transform: translateY(0) scale(0.97);
+    transition-duration: 90ms;
+    transition-timing-function: ease-out;
+  }
+
+  .button-spring:is(a, button, summary):where(:disabled, [aria-disabled="true"]) {
+    transform: none;
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button-spring:is(a, button, summary) {
+    transform: none;
+    transition: none;
+  }
+}

@@ -119,7 +119,7 @@ export function PricingSection({ compact = false }: { compact?: boolean }) {
               <h2 className="text-2xl font-bold text-brand-black">Послуги з цінами та деталями</h2>
               <div className="mt-5 flex flex-wrap gap-2">
                 {servicePages.map((service) => (
-                  <Link className="rounded-md border border-brand-green/20 bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover transition hover:border-brand-green" href={`/${service.slug}`} key={service.slug}>
+                  <Link className="button-spring rounded-md border border-brand-green/20 bg-brand-mist px-3 py-2 text-sm font-semibold text-brand-hover transition hover:border-brand-green" href={`/${service.slug}`} key={service.slug}>
                     {service.title}
                   </Link>
                 ))}

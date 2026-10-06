@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
+import { ButtonSpringFeedback } from "@/components/ButtonSpringFeedback";
 import { ContactActionToast } from "@/components/ContactAction";
 import { Footer } from "@/components/Footer";
 import { FloatingContactButtons } from "@/components/FloatingContactButtons";
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           `}
         </Script>
         <Header />
+        <ButtonSpringFeedback />
         <KeyboardPageScroll />
         <main className="min-h-screen">{children}</main>
         <Footer />

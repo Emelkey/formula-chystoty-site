@@ -19,7 +19,7 @@ export default function ReviewsPage() {
         <div className="container">
           <h1 className="text-4xl font-bold md:text-5xl">Відгуки клієнтів про Формулу Чистоти</h1>
           <p className="mt-5 max-w-3xl text-lg leading-8 text-brand-graphite">Відгуки допомагають новим клієнтам зрозуміти якість роботи, а нам — ставати кращими. Якщо ви вже замовляли прибирання у Формули Чистоти, будемо вдячні за ваш відгук.</p>
-          <a className="mt-7 inline-flex min-h-12 items-center justify-center rounded-md bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" href={contacts.googleMapUrl} target="_blank" rel="noopener noreferrer">
+          <a className="button-spring mt-7 inline-flex min-h-12 items-center justify-center rounded-md bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" href={contacts.googleMapUrl} target="_blank" rel="noopener noreferrer">
             Залишити відгук на Google
           </a>
         </div>

@@ -23,7 +23,7 @@ export default function ServicesPage() {
           <h1 className="text-4xl font-bold md:text-5xl">Клінінгові послуги у Черкасах</h1>
           <p className="mt-5 max-w-3xl text-lg leading-8 text-brand-graphite">Повний перелік послуг для квартир, будинків, комерційних приміщень, складних об’єктів і післяремонтного клінінгу.</p>
           <nav className="mt-6 flex flex-wrap gap-3" aria-label="Категорії послуг">
-            {serviceCatalog.map((group) => <Link className="inline-flex min-h-11 items-center rounded-md bg-brand-mist px-4 py-2 font-semibold text-brand-hover" href={`#${group.id}`} key={group.id}>{group.title}</Link>)}
+            {serviceCatalog.map((group) => <Link className="button-spring inline-flex min-h-11 items-center rounded-md bg-brand-mist px-4 py-2 font-semibold text-brand-hover" href={`#${group.id}`} key={group.id}>{group.title}</Link>)}
             <Link className="inline-flex min-h-11 items-center px-4 py-2 font-semibold text-brand-hover underline" href="/prices">Дивитися всі ціни</Link>
           </nav>
           {serviceCatalog.map((group) => (

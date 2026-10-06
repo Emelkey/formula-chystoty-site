@@ -137,11 +137,13 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
       <div className={compact ? "grid min-w-0 gap-4" : "grid min-w-0 gap-4 md:grid-cols-2"}>
         <label className="grid min-w-0 gap-2 text-sm font-semibold">
           Тип прибирання
-          <select name="type" className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 text-base font-normal focus-visible:focus-ring">
-            {(business ? businessCleaningTypes : cleaningTypes).map((type) => (
-              <option key={type}>{type}</option>
-            ))}
-          </select>
+          <span className="block min-w-0 overflow-hidden rounded-md focus-within:outline focus-within:outline-[3px] focus-within:outline-brand-green/50 focus-within:outline-offset-[3px]" data-select-clip>
+            <select name="type" className="block min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 text-base font-normal focus:outline-none">
+              {(business ? businessCleaningTypes : cleaningTypes).map((type) => (
+                <option key={type}>{type}</option>
+              ))}
+            </select>
+          </span>
         </label>
         {!compact ? <label className="grid min-w-0 gap-2 text-sm font-semibold">
           Площа
@@ -151,11 +153,13 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
       {business && !compact ? (
         <label className="grid min-w-0 gap-2 text-sm font-semibold">
           Разове чи регулярне прибирання
-          <select name="frequency" className="min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 text-base font-normal focus-visible:focus-ring">
-            <option>Разове прибирання</option>
-            <option>Регулярне прибирання</option>
-            <option>Потрібна консультація щодо графіка</option>
-          </select>
+          <span className="block min-w-0 overflow-hidden rounded-md focus-within:outline focus-within:outline-[3px] focus-within:outline-brand-green/50 focus-within:outline-offset-[3px]" data-select-clip>
+            <select name="frequency" className="block min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 text-base font-normal focus:outline-none">
+              <option>Разове прибирання</option>
+              <option>Регулярне прибирання</option>
+              <option>Потрібна консультація щодо графіка</option>
+            </select>
+          </span>
         </label>
       ) : null}
       {!compact ? <label className="grid min-w-0 gap-2 text-sm font-semibold">
@@ -166,12 +170,12 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
         <p className="font-semibold text-brand-black">Потрібен розрахунок за фото?</p>
         <p className="mt-1">Надішліть загальний вигляд об’єкта та крупні плани забруднень у месенджер. Додайте приблизну площу або розміри й перелік потрібних робіт. Фото через цю форму не передаються.</p>
         <div className="mt-3 flex flex-wrap gap-3">
-          <TrackedLink className="inline-flex min-h-11 items-center rounded-md border border-brand-green/25 bg-white px-4 py-2 font-semibold text-brand-hover focus-visible:focus-ring" href={contacts.telegram} target="_blank" rel="noopener noreferrer" eventName="telegram_click" eventCategory="contact" eventLabel="photo_estimate">Надіслати фото в Telegram</TrackedLink>
-          <TrackedLink className="inline-flex min-h-11 items-center rounded-md border border-brand-green/25 bg-white px-4 py-2 font-semibold text-brand-hover focus-visible:focus-ring" href={contacts.viber} eventName="viber_click" eventCategory="contact" eventLabel="photo_estimate">Надіслати фото у Viber</TrackedLink>
+          <TrackedLink className="button-spring inline-flex min-h-11 items-center rounded-md border border-brand-green/25 bg-white px-4 py-2 font-semibold text-brand-hover focus-visible:focus-ring" href={contacts.telegram} target="_blank" rel="noopener noreferrer" eventName="telegram_click" eventCategory="contact" eventLabel="photo_estimate">Надіслати фото в Telegram</TrackedLink>
+          <TrackedLink className="button-spring inline-flex min-h-11 items-center rounded-md border border-brand-green/25 bg-white px-4 py-2 font-semibold text-brand-hover focus-visible:focus-ring" href={contacts.viber} eventName="viber_click" eventCategory="contact" eventLabel="photo_estimate">Надіслати фото у Viber</TrackedLink>
         </div>
         <p className="mt-2">Або залиште заявку нижче — ми уточнимо зручний спосіб отримати фото.</p>
       </div>
-      <button className="min-h-12 rounded-md bg-brand-green px-5 py-3 font-semibold text-white transition hover:bg-brand-hover focus-visible:focus-ring disabled:cursor-not-allowed disabled:opacity-70" type="submit" disabled={status === "sending"}>
+      <button className="button-spring min-h-12 rounded-md bg-brand-green px-5 py-3 font-semibold text-white transition hover:bg-brand-hover focus-visible:focus-ring disabled:cursor-not-allowed disabled:opacity-70" type="submit" disabled={status === "sending"}>
         {status === "sending" ? "Відправляємо..." : submitLabel}
       </button>
       {status === "sent" ? <p className="rounded-md bg-brand-mist p-3 text-sm font-medium text-brand-hover" role="status">Дякуємо! Ми отримали заявку і скоро зв’яжемося з вами.</p> : null}
