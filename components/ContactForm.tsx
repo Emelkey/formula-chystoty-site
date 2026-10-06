@@ -137,7 +137,7 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
       <div className={compact ? "grid min-w-0 gap-4" : "grid min-w-0 gap-4 md:grid-cols-2"}>
         <label className="grid min-w-0 gap-2 text-sm font-semibold">
           Тип прибирання
-          <span className="block min-w-0 overflow-hidden rounded-md focus-within:focus-ring" data-select-clip>
+          <span className="block min-w-0 overflow-hidden rounded-md focus-within:outline focus-within:outline-[3px] focus-within:outline-brand-green/50 focus-within:outline-offset-[3px]" data-select-clip>
             <select name="type" className="block min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 text-base font-normal focus:outline-none">
               {(business ? businessCleaningTypes : cleaningTypes).map((type) => (
                 <option key={type}>{type}</option>
@@ -153,7 +153,7 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
       {business && !compact ? (
         <label className="grid min-w-0 gap-2 text-sm font-semibold">
           Разове чи регулярне прибирання
-          <span className="block min-w-0 overflow-hidden rounded-md focus-within:focus-ring" data-select-clip>
+          <span className="block min-w-0 overflow-hidden rounded-md focus-within:outline focus-within:outline-[3px] focus-within:outline-brand-green/50 focus-within:outline-offset-[3px]" data-select-clip>
             <select name="frequency" className="block min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 text-base font-normal focus:outline-none">
               <option>Разове прибирання</option>
               <option>Регулярне прибирання</option>
