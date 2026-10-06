@@ -44,6 +44,7 @@ async function styleOf(locator) {
       outlineColor: style.outlineColor, outlineOffset: style.outlineOffset,
       active: element.matches(':active'), hovered: element.matches(':hover'),
       focusVisible: element.matches(':focus-visible'), disabled: element.matches(':disabled'),
+      pointerEvents: style.pointerEvents, touchAction: style.touchAction,
       animations: element.getAnimations().map(animation => ({
         playState: animation.playState,
         iterations: String(animation.effect?.getTiming().iterations),
@@ -63,6 +64,31 @@ async function waitForTransform(locator, scale = 1, translateY = 0) {
         && Math.abs(matrix.f - translateY) < 0.12
         && element.getAnimations().every(animation => !['running', 'pending'].includes(animation.playState));
     }, { element: handle, scale, translateY }, { timeout: 3500, polling: 'raf' });
+  } catch (error) {
+    let diagnostic;
+    try {
+      diagnostic = await locator.evaluate(element => {
+        const describe = node => {
+          if (!(node instanceof Element)) return null;
+          const rect = node.getBoundingClientRect();
+          return { tag: node.tagName, id: node.id, class: node.getAttribute('class'), text: node.textContent?.trim().slice(0, 90),
+            active: node.matches(':active'), focusVisible: node.matches(':focus-visible'),
+            rect: { x: rect.x, y: rect.y, width: rect.width, height: rect.height } };
+        };
+        const rect = element.getBoundingClientRect();
+        const point = window.__motionTouch?.requestedPoint || { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
+        return { target: describe(element), focused: describe(document.activeElement),
+          activeElements: [...document.querySelectorAll(':active')].slice(-10).map(describe),
+          hitPoint: point, hitTarget: describe(document.elementFromPoint(point.x, point.y)),
+          touch: window.__motionTouch || null,
+          viewport: { width: innerWidth, height: innerHeight, scrollX, scrollY, devicePixelRatio,
+            visualScale: window.visualViewport?.scale, visualOffsetTop: window.visualViewport?.offsetTop } };
+      });
+      diagnostic.style = await styleOf(locator);
+    } catch (diagnosticError) { diagnostic = { unavailable: diagnosticError.message }; }
+    error.message += `\nTransform diagnostic (expected scale=${scale}, translateY=${translateY}): ${JSON.stringify(diagnostic)}`;
+    console.error(`TRANSFORM DIAGNOSTIC ${JSON.stringify(diagnostic)}`);
+    throw error;
   } finally { await handle.dispose(); }
   return styleOf(locator);
 }
@@ -96,6 +122,40 @@ async function assertNoOverflow(page) {
     document: document.documentElement.scrollWidth,
     body: document.body.scrollWidth,
   }));
+  if (dimensions.document > dimensions.viewport + 1 || dimensions.body > dimensions.viewport + 1) {
+    dimensions.crossingElements = await page.evaluate(() => {
+      const width = document.documentElement.clientWidth;
+      return [...document.querySelectorAll('body *')].map(element => {
+        const rect = element.getBoundingClientRect();
+        if (!element.getClientRects().length || rect.right <= width + 1) return null;
+        const style = getComputedStyle(element);
+        const parent = element.parentElement;
+        return { tag: element.tagName, class: element.getAttribute('class'), text: element.textContent?.trim().replace(/\s+/g, ' ').slice(0, 90),
+          rect: { left: rect.left, top: rect.top, right: rect.right, width: rect.width, height: rect.height },
+          scrollWidth: element.scrollWidth, clientWidth: element.clientWidth,
+          overflowX: style.overflowX, position: style.position, transform: style.transform,
+          parent: parent ? { tag: parent.tagName, class: parent.getAttribute('class'), overflowX: getComputedStyle(parent).overflowX } : null };
+      }).filter(Boolean).sort((a, b) => b.rect.right - a.rect.right).slice(0, 20);
+    });
+    dimensions.withoutSpringClasses = await page.evaluate(() => {
+      const controls = [...document.querySelectorAll('.button-spring')].map(element => ({ element, className: element.getAttribute('class') }));
+      try {
+        for (const { element } of controls) element.classList.remove('button-spring');
+        // Synchronous layout read; restore every class before the page can render.
+        const width = document.documentElement.clientWidth;
+        return { viewport: width, document: document.documentElement.scrollWidth, body: document.body.scrollWidth,
+          controlsTemporarilyExcluded: controls.length,
+          crossingElements: [...document.querySelectorAll('body *')].map(element => {
+            const rect = element.getBoundingClientRect();
+            return element.getClientRects().length && rect.right > width + 1
+              ? { tag: element.tagName, class: element.getAttribute('class'), right: rect.right, width: rect.width } : null;
+          }).filter(Boolean).sort((a, b) => b.right - a.right).slice(0, 5) };
+      } finally {
+        for (const { element, className } of controls) element.setAttribute('class', className);
+      }
+    });
+    console.error(`OVERFLOW DIAGNOSTIC ${JSON.stringify({ path: new URL(page.url()).pathname, ...dimensions })}`);
+  }
   assert.ok(dimensions.document <= dimensions.viewport + 1 && dimensions.body <= dimensions.viewport + 1,
     `Horizontal overflow: ${JSON.stringify(dimensions)}`);
   return dimensions;
@@ -462,17 +522,28 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
             await check('trusted touch press cancels on scrolling without sticky scale', async () => {
               await submit.evaluate(element => element.scrollIntoView({ block: 'center', behavior: 'instant' }));
               await page.evaluate(selector => {
-                window.__motionTouch = { cancellations: 0, clicks: 0, scrollStart: scrollY };
+                window.__motionTouch = { cancellations: 0, clicks: 0, scrollStart: scrollY, pointerDownEvents: [], requestedPoint: null };
                 const button = document.querySelector(selector);
+                document.addEventListener('pointerdown', event => {
+                  const target = event.target;
+                  window.__motionTouch.pointerDownEvents.push({ trusted: event.isTrusted, pointerType: event.pointerType,
+                    clientX: event.clientX, clientY: event.clientY, pageX: event.pageX, pageY: event.pageY,
+                    target: { tag: target.tagName, class: target.getAttribute?.('class'), text: target.textContent?.trim().slice(0, 90) },
+                    hitSubmit: target === button || button.contains(target),
+                    submitActive: button.matches(':active'), submitTransform: getComputedStyle(button).transform });
+                }, { capture: true });
                 button.addEventListener('pointercancel', event => { if (event.isTrusted) window.__motionTouch.cancellations += 1; });
                 button.addEventListener('click', () => { window.__motionTouch.clicks += 1; });
               }, submitSelector);
               const box = await submit.boundingBox();
               const point = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+              await page.evaluate(point => { window.__motionTouch.requestedPoint = point; }, point);
               assert.ok(point.y > 200 && point.y < viewport.height - 50, 'Touch target must leave enough room for the scroll gesture');
               const session = await context.newCDPSession(page);
               try {
                 await session.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [point] });
+                console.log(`TOUCH START DIAGNOSTIC ${JSON.stringify({ ...meta, point,
+                  events: await page.evaluate(() => window.__motionTouch), style: await styleOf(submit) })}`);
                 await waitForTransform(submit, 0.97);
                 for (const delta of [15, 45, 90, 160]) {
                   await session.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: point.x, y: point.y - delta }] });
