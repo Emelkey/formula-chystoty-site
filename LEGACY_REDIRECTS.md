@@ -3,7 +3,7 @@
 This manifest is generated from `lib/legacy-uk-routes.ts`. Do not edit redirect rows by hand.
 
 - Canonical host: `https://www.formula-chistoty.ck.ua`
-- Exact legacy URLs: **655**
+- Exact legacy URLs: **657**
 - Pattern redirects: **1**
 - Policy: one permanent redirect hop to the closest canonical 200 URL
 - Regenerate: `pnpm seo:legacy-manifest`
@@ -534,6 +534,7 @@ This manifest is generated from `lib/legacy-uk-routes.ts`. Do not edit redirect 
 | `/uk/services/pidtrymuyuche-prybyrannya-kvartyry-cherkasy` | `/pidtrymuyuche-prybyrannya-kvartyr-cherkasy` | 301 | Legacy maintenance-cleaning URL consolidation | 2026-08-15 |
 | `/uk/services/pidtrymuyuche-prybyrannya-kvartyry-v-cherkasah` | `/pidtrymuyuche-prybyrannya-kvartyr-cherkasy` | 301 | Legacy maintenance-cleaning URL consolidation | 2026-08-15 |
 | `/uk/services/pidtrymuyuche-prybyrannya-kvartyry-v-cherkasakh` | `/pidtrymuyuche-prybyrannya-kvartyr-cherkasy` | 301 | Legacy maintenance-cleaning URL consolidation | 2026-08-15 |
+| `/uk/services/pidtrymuyuche-prybyrannya-ofisu` | `/rehulyarne-prybyrannya-biznesu-cherkasy` | 301 | Legacy office maintenance URL corrected after the 2026-10-13 audit | 2026-08-15 |
 | `/uk/services/pidtrymuyuche-prybyrannya-v-cherkasah` | `/pidtrymuyuche-prybyrannya-kvartyr-cherkasy` | 301 | Legacy maintenance-cleaning URL consolidation | 2026-08-15 |
 | `/uk/services/pidtrymuyuche-prybyrannya-v-cherkasakh` | `/pidtrymuyuche-prybyrannya-kvartyr-cherkasy` | 301 | Legacy maintenance-cleaning URL consolidation | 2026-08-15 |
 | `/uk/services/pislyabudivelne-prybyrannya` | `/prybyrannya-pislya-remontu-cherkasy` | 301 | Legacy post-renovation URL consolidation | 2026-08-15 |
@@ -576,6 +577,7 @@ This manifest is generated from `lib/legacy-uk-routes.ts`. Do not edit redirect 
 | `/uk/services/prybyrannya-pislya-budivnytstva` | `/prybyrannya-pislya-remontu-cherkasy` | 301 | Legacy Ukrainian locale URL migration | 2026-08-15 |
 | `/uk/services/prybyrannya-pislya-budivnytstva-cherkasy` | `/prybyrannya-pislya-remontu-cherkasy` | 301 | Legacy post-renovation URL consolidation | 2026-08-15 |
 | `/uk/services/prybyrannya-pislya-potopu` | `/prybyrannya-pislya-potopu-cherkasy` | 301 | Legacy Ukrainian locale URL migration | 2026-08-15 |
+| `/uk/services/prybyrannya-pislya-pozhezhi` | `/prybyrannya-pislya-pozhezhi-cherkasy` | 301 | Legacy fire-cleaning URL mapped after the 2026-10-13 audit | 2026-08-15 |
 | `/uk/services/prybyrannya-pislya-remontu` | `/prybyrannya-pislya-remontu-cherkasy` | 301 | Legacy Ukrainian locale URL migration | 2026-08-15 |
 | `/uk/services/prybyrannya-pislya-remontu-cherkasy` | `/prybyrannya-pislya-remontu-cherkasy` | 301 | Legacy post-renovation URL consolidation | 2026-08-15 |
 | `/uk/services/prybyrannya-pislya-smerti` | `/dezinfektsiya-prymishchen-cherkasy` | 301 | Legacy disinfection URL consolidation | 2026-08-15 |

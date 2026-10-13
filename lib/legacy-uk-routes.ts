@@ -663,6 +663,16 @@ const exactRoutes = [
     "reason": "Legacy Ukrainian locale URL migration"
   },
   {
+    "source": "/uk/services/prybyrannya-pislya-pozhezhi",
+    "destination": "/prybyrannya-pislya-pozhezhi-cherkasy",
+    "reason": "Legacy fire-cleaning URL mapped after the 2026-10-13 audit"
+  },
+  {
+    "source": "/uk/services/pidtrymuyuche-prybyrannya-ofisu",
+    "destination": "/rehulyarne-prybyrannya-biznesu-cherkasy",
+    "reason": "Legacy office maintenance URL corrected after the 2026-10-13 audit"
+  },
+  {
     "source": "/uk/services/prybyrannya-prylegloyi-terytoriyi",
     "destination": "/prybyrannya-prylegloyi-terytoriyi-cherkasy",
     "reason": "Legacy Ukrainian locale URL migration"

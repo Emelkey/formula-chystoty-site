@@ -453,6 +453,13 @@ const noindexExactPaths = new Set([
 const noindexPaginationPattern = /^\/ru\/services\/page\/\d+$/;
 
 const exactLegacyRedirects = new Map([
+  // Keep these exact mappings aligned with next.config.ts.
+  ["/ru/services/uborka-ofisov", "/prybyrannya-ofisiv-cherkasy"],
+  ["/ru/services/uborka-posle-potopa", "/prybyrannya-pislya-potopu-cherkasy"],
+  ["/ru/services/uborka-posle-pozhara", "/prybyrannya-pislya-pozhezhi-cherkasy"],
+  ["/ru/services/obsluzhivanie-i-klining-promyshlennyh-i-proizvodstvennyh-pomeshhenij", "/prybyrannya-vyrobnychykh-prymishchen-cherkasy"],
+  ["/ru/services/uborka-torgovyh-czentrov", "/prybyrannya-mahazyniv-supermarketiv-cherkasy"],
+  ["/ru/services/uborka-prilegayushhej-territorii", "/prybyrannya-prylegloyi-terytoriyi-cherkasy"],
   ["/ru", "/"],
   ["/about", "/pro-nas"],
   ["/contact", "/kontakty"],
