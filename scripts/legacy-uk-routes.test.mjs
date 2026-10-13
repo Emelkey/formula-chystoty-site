@@ -6,6 +6,7 @@ import test from "node:test";
 import { createRequire } from "node:module";
 import vm from "node:vm";
 import ts from "typescript";
+import { approvedServiceRoutes, unmappedLegacyRoutes } from "./legacy-service-regression-cases.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const canonicalUrl = "https://www.formula-chistoty.ck.ua";
@@ -76,8 +77,35 @@ function walk(directory) {
   });
 }
 
+test("the eight audited service URLs redirect exactly in middleware before broad heuristics", () => {
+  const { middleware, NextRequest } = loadMiddleware();
+  const search = "?utm_source=qa&qa_marker=synthetic%2Bmarker&check=preserve";
+  for (const [source, destination] of approvedServiceRoutes) {
+    const response = middleware(new NextRequest(`${canonicalUrl}${source}${search}`, {
+      headers: { host: "www.formula-chistoty.ck.ua" }
+    }));
+    assert.equal(response?.status, 301, source);
+    assert.equal(response.headers.get("location"), `${canonicalUrl}${destination}${search}`, source);
+  }
+  for (const source of unmappedLegacyRoutes) {
+    assert.equal(middleware(new NextRequest(`${canonicalUrl}${source}`, {
+      headers: { host: "www.formula-chistoty.ck.ua" }
+    })), undefined, `${source} must stay unmapped`);
+  }
+});
+
+test("the eight audited service redirects are present in the production routing manifest", () => {
+  const manifest = JSON.parse(readFileSync(join(root, ".next/routes-manifest.json"), "utf8"));
+  for (const [source, destination] of approvedServiceRoutes) {
+    const redirects = manifest.redirects.filter((redirect) => redirect.source === source);
+    assert.equal(redirects.length, 1, `${source} must have exactly one build redirect`);
+    assert.equal(redirects[0].statusCode, 301, source);
+    assert.equal(redirects[0].destination, `${canonicalUrl}${destination}`, source);
+  }
+});
+
 test("the centralized registry contains unique permanent Ukrainian legacy routes", () => {
-  assert.equal(ukLegacyRouteRegistry.length, 655);
+  assert.equal(ukLegacyRouteRegistry.length, 657);
   assert.equal(new Set(ukLegacyRouteRegistry.map((route) => route.source)).size, ukLegacyRouteRegistry.length);
 
   for (const route of ukLegacyRouteRegistry) {

@@ -6,6 +6,13 @@ const canonicalUrl = "https://www.formula-chistoty.ck.ua";
 const legacyRedirects = [
   ...ukLegacyRedirects,
   ...ukLegacyPatternRedirects,
+  // Exact legacy service URLs confirmed in the 2026-10-13 audit.
+  { source: "/ru/services/uborka-ofisov", destination: "/prybyrannya-ofisiv-cherkasy", statusCode: 301 },
+  { source: "/ru/services/uborka-posle-potopa", destination: "/prybyrannya-pislya-potopu-cherkasy", statusCode: 301 },
+  { source: "/ru/services/uborka-posle-pozhara", destination: "/prybyrannya-pislya-pozhezhi-cherkasy", statusCode: 301 },
+  { source: "/ru/services/obsluzhivanie-i-klining-promyshlennyh-i-proizvodstvennyh-pomeshhenij", destination: "/prybyrannya-vyrobnychykh-prymishchen-cherkasy", statusCode: 301 },
+  { source: "/ru/services/uborka-torgovyh-czentrov", destination: "/prybyrannya-mahazyniv-supermarketiv-cherkasy", statusCode: 301 },
+  { source: "/ru/services/uborka-prilegayushhej-territorii", destination: "/prybyrannya-prylegloyi-terytoriyi-cherkasy", statusCode: 301 },
   { source: "/ru", destination: "/", statusCode: 301 },
   { source: "/services", destination: "/poslugy", statusCode: 301 },
   { source: "/contact", destination: "/kontakty", statusCode: 301 },

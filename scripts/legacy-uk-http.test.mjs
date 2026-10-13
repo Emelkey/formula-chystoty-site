@@ -3,6 +3,7 @@ import { spawn } from "node:child_process";
 import { createRequire } from "node:module";
 import { setTimeout as delay } from "node:timers/promises";
 import test from "node:test";
+import { approvedServiceRoutes, unmappedLegacyRoutes } from "./legacy-service-regression-cases.mjs";
 
 import { getUkLegacyDestination, ukLegacyRouteRegistry } from "../lib/legacy-uk-routes.ts";
 
@@ -139,5 +140,35 @@ test("mixed carpet legacy mappings keep their exact destination and query string
     assert.equal(destination.href, `${canonicalUrl}${expected}${search}`, source);
     const target = await fetch(`${localUrl}${destination.pathname}${destination.search}`, { redirect: "manual" });
     assert.equal(target.status, 200, `${source}: target must render in one hop`);
+  }
+});
+
+test("the eight audited service redirects return one 301 hop, preserving queries and canonical targets", async () => {
+  const search = "?utm_source=qa&qa_marker=synthetic%2Bmarker&check=preserve";
+  for (const [source, destination] of approvedServiceRoutes) {
+    for (const path of [source, `${source}/`, source.toUpperCase()]) {
+      const response = await fetch(`${localUrl}${path}${search}`, {
+        headers: { host: "www.formula-chistoty.ck.ua" }, redirect: "manual"
+      });
+      assert.equal(response.status, 301, path);
+      assert.equal(response.headers.get("location"), `${canonicalUrl}${destination}${search}`, path);
+    }
+  }
+  for (const destination of new Set(approvedServiceRoutes.map(([, path]) => path))) {
+    const response = await fetch(`${localUrl}${destination}`, { redirect: "manual" });
+    assert.equal(response.status, 200, `${destination} must not redirect again`);
+    const html = await response.text();
+    assert.ok(html.includes(`<link rel="canonical" href="${canonicalUrl}${destination}"`), destination);
+  }
+});
+
+test("the other seventeen audited missing URLs remain 404 without a blanket redirect", async () => {
+  assert.equal(unmappedLegacyRoutes.length, 17);
+  for (const source of unmappedLegacyRoutes) {
+    const response = await fetch(`${localUrl}${source}`, {
+      headers: { host: "www.formula-chistoty.ck.ua" }, redirect: "manual"
+    });
+    assert.equal(response.status, 404, source);
+    assert.equal(response.headers.get("location"), null, source);
   }
 });
