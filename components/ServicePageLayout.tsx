@@ -38,6 +38,29 @@ const fallbackFaq: Faq[] = [
   { question: "Чи працюєте по Черкасах та області?", answer: "Основний регіон — Черкаси. Виїзд за місто погоджуємо окремо." }
 ];
 
+const contextualArticles: Record<string, { href: string; label: string; description: string }> = {
+  "himchystka-dyvana-cherkasy": {
+    href: "/blog/himchystka-dyvana-voseny-skilky-sohne",
+    label: "Як спланувати висихання дивана після чистки",
+    description: "Перед замовленням варто врахувати умови в кімнаті та час, коли диваном знову потрібно користуватися."
+  },
+  "dezinfektsiya-prymishchen-cherkasy": {
+    href: "/blog/ozonatsiya-chy-dezinfektsiya-prymishchennya",
+    label: "Чим відрізняються озонація та дезінфекція",
+    description: "Різні задачі потребують різних методів. Пояснюємо межі послуг і питання, які слід погодити до початку робіт."
+  },
+  "prybyrannya-kvartyr-cherkasy": {
+    href: "/blog/prybyrannya-kvartyr-cherkasy",
+    label: "Що входить у прибирання квартири та що погоджують окремо",
+    description: "Порівняйте формати прибирання й уточніть потрібні зони, щоб запит на розрахунок був конкретним."
+  },
+  "generalne-prybyrannya-kvartyry-cherkasy": {
+    href: "/blog/prybyrannya-kvartyry-pislya-orendariv",
+    label: "Що перевірити у квартирі після виїзду орендарів",
+    description: "Як описати стан приміщення, залишені речі та потрібні роботи перед погодженням генерального прибирання."
+  }
+};
+
 export function ServicePageLayout({ service }: { service: Service }) {
   const faq = ensureFaq(service.faq);
   const examples = getServiceExamples(service.slug);
@@ -51,6 +74,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
   const serviceValueParagraphs = service.valueParagraphs ?? valueParagraphs;
   const hasPriceImages = service.priceDetails?.some((item) => item.image);
   const relatedArticle = getRelatedArticle(service.slug);
+  const contextualArticle = contextualArticles[service.slug];
   const breadcrumbItems = apartmentChildSlugs.has(service.slug)
     ? [
         { name: "Послуги", href: "/poslugy" },
@@ -304,6 +328,19 @@ export function ServicePageLayout({ service }: { service: Service }) {
               <p className="mt-4 max-w-3xl leading-7 text-brand-graphite">{relatedArticle.description}</p>
               <a className="button-spring mt-5 inline-flex min-h-11 items-center justify-center rounded-md bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" href={relatedArticle.href}>
                 Читати статтю
+              </a>
+            </div>
+          </div>
+        </section>
+      ) : null}
+      {contextualArticle ? (
+        <section className="section bg-white" data-contextual-article>
+          <div className="container">
+            <div className="rounded-2xl border border-brand-green/15 bg-brand-mist p-6">
+              <h2 className="text-2xl font-bold">Перед замовленням</h2>
+              <p className="mt-3 max-w-3xl leading-7 text-brand-graphite">{contextualArticle.description}</p>
+              <a className="mt-4 inline-flex min-h-11 items-center font-semibold text-brand-hover underline underline-offset-4 focus-visible:focus-ring" href={contextualArticle.href}>
+                {contextualArticle.label}
               </a>
             </div>
           </div>

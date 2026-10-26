@@ -18,7 +18,7 @@ const businessCleaningTypes = [
   "Прибирання медичного центру"
 ];
 
-export function ContactForm({ compact = false, submitLabel = "Надіслати заявку", business = false }: { compact?: boolean; submitLabel?: string; business?: boolean }) {
+export function ContactForm({ compact = false, submitLabel = "Надіслати заявку", business = false, id = "contact-form" }: { id?: string; compact?: boolean; submitLabel?: string; business?: boolean }) {
   const submittingRef = useRef(false);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
@@ -96,7 +96,7 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
 
   return (
     <form
-      id="contact-form"
+      id={id}
       className="grid w-full min-w-0 scroll-mt-24 gap-4 rounded-lg bg-white p-5 shadow-soft"
       onSubmit={handleSubmit}
     >

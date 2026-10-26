@@ -105,7 +105,7 @@ export default function ContactsPage() {
             <h2 className="text-3xl font-bold text-brand-black">Залиште заявку — ми розрахуємо вартість прибирання у Черкасах</h2>
             <p className="mt-4 leading-7 text-brand-graphite">Опишіть приміщення, площу, бажану дату або надішліть фото. Ми швидко підкажемо орієнтовну вартість і зручний формат робіт.</p>
           </div>
-          <ContactForm compact submitLabel="Отримати розрахунок" />
+          <ContactForm id="contact-estimate-form" compact submitLabel="Отримати розрахунок" />
         </div>
       </section>
     </>
