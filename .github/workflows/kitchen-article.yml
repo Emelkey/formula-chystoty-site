@@ -3,14 +3,32 @@ on:
   pull_request:
     paths:
       - 'lib/site.ts'
+      - 'seo/query-map.ts'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'eslint.config.mjs'
+      - 'scripts/seo-architecture.test.mjs'
+      - 'scripts/cms-smoke.sh'
+      - 'sanity.cli.ts'
       - 'components/BlogPostLayout.tsx'
+      - 'components/ServiceCard.tsx'
       - 'scripts/kitchen-article-browser.mjs'
       - '.github/workflows/kitchen-article.yml'
   push:
     branches: [main]
     paths:
       - 'lib/site.ts'
+      - 'seo/query-map.ts'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'eslint.config.mjs'
+      - 'scripts/seo-architecture.test.mjs'
+      - 'scripts/cms-smoke.sh'
+      - 'sanity.cli.ts'
       - 'components/BlogPostLayout.tsx'
+      - 'components/ServiceCard.tsx'
       - 'scripts/kitchen-article-browser.mjs'
       - '.github/workflows/kitchen-article.yml'
 permissions:
@@ -18,9 +36,12 @@ permissions:
 jobs:
   article-browser:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    container: mcr.microsoft.com/playwright:v1.55.1-noble
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: pnpm/action-setup@v4
         with:
           version: 11
@@ -33,10 +54,16 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm build
       - run: pnpm test:seo
+      - name: Audit all installed dependencies
+        run: pnpm audit
+      - name: Verify CMS schema and CLI without network access
+        env:
+          CMS_QA_OUTPUT: outputs/kitchen-article-cms
+        run: bash scripts/cms-smoke.sh
       - name: Prepare isolated browser dependencies
         run: |
           npm install --prefix "$RUNNER_TEMP/article-browser" --ignore-scripts --no-package-lock playwright@1.55.1
-          node "$RUNNER_TEMP/article-browser/node_modules/playwright/cli.js" install --with-deps chromium webkit
+          # Browsers and system libraries are preinstalled in the version-matched official image.
       - name: Start production build locally
         run: |
           pnpm start --hostname 127.0.0.1 --port 3141 > "$RUNNER_TEMP/article-server.log" 2>&1 &
