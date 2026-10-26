@@ -12,8 +12,10 @@ type CardService = {
   imageAlt: string;
 };
 
+const serviceIcons = { Armchair, Building2, Car, Clock3, Droplets, Factory, Flame, HeartPulse, Home, House, Leaf, PanelsTopLeft, ShoppingBasket, Sofa, Sparkles, Store, UtensilsCrossed, Warehouse, Wind };
+
 export function ServiceCard({ service }: { service: CardService }) {
-  const Icon = serviceIcon(service.slug);
+  const Icon = serviceIcons[serviceIconName(service.slug)];
   const href = service.slug === "prybyrannya-kvartyr-cherkasy" ? absoluteUrl(`/${service.slug}`) : `/${service.slug}`;
 
   return (
@@ -40,25 +42,25 @@ export function ServiceCard({ service }: { service: CardService }) {
   );
 }
 
-function serviceIcon(slug: string) {
-  if (slug.includes("vyrobnychykh")) return Factory;
-  if (slug.includes("skladiv")) return Warehouse;
-  if (slug.includes("medychnykh")) return HeartPulse;
-  if (slug.includes("stiltsiv") || slug.includes("krisel")) return Armchair;
-  if (slug.includes("ofis")) return Building2;
-  if (slug.includes("rehulyarne-prybyrannya-biznesu")) return Clock3;
-  if (slug.includes("mahazyn") || slug.includes("supermarket")) return ShoppingBasket;
-  if (slug.includes("restoran") || slug.includes("kafe")) return UtensilsCrossed;
-  if (slug.includes("kvartyr")) return Home;
-  if (slug.includes("generalne")) return Sparkles;
-  if (slug.includes("remontu")) return PanelsTopLeft;
-  if (slug.includes("potopu")) return Droplets;
-  if (slug.includes("pozhezhi")) return Flame;
-  if (slug.includes("terytoriyi")) return Leaf;
-  if (slug.includes("budynkiv")) return House;
-  if (slug.includes("avto")) return Car;
-  if (slug.includes("himchystka")) return Sofa;
-  if (slug.includes("vikon")) return Wind;
-  if (slug.includes("komertsiynykh")) return Store;
-  return Sparkles;
+function serviceIconName(slug: string): keyof typeof serviceIcons {
+  if (slug.includes("vyrobnychykh")) return "Factory";
+  if (slug.includes("skladiv")) return "Warehouse";
+  if (slug.includes("medychnykh")) return "HeartPulse";
+  if (slug.includes("stiltsiv") || slug.includes("krisel")) return "Armchair";
+  if (slug.includes("ofis")) return "Building2";
+  if (slug.includes("rehulyarne-prybyrannya-biznesu")) return "Clock3";
+  if (slug.includes("mahazyn") || slug.includes("supermarket")) return "ShoppingBasket";
+  if (slug.includes("restoran") || slug.includes("kafe")) return "UtensilsCrossed";
+  if (slug.includes("kvartyr")) return "Home";
+  if (slug.includes("generalne")) return "Sparkles";
+  if (slug.includes("remontu")) return "PanelsTopLeft";
+  if (slug.includes("potopu")) return "Droplets";
+  if (slug.includes("pozhezhi")) return "Flame";
+  if (slug.includes("terytoriyi")) return "Leaf";
+  if (slug.includes("budynkiv")) return "House";
+  if (slug.includes("avto")) return "Car";
+  if (slug.includes("himchystka")) return "Sofa";
+  if (slug.includes("vikon")) return "Wind";
+  if (slug.includes("komertsiynykh")) return "Store";
+  return "Sparkles";
 }
