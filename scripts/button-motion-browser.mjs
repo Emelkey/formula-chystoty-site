@@ -241,7 +241,11 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
       let pendingLead = null;
       let releaseLead = null;
       let contextClosing = false;
+      const pendingRscRoutes = new Set();
+      const rscTrace = [];
+      let activeScenario = "setup";
       await context.route('**/*', async route => {
+        let routedRsc = null;
         try {
           // Keep the guard installed throughout teardown; new requests remain denied.
           if (contextClosing) return await route.abort('blockedbyclient');
@@ -254,6 +258,11 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
           }
           if (url.origin === origin && request.method() === 'GET' && !url.pathname.endsWith('/collect')) {
             network.allowedRequests += 1;
+            if (url.searchParams.has('_rsc') || request.headers().rsc === '1') {
+              routedRsc = request;
+              pendingRscRoutes.add(request);
+              rscTrace.push({ at: Date.now(), phase: 'route-start', url: request.url(), scenario: activeScenario });
+            }
             // continue() can follow redirects without routing the destination again.
             // Fetch only this canonical local URL and reject any redirect response.
             const response = await route.fetch({ maxRedirects: 0, timeout: 30000 });
@@ -271,6 +280,12 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
           if (contextClosing && (error.name === 'TargetClosedError'
             || /Target page, context or browser has been closed|Target closed|Request context disposed/i.test(error.message))) return;
           throw error;
+        } finally {
+          if (routedRsc) {
+            pendingRscRoutes.delete(routedRsc);
+            lastRsc = Date.now();
+            rscTrace.push({ at: lastRsc, phase: 'route-settled', url: routedRsc.url(), scenario: activeScenario });
+          }
         }
       });
       await context.routeWebSocket('**/*', socket => socket.close());
@@ -278,7 +293,10 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
       pageProfiles.set(page, meta);
       page.setDefaultTimeout(10000);
       page.setDefaultNavigationTimeout(30000);
-      page.on('pageerror', error => runtimeErrors.push(error.message));
+      page.on('pageerror', error => {
+        runtimeErrors.push(error.message);
+        console.error('RSC_RUNTIME_DIAGNOSTIC ' + JSON.stringify({ at: Date.now(), scenario: activeScenario, page: page.url(), message: error.message, recentTransport: rscTrace.slice(-20) }));
+      });
       const form = page.locator(formSelector).first();
       const submit = page.locator(submitSelector).first();
 
@@ -292,7 +310,10 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
         }
       });
       for (const event of ['requestfinished', 'requestfailed']) page.on(event, request => {
-        if (rscRequests.delete(request)) lastRsc = Date.now();
+        if (rscRequests.delete(request)) {
+          lastRsc = Date.now();
+          rscTrace.push({ at: lastRsc, phase: event, url: request.url(), failure: request.failure()?.errorText, scenario: activeScenario });
+        }
       });
 
       async function hydrated() {
@@ -316,16 +337,20 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
         await page.evaluate(() => document.fonts.ready);
       }
 
+      async function drainRsc() {
+        const started = Date.now();
+        while (rscRequests.size || pendingRscRoutes.size || Date.now() - lastRsc < 200) {
+          assert.ok(Date.now() - started < 30000, 'RSC requests and intercepted transports did not settle before navigation');
+          await new Promise(resolve => setTimeout(resolve, 25));
+        }
+      }
+
       async function reset(path = '/kontakty') {
         releaseLead?.(); releaseLead = null; pendingLead = null;
         await page.mouse.up();
         await page.keyboard.up('Space');
         await page.emulateMedia({ reducedMotion: 'no-preference' });
-        const started = Date.now();
-        while (rscRequests.size || Date.now() - lastRsc < 200) {
-          assert.ok(Date.now() - started < 30000, 'RSC requests did not settle before fixture reset');
-          await new Promise(resolve => setTimeout(resolve, 25));
-        }
+        await drainRsc();
         const response = await page.goto(origin + path, { waitUntil: 'domcontentloaded' });
         assert.equal(response?.status(), 200, `Fixture did not load: ${path}`);
         await hydrated();
@@ -341,6 +366,7 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
 
       async function check(name, task, path = '/kontakty') {
         const started = Date.now();
+        activeScenario = name;
         try {
           if (path !== null) await reset(path);
           const evidence = await task();
@@ -541,6 +567,7 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
         await check('primary CTA retains its contact route and form anchor', async () => {
           const primary = page.locator(`${heroSelector} a[href="/kontakty#contact-form"]`);
           assert.equal(await primary.count(), 1);
+          await drainRsc();
           if (isMobile) await primary.tap(); else await primary.click();
           await page.waitForURL(url => url.pathname === '/kontakty' && url.hash === '#contact-form');
           await form.waitFor();
@@ -550,7 +577,9 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
           });
           const dimensions = await assertNoOverflow(page);
           const screenshot = await capture('primary-cta-destination');
+          await drainRsc();
           await page.goBack({ waitUntil: 'domcontentloaded' });
+          await drainRsc();
           await page.waitForURL(url => url.pathname === '/' && !url.hash);
           await primary.waitFor();
           return { destination: '/kontakty#contact-form', back: new URL(page.url()).pathname, dimensions, screenshot };
@@ -575,7 +604,9 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
             await page.locator('#mobile-menu a[href="/kontakty"]').tap();
             await page.waitForURL(url => url.pathname === '/kontakty');
             await page.locator('#mobile-menu').waitFor({ state: 'detached' });
-            await page.goBack({ waitUntil: 'domcontentloaded' });
+            await drainRsc();
+          await page.goBack({ waitUntil: 'domcontentloaded' });
+          await drainRsc();
             await page.waitForURL(url => url.pathname === '/');
             assert.equal(await menu.getAttribute('aria-expanded'), 'false');
             await menu.tap(); await page.locator('#mobile-menu').waitFor();
@@ -600,7 +631,9 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
             await details.locator('a[href="/kontakty#contact-form"]').tap();
             await page.waitForURL(url => url.pathname === '/kontakty' && url.hash === '#contact-form');
             await form.waitFor();
-            await page.goBack({ waitUntil: 'domcontentloaded' });
+            await drainRsc();
+          await page.goBack({ waitUntil: 'domcontentloaded' });
+          await drainRsc();
             await page.waitForURL(url => url.pathname === '/');
             // <details> may be restored open by the engine; both states must remain usable.
             const restoredOpen = await details.evaluate(element => element.open);
@@ -665,6 +698,7 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
         }
 
         await check('no uncaught runtime errors and network remained guarded', async () => {
+          await drainRsc();
           assert.deepEqual(runtimeErrors, []);
           assert.deepEqual(network.rejectedRedirects, [], 'Canonical local fixtures must not redirect');
           assert.ok(network.allowedRequests > 0);

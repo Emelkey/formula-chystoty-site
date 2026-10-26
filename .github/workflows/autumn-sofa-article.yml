@@ -18,6 +18,7 @@ permissions:
 jobs:
   article-browser:
     runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.55.1-noble
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
@@ -33,7 +34,7 @@ jobs:
       - name: Prepare isolated browser dependencies
         run: |
           npm install --prefix "$RUNNER_TEMP/article-browser" --ignore-scripts --no-package-lock playwright@1.55.1
-          node "$RUNNER_TEMP/article-browser/node_modules/playwright/cli.js" install --with-deps chromium
+          # Matching official image contains browser binaries and OS dependencies.
       - name: Start production build locally
         run: |
           pnpm start --hostname 127.0.0.1 --port 3141 > "$RUNNER_TEMP/article-server.log" 2>&1 &
