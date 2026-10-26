@@ -6,7 +6,7 @@ import { useState } from "react";
 import { ContactAction } from "@/components/ContactAction";
 import { PrimaryButton } from "@/components/Buttons";
 import { Logo } from "@/components/Logo";
-import { contacts } from "@/lib/site";
+import { contacts } from "@/lib/contacts";
 
 const menu = [
   ["Головна", "/"],

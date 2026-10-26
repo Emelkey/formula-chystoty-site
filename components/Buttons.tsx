@@ -5,7 +5,7 @@ import { MessageCircle, Phone, Send } from "lucide-react";
 import { ContactAction } from "@/components/ContactAction";
 import { TrackedLink } from "@/components/TrackedLink";
 import { trackAnalyticsEvent } from "@/lib/analytics";
-import { contacts } from "@/lib/site";
+import { contacts } from "@/lib/contacts";
 
 export function PrimaryButton({ href = "/kontakty#contact-form", children = "Розрахувати вартість" }: { href?: string; children?: ReactNode }) {
   return (

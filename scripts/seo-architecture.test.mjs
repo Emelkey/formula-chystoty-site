@@ -163,7 +163,7 @@ const primaryServices = variableValue(homeFile, "primaryServices");
 const secondaryGroups = variableValue(homeFile, "secondaryGroups");
 const relatedLinks = variableValue(relatedFile, "relatedLinks");
 const mainRoutes = variableValue(sitemapFile, "mainRoutes");
-const contacts = variableValue(siteFile, "contacts");
+const contacts = variableValue(sourceFile("lib/contacts.ts"), "contacts");
 const services = baseServices.map((service) => ({ ...service, ...(serviceEnhancements[service.slug] ?? {}) }));
 const serviceRegistry = seoIntentRegistry.filter((item) => item.path.slice(1) in Object.fromEntries(services.map((service) => [service.slug, true])));
 const registryPaths = new Set(seoIntentRegistry.map((item) => item.path));

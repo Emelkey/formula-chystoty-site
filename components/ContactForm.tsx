@@ -4,7 +4,7 @@ import type { FormEvent } from "react";
 import { useRef, useState } from "react";
 import { TrackedLink } from "@/components/TrackedLink";
 import { trackAnalyticsEvent } from "@/lib/analytics";
-import { contacts } from "@/lib/site";
+import { contacts } from "@/lib/contacts";
 import { normalizeUkrainianPhone, PHONE_VALIDATION_MESSAGE } from "@/lib/phone";
 
 const cleaningTypes = ["Генеральне прибирання квартири", "Підтримуюче прибирання", "Після ремонту", "Прибирання після потопу", "Прибирання після пожежі", "Прибирання прилеглої території", "Прибирання квартири", "Прибирання будинку", "Клінінг комерційного приміщення", "Хімчистка меблів або килимів", "Миття вікон"];

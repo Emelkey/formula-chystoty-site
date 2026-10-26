@@ -1,33 +1,10 @@
 import type { Metadata } from "next";
+import { contacts } from "@/lib/contacts";
 import { blogPostContentEnhancements } from "@/lib/blog-post-content";
 
-export const siteUrl = "https://www.formula-chistoty.ck.ua";
+export { contacts } from "@/lib/contacts";
 
-export const contacts = {
-  companyName: "Формула Чистоти",
-  city: "Черкаси",
-  country: "Україна",
-  countryCode: "UA",
-  phone: "+38 (097) 809 58 00",
-  phonePlain: "+38 (097) 809 58 00",
-  phoneE164: "+380978095800",
-  phoneHref: "tel:+380978095800",
-  viber: "viber://chat/?number=%2B380978095800",
-  telegram: "https://t.me/formula_chystoty/",
-  instagram: "https://www.instagram.com/formula__chistoty/",
-  facebook: "https://www.facebook.com/formulaChisttoty",
-  email: "formula-chistoty@ukr.net",
-  address: "вулиця Надпільна, 220/2, Черкаси, Черкаська область, 18006, Україна",
-  streetAddress: "вулиця Надпільна, 220/2",
-  addressRegion: "Черкаська область",
-  postalCode: "18006",
-  workingHours: "Щодня: 09:00–21:00",
-  workingHoursShort: "09:00–21:00",
-  openingHoursSchema: "Mo-Su 09:00-21:00",
-  mapUrl: "https://maps.app.goo.gl/z12jY8uJuUHYkakKA",
-  googleMapUrl: "https://maps.app.goo.gl/z12jY8uJuUHYkakKA",
-  viberNumber: "+380978095800"
-};
+export const siteUrl = "https://www.formula-chistoty.ck.ua";
 
 export const localDistricts = ["Центр", "Митниця", "Південно-Західний", "Дахнівка", "Казбет", "Соснівка", "Хімселище", "Район Д", "Луначарський", "Інші райони Черкас"];
 
