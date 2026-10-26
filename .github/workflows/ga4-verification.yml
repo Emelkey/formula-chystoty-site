@@ -35,6 +35,7 @@ jobs:
   verify-isolation:
     needs: verify-config
     runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.55.1-noble
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
@@ -44,7 +45,7 @@ jobs:
       - name: Install isolated browser test dependency
         run: |
           npm install --prefix "$RUNNER_TEMP/ga4-browser" --ignore-scripts --no-package-lock playwright@1.55.1
-          node "$RUNNER_TEMP/ga4-browser/node_modules/playwright/cli.js" install --with-deps chromium
+          # Matching official image contains Chromium and its OS dependencies.
       - name: Verify routing without delivering synthetic events
         env:
           GA4_PLAYWRIGHT_DIR: ${{ runner.temp }}/ga4-browser
