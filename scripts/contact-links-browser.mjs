@@ -51,6 +51,13 @@ try {
       assert.equal(new URL(page.url()).pathname, '/' + service);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true);
     }
+    await page.goto(origin + '/blog/skilky-koshtuye-klining-u-cherkasakh-2026', { waitUntil: 'networkidle' });
+    const comparisonHeading = page.getByRole('heading', { name: 'Як порівняти два кошториси на однаковий обсяг', exact: true });
+    await comparisonHeading.scrollIntoViewIfNeeded();
+    assert.equal(await comparisonHeading.count(), 1);
+    assert.ok(await page.getByText('Однакова площа й одиниця розрахунку:', { exact: false }).count());
+    assert.ok(await page.locator('a[href="https://www.formula-chistoty.ck.ua/prices"]').count());
+    await page.screenshot({ path: `${output}/${width}-quote-comparison.png` });
     assert.deepEqual(errors, []);
     receipt.profiles.push({ width, uniqueIds: true, forms: 2, contextualLinks: 4, navigationAndBack: true, noOverflow: true });
     await context.close();

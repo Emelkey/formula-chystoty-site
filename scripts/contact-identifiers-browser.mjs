@@ -30,6 +30,8 @@ for (const [engine, browserType] of Object.entries({ chromium, webkit })) {
       page.on('pageerror', e => errors.push(e.message));
       for (const id of ['contact-form', 'contact-estimate-form']) {
         await page.goto(origin + '/kontakty#' + id, { waitUntil: 'networkidle' });
+        // A hash-only navigation preserves React state; reload isolates each form fixture.
+        await page.reload({ waitUntil: 'networkidle' });
         await page.waitForFunction(() => typeof window.gtag === 'function');
         const form = page.locator('form#' + id);
         assert.equal(await form.count(), 1);
