@@ -1,0 +1,43 @@
+{
+  "name": "formula-chystoty",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build --webpack",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "seo:legacy-manifest": "node --experimental-strip-types scripts/generate-legacy-redirects-manifest.mjs",
+    "test:seo": "node --experimental-strip-types --test scripts/legacy-uk-routes.test.mjs scripts/seo-architecture.test.mjs scripts/query-map.test.mjs scripts/case-studies.test.mjs scripts/lead-contract.test.mjs",
+    "test:leads": "node scripts/lead-contract.test.mjs",
+    "test:seo:schema:http": "node --test scripts/schema-http.test.mjs",
+    "test:seo:http": "node --experimental-strip-types --test scripts/legacy-uk-http.test.mjs",
+    "seo:lint": "node --experimental-strip-types --test scripts/query-map.test.mjs",
+    "test:leads:browser": "node scripts/form-browser-verification.mjs"
+  },
+  "dependencies": {
+    "@portabletext/react": "^3.1.0",
+    "@sanity/client": "7.28.0",
+    "@sanity/image-url": "^1.1.0",
+    "lucide-react": "^0.468.0",
+    "next": "16.4.3",
+    "next-sanity": "11.6.13",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "sanity": "5.31.2",
+    "styled-components": "^6.1.13"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.5",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.2",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.16.0",
+    "eslint-config-next": "16.4.3",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.16",
+    "typescript": "^5.7.2"
+  }
+}

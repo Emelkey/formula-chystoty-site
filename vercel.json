@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "formula-chistoty.ck.ua"
+        }
+      ],
+      "destination": "https://www.formula-chistoty.ck.ua/:path*",
+      "permanent": true
+    }
+  ]
+}
