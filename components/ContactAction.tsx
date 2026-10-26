@@ -3,7 +3,7 @@
 import type { MouseEvent, ReactNode } from "react";
 import { useEffect, useState } from "react";
 import { trackAnalyticsEvent } from "@/lib/analytics";
-import { contacts } from "@/lib/site";
+import { contacts } from "@/lib/contacts";
 
 type ContactActionType = "phone" | "viber";
 

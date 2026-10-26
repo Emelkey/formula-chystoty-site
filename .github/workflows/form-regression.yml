@@ -15,6 +15,9 @@ on:
       - 'scripts/contact-links-browser.mjs'
       - 'components/ServicePageLayout.tsx'
       - 'lib/site.ts'
+      - 'lib/contacts.ts'
+      - 'components/ContactAction.tsx'
+      - 'scripts/contact-bundle.test.mjs'
       - 'components/Buttons.tsx'
       - 'components/TrackedLink.tsx'
       - 'lib/analytics.ts'
@@ -39,6 +42,9 @@ on:
       - 'scripts/contact-links-browser.mjs'
       - 'components/ServicePageLayout.tsx'
       - 'lib/site.ts'
+      - 'lib/contacts.ts'
+      - 'components/ContactAction.tsx'
+      - 'scripts/contact-bundle.test.mjs'
       - 'lib/analytics.ts'
       - 'lib/phone.ts'
       - 'app/api/lead/route.ts'
@@ -68,6 +74,8 @@ jobs:
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm build
+      - name: Guard the contact-only client dependency boundary
+        run: node --test scripts/contact-bundle.test.mjs
       - run: pnpm test:seo
       - run: pnpm audit
       - name: Prepare isolated browser dependencies
