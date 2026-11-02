@@ -31,6 +31,30 @@ try {
   for (const viewport of [{ width: 1365, height: 900 }, { width: 390, height: 844 }]) {
     const context = await contextFor({ viewport, isMobile: viewport.width < 768, hasTouch: viewport.width < 768 });
     const page = await context.newPage();
+    // Forced fixture navigation must not abort earlier Next.js RSC prefetches.
+    // Match the existing form QA isolation, rather than suppressing page errors.
+    const inflightRsc = new Set();
+    let lastRscActivity = 0;
+    page.on('request', request => {
+      const url = new URL(request.url());
+      if (url.origin === origin && (url.searchParams.has('_rsc') || request.headers().rsc === '1')) {
+        inflightRsc.add(request);
+        lastRscActivity = Date.now();
+      }
+    });
+    for (const event of ['requestfinished', 'requestfailed']) page.on(event, request => {
+      if (inflightRsc.delete(request)) lastRscActivity = Date.now();
+    });
+    async function navigate(path = '') {
+      if (page.url() !== 'about:blank') {
+        const started = Date.now();
+        while (inflightRsc.size || Date.now() - lastRscActivity < 200) {
+          if (Date.now() - started > 30000) throw new Error('RSC prefetches did not settle before fixture navigation');
+          await new Promise(resolve => setTimeout(resolve, 25));
+        }
+      }
+      await page.goto(origin + path, { waitUntil: 'networkidle' });
+    }
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     try {
@@ -42,7 +66,7 @@ try {
         return animate.apply(this, args);
       };
     });
-    await page.goto(origin, { waitUntil: 'networkidle' });
+    await navigate();
     const step = page.locator('[data-reveal="step"]').first();
     await step.evaluate(element => element.scrollIntoView({ behavior: 'instant', block: 'center' }));
     await page.waitForFunction(() => document.querySelector('[data-reveal="step"]')?.getAttribute('data-revealed') === 'true');
@@ -59,7 +83,7 @@ try {
     assert.equal(await work.evaluate(element => element.getAnimations().length), 0, 'focus cancels entrance immediately');
     assert.equal(await work.evaluate(element => getComputedStyle(element).opacity), '1');
     await capture(page, `${engine}-${viewport.width}-work-focus`);
-    await page.goto(origin + '/poslugy', { waitUntil: 'networkidle' });
+    await navigate('/poslugy');
     const detail = page.locator('[data-motion-details]').first();
     const summary = detail.locator('summary');
     const activate = () => viewport.width < 768 ? summary.tap() : summary.click();
@@ -86,7 +110,7 @@ try {
     await summary.press('Enter');
     assert.equal(await detail.evaluate(element => element.open), true);
     assert.equal(await detail.evaluate(element => element.getAnimations({ subtree: true }).length), 0, 'reduced motion uses native toggle');
-    await page.goto(origin, { waitUntil: 'networkidle' });
+    await navigate();
     await step.evaluate(element => element.scrollIntoView({ behavior: 'instant', block: 'center' }));
     await page.waitForTimeout(80);
     assert.equal(await page.evaluate(() => window.contentMotionCalls.length), 0, 'reduced motion skips reveals');
