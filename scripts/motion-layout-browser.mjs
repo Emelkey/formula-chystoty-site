@@ -68,19 +68,33 @@ for (const [engine, type] of Object.entries({ chromium, webkit })) {
         await page.screenshot({ path: resolve(output, `${engine}-${width}-prices.png`) });
         const card = page.locator('[aria-label^="Основні послуги"] article').first();
         await card.scrollIntoViewIfNeeded();
-        await card.locator('a').first().focus();
-        await page.waitForTimeout(300);
+        // Exercise real keyboard navigation, not a programmatic focus followed
+        // by an arbitrary sleep. WebKit may paint the resulting transition later.
+        const serviceRail = page.getByRole('region', { name: 'Основні послуги — горизонтальна стрічка із шести карток', exact: true });
+        await serviceRail.focus();
+        await page.keyboard.press('Tab');
+        await page.waitForFunction(() => {
+          const element = document.querySelector('[aria-label^="Основні послуги"] article');
+          return element?.contains(document.activeElement) && new DOMMatrixReadOnly(getComputedStyle(element).transform).m42 < -2.9;
+        }, undefined, { timeout: 5000 });
+        assert.equal(await card.evaluate(e => e.contains(document.activeElement)), true, 'Tab moves focus into the service card');
         const moved = await card.evaluate(e => new DOMMatrixReadOnly(getComputedStyle(e).transform).m42);
         assert.ok(moved < 0, 'keyboard focus receives service-card lift');
         await page.emulateMedia({ reducedMotion: 'reduce' });
-        await page.waitForTimeout(60);
+        await page.waitForFunction(() => getComputedStyle(document.querySelector('[aria-label^="Основні послуги"] article')).transform === 'none');
         assert.equal(await card.evaluate(e => getComputedStyle(e).transform), 'none');
         assert.equal(await card.locator('img').evaluate(e => getComputedStyle(e).transform), 'none');
         await page.screenshot({ path: resolve(output, `${engine}-${width}-services.png`) });
         assert.deepEqual(errors, []);
         receipt.checks.push({ engine, width, status: 'PASS', gallerySlots });
       } catch (error) {
-        receipt.failures.push({ engine, width, error: error.message });
+        const focusState = await page.evaluate(() => {
+          const card = document.querySelector('[aria-label^="Основні послуги"] article');
+          return { activeTag: document.activeElement?.tagName, activeHref: document.activeElement?.getAttribute('href'),
+            cardHasFocus: card?.contains(document.activeElement), transform: card ? getComputedStyle(card).transform : null,
+            reducedMotion: matchMedia('(prefers-reduced-motion: reduce)').matches };
+        }).catch(() => null);
+        receipt.failures.push({ engine, width, error: error.message, focusState });
         await page.screenshot({ path: resolve(output, `${engine}-${width}-failure.png`) }).catch(() => {});
       } finally { await context.close(); }
     }
