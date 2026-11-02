@@ -39,6 +39,7 @@ jobs:
       - name: Isolated browsers
         run: npm install --prefix "$RUNNER_TEMP/motion-browser" --ignore-scripts --no-package-lock playwright@1.55.1
       - name: Start built server
+        id: server
         run: |
           pnpm start --hostname 127.0.0.1 --port 3100 > "$RUNNER_TEMP/motion-server.log" 2>&1 &
           for attempt in $(seq 1 30); do
@@ -56,19 +57,20 @@ jobs:
           node scripts/button-motion-browser.mjs
           node scripts/form-browser-verification.mjs
       - name: Measure new build
+        if: ${{ !cancelled() && steps.server.outcome == 'success' }}
         env:
           GA4_PLAYWRIGHT_DIR: ${{ runner.temp }}/motion-browser
           OUTPUT: outputs/motion-after-local
         run: node scripts/motion-performance.mjs
       - name: Checkout baseline for like-for-like local speed comparison
-        if: github.event_name == 'pull_request'
+        if: ${{ !cancelled() && steps.server.outcome == 'success' && github.event_name == 'pull_request' }}
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.base.sha }}
           path: .baseline
           persist-credentials: false
       - name: Build baseline and compare
-        if: github.event_name == 'pull_request'
+        if: ${{ !cancelled() && steps.server.outcome == 'success' && github.event_name == 'pull_request' }}
         env:
           GA4_PLAYWRIGHT_DIR: ${{ runner.temp }}/motion-browser
           BASE_URL: http://127.0.0.1:3101
@@ -82,7 +84,7 @@ jobs:
           done
           node scripts/motion-performance.mjs
       - name: Capture public baseline before release
-        if: github.event_name == 'pull_request'
+        if: ${{ !cancelled() && steps.server.outcome == 'success' && github.event_name == 'pull_request' }}
         env:
           GA4_PLAYWRIGHT_DIR: ${{ runner.temp }}/motion-browser
           BASE_URL: https://www.formula-chistoty.ck.ua

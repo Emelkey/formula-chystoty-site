@@ -54,7 +54,7 @@ export function PricingSection({ compact = false }: { compact?: boolean }) {
                 Усі ціни →
               </Link>
             </div>
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
               {compactPrices.map((item) => (
                 <Link className="service-motion-card group overflow-hidden rounded-[24px] border border-[#E8EEE5] bg-white p-5 shadow-soft focus-visible:focus-ring" href={item.href} key={item.title}>
                   <h3 className="text-lg font-bold leading-6 text-brand-black">{item.title}</h3>
