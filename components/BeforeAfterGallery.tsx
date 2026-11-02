@@ -3,6 +3,7 @@ import Link from "next/link";
 import { workExamples } from "@/lib/site";
 import { SectionHeading } from "@/components/SectionHeading";
 import { RevealGroup } from "@/components/RevealGroup";
+import { compactWorkImageSizes } from "@/lib/work-image-sizes";
 
 const workServiceLinks: Record<string, string> = {
   "Хімчистка сидіння авто в процесі": "/himchystka-avto-cherkasy",
@@ -48,7 +49,7 @@ export function BeforeAfterGallery({ realPhotosOnly = false, compact = false }: 
   const examples = compact ? featuredTitles.flatMap((title) => available.filter((work) => work.title === title)) : available;
 
   return (
-    <section className="section bg-white">
+    <section data-gallery-layout={compact ? "compact" : "full"} className="section bg-white">
       <div className="container">
         <SectionHeading eyebrow="Роботи" title="Наші роботи" description="Показуємо типові задачі, з якими працює команда: квартири, будинки, офіси, вікна та регулярний сервіс." />
         <RevealGroup className="grid gap-5 md:grid-cols-3">
@@ -56,13 +57,13 @@ export function BeforeAfterGallery({ realPhotosOnly = false, compact = false }: 
             <article data-reveal={isRealWorkPhoto(work) ? "work" : undefined} className={`overflow-hidden rounded-2xl border border-black/5 bg-white shadow-soft ${!compact && ("beforeImage" in work || "beforeAfterImage" in work) ? "md:col-span-3" : ""}`} key={work.title}>
               {"beforeImage" in work ? (
                 <div className={`grid gap-3 p-3 ${compact ? "grid-cols-2" : "md:grid-cols-2"}`}>
-                  <BeforeAfterImage label="До" src={work.beforeImage} alt={work.beforeImageAlt} />
-                  <BeforeAfterImage label="Після" src={work.afterImage} alt={work.afterImageAlt} />
+                  <BeforeAfterImage label="До" src={work.beforeImage} alt={work.beforeImageAlt} sizes={compact ? compactWorkImageSizes.pair : "(max-width: 768px) 92vw, 50vw"} />
+                  <BeforeAfterImage label="Після" src={work.afterImage} alt={work.afterImageAlt} sizes={compact ? compactWorkImageSizes.pair : "(max-width: 768px) 92vw, 50vw"} />
                 </div>
               ) : "beforeAfterImage" in work ? (
-                <CombinedBeforeAfterImage src={work.beforeAfterImage} alt={work.beforeAfterImageAlt} />
+                <CombinedBeforeAfterImage src={work.beforeAfterImage} alt={work.beforeAfterImageAlt} sizes={compact ? compactWorkImageSizes.combined : "(max-width: 768px) 92vw, 66vw"} />
               ) : (
-                <Image src={work.image} alt={work.imageAlt} width={1200} height={900} sizes="(max-width: 768px) 92vw, 33vw" className="aspect-[4/3] w-full object-cover" />
+                <Image src={work.image} alt={work.imageAlt} width={1200} height={900} sizes={compact ? compactWorkImageSizes.single : "(max-width: 768px) 92vw, 33vw"} className="aspect-[4/3] w-full object-cover" />
               )}
               <div className="p-5">
                 <p className="text-xs font-semibold uppercase tracking-[0.08em] text-brand-hover">{work.category}</p>
@@ -91,11 +92,11 @@ function isRealWorkPhoto(work: (typeof workExamples)[number]) {
   return work.image.startsWith("/images/works/");
 }
 
-function CombinedBeforeAfterImage({ src, alt }: { src: string; alt: string }) {
+function CombinedBeforeAfterImage({ src, alt, sizes }: { src: string; alt: string; sizes: string }) {
   return (
     <div className="p-3">
       <div className="relative overflow-hidden rounded-[18px] bg-brand-mist shadow-soft">
-        <Image src={src} alt={alt} width={1200} height={900} sizes="(max-width: 768px) 92vw, 66vw" className="aspect-[16/9] w-full object-cover" />
+        <Image src={src} alt={alt} width={1200} height={900} sizes={sizes} className="aspect-[16/9] w-full object-cover" />
         <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-brand-black shadow-soft">До</span>
         <span className="absolute right-3 top-3 rounded-full bg-white/95 px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-brand-black shadow-soft">Після</span>
       </div>
@@ -103,10 +104,10 @@ function CombinedBeforeAfterImage({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-function BeforeAfterImage({ label, src, alt }: { label: string; src: string; alt: string }) {
+function BeforeAfterImage({ label, src, alt, sizes }: { label: string; src: string; alt: string; sizes: string }) {
   return (
     <div className="relative overflow-hidden rounded-[18px] bg-brand-mist shadow-soft">
-      <Image src={src} alt={alt} width={1200} height={900} sizes="(max-width: 768px) 92vw, 50vw" className="aspect-[4/3] w-full object-cover" />
+      <Image src={src} alt={alt} width={1200} height={900} sizes={sizes} className="aspect-[4/3] w-full object-cover" />
       <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-brand-black shadow-soft">{label}</span>
     </div>
   );

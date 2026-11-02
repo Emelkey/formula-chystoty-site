@@ -24,6 +24,22 @@ for (const [engine, type] of Object.entries({ chromium, webkit })) {
       page.on('pageerror', error => errors.push(error.message));
       try {
         await page.goto(origin, { waitUntil: 'networkidle' });
+        const gallerySlots = await page.locator('[data-gallery-layout="compact"] img').evaluateAll(images => images.map(image => {
+          const selected = image.sizes.split(', ').find(item => {
+            const condition = item.match(/^\(([^)]+)\)/);
+            return !condition || matchMedia(`(${condition[1]})`).matches;
+          }).replace(/^\([^)]+\) /, '');
+          const probe = document.createElement('div');
+          probe.style.cssText = `position:fixed;visibility:hidden;width:${selected}`;
+          document.body.append(probe);
+          const declared = probe.getBoundingClientRect().width;
+          probe.remove();
+          return { declared, rendered: image.getBoundingClientRect().width, sizes: image.sizes };
+        }));
+        assert.ok(gallerySlots.length > 0, 'compact work gallery is present');
+        for (const { declared, rendered, sizes } of gallerySlots) {
+          assert.ok(declared >= rendered - 1 && declared <= rendered + 1, `image sizes match real layout: ${declared} vs ${rendered}, ${sizes}`);
+        }
         const prices = page.locator('[data-pricing-section]');
         const lastCard = prices.locator('a.service-motion-card').last();
         await lastCard.scrollIntoViewIfNeeded();
@@ -62,7 +78,7 @@ for (const [engine, type] of Object.entries({ chromium, webkit })) {
         assert.equal(await card.locator('img').evaluate(e => getComputedStyle(e).transform), 'none');
         await page.screenshot({ path: resolve(output, `${engine}-${width}-services.png`) });
         assert.deepEqual(errors, []);
-        receipt.checks.push({ engine, width, status: 'PASS' });
+        receipt.checks.push({ engine, width, status: 'PASS', gallerySlots });
       } catch (error) {
         receipt.failures.push({ engine, width, error: error.message });
         await page.screenshot({ path: resolve(output, `${engine}-${width}-failure.png`) }).catch(() => {});
