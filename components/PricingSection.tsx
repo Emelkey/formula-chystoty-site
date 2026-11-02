@@ -41,7 +41,7 @@ const compactPrices = [
 
 export function PricingSection({ compact = false }: { compact?: boolean }) {
   return (
-    <section className="section bg-white">
+    <section data-pricing-section className="section bg-white">
       <div className="container">
         {compact ? (
           <div>
@@ -54,14 +54,14 @@ export function PricingSection({ compact = false }: { compact?: boolean }) {
                 Усі ціни →
               </Link>
             </div>
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
               {compactPrices.map((item) => (
-                <Link className="group overflow-hidden rounded-[24px] border border-[#E8EEE5] bg-white p-5 shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(17,17,17,0.12)]" href={item.href} key={item.title}>
+                <Link className="service-motion-card group overflow-hidden rounded-[24px] border border-[#E8EEE5] bg-white p-5 shadow-soft focus-visible:focus-ring" href={item.href} key={item.title}>
                   <h3 className="text-lg font-bold leading-6 text-brand-black">{item.title}</h3>
                   <p className="mt-4 text-2xl font-bold leading-tight text-brand-hover">{item.price}</p>
                   <p className="mt-3 min-h-12 text-sm leading-6 text-brand-graphite">{item.description}</p>
                   <div className="relative mt-5 aspect-[16/10] overflow-hidden rounded-[18px] bg-brand-mist">
-                    <Image src={item.image} alt={item.imageAlt} fill sizes="(max-width: 768px) 92vw, (max-width: 1024px) 46vw, 25vw" className="object-cover transition duration-300 group-hover:scale-105" />
+                    <Image src={item.image} alt={item.imageAlt} fill sizes="(max-width: 768px) 92vw, (max-width: 1024px) 46vw, 25vw" className="service-motion-image object-cover" />
                   </div>
                 </Link>
               ))}
