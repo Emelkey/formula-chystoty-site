@@ -32,8 +32,9 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm lint && pnpm typecheck && pnpm test:seo
+      - run: pnpm lint && pnpm typecheck
       - run: pnpm build
+      - run: pnpm test:seo
       - run: node --test scripts/button-motion.test.mjs scripts/contact-bundle.test.mjs
       - name: Isolated browsers
         run: npm install --prefix "$RUNNER_TEMP/motion-browser" --ignore-scripts --no-package-lock playwright@1.55.1
@@ -52,6 +53,8 @@ jobs:
         run: |
           node scripts/motion-layout-browser.mjs
           node scripts/content-motion-browser.mjs
+          node scripts/button-motion-browser.mjs
+          node scripts/form-browser-verification.mjs
       - name: Measure new build
         env:
           GA4_PLAYWRIGHT_DIR: ${{ runner.temp }}/motion-browser
