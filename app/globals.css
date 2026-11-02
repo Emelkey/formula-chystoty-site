@@ -42,7 +42,8 @@ img {
 /* A real gutter for the 48px desktop contact rail, including its focus ring.
    Keep every content container clear, rather than moving the overlap elsewhere. */
 @media (min-width: 1024px) {
-  .container {
+  main .container,
+  footer .container {
     width: min(1200px, calc(100% - 160px));
   }
 }
