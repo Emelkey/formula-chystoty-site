@@ -6,7 +6,7 @@ import { contacts } from "@/lib/site";
 export function FloatingContactButtons() {
   return (
     <>
-      <details className="group fixed bottom-4 right-4 z-50 sm:hidden">
+      <details className="group fixed bottom-4 right-4 z-50 lg:hidden">
         <summary className="button-spring flex h-12 w-12 cursor-pointer list-none items-center justify-center rounded-full bg-brand-green text-white shadow-soft focus-visible:focus-ring [&::-webkit-details-marker]:hidden">
           <MessageCircle className="group-open:hidden" size={22} aria-hidden />
           <X className="hidden group-open:block" size={22} aria-hidden />
@@ -16,7 +16,7 @@ export function FloatingContactButtons() {
           <ContactActions mobile />
         </div>
       </details>
-      <div className="fixed bottom-4 right-4 z-50 hidden max-w-[calc(100vw-32px)] flex-col items-end gap-2 sm:flex">
+      <div className="fixed bottom-4 right-4 floating-contact-desktop z-50 hidden w-12 flex-col items-end gap-2 lg:flex">
         <ContactActions />
       </div>
     </>
@@ -26,16 +26,16 @@ export function FloatingContactButtons() {
 function ContactActions({ mobile = false }: { mobile?: boolean }) {
   return (
     <>
-      <TrackedLink href="/kontakty#contact-form" aria-label="Залишити заявку" className={mobile ? "button-spring inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand-green px-4 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" : "button-spring inline-flex h-auto w-auto items-center justify-center gap-2 rounded-full bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring"} eventName="contact_form_open" eventCategory="lead" eventLabel="contact_form">
+      <TrackedLink href="/kontakty#contact-form" aria-label="Залишити заявку" title="Залишити заявку" className={mobile ? "button-spring inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand-green px-4 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" : "button-spring inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand-green text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring"} eventName="contact_form_open" eventCategory="lead" eventLabel="contact_form">
         <ClipboardCheck size={18} aria-hidden />
-        <span>Залишити заявку</span>
+        <span className={mobile ? undefined : "sr-only"}>Залишити заявку</span>
       </TrackedLink>
       <div className={mobile ? "grid w-full gap-2" : "grid gap-2"}>
-        <ContactAction type="phone" revealPhoneNumber={!mobile} phoneNumberPosition="left" className={mobile ? "button-spring inline-flex min-h-12 w-full items-center gap-3 rounded-xl bg-brand-mist px-4 text-sm font-semibold text-brand-black focus-visible:focus-ring" : "button-spring inline-flex h-12 min-w-12 items-center justify-center gap-3 rounded-full bg-brand-green px-3 text-white shadow-soft transition-[width,background-color] hover:bg-brand-hover focus-visible:focus-ring"}>
+        <ContactAction type="phone" className={mobile ? "button-spring inline-flex min-h-12 w-full items-center gap-3 rounded-xl bg-brand-mist px-4 text-sm font-semibold text-brand-black focus-visible:focus-ring" : "button-spring inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand-green px-3 text-white shadow-soft transition-colors hover:bg-brand-hover focus-visible:focus-ring"}>
           <Phone size={20} aria-hidden />
           {mobile ? <span>Подзвонити</span> : null}
         </ContactAction>
-        <ContactAction type="viber" revealPhoneNumber={!mobile} phoneNumberPosition="left" className={mobile ? "button-spring inline-flex min-h-12 w-full items-center gap-3 rounded-xl bg-brand-mist px-4 text-sm font-semibold text-brand-black focus-visible:focus-ring" : "button-spring inline-flex h-12 min-w-12 items-center justify-center gap-3 rounded-full bg-white px-3 text-brand-hover shadow-soft transition-[width,background-color] hover:bg-brand-mist focus-visible:focus-ring"}>
+        <ContactAction type="viber" className={mobile ? "button-spring inline-flex min-h-12 w-full items-center gap-3 rounded-xl bg-brand-mist px-4 text-sm font-semibold text-brand-black focus-visible:focus-ring" : "button-spring inline-flex h-12 w-12 items-center justify-center rounded-full bg-white px-3 text-brand-hover shadow-soft transition-colors hover:bg-brand-mist focus-visible:focus-ring"}>
           <MessageCircle size={20} aria-hidden />
           {mobile ? <span>Написати у Viber</span> : null}
         </ContactAction>

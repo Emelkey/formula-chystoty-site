@@ -39,6 +39,40 @@ img {
   margin-inline: auto;
 }
 
+/* A real gutter for the 48px desktop contact rail, including its focus ring.
+   Keep every content container clear, rather than moving the overlap elsewhere. */
+@media (min-width: 1024px) {
+  .container {
+    width: min(1200px, calc(100% - 160px));
+  }
+}
+
+.service-motion-card,
+.service-motion-image {
+  transition: transform 220ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .service-motion-card:focus-within {
+    transform: translateY(-3px);
+  }
+
+  .service-motion-card:focus-within .service-motion-image {
+    transform: scale(1.025);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .service-motion-card:hover { transform: translateY(-3px); }
+    .service-motion-card:hover .service-motion-image { transform: scale(1.025); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .service-motion-card,
+  .service-motion-image { transition: none; }
+}
+
 .section {
   padding: 88px 0;
 }

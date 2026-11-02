@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { workExamples } from "@/lib/site";
 import { SectionHeading } from "@/components/SectionHeading";
+import { RevealGroup } from "@/components/RevealGroup";
 
 const workServiceLinks: Record<string, string> = {
   "Хімчистка сидіння авто в процесі": "/himchystka-avto-cherkasy",
@@ -50,9 +51,9 @@ export function BeforeAfterGallery({ realPhotosOnly = false, compact = false }: 
     <section className="section bg-white">
       <div className="container">
         <SectionHeading eyebrow="Роботи" title="Наші роботи" description="Показуємо типові задачі, з якими працює команда: квартири, будинки, офіси, вікна та регулярний сервіс." />
-        <div className="grid gap-5 md:grid-cols-3">
+        <RevealGroup className="grid gap-5 md:grid-cols-3">
           {examples.map((work, index) => (
-            <article className={`overflow-hidden rounded-2xl border border-black/5 bg-white shadow-soft ${!compact && ("beforeImage" in work || "beforeAfterImage" in work) ? "md:col-span-3" : ""}`} key={work.title}>
+            <article data-reveal={isRealWorkPhoto(work) ? "work" : undefined} className={`overflow-hidden rounded-2xl border border-black/5 bg-white shadow-soft ${!compact && ("beforeImage" in work || "beforeAfterImage" in work) ? "md:col-span-3" : ""}`} key={work.title}>
               {"beforeImage" in work ? (
                 <div className={`grid gap-3 p-3 ${compact ? "grid-cols-2" : "md:grid-cols-2"}`}>
                   <BeforeAfterImage label="До" src={work.beforeImage} alt={work.beforeImageAlt} />
@@ -77,7 +78,7 @@ export function BeforeAfterGallery({ realPhotosOnly = false, compact = false }: 
               </div>
             </article>
           ))}
-        </div>
+        </RevealGroup>
         {compact ? <Link className="mt-8 inline-flex min-h-12 items-center font-semibold text-brand-hover underline underline-offset-4" href="/nashi-roboty">Переглянути всі наші роботи →</Link> : null}
       </div>
     </section>
