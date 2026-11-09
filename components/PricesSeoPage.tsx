@@ -229,6 +229,7 @@ const meterPriceGroups: PriceGroup[] = [
     rows: [
       ["Сезонне миття скла, рам і підвіконь", "від 200 грн/м²", serviceThumbs.window],
       ["Зимове миття вікон при температурі нижче +10 °C", "від 250 грн/м²", serviceThumbs.window],
+      ["Доплата за висоту починаючи з 7-го поверху", "+30 грн/м²", serviceThumbs.window],
       ["Післяремонтне миття вікон", "від 200 грн/м²", serviceThumbs.window],
       ["Зняття застарілої монтажної плівки", "від 300 грн/м²", extraThumbs.difficultStains],
       ["Мінімальна вартість виїзду", minimumVisitPrice, serviceThumbs.minimumVisit]
