@@ -23,7 +23,7 @@ const compactPrices = [
   },
   {
     title: "Миття вікон",
-    price: "від 160 грн/м²",
+    price: "від 200 грн/м²",
     description: "Вікна, балкони, вітрини та скляні конструкції",
     href: "/myttya-vikon-cherkasy",
     image: "/images/services/premium-window-cleaning.webp",
