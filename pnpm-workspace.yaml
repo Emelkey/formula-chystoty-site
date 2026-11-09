@@ -21,3 +21,8 @@ overrides:
   "tailwindcss>postcss-selector-parser": 7.1.6
   "postcss-nested>postcss-selector-parser": 7.1.6
   "typeid-js>uuid": 11.1.1
+  # GHSA-g3hv-75wg-m249: only these consumers use the affected 10.x named API.
+  # Keep legacy 3.x/5.x callable and makeRe consumers on their compatible majors.
+  "@oclif/core@4.11.10>minimatch": 11.0.4
+  "@oclif/core@4.14.0>minimatch": 11.0.4
+  "@typescript-eslint/typescript-estree@8.72.0>minimatch": 11.0.4
