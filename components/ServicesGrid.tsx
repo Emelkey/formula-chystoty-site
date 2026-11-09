@@ -38,7 +38,7 @@ const homeServices = [
     slug: "myttya-vikon-cherkasy",
     title: "Миття вікон",
     shortDescription: "Миємо скло, рами, підвіконня, балкони, вітрини та післяремонтні забруднення.",
-    priceFrom: "від 160 грн/м²",
+    priceFrom: "від 200 грн/м²",
     image: "/images/services/premium-window-cleaning.webp",
     imageAlt: "Миття великих вікон у світлому інтер’єрі"
   },
