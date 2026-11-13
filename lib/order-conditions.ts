@@ -2,5 +2,5 @@
 export const minimumVisitPrice = "3000 грн";
 export const minimumVisitFromPrice = `від ${minimumVisitPrice}`;
 
-// Latest approved price change, not the date of an automated page visit.
-export const pricesUpdatedOn = "09.11.2026";
+// Latest approved window-cleaning price change; does not date the entire price list.
+export const windowPricesUpdatedOn = "09.11.2026";
