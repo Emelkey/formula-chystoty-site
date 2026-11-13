@@ -1,4 +1,4 @@
-import { minimumVisitPrice, minimumVisitFromPrice } from "@/lib/order-conditions";
+import { minimumVisitPrice, minimumVisitFromPrice, windowPricesUpdatedOn } from "@/lib/order-conditions";
 import { priceTarget } from "@/seo/price-links";
 import { CheckCircle2 } from "lucide-react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -417,7 +417,7 @@ export function PricesSeoPage({
               <p className="mb-3 text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Короткий прайс</p>
               <h2 className="text-3xl font-bold text-brand-black">Основні ціни на клінінг у Черкасах</h2>
               <p className="mt-4 leading-7 text-brand-graphite">
-                Короткий прайс на найпопулярніші послуги. Ціни перевірено 30.07.2026. Остаточна вартість залежить від площі, стану об’єкта та додаткових робіт.
+                Короткий прайс на найпопулярніші послуги. Ціни на миття вікон оновлено {windowPricesUpdatedOn}. Остаточна вартість залежить від площі, стану об’єкта та додаткових робіт.
               </p>
             </div>
             <div className="mt-6 min-w-0 overflow-x-auto rounded-2xl border border-black/5">

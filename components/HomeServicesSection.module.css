@@ -42,6 +42,7 @@
   background: #fff;
   box-shadow: 0 14px 34px rgb(17 47 23 / 10%);
   scroll-snap-align: start;
+  transition: transform 220ms ease;
 }
 
 .media {
@@ -54,12 +55,15 @@
 
 .image {
   object-fit: cover;
-  transition: transform 350ms ease;
+  transition: transform 220ms ease;
 }
 
-.card:hover .image,
-.card:focus-within .image {
-  transform: scale(1.035);
+.card:focus-within { transform: translateY(-3px); }
+.card:focus-within .image { transform: scale(1.025); }
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover { transform: translateY(-3px); }
+  .card:hover .image { transform: scale(1.025); }
 }
 
 .cardBody {
@@ -98,10 +102,13 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .card,
   .image {
     transition: none;
   }
 
+  .card:hover,
+  .card:focus-within,
   .card:hover .image,
   .card:focus-within .image {
     transform: none;
