@@ -1,3 +1,4 @@
+import { minimumVisitPrice } from "@/lib/order-conditions";
 import Link from "next/link";
 import Image from "next/image";
 import { Armchair, ArrowRight, Building2, Car, Clock3, Droplets, Factory, Flame, HeartPulse, Home, House, Leaf, PanelsTopLeft, ShoppingBasket, Sofa, Sparkles, Store, UtensilsCrossed, Warehouse, Wind } from "lucide-react";
@@ -31,6 +32,7 @@ export function ServiceCard({ service }: { service: CardService }) {
         </h3>
         <p className="mt-3 line-clamp-3 text-sm leading-6 text-brand-graphite">{service.shortDescription}</p>
         <p className="mt-4 inline-flex w-fit rounded-full bg-brand-mist px-3 py-2 text-sm font-bold text-brand-hover">{service.priceFrom}</p>
+                  <p className="mt-2 text-xs leading-5 text-brand-graphite">Мінімальне замовлення з виїздом — {minimumVisitPrice}.</p>
       </div>
       <Link className="mt-5 inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-brand-hover focus-visible:focus-ring" href={href}>
         Детальніше <ArrowRight size={16} aria-hidden />

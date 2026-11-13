@@ -1,4 +1,4 @@
-import { minimumVisitPrice, minimumVisitFromPrice } from "@/lib/order-conditions";
+import { minimumVisitPrice, minimumVisitFromPrice, pricesUpdatedOn } from "@/lib/order-conditions";
 import { priceTarget } from "@/seo/price-links";
 import { CheckCircle2 } from "lucide-react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -96,7 +96,7 @@ const priceGroups: PriceGroup[] = [
       ["Генеральне прибирання квартири без шаф усередині", "від 100 грн/м²", serviceThumbs.apartmentGeneral, apartmentGeneralUrl],
       ["Генеральне прибирання квартири з шафами усередині", "від 120 грн/м²", serviceThumbs.apartmentGeneral, apartmentGeneralUrl],
       ["Прибирання після ремонту", "від 120 грн/м²", serviceThumbs.apartmentRenovation, apartmentRenovationUrl],
-      ["Миття вікон", "від 160 грн/м²", serviceThumbs.window, windowCleaningUrl],
+      ["Миття вікон", "від 200 грн/м²", serviceThumbs.window, windowCleaningUrl],
       ["Мінімальний виїзд", minimumVisitFromPrice, serviceThumbs.minimumVisit]
     ]
   },
@@ -106,7 +106,7 @@ const priceGroups: PriceGroup[] = [
       ["Підтримуюче прибирання будинку", "від 3000 грн", serviceThumbs.houseMaintenance],
       ["Генеральне прибирання будинку", "від 5000 грн", serviceThumbs.houseGeneral],
       ["Прибирання після ремонту", "від 6000 грн", serviceThumbs.houseRenovation],
-      ["Миття вікон у будинку", "від 160 грн/м²", serviceThumbs.window],
+      ["Миття вікон у будинку", "від 200 грн/м²", serviceThumbs.window],
       ["Виїзд за місто", "25 грн/км", serviceThumbs.travel]
     ]
   },
@@ -227,7 +227,9 @@ const meterPriceGroups: PriceGroup[] = [
   {
     title: "Миття вікон — грн/м²",
     rows: [
-      ["Сезонне миття скла, рам і підвіконь", "від 160 грн/м²", serviceThumbs.window],
+      ["Сезонне миття скла, рам і підвіконь", "від 200 грн/м²", serviceThumbs.window],
+      ["Зимове миття вікон при температурі нижче +10 °C", "від 250 грн/м²", serviceThumbs.window],
+      ["Доплата за висоту починаючи з 7-го поверху", "+30 грн/м²", serviceThumbs.window],
       ["Післяремонтне миття вікон", "від 200 грн/м²", serviceThumbs.window],
       ["Зняття застарілої монтажної плівки", "від 300 грн/м²", extraThumbs.difficultStains],
       ["Мінімальна вартість виїзду", minimumVisitPrice, serviceThumbs.minimumVisit]
@@ -297,7 +299,7 @@ const summaryPriceRows: SummaryPriceRow[] = [
   {
     service: "Миття вікон",
     unit: "м²",
-    price: "160 грн",
+    price: "200 грн",
     note: "Сезонне миття скла, рам і підвіконь",
     href: "/myttya-vikon-cherkasy"
   },
@@ -415,7 +417,7 @@ export function PricesSeoPage({
               <p className="mb-3 text-sm font-semibold uppercase tracking-[0.08em] text-brand-hover">Короткий прайс</p>
               <h2 className="text-3xl font-bold text-brand-black">Основні ціни на клінінг у Черкасах</h2>
               <p className="mt-4 leading-7 text-brand-graphite">
-                Короткий прайс на найпопулярніші послуги. Ціни перевірено 30.07.2026. Остаточна вартість залежить від площі, стану об’єкта та додаткових робіт.
+                Короткий прайс на найпопулярніші послуги. Ціни оновлено {pricesUpdatedOn}. Остаточна вартість залежить від площі, стану об’єкта та додаткових робіт.
               </p>
             </div>
             <div className="mt-6 min-w-0 overflow-x-auto rounded-2xl border border-black/5">

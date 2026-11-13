@@ -2,6 +2,11 @@ name: Form browser regression
 on:
   pull_request:
     paths:
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'scripts/minimatch-compatibility.test.mjs'
+      - 'scripts/cms-smoke.sh'
       - 'app/globals.css'
       - 'components/Header.tsx'
       - 'components/ButtonSpringFeedback.tsx'
@@ -29,6 +34,11 @@ on:
   push:
     branches: [main]
     paths:
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'scripts/minimatch-compatibility.test.mjs'
+      - 'scripts/cms-smoke.sh'
       - 'app/globals.css'
       - 'components/Header.tsx'
       - 'components/ButtonSpringFeedback.tsx'
@@ -78,6 +88,8 @@ jobs:
         run: node --test scripts/contact-bundle.test.mjs
       - run: pnpm test:seo
       - run: pnpm audit
+      - name: Verify scoped minimatch compatibility
+        run: node --test scripts/minimatch-compatibility.test.mjs
       - name: Prepare isolated browser dependencies
         run: |
           npm install --prefix "$RUNNER_TEMP/form-browser" --ignore-scripts --no-package-lock playwright@1.55.1

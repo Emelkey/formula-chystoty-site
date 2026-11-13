@@ -10,6 +10,7 @@ on:
       - 'eslint.config.mjs'
       - 'scripts/seo-architecture.test.mjs'
       - 'scripts/cms-smoke.sh'
+      - 'scripts/minimatch-compatibility.test.mjs'
       - 'sanity.cli.ts'
       - 'components/BlogPostLayout.tsx'
       - 'components/ServiceCard.tsx'
@@ -26,6 +27,7 @@ on:
       - 'eslint.config.mjs'
       - 'scripts/seo-architecture.test.mjs'
       - 'scripts/cms-smoke.sh'
+      - 'scripts/minimatch-compatibility.test.mjs'
       - 'sanity.cli.ts'
       - 'components/BlogPostLayout.tsx'
       - 'components/ServiceCard.tsx'
@@ -56,6 +58,8 @@ jobs:
       - run: pnpm test:seo
       - name: Audit all installed dependencies
         run: pnpm audit
+      - name: Verify scoped minimatch compatibility
+        run: node --test scripts/minimatch-compatibility.test.mjs
       - name: Verify CMS schema and CLI without network access
         env:
           CMS_QA_OUTPUT: outputs/kitchen-article-cms

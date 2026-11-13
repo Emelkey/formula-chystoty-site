@@ -1,3 +1,4 @@
+import { minimumVisitPrice } from "@/lib/order-conditions";
 import Image from "next/image";
 import Link from "next/link";
 import { additionalPrices, priceGuideSections, priceTables, servicePages } from "@/lib/site";
@@ -23,7 +24,7 @@ const compactPrices = [
   },
   {
     title: "Миття вікон",
-    price: "від 160 грн/м²",
+    price: "від 200 грн/м²",
     description: "Вікна, балкони, вітрини та скляні конструкції",
     href: "/myttya-vikon-cherkasy",
     image: "/images/services/premium-window-cleaning.webp",
@@ -59,6 +60,7 @@ export function PricingSection({ compact = false }: { compact?: boolean }) {
                 <Link className="service-motion-card group overflow-hidden rounded-[24px] border border-[#E8EEE5] bg-white p-5 shadow-soft focus-visible:focus-ring" href={item.href} key={item.title}>
                   <h3 className="text-lg font-bold leading-6 text-brand-black">{item.title}</h3>
                   <p className="mt-4 text-2xl font-bold leading-tight text-brand-hover">{item.price}</p>
+                  <p className="mt-2 text-xs leading-5 text-brand-graphite">Мінімальне замовлення з виїздом — {minimumVisitPrice}.</p>
                   <p className="mt-3 min-h-12 text-sm leading-6 text-brand-graphite">{item.description}</p>
                   <div className="relative mt-5 aspect-[16/10] overflow-hidden rounded-[18px] bg-brand-mist">
                     <Image src={item.image} alt={item.imageAlt} fill sizes="(max-width: 768px) 92vw, (max-width: 1024px) 46vw, 25vw" className="service-motion-image object-cover" />
@@ -110,6 +112,7 @@ export function PricingSection({ compact = false }: { compact?: boolean }) {
                   <Link className="rounded-lg bg-white p-5 shadow-soft transition hover:-translate-y-1" href={item.href} key={item.title}>
                     <h3 className="text-lg font-bold text-brand-black">{item.title}</h3>
                     <p className="mt-3 text-2xl font-bold text-brand-hover">{item.price}</p>
+                  <p className="mt-2 text-xs leading-5 text-brand-graphite">Мінімальне замовлення з виїздом — {minimumVisitPrice}.</p>
                     <p className="mt-3 text-sm leading-6 text-brand-graphite">{item.description}</p>
                   </Link>
                 ))}
