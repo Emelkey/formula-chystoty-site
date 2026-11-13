@@ -87,19 +87,28 @@ try {
     const detail = page.locator('[data-motion-details]').first();
     const summary = detail.locator('summary');
     const activate = () => viewport.width < 768 ? summary.tap() : summary.click();
+    // Wait for the observable settled state, not a timer racing WebKit's animation callbacks.
+    const waitForDetails = async (open) => {
+      const handle = await detail.elementHandle();
+      try {
+        await page.waitForFunction(({ element, open }) =>
+          element.open === open && element.getAnimations({ subtree: true }).length === 0,
+          { element: handle, open }, { timeout: 2000, polling: 'raf' });
+      } finally { await handle?.dispose(); }
+    };
     await summary.focus();
     await summary.press('Enter');
-    await page.waitForTimeout(240);
+    await waitForDetails(true);
     assert.equal(await detail.evaluate(element => element.open), true, 'Enter opens native details');
     await summary.press('Space');
-    await page.waitForTimeout(180);
+    await waitForDetails(false);
     assert.equal(await detail.evaluate(element => element.open), false, 'Space closes native details');
     await activate();
     await page.waitForTimeout(40);
     await activate();
     await page.waitForTimeout(40);
     await activate();
-    await page.waitForTimeout(250);
+    await waitForDetails(true);
     assert.equal(await detail.evaluate(element => element.open), true, 'interrupted open/close/open settles open');
     assert.equal(await detail.locator('div').first().evaluate(element => getComputedStyle(element).opacity), '1');
     await capture(page, `${engine}-${viewport.width}-faq-open`);
