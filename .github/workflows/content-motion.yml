@@ -85,6 +85,13 @@ jobs:
           # Both builds now exist. The script warms both target/profile pairs, then
           # alternates seven cold-context samples per pair on this same runner.
           node scripts/motion-performance.mjs
+      - name: Diagnose unchanged button behavior on baseline main
+        if: ${{ !cancelled() && steps.server.outcome == 'success' && github.event_name == 'pull_request' }}
+        env:
+          GA4_PLAYWRIGHT_DIR: ${{ runner.temp }}/motion-browser
+          BUTTON_QA_BASE_URL: http://127.0.0.1:3101
+          BUTTON_QA_OUTPUT: outputs/button-motion-baseline
+        run: node .baseline/scripts/button-motion-browser.mjs
       - name: Capture public baseline before release
         if: ${{ !cancelled() && steps.server.outcome == 'success' && github.event_name == 'pull_request' }}
         env:
