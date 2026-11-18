@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { normalizeUkrainianPhone } from "@/lib/phone";
+import { LeadRequestError, readLeadJson, TELEGRAM_TIMEOUT_MS } from "@/lib/lead-security";
 
 type LeadPayload = {
   name?: unknown;
@@ -31,14 +32,17 @@ export async function POST(request: Request) {
     let body: LeadPayload = {};
 
     try {
-      const parsed: unknown = await request.json();
+      const parsed: unknown = await readLeadJson(request);
       if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
         return NextResponse.json({ success: false, error: "invalid_payload" }, { status: 400 });
       }
       body = parsed as LeadPayload;
       logLeadApi("body_received", { received: true });
     } catch (error) {
-      logLeadApi("body_received", { received: false, error: error instanceof Error ? error.message : "unknown" });
+      logLeadApi("body_received", { received: false });
+      if (error instanceof LeadRequestError) {
+        return NextResponse.json({ success: false, error: error.message }, { status: error.status });
+      }
       return NextResponse.json({ success: false, error: "invalid_json" }, { status: 400 });
     }
 
@@ -109,6 +113,7 @@ export async function POST(request: Request) {
     logLeadApi("telegram_request_started");
 
     const telegramResponse = await fetch(telegramUrl, {
+      signal: AbortSignal.timeout(TELEGRAM_TIMEOUT_MS),
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -127,7 +132,12 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("lead_api_unhandled_error", error);
+    // Never log upstream URLs/errors: a fetch error can contain the bot credential.
+    const timeout = error instanceof Error && (error.name === "TimeoutError" || error.name === "AbortError");
+    console.error("lead_api_unhandled_error", { timeout });
+    if (timeout) {
+      return NextResponse.json({ success: false, error: "telegram_timeout" }, { status: 504 });
+    }
     return NextResponse.json({ success: false, error: "lead_api_unhandled_error" }, { status: 500 });
   }
 }

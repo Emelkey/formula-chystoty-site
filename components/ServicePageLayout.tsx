@@ -107,7 +107,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
             <h1 className="text-4xl font-bold leading-tight md:text-5xl">{service.h1}</h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-brand-graphite">{service.shortDescription}</p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <PrimaryButton>{service.slug === "himchystka-mebliv-cherkasy" ? "Розрахувати вартість за фото" : "Розрахувати вартість"}</PrimaryButton>
+              <PrimaryButton href={service.slug === "generalne-prybyrannya-kuhni-cherkasy" ? "#contact-form" : undefined}>{service.slug === "himchystka-mebliv-cherkasy" ? "Розрахувати вартість за фото" : "Розрахувати вартість"}</PrimaryButton>
               <ContactButtons />
             </div>
           </div>
@@ -175,7 +175,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
         </div>
         <div className="container mt-8">
           <div className="flex flex-wrap gap-3 rounded-2xl bg-brand-mist p-5 shadow-soft">
-            <PrimaryButton>Розрахувати вартість</PrimaryButton>
+            <PrimaryButton href={service.slug === "generalne-prybyrannya-kuhni-cherkasy" ? "#contact-form" : undefined}>Розрахувати вартість</PrimaryButton>
             <ContactButtons />
           </div>
         </div>
@@ -275,7 +275,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
               ) : null}
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-              <PrimaryButton>Отримати точний розрахунок</PrimaryButton>
+              <PrimaryButton href={service.slug === "generalne-prybyrannya-kuhni-cherkasy" ? "#contact-form" : undefined}>Отримати точний розрахунок</PrimaryButton>
               <a className="button-spring inline-flex min-h-12 items-center justify-center rounded-md border border-brand-green/25 bg-white px-5 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring" href="/prices">
                 Дивитися всі ціни
               </a>
@@ -374,7 +374,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
               <ContactButtons />
             </div>
           </div>
-          <ContactForm business={service.businessForm} />
+          <ContactForm business={service.businessForm} defaultService={service.slug === "generalne-prybyrannya-kuhni-cherkasy" ? "Генеральне прибирання кухні" : undefined} />
         </div>
       </section>
       <SeoJsonLd
@@ -566,7 +566,7 @@ function ServicePriceSection({ service, hasPriceImages }: { service: Service; ha
             ) : null}
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-            <PrimaryButton>Отримати точний розрахунок</PrimaryButton>
+            <PrimaryButton href={service.slug === "generalne-prybyrannya-kuhni-cherkasy" ? "#contact-form" : undefined}>Отримати точний розрахунок</PrimaryButton>
             <a className="button-spring inline-flex min-h-12 items-center justify-center rounded-md border border-brand-green/25 bg-white px-5 py-3 text-sm font-semibold text-brand-hover shadow-soft transition hover:border-brand-green focus-visible:focus-ring" href="/prices">
               Дивитися всі ціни
             </a>

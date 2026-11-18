@@ -20,6 +20,7 @@ function load(file, imports = {}, globals = {}) {
 }
 function check(name, fn) {fn(); checks.push({name, status: 'PASS'});}
 const phone = load('lib/phone.ts');
+const security = load('lib/lead-security.ts', {}, {URL, TextDecoder, Uint8Array, setTimeout, clearTimeout});
 const accepted = ['+380970000001','380970000001','0970000001','+38 (097) 000-00-01','097 000 00 01','  +380970000001  ','+380\u00a097\u00a0000\u00a000\u00a001','097.000.00.01'];
 for (const value of accepted) check(`phone accepts ${JSON.stringify(value)}`, () => assert.equal(phone.normalizeUkrainianPhone(value), '+380970000001'));
 const rejected = ['', '1234567','+480970000001','++380970000001','0+970000001','0970000001abc',null,1234567,{},'097000000','09700000011','+380970000001 ext 2',' '.repeat(3)];
@@ -27,11 +28,12 @@ for (const value of rejected) check(`phone rejects ${JSON.stringify(value)}`, ()
 function makeRoute({env = {TELEGRAM_BOT_TOKEN:'mock-only', TELEGRAM_CHAT_ID:'mock-only'}, tgStatus=200, tgBody={ok:true}, tgText, thrown=false} = {}) {
   const sent = [];
   const route=load('app/api/lead/route.ts', {
-    'next/server':{NextResponse:{json:(obj, init) => Response.json(obj, init)}}, '@/lib/phone':phone
-  }, {process:{env}, fetch:async (url, request) => {
+    'next/server':{NextResponse:{json:(obj, init) => Response.json(obj, init)}}, '@/lib/phone':phone, '@/lib/lead-security':security
+  }, {process:{env}, AbortSignal, Error, fetch:async (url, request) => {
     assert.equal(url, 'https://api.telegram.org/botmock-only/sendMessage');
+    assert.ok(request.signal instanceof AbortSignal, "Telegram request has deadline signal");
     sent.push(JSON.parse(request.body));
-    if (thrown) throw Error('Mock network error');
+    if (thrown) { const error = new Error('Mock network error'); if (thrown === 'timeout') error.name = 'TimeoutError'; throw error; }
     return tgText === undefined ? Response.json(tgBody,{status:tgStatus}) : new Response(tgText,{status:tgStatus});
   }});
   return {...route,sent};
@@ -57,6 +59,7 @@ async function api(name, payload, expectedStatus, expectedError, options={}, exp
   await api('API rejects short phone',{name:'LOCAL TEST',phone:'1234567'},400,'phone_invalid');
   await api('API rejects text in phone',{name:'LOCAL TEST',phone:'0970000001abc'},400,'phone_invalid');
   for(const payload of [null,[],42,'wrong']) await api(`API rejects shape ${JSON.stringify(payload)}`,payload,400,'invalid_payload');
+  await api('API body byte limit','x'.repeat(16385),413,'payload_too_large',{},0,true);
   await api('API invalid JSON','{',400,'invalid_json',{},0,true);
   await api('API honeypot produces no send',{name:'LOCAL TEST',phone:'0970000001',website:'bot'},200,undefined);
   await api('API missing environment',{name:'LOCAL TEST',phone:'0970000001'},500,'telegram_env_missing',{env:{}});
@@ -64,6 +67,7 @@ async function api(name, payload, expectedStatus, expectedError, options={}, exp
   await api('API rejects Telegram HTTP failure',{name:'LOCAL TEST',phone:'0970000001'},502,'telegram_send_failed',{tgStatus:502,tgBody:{ok:false}},1);
   await api('API rejects Telegram ok=false',{name:'LOCAL TEST',phone:'0970000001'},502,'telegram_send_failed',{tgBody:{ok:false}},1);
   await api('API rejects Telegram non-JSON',{name:'LOCAL TEST',phone:'0970000001'},502,'telegram_send_failed',{tgText:'invalid'},1);
+  await api('API reports Telegram timeout',{name:'LOCAL TEST',phone:'0970000001'},504,'telegram_timeout',{thrown:'timeout'},1);
   await api('API rejects Telegram network failure',{name:'LOCAL TEST',phone:'0970000001'},500,'lead_api_unhandled_error',{thrown:true},1);
   const summary = {scope:'Offline TypeScript/phone/API contract tests. Not production, not a full Next.js build.',passed:checks.length,failed:0,checks};
   console.log(JSON.stringify(summary,null,2));

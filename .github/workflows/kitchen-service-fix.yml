@@ -1,0 +1,50 @@
+name: Kitchen service and lead security verification
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.55.1-noble
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint && pnpm typecheck && pnpm build && pnpm test:seo
+      - name: Prepare isolated browser test runner
+        run: npm install --prefix "$RUNNER_TEMP/kitchen-browser" --ignore-scripts --no-package-lock playwright@1.55.1
+      - name: Start local production build
+        run: |
+          pnpm start --hostname 127.0.0.1 --port 3100 > "$RUNNER_TEMP/kitchen-server.log" 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:3100/kontakty >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat "$RUNNER_TEMP/kitchen-server.log"
+          exit 1
+      - name: Mobile kitchen CTA and intercepted payload regression
+        env:
+          GA4_PLAYWRIGHT_DIR: ${{ runner.temp }}/kitchen-browser
+        run: node scripts/kitchen-service-browser.mjs
+      - name: Chromium and WebKit forms with mocked responses only
+        env:
+          GA4_PLAYWRIGHT_DIR: ${{ runner.temp }}/kitchen-browser
+          FORM_QA_EXPECT_UX: '1'
+        run: node scripts/form-browser-verification.mjs && node scripts/contact-identifiers-browser.mjs
+      # Audit remains a blocking step. Run browser checks before it so an
+      # unresolved upstream advisory cannot conceal independent UI regressions.
+      - name: Full dependency audit (blocking)
+        run: pnpm audit

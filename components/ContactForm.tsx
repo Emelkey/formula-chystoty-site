@@ -7,7 +7,7 @@ import { trackAnalyticsEvent } from "@/lib/analytics";
 import { contacts } from "@/lib/contacts";
 import { normalizeUkrainianPhone, PHONE_VALIDATION_MESSAGE } from "@/lib/phone";
 
-const cleaningTypes = ["Генеральне прибирання квартири", "Підтримуюче прибирання", "Після ремонту", "Прибирання після потопу", "Прибирання після пожежі", "Прибирання прилеглої території", "Прибирання квартири", "Прибирання будинку", "Клінінг комерційного приміщення", "Хімчистка меблів або килимів", "Миття вікон"];
+const cleaningTypes = ["Генеральне прибирання кухні", "Генеральне прибирання квартири", "Підтримуюче прибирання", "Після ремонту", "Прибирання після потопу", "Прибирання після пожежі", "Прибирання прилеглої території", "Прибирання квартири", "Прибирання будинку", "Клінінг комерційного приміщення", "Хімчистка меблів або килимів", "Миття вікон"];
 const businessCleaningTypes = [
   "Прибирання офісу",
   "Регулярне прибирання бізнесу",
@@ -18,7 +18,7 @@ const businessCleaningTypes = [
   "Прибирання медичного центру"
 ];
 
-export function ContactForm({ compact = false, submitLabel = "Надіслати заявку", business = false, id = "contact-form" }: { id?: string; compact?: boolean; submitLabel?: string; business?: boolean }) {
+export function ContactForm({ compact = false, submitLabel = "Надіслати заявку", business = false, id = "contact-form", defaultService }: { defaultService?: string; id?: string; compact?: boolean; submitLabel?: string; business?: boolean }) {
   const submittingRef = useRef(false);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
@@ -138,7 +138,7 @@ export function ContactForm({ compact = false, submitLabel = "Надіслати
         <label className="grid min-w-0 gap-2 text-sm font-semibold">
           Тип прибирання
           <span className="block min-w-0 overflow-hidden rounded-md focus-within:outline focus-within:outline-[3px] focus-within:outline-brand-green/50 focus-within:outline-offset-[3px]" data-select-clip>
-            <select name="type" className="block min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 text-base font-normal focus:outline-none">
+            <select name="type" defaultValue={defaultService ?? (business ? businessCleaningTypes[0] : "Генеральне прибирання квартири")} className="block min-h-12 w-full min-w-0 rounded-md border border-black/10 px-3 text-base font-normal focus:outline-none">
               {(business ? businessCleaningTypes : cleaningTypes).map((type) => (
                 <option key={type}>{type}</option>
               ))}
