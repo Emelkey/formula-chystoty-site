@@ -374,7 +374,7 @@ export function ServicePageLayout({ service }: { service: Service }) {
               <ContactButtons />
             </div>
           </div>
-          <ContactForm business={service.businessForm} defaultService={service.slug === "generalne-prybyrannya-kuhni-cherkasy" ? "Генеральне прибирання кухні" : undefined} />
+          <ContactForm key={service.slug} business={service.businessForm} defaultService={service.slug === "generalne-prybyrannya-kuhni-cherkasy" ? "Генеральне прибирання кухні" : undefined} />
         </div>
       </section>
       <SeoJsonLd

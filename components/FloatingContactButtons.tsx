@@ -1,7 +1,10 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import { ClipboardCheck, MessageCircle, Phone, Send, X } from "lucide-react";
 import { ContactAction } from "@/components/ContactAction";
 import { TrackedLink } from "@/components/TrackedLink";
-import { contacts } from "@/lib/site";
+import { contacts } from "@/lib/contacts";
 
 export function FloatingContactButtons() {
   return (
@@ -24,9 +27,10 @@ export function FloatingContactButtons() {
 }
 
 function ContactActions({ mobile = false }: { mobile?: boolean }) {
+  const quoteHref = usePathname() === "/generalne-prybyrannya-kuhni-cherkasy" ? "#contact-form" : "/kontakty#contact-form";
   return (
     <>
-      <TrackedLink href="/kontakty#contact-form" aria-label="Залишити заявку" className={mobile ? "button-spring inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand-green px-4 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" : "button-spring inline-flex h-auto w-auto items-center justify-center gap-2 rounded-full bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring"} eventName="contact_form_open" eventCategory="lead" eventLabel="contact_form">
+      <TrackedLink href={quoteHref} aria-label="Залишити заявку" className={mobile ? "button-spring inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand-green px-4 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring" : "button-spring inline-flex h-auto w-auto items-center justify-center gap-2 rounded-full bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring"} eventName="contact_form_open" eventCategory="lead" eventLabel="contact_form">
         <ClipboardCheck size={18} aria-hidden />
         <span>Залишити заявку</span>
       </TrackedLink>

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, Phone, X } from "lucide-react";
 import { useState } from "react";
 import { ContactAction } from "@/components/ContactAction";
@@ -21,6 +22,7 @@ const menu = [
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const quoteHref = usePathname() === "/generalne-prybyrannya-kuhni-cherkasy" ? "#contact-form" : "/kontakty#contact-form";
 
   return (
     <header className="sticky top-0 z-40 border-b border-black/5 bg-white/95 backdrop-blur">
@@ -40,7 +42,7 @@ export function Header() {
             <Phone size={16} aria-hidden />
             Подзвонити
           </ContactAction>
-          <PrimaryButton>Розрахувати</PrimaryButton>
+          <PrimaryButton href={quoteHref}>Розрахувати</PrimaryButton>
         </div>
         <div className="flex items-center gap-2 xl:hidden">
           <ContactAction type="phone" className="button-spring inline-flex h-11 min-w-11 items-center justify-center gap-2 rounded-md bg-brand-green px-3 text-sm font-semibold text-white focus-visible:focus-ring">
@@ -69,7 +71,7 @@ export function Header() {
             <Phone size={16} aria-hidden />
             Подзвонити
           </ContactAction>
-          <PrimaryButton>Розрахувати вартість</PrimaryButton>
+          <PrimaryButton href={quoteHref} onClick={() => setIsOpen(false)}>Розрахувати вартість</PrimaryButton>
         </div>
       ) : null}
     </header>

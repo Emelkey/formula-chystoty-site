@@ -7,12 +7,13 @@ import { TrackedLink } from "@/components/TrackedLink";
 import { trackAnalyticsEvent } from "@/lib/analytics";
 import { contacts } from "@/lib/contacts";
 
-export function PrimaryButton({ href = "/kontakty#contact-form", children = "Розрахувати вартість" }: { href?: string; children?: ReactNode }) {
+export function PrimaryButton({ href = "/kontakty#contact-form", children = "Розрахувати вартість", onClick }: { href?: string; children?: ReactNode; onClick?: () => void }) {
   return (
     <a
       className="button-spring inline-flex min-h-12 items-center justify-center rounded-md bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-hover focus-visible:focus-ring"
       href={href}
       onClick={() => {
+        onClick?.();
         trackAnalyticsEvent("calculate_click", {
           event_category: "lead",
           event_label: "calculate_button"
